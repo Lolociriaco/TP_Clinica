@@ -1,0 +1,74 @@
+## Archivos de Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Archivos de compilación
+bin/
+obj/
+[Bb]uild/
+[Bb]uild[Ll]og.*
+
+## Archivos de paquetes
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.dll
+*.exe
+
+## Configuración local
+*.local
+*.pdb
+*.cache
+*.dbmdl
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+*.orig
+
+## Archivos de Rider
+.idea/
+*.sln.iml
+
+## Archivos de test
+TestResults/
+*.coverage
+*.coveragexml
+*.testsettings
+*.vsmdi
+
+## Archivos generados
+Generated_Code/
+
+## Archivos de publicación
+publish/
+*.publish.xml
+
+## Archivos de usuario de ASP.NET
+*.db
+*.bak
+*.mdf
+*.ldf
+
+## Configuraciones de IIS
+.vsconfig
+
+## Archivos de entorno
+.env
+.env.*
+secrets.json
+
+## Archivos de proyecto de Web (si aplica)
+wwwroot/node_modules/
+node_modules/
+dist/
+bower_components/
+
+## Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
