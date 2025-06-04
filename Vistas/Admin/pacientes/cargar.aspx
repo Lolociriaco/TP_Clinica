@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cargar.aspx.cs" Inherits="Vistas.Admin.funciones.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cargar.aspx.cs" Inherits="Vistas.Admin.Cargar_Paciente" %>
 
 <!DOCTYPE html>
 

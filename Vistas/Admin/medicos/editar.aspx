@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="editar.aspx.cs" Inherits="Vistas.Admin.pacientes.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="editar.aspx.cs" Inherits="Vistas.Admin.Editar" %>
 
 <!DOCTYPE html>
 

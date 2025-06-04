@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Vistas.Admin.funciones
+namespace Vistas.Admin
 {
 
 
-    public partial class WebForm2
+    public partial class Eliminar_Paciente
     {
 
         /// <summary>

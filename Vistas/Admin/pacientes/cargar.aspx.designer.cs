@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Vistas.Admin.funciones
+namespace Vistas.Admin
 {
 
 
-    public partial class WebForm1
+    public partial class Cargar_Paciente
     {
 
         /// <summary>

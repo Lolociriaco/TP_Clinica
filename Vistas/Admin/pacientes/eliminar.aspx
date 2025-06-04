@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="eliminar.aspx.cs" Inherits="Vistas.Admin.funciones.WebForm2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="eliminar.aspx.cs" Inherits="Vistas.Admin.Eliminar_Paciente" %>
 
 <!DOCTYPE html>
 

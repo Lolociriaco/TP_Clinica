@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="mostrar.aspx.cs" Inherits="Vistas.Admin.funciones.WebForm3" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="mostrar.aspx.cs" Inherits="Vistas.Admin.Mostrar" %>
 
 <!DOCTYPE html>
 
