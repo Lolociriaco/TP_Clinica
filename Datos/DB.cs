@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace Datos
 {
-    internal class DB
+    public class DB
     {
         private string DbConnection = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDSucursales;Integrated Security=True;Encrypt=False";
 
-
         public bool validarUser(string query, SqlParameter[] parametro)
         {
-            /*
             using (SqlConnection conn = new SqlConnection(DbConnection))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
@@ -28,8 +26,6 @@ namespace Datos
                     return reader.HasRows;
                 }
             }
-            */
-            return true;
         }
     }
 }
