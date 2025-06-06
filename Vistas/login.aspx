@@ -4,34 +4,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Iniciar Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
     <link href="estilos.css" rel="stylesheet" type="text/css" />
 </head>
-<body> 
-    <form id="form1" runat="server" style="text-align:center">
-            <p>
-    &nbsp;</p>
-<p>
-    &nbsp;</p>
-        <div class="form-container" >
-            <h2>
-                <asp:Label ID="lblIniciarSesion" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="X-Large" Text="INICIAR SESIÓN"></asp:Label>
-            </h2>
-            
-            <div style="text-align:center">
-            <asp:Label ID="lblDni" runat="server" Text="DNI:" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium"></asp:Label><br />
-            <asp:TextBox ID="txtDni" runat="server" MaxLength="15" BorderColor="Black" BorderStyle="Solid" Height="27px" Width="169px"></asp:TextBox><br /><br />
+<body>
+    <form id="form1" runat="server"> 
+        <div class="navbar">
+            <img src="Imagenes/logo.png" alt="Logo RR-SCD"/>
+            <h2>RR-SCD MED</h2>
+        </div>
+        <div class="login">
+            <div class="login-container">
+                <h2>Iniciar Sesión</h2>
 
-            <asp:Label ID="lblPassword" runat="server" Text="CONTRASEÑA:" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium"></asp:Label><br />
-            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" MaxLength="50" BorderColor="Black" BorderStyle="Solid" Height="27px" Width="169px"></asp:TextBox>
-                <br />
-                <br />
-                <br /><br />
+                <div class="form-group">
+                    <label for="txtDni">DNI</label>
+                    <asp:TextBox ID="txtDni" runat="server" CssClass="input-text" />
+                </div>
 
-            <asp:Button ID="btnLogin" runat="server" Text="Ingresar" OnClick="btnLogin_Click" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" BackColor="#3399FF" BorderColor="Black" BorderStyle="Ridge" ForeColor="White" style="margin-left: 0px" Width="180px" /><br /><br />
+                <div class="form-group">
+                    <label for="txtPassword">Contraseña</label>
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input-text" />
+                </div>
+
+                <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn-login" OnClick="btnLogin_Click" />
+
+                <asp:Label ID="lblError" runat="server" CssClass="error" Visible="false" />
             </div>
-            <h2 style="text-align:center">
-            <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Large"></asp:Label>
-            </h2>
         </div>
     </form>
 </body>
