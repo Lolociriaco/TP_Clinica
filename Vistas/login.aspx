@@ -5,7 +5,7 @@
 <head runat="server">
     <title>Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
     <link href="estilos.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -20,12 +20,12 @@
 
                 <div class="form-group">
                     <label for="txtDni">DNI</label>
-                    <asp:TextBox ID="txtDni" runat="server" CssClass="input-text" />
+                    <asp:TextBox ID="txtDni" runat="server" CssClass="input-text" Font-Names="Bahnschrift"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPassword">Contraseña</label>
-                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input-text" />
+                    <label for="txtPassword">CONTRASEÑA</label>
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input-text" Font-Names="Bahnschrift"/>
                 </div>
 
                 <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn-login" OnClick="btnLogin_Click" />

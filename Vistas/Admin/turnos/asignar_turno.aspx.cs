@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Vistas.Admin.turnos
 {
-    public partial class nuevo_turno : System.Web.UI.Page
+    public partial class asignar_turno : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Vistas.Admin.funciones
+namespace Vistas.Admin.medicos
 {
-    public partial class Mostrar_Paciente : System.Web.UI.Page
+    public partial class cargarMedicos : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
