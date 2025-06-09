@@ -19,6 +19,9 @@ namespace Vistas
             string username = txtDni.Text;
             string password = txtPassword.Text;
 
+            txtDni.Text = "";
+            txtPassword.Text = "";
+
             //Validar validar = new Validar();
 
             //validar.validarUsuario(username, password);

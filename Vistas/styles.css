@@ -73,7 +73,7 @@ body {
         height: 20px;
         object-fit: contain;
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: initial;
         position: relative;
         gap: 16px;
         top: 0px; 

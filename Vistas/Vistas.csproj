@@ -76,6 +76,7 @@
     <Content Include="estilos.css" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="login.aspx" />
+    <Content Include="Medicos\turnos.aspx" />
     <Content Include="styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -129,6 +130,13 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Medicos\turnos.aspx.cs">
+      <DependentUpon>turnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Medicos\turnos.aspx.designer.cs">
+      <DependentUpon>turnos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +158,7 @@
       <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Medicos\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -16,7 +16,7 @@
         </div>
         <div class="login">
             <div class="login-container">
-                <h2>Iniciar Sesión</h2>
+                <h2>LOGIN</h2>
 
                 <div class="form-group">
                     <label for="txtDni">DNI</label>
@@ -24,11 +24,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPassword">CONTRASEÑA</label>
+                    <label for="txtPassword">PASSWORD</label>
                     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input-text" Font-Names="Bahnschrift"/>
                 </div>
 
-                <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn-login" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnLogin" runat="server" Text="Confirm" CssClass="btn-login" OnClick="btnLogin_Click" />
 
                 <asp:Label ID="lblError" runat="server" CssClass="error" Visible="false" />
             </div>
