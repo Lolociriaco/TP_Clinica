@@ -6,7 +6,7 @@
     <title>Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
-    <link href="estilos.css" rel="stylesheet" type="text/css" />
+    <link href="Login_style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server"> 
