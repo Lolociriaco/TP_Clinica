@@ -72,10 +72,10 @@
         </aside>
 
         <main class="main-content">
-
             <header class="header">
                 <h2>PATIENTS</h2>
             </header>
+            
 
             <div class="content-box">
 

@@ -7,7 +7,7 @@
 
     <title>RR-SCD MED</title>
 
-    <link rel="stylesheet" href="/Medicos_style.css" type="text/css" />
+    <link rel="stylesheet" href="/medicos_style.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet" />
 
@@ -20,9 +20,9 @@
                 <img src="/Imagenes/logo.png" alt="Logo RR-SCD"/>
                 <h2>RR-SCD MED</h2>
             </div>
-            <div>
+            <div class="perfil">
                 <img src="/Imagenes/user.png"/>
-                <h3>Coqui Scotti</h3>
+                <h3>Mati Dirube</h3>
             </div>
         </div>
 

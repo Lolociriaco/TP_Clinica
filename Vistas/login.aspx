@@ -5,9 +5,10 @@
 <head runat="server">
     <title>Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
-    <link href="Login_style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
+    <link href="/login_style.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
     <form id="form1" runat="server"> 
         <div class="navbar">
@@ -19,7 +20,7 @@
                 <h2>LOGIN</h2>
 
                 <div class="form-group">
-                    <label for="txtDni">DNI</label>
+                    <label for="txtDni">USER</label>
                     <asp:TextBox ID="txtDni" runat="server" CssClass="input-text" Font-Names="Bahnschrift"/>
                 </div>
 

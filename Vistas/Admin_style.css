@@ -123,6 +123,11 @@ body {
     color: whitesmoke;
 }
 
+    .header img {
+        width: 10px;
+        height: 10px;
+    }
+
 .content-box {
     background-color: #fff;
     border-radius: 12px;
