@@ -22,6 +22,7 @@ namespace Vistas
             txtDni.Text = "";
             txtPassword.Text = "";
 
+            
             //Validar validar = new Validar();
 
             //validar.validarUsuario(username, password);

@@ -13,5 +13,11 @@ namespace Vistas.Admin.turnos
         {
 
         }
+
+        protected void buttonLogout_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

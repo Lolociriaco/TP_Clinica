@@ -117,16 +117,42 @@ body {
     flex-grow: 1;
 }
 
-.header {
+header {
     margin-bottom: 20px;
     text-align: center;
     color: whitesmoke;
 }
 
-    .header img {
+    header img {
         width: 10px;
         height: 10px;
     }
+
+.user-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 20px;
+    right: 40px;
+    gap: 10px;
+    font-size: 16px;
+    max-width: 200px
+}
+
+    .user-container span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .user-container img {
+        width: 40px;
+        height: auto;
+    }
+
+.title {
+    
+}
 
 .content-box {
     background-color: #fff;
