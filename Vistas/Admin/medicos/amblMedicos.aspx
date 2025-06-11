@@ -65,7 +65,15 @@
             <main class="main-content">
 
               <header class="header">
-                <h2>DOCTORS</h2>
+
+                <h2 style="display: flex; align-items: center; gap: 10px; justify-content: flex-end; font-size: 16px">
+                    <img src="/Imagenes/user.png" style="width: 40px; height: auto;" />
+                    Mati Dirube
+                </h2>
+                <h2 style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                    DOCTORS
+                </h2>
+
               </header>
 
               <div class="content-box">

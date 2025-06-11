@@ -20,9 +20,12 @@
                 <img src="/Imagenes/logo.png" alt="Logo RR-SCD"/>
                 <h2>RR-SCD MED</h2>
             </div>
-            <div class="perfil">
-                <img src="/Imagenes/user.png"/>
-                <h3>Mati Dirube</h3>
+            <div>
+                <h3 style="display: flex; align-items: center; gap: 10px; font-size: 16px;">
+                  <img src="/Imagenes/user.png" style="width: 40px; height: auto;" />
+                  Mati Dirube
+                </h3>
+
             </div>
         </div>
 
@@ -34,7 +37,7 @@
 
             <section class="content-box">
 
-                <h3>¡Complete the fields!</h3>
+                <h3>Your appointments</h3>
 
             </section>
         </main>
