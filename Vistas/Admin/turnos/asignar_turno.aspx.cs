@@ -14,10 +14,13 @@ namespace Vistas.Admin.turnos
 
         }
 
-        protected void buttonLogout_Click(object sender, EventArgs e)
+        protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
-
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
         }
+
 
     }
 }

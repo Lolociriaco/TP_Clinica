@@ -16,7 +16,8 @@
 </head>
 
 <body>
-
+    <form id="form4" runat="server"> 
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
 
         <aside class="sidebar">
@@ -65,9 +66,8 @@
 
             </nav>
 
-            <div class="logout">
-                <img src="/Imagenes/logout.png" alt="Logout Icon" class="icon-left" />
-                Logout</div>
+            <asp:Button ID="btnLogout" runat="server" CssClass="logout logout-button" Text="Logout" />
+
 
         </aside>
 
@@ -91,5 +91,19 @@
             </div>
         </main>
     </div>
+    <asp:Panel ID="pnlConfirmLogout" runat="server" CssClass="modalPopup" Style="display:none;">
+        <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+            <p>¿Estas seguro de que deseas cerrar sesión?</p>
+            <asp:Button ID="btnConfirmarLogout" runat="server" Text="Sí, cerrar sesión" OnClick="btnConfirmarLogout_Click" CssClass="confirm-button" />
+            <asp:Button ID="btnCancelarLogout" runat="server" Text="Cancelar" CssClass="cancel-button" />
+        </div>
+    </asp:Panel>
+
+    <ajaxToolkit:ModalPopupExtender ID="mpeLogout" runat="server"
+        TargetControlID="btnLogout"
+        PopupControlID="pnlConfirmLogout"
+        CancelControlID="btnCancelarLogout"
+        BackgroundCssClass="modalBackground" />
+    </form>
 </body>
 </html>
