@@ -122,11 +122,13 @@
               </div>
             </main>
           </div>
+
+          <%----------------------------------POP UP LOGOUT---------------------------%>
           <asp:Panel ID="pnlConfirmLogout" runat="server" CssClass="modalPopup" Style="display:none;">
             <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
-                <p>¿Estas seguro de que deseas cerrar sesión?</p>
-                <asp:Button ID="btnConfirmarLogout" runat="server" Text="Sí, cerrar sesión" OnClick="btnConfirmarLogout_Click" CssClass="confirm-button" />
-                <asp:Button ID="btnCancelarLogout" runat="server" Text="Cancelar" CssClass="cancel-button" />
+                <p>¿Are you sure you want to log out?</p>
+                <asp:Button ID="btnConfirmarLogout" runat="server" Text="Yes, log out" OnClick="btnConfirmarLogout_Click" CssClass="confirm-button" />
+                <asp:Button ID="btnCancelarLogout" runat="server" Text="Cancel" CssClass="cancel-button" />
             </div>
         </asp:Panel>
 
@@ -135,6 +137,21 @@
             PopupControlID="pnlConfirmLogout"
             CancelControlID="btnCancelarLogout"
             BackgroundCssClass="modalBackground" />
+
+              <%----------------------------------POP UP CONFIRM---------------------------%>
+                <asp:Panel ID="pnlConfirmAgregar" runat="server" CssClass="modalPopup" Style="display:none;">
+                <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+                    <p>¿Are you sure that you want to assign this appointment?</p>
+                    <asp:Button ID="btnConfirmarAgregar" runat="server" Text="Yes, assign" OnClick="btnConfirmarAgregar_Click" CssClass="confirm-button-add" />
+                    <asp:Button ID="btnCancelarAgregar" runat="server" Text="Cancel" CssClass="cancel-button" />
+                </div>
+                </asp:Panel>
+
+                <ajaxToolkit:ModalPopupExtender ID="mpeAgregar" runat="server"
+                TargetControlID="btnConfirm"
+                PopupControlID="pnlConfirmAgregar"
+                CancelControlID="btnCancelarAgregar"
+                BackgroundCssClass="modalBackground" />
         </form>
       </body>
 </html>

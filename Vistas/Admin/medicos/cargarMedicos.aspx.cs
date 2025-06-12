@@ -38,5 +38,15 @@ namespace Vistas.Admin.medicos
             txtPassword.Text = "";
             ddlSpeciality.Text = "";
         }
+
+        protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

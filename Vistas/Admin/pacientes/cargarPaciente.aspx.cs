@@ -36,5 +36,10 @@ namespace Vistas.Admin.pacientes
             txtBirth.Text = "";
 
         }
+
+        protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

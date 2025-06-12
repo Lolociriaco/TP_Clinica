@@ -30,5 +30,9 @@ namespace Vistas.Admin.turnos
             ddlDay.Text = "";
 
         }
+        protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

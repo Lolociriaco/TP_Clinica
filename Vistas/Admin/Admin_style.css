@@ -226,6 +226,19 @@ input[type="text"] {
     color: white;
 }
 
+.confirm-button-add {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 20px 5px 0 5px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    padding: 10px;
+    border: none;
+    background-color: forestgreen;
+    color: white;
+}
+
 .cancel-button {
     background-color: darkgray;
     color: black;
@@ -233,6 +246,10 @@ input[type="text"] {
 
 .confirm-button:hover {
     background-color: darkred;
+}
+
+.confirm-button-add:hover {
+    background-color: green;
 }
 
 .cancel-button:hover {
