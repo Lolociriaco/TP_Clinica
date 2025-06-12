@@ -12,12 +12,15 @@ body {
 
 .container {
     display: flex;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     width: 100%;
 }
 
 /*-------CONTENIDO SIDEBAR------*/
 .sidebar {
+    position: fixed;
+    height: 100vh;
     width: 200px;
     background-color: #fff;
     border-right: 2px solid #e0e0e0;
@@ -85,6 +88,7 @@ body {
 /*-------CONTENIDO HEADER------*/
 .main-content {
     flex: 1;
+    margin-left: 200px;
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -113,7 +117,7 @@ header {
     max-width: 200px
 }
 
-    .user-container span {
+    .user-container .username {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -141,7 +145,7 @@ header {
 .row {
     display: flex;
     justify-content: space-between;
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 .row-medicos {
@@ -172,11 +176,15 @@ header {
 select,
 input[type="text"] {
     width: 80%;
+    margin-top: 4px;
     padding: 10px 14px;
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 14px;
+    box-shadow: 12px 12px 49px -18px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 12px 12px 49px -18px rgba(0,0,0,0.75);
+    -moz-box-shadow: 12px 12px 49px -18px rgba(0,0,0,0.75);
 }
 
 .btn-confirm {

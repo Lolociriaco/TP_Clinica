@@ -16,6 +16,13 @@ namespace Vistas
             {
                 BindEmptyGrid();
             }
+
+            if (Session["role"] == null || Session["role"].ToString() != "Admin")
+            {
+                //Response.Redirect("~/Login.aspx");
+            }
+
+            //username.Text = Session["username"].ToString();
         }
 
         private void BindEmptyGrid()
@@ -34,7 +41,7 @@ namespace Vistas
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
+            Response.Redirect("~/Login.aspx");
         }
     }
 }

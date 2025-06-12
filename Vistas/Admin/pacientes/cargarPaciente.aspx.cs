@@ -12,7 +12,12 @@ namespace Vistas.Admin.pacientes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["role"] == null || Session["role"].ToString() != "Admin")
+            {
+                //Response.Redirect("~/Login.aspx");
+            }
 
+            //username.Text = Session["username"].ToString();
         }
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {

@@ -25,7 +25,7 @@
             <div>
                 <h3 style="display: flex; align-items: center; gap: 10px; font-size: 16px;">
                   <img src="/Imagenes/user.png" style="width: 40px; height: auto;" />
-                  Mati Dirube
+                  <asp:Label ID="username" CssClass="username" runat="server"/>
                 </h3>
 
             </div>

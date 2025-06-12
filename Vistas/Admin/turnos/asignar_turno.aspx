@@ -62,9 +62,7 @@
 
                 <asp:Button ID="btnLogout" runat="server" CssClass="logout logout-button" Text="Logout" />
 
-
             </aside>
-
             
             <main class="main-content">
 
@@ -72,7 +70,7 @@
 
                 <div class="user-container">
                     <img src="/Imagenes/user.png"/>
-                      <span id="username">Lorenzo Ciriaco Valentin</span>
+                    <asp:Label ID="username" CssClass="username" runat="server"/>
                 </div>
                 <h2 class="title">
                     DOCTORS

@@ -11,8 +11,13 @@ namespace Vistas.Medicos
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+            if (Session["role"] == null || Session["role"].ToString() != "Doctor")
+            {
+                //Response.Redirect("~/Login.aspx");
+            }
 
-		}
+            //username.Text = Session["username"].ToString();
+        }
 
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {

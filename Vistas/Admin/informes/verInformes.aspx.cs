@@ -11,14 +11,19 @@ namespace Vistas.Admin.informes
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+            if (Session["role"] == null || Session["role"].ToString() != "Admin")
+            {
+                //Response.Redirect("~/Login.aspx");
+            }
 
-		}
+            //username.Text = Session["username"].ToString();
+        }
 
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
+            Response.Redirect("~/Login.aspx");
         }
     }
 }
