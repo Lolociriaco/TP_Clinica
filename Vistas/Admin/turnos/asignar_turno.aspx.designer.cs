@@ -42,49 +42,58 @@ namespace Vistas.Admin.turnos
         protected global::System.Web.UI.WebControls.Button btnLogout;
 
         /// <summary>
-        /// Control ddlEspecialidad.
+        /// Control ddlSpeciality.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEspecialidad;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSpeciality;
 
         /// <summary>
-        /// Control txtMedico.
+        /// Control txtDoctor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMedico;
+        protected global::System.Web.UI.WebControls.TextBox txtDoctor;
 
         /// <summary>
-        /// Control txtDia.
+        /// Control ddlDay.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDia;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDay;
 
         /// <summary>
-        /// Control txtHorario.
+        /// Control txtTime.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHorario;
+        protected global::System.Web.UI.WebControls.TextBox txtTime;
 
         /// <summary>
-        /// Control txtPaciente.
+        /// Control txtPatient.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPaciente;
+        protected global::System.Web.UI.WebControls.TextBox txtPatient;
+
+        /// <summary>
+        /// Control btnConfirm.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnConfirm;
 
         /// <summary>
         /// Control pnlConfirmLogout.

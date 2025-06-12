@@ -76,6 +76,29 @@ body {
 }
 
 /*--- POP UP STYLE ----*/
+.logout-button {
+    padding-left: 35px;
+    background: url('/Imagenes/logout.png') no-repeat 10px center;
+    background-size: 20px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .logout-button:hover {
+        background-color: rgba(255, 0, 0, 0.2);
+        color: red;
+    }
+
+    .logout:hover {
+        color: red;
+        background-color: rgba(255, 0, 0, 0.2);
+    }
 
 .modalBackground {
     background-color: rgba(0, 0, 0, 0.5);
@@ -117,8 +140,4 @@ body {
     background-color: gray;
 }
 
-.logout-button {
-    background: url('/Imagenes/logout.png') no-repeat 10px center;
-    background-size: 20px 20px;
-    border: none;
-}
+

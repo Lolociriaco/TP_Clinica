@@ -16,7 +16,8 @@
             <form id="form5" runat="server"> 
             <asp:ScriptManager ID="ScriptManager1" runat="server" />
           <div class="container">
-            
+
+            <%-----------------SIDEBAR-------------------%>
             <aside class="sidebar">
 
               <nav class="menu">
@@ -77,33 +78,80 @@
 
               </header>
 
+            <%-------------------AGREGADO DE PACIENTE-------------------%>
               <div class="content-box">
-                
-                <h3>¡Complete the fields!</h3>
+                  <h3>¡Complete the fields!</h3>
 
-                  <h3>DNI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                  </h3>
+                  <div class="row">
+                    <div class="form-group">
+                      <label>Full Name:</label>
+                      <asp:TextBox ID="txtFullName" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
 
-                    <h3>Full Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:TextBox ID="txtMedico" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                      </h3>
+                    <div class="form-group">
+                      <label>DNI:</label>
+                      <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
+                  </div>
 
-                    <h3>Birthdate:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:TextBox ID="txtDia" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                      </h3>
+                  <div class="row">
+                    <div class="form-group">
+                      <label>Birthdate:</label>
+                      <asp:TextBox ID="txtBirth" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
 
-                    <h3>Mail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:TextBox ID="txtHorario" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                      </h3>
+                    <div class="form-group">
+                      <label>Nationality:</label>
+                      <asp:TextBox ID="txtNation" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
+                  </div>
 
-                    <h3>Phone Number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:TextBox ID="txtPaciente" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                      </h3>
-                
-              </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <label>Address:</label>
+                      <asp:TextBox ID="txtAddress" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Sex:</label>
+                      <asp:DropDownList ID="ddlSexo" runat="server" CssClass="input-text"></asp:DropDownList>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="form-group">
+                        <label>City:</label>
+                        <asp:TextBox ID="txtCity" runat="server" CssClass="input-text"></asp:TextBox>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Locality:</label>
+                        <asp:TextBox ID="txtLocality" runat="server" CssClass="input-text"></asp:TextBox>
+                      </div>
+                    </div>
+
+                  <div class="row">
+                    <div class="form-group">
+                      <label>Mail:</label>
+                      <asp:TextBox ID="txtMail" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Phone Number:</label>
+                      <asp:TextBox ID="txtPhone" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
+                  </div>
+
+                <div class="row row-center">
+                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                </div>
+
+            </div>
+
             </main>
           </div>
+
+                <%----------------POP UP CONFIRM----------------%>
           <asp:Panel ID="pnlConfirmLogout" runat="server" CssClass="modalPopup" Style="display:none;">
             <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
                 <p>¿Estas seguro de que deseas cerrar sesión?</p>

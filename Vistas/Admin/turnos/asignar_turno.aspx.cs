@@ -20,9 +20,14 @@ namespace Vistas.Admin.turnos
             Session.Abandon();
             Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
         }
-
-        protected void TextBox4_TextChanged(object sender, EventArgs e)
+        protected void btnConfirm_Click(object sender, EventArgs e)
         {
+
+            txtTime.Text = "";
+            txtDoctor.Text = "";
+            ddlSpeciality.Text = "";
+            txtPatient.Text = "";
+            ddlDay.Text = "";
 
         }
     }

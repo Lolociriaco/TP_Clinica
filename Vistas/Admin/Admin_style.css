@@ -16,7 +16,7 @@ body {
     width: 100%;
 }
 
-
+/*-------CONTENIDO SIDEBAR------*/
 .sidebar {
     width: 200px;
     background-color: #fff;
@@ -82,7 +82,7 @@ body {
         color: #187bcd;
     }
 
-
+/*-------CONTENIDO HEADER------*/
 .main-content {
     flex: 1;
     padding: 30px;
@@ -128,6 +128,8 @@ header {
     
 }
 
+
+/*-------CONTENIDO PRINCIPAL------*/
 .content-box {
     background-color: #fff;
     border-radius: 12px;
@@ -136,23 +138,67 @@ header {
     flex: 1;
 }
 
-h3 + h3 {
-    margin-top: 110px;
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
 }
 
-input[type="text"]
- {
-    width: 20%;
+.row-medicos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.row-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.row-center-medicos {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+}
+
+.form-group {
+    flex: 0 0 48%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-text,
+select,
+input[type="text"] {
+    width: 80%;
     padding: 10px 14px;
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 14px;
-    margin-left: 20px;
 }
 
-/*--- POP UP STYLE ----*/
+.btn-confirm {
+    width: 60%;
+    padding: 12px;
+    margin: 40px auto 0 auto;
+    background-color: #159EEC;
+    border: none;
+    font-family: "Work Sans", sans-serif;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s ease;
+}
 
+    .btn-confirm:hover {
+        background-color: #117FBF;
+    }
+
+/*--- POP UP STYLE ----*/
 .modalBackground {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;

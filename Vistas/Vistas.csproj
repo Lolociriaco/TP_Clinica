@@ -70,13 +70,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Admin_style.css" />
     <Content Include="Admin\informes\verInformes.aspx" />
     <Content Include="Admin\medicos\amblMedicos.aspx" />
     <Content Include="Admin\pacientes\abmlPaciente.aspx" />
     <Content Include="Admin\pacientes\cargarPaciente.aspx" />
     <Content Include="Admin\medicos\cargarMedicos.aspx" />
     <Content Include="Admin\turnos\asignar_turno.aspx" />
-    <Content Include="Admin_style.css" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="login.aspx" />
     <Content Include="login_style.css" />

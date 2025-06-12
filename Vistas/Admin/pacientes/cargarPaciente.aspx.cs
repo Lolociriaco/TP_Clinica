@@ -18,7 +18,23 @@ namespace Vistas.Admin.pacientes
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
+            Response.Redirect("~/Login.aspx"); 
+        }
+
+        protected void btnConfirm_Click(object sender, EventArgs e)
+        {
+
+            txtDNI.Text = "";
+            txtFullName.Text = "";
+            txtLocality.Text = "";
+            txtCity.Text = "";
+            ddlSexo.Text = "";
+            txtNation.Text = "";
+            txtAddress.Text = "";
+            txtMail.Text = "";
+            txtPhone.Text = "";
+            txtBirth.Text = "";
+
         }
     }
 }

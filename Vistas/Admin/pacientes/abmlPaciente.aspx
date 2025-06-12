@@ -88,6 +88,25 @@
 
                 <h3>About the patient</h3>
 
+                <div style="margin-top: 40px;">
+
+                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px">
+                        <Columns>
+                            <asp:BoundField DataField="Name" HeaderText="Name" />
+                            <asp:BoundField DataField="DNI" HeaderText="DNI" />
+                            <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
+                        </Columns>
+                        <EmptyDataTemplate>
+                            <tr>
+                                <td colspan="3" style="text-align:center; padding: 20px;">
+                                    No patients recorded.
+                                </td>
+                            </tr>
+                        </EmptyDataTemplate>
+                    </asp:GridView>
+
+                </div>
+
             </div>
         </main>
     </div>

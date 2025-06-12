@@ -19,5 +19,24 @@ namespace Vistas.Admin.medicos
             Session.Abandon();
             Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
         }
+        protected void btnConfirm_Click(object sender, EventArgs e)
+        {
+
+            txtDNI.Text = "";
+            txtFullName.Text = "";
+            txtLocality.Text = "";
+            txtCity.Text = "";
+            ddlSexo.Text = "";
+            txtNation.Text = "";
+            txtAddress.Text = "";
+            txtMail.Text = "";
+            txtPhone.Text = "";
+            txtLegajo.Text = "";
+            txtDay.Text = "";
+            txtTimes.Text = "";
+            txtUser.Text = "";
+            txtPassword.Text = "";
+            ddlSpeciality.Text = "";
+        }
     }
 }

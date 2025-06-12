@@ -84,29 +84,40 @@
                 
                 <h3>¡Complete the fields!</h3>
 
-                <h3>Speciality:
-                    <asp:DropDownList ID="ddlEspecialidad" runat="server">
-                    <asp:ListItem></asp:ListItem>
-                    </asp:DropDownList>
-                  </h3>
+               <div class="row">
+                  <div class="form-group">
+                    <label>Speciality:</label>
+                    <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
+                  </div>
 
-                <h3>Doctor:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:TextBox ID="txtMedico" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                  </h3>
+                  <div class="form-group">
+                    <label>Doctor:</label>
+                    <asp:TextBox ID="txtDoctor" runat="server" CssClass="input-text"></asp:TextBox>
+                  </div>
+                </div>
 
-                <h3>MM/DD/YYYY:
-                    <asp:TextBox ID="txtDia" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                  </h3>
+                <div class="row">
+                  <div class="form-group">
+                    <label>Day:</label>
+                    <asp:DropDownList ID="ddlDay" runat="server" CssClass="input-text"></asp:DropDownList>
+                  </div>
 
-                <h3>Time:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:TextBox ID="txtHorario" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                  </h3>
+                  <div class="form-group">
+                    <label>Time:</label>
+                    <asp:TextBox ID="txtTime" runat="server" CssClass="input-text"></asp:TextBox>
+                  </div>
+                </div>
 
-                <h3>Patient:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:TextBox ID="txtPaciente" runat="server" OnTextChanged="TextBox4_TextChanged" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
-                  </h3>
+                <div class="row">
+                      <div class="form-group">
+                        <label>Patient:</label>
+                        <asp:TextBox ID="txtPatient" runat="server" CssClass="input-text"></asp:TextBox>
+                      </div>
+                </div>
 
-                  
+                  <div class="row row-center">
+                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                  </div>
                 
               </div>
             </main>
