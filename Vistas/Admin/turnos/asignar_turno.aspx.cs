@@ -21,6 +21,9 @@ namespace Vistas.Admin.turnos
             Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
         }
 
+        protected void TextBox4_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

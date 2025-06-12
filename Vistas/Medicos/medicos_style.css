@@ -74,3 +74,51 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     flex: 1;
 }
+
+/*--- POP UP STYLE ----*/
+
+.modalBackground {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    gap: 15px;
+}
+
+.confirm-button, .cancel-button {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 20px 5px 0 5px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    padding: 10px;
+    border: none;
+}
+
+.confirm-button {
+    background-color: #DB0C00;
+    color: white;
+}
+
+.cancel-button {
+    background-color: darkgray;
+    color: black;
+}
+
+.confirm-button:hover {
+    background-color: darkred;
+}
+
+.cancel-button:hover {
+    background-color: gray;
+}
+
+.logout-button {
+    background: url('/Imagenes/logout.png') no-repeat 10px center;
+    background-size: 20px 20px;
+    border: none;
+}

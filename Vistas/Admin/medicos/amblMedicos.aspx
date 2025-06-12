@@ -7,7 +7,7 @@
 
     <title>RR-SCD MED</title>
 
-    <link rel="stylesheet" href="/Admin_style.css" type="text/css"/>
+    <link rel="stylesheet" href="/Admin/Admin_style.css" type="text/css"/>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
     

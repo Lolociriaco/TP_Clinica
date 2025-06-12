@@ -136,6 +136,21 @@ header {
     flex: 1;
 }
 
+h3 + h3 {
+    margin-top: 110px;
+}
+
+input[type="text"]
+ {
+    width: 20%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
 /*--- POP UP STYLE ----*/
 
 .modalBackground {

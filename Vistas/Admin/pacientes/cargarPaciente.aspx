@@ -7,7 +7,7 @@
 
     <title>RR-SCD MED</title>
 
-    <link rel="stylesheet" href="/Admin_style.css" type="text/css"/>
+    <link rel="stylesheet" href="/Admin/Admin_style.css" type="text/css"/>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
 
@@ -80,6 +80,26 @@
               <div class="content-box">
                 
                 <h3>¡Complete the fields!</h3>
+
+                  <h3>DNI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
+                  </h3>
+
+                    <h3>Full Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:TextBox ID="txtMedico" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
+                      </h3>
+
+                    <h3>Birthdate:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:TextBox ID="txtDia" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
+                      </h3>
+
+                    <h3>Mail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:TextBox ID="txtHorario" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
+                      </h3>
+
+                    <h3>Phone Number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:TextBox ID="txtPaciente" runat="server" CssClass="input-text" Font-Names="Bahnschrift"></asp:TextBox>
+                      </h3>
                 
               </div>
             </main>
