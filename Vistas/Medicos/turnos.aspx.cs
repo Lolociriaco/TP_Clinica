@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,19 +12,36 @@ namespace Vistas.Medicos
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            if (Session["role"] == null || Session["role"].ToString() != "Doctor")
+            if (!IsPostBack)
             {
-                //Response.Redirect("~/Login.aspx");
+                BindEmptyGrid();
             }
 
-            //username.Text = Session["username"].ToString();
+            if (Session["role"] == null || Session["role"].ToString() != "Doctor")
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+
+            username.Text = Session["username"].ToString();
         }
 
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("~/Login.aspx"); // Cambialo por la ruta a tu login
+            Response.Redirect("~/Login.aspx"); 
         }
+        private void BindEmptyGrid()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Speciality");
+            dt.Columns.Add("Phone Number");
+
+            // No se agregan filas => tabla vacía
+            gvTurnos.DataSource = dt;
+            gvTurnos.DataBind();
+        }
+
     }
 }

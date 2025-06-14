@@ -13,10 +13,10 @@ namespace Vistas.Admin.turnos
         {
             if (Session["role"] == null || Session["role"].ToString() != "Admin")
             {
-                //Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/Login.aspx");
             }
 
-            //username.Text = Session["username"].ToString();
+            username.Text = Session["username"].ToString();
         }
 
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)

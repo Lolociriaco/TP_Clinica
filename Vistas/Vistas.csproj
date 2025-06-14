@@ -73,6 +73,7 @@
     <Content Include="Admin\Admin_style.css" />
     <Content Include="Admin\informes\verInformes.aspx" />
     <Content Include="Admin\medicos\amblMedicos.aspx" />
+    <Content Include="Admin\medicos\editar_usuario.aspx" />
     <Content Include="Admin\pacientes\abmlPaciente.aspx" />
     <Content Include="Admin\pacientes\cargarPaciente.aspx" />
     <Content Include="Admin\medicos\cargarMedicos.aspx" />
@@ -98,6 +99,13 @@
     </Compile>
     <Compile Include="Admin\medicos\amblMedicos.aspx.designer.cs">
       <DependentUpon>amblMedicos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\medicos\editar_usuario.aspx.cs">
+      <DependentUpon>editar_usuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\medicos\editar_usuario.aspx.designer.cs">
+      <DependentUpon>editar_usuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\pacientes\abmlPaciente.aspx.cs">
       <DependentUpon>abmlPaciente.aspx</DependentUpon>

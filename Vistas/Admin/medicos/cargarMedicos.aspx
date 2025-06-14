@@ -62,6 +62,12 @@
                         class="icon-left" />
                     Appointments
                 </a>
+                
+                <a href="/Admin/medicos/editar_usuario.aspx" class="menu-item">
+                    <img src="/Imagenes/edituser.png" 
+                        class="icon-left" />
+                    Edit User
+                </a>
 
             </nav>
 
@@ -110,7 +116,7 @@
 
                     <div class="form-group">
                       <label>Nationality:</label>
-                      <asp:TextBox ID="txtNation" runat="server" CssClass="input-text"></asp:TextBox>
+                      <asp:DropDownList ID="ddlNation" runat="server" CssClass="input-text"></asp:DropDownList>
                     </div>
                   </div>
 
@@ -129,12 +135,12 @@
                   <div class="row-medicos">
                       <div class="form-group">
                         <label>City:</label>
-                        <asp:TextBox ID="txtCity" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text"></asp:DropDownList>
                       </div>
 
                       <div class="form-group">
                         <label>Locality:</label>
-                        <asp:TextBox ID="txtLocality" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlLocality" runat="server" CssClass="input-text"></asp:DropDownList>
                       </div>
                     </div>
 

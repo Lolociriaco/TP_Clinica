@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="abmlPaciente.aspx.cs" Inherits="Vistas.abmlPaciente" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="editar_usuario.aspx.cs" Inherits="Vistas.Admin.medicos.editar_usuario" %>
 
 <!DOCTYPE html>
 
@@ -11,16 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet" />
 
-
-
 </head>
-
 <body>
-    <form id="form4" runat="server"> 
+    <form id="form3" runat="server"> 
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
 
+        <%------------------SIDEBAR----------------%>
         <aside class="sidebar">
+
             <nav class="menu">
 
                 <div class="logo">
@@ -28,7 +27,7 @@
                     <h2>RR-SCD MED</h2>
                 </div>
 
-                <a href="/Admin/pacientes/abmlPaciente.aspx" class="menu-item active">
+                <a href="/Admin/pacientes/abmlPaciente.aspx" class="menu-item">
                     <img src="/Imagenes/pacientes.png" 
                         class="icon-left" />
                     Patients
@@ -41,7 +40,7 @@
                 </a>
 
                 <a href="/Admin/medicos/amblMedicos.aspx" class="menu-item">
-                    <img src="/Imagenes/doctores.png"
+                    <img src="/Imagenes/doctores.png" 
                         class="icon-left" />
                     Doctors
                 </a>
@@ -59,65 +58,79 @@
                 </a>
 
                 <a href="/Admin/turnos/asignar_turno.aspx" class="menu-item">
-                    <img src="/Imagenes/turnos.png"
+                    <img src="/Imagenes/turnos.png" 
                         class="icon-left" />
                     Appointments
                 </a>
-
-                <a href="/Admin/medicos/editar_usuario.aspx" class="menu-item">
+                
+                <a href="/Admin/medicos/editar_usuario.aspx" class="menu-item active">
                     <img src="/Imagenes/edituser.png" 
-                    class="icon-left" />Edit User
+                        class="icon-left" />
+                    Edit User
                 </a>
 
             </nav>
 
-            <asp:Button ID="btnLogout" runat="server" CssClass="logout logout-button" Text="Logout" />
-
+                <asp:Button ID="btnLogout" runat="server" CssClass="logout logout-button" Text="Logout" OnClick="btnLogout_Click" />
 
         </aside>
 
+
         <main class="main-content">
+
             <header>
 
             <div class="user-container">
                 <img src="/Imagenes/user.png"/>
                     <asp:Label ID="username" CssClass="username" runat="server"/>
             </div>
+
             <h2 class="title">
-                DOCTORS
+                Edit User
             </h2>
 
             </header>
 
+            <%-----------------AGREGADO DE MEDICO-------------%>
             <div class="content-box">
 
-                <h3>About the patient</h3>
+                <h3>Select new username and password</h3>
 
-                <div style="margin-top: 40px;">
+                  <div class="row">
+                    <div class="form-group">
+                      <label>DNI:</label>
+                      <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
 
-                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px">
-                        <Columns>
-                            <asp:BoundField DataField="Name" HeaderText="Name" />
-                            <asp:BoundField DataField="DNI" HeaderText="DNI" />
-                            <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
-                        </Columns>
-                        <EmptyDataTemplate>
-                            <tr>
-                                <td colspan="3" style="text-align:center; padding: 20px;">
-                                    No patients recorded.
-                                </td>
-                            </tr>
-                        </EmptyDataTemplate>
-                    </asp:GridView>
+                    <div class="form-group">
+                      <label>New username:</label>
+                      <asp:TextBox ID="txtUsername" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
+                  </div>
 
+                  <div class="row">
+                    <div class="form-group">
+                      <label>New password:</label>
+                      <asp:TextBox ID="txtPass" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Repeat password:</label>
+                      <asp:TextBox ID="txtRepPassword" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
+                    </div>
+                  </div>
+
+                <div class="row row-center">
+                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
                 </div>
 
             </div>
+
         </main>
     </div>
 
         <%----------------------------------POP UP LOGOUT---------------------------%>
-    <asp:Panel ID="pnlConfirmLogout" runat="server" CssClass="modalPopup" Style="display:none;">
+     <asp:Panel ID="pnlConfirmLogout" runat="server" CssClass="modalPopup" Style="display:none;">
         <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
             <p>¿Are you sure you want to log out?</p>
             <asp:Button ID="btnConfirmarLogout" runat="server" Text="Yes, log out" OnClick="btnConfirmarLogout_Click" CssClass="confirm-button" />
@@ -131,7 +144,20 @@
         CancelControlID="btnCancelarLogout"
         BackgroundCssClass="modalBackground" />
 
+        <%----------------------------------POP UP CONFIRM---------------------------%>
+        <asp:Panel ID="pnlConfirmAgregar" runat="server" CssClass="modalPopup" Style="display:none;">
+            <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+                <p>¿Are you sure that you want to edit this user?</p>
+                <asp:Button ID="btnConfirmarAgregar" runat="server" Text="Yes, edit" OnClick="btnConfirmarAgregar_Click" CssClass="confirm-button-add" />
+                <asp:Button ID="btnCancelarAgregar" runat="server" Text="Cancel" CssClass="cancel-button" />
+            </div>
+        </asp:Panel>
 
+        <ajaxToolkit:ModalPopupExtender ID="mpeAgregar" runat="server"
+        TargetControlID="btnConfirm"
+        PopupControlID="pnlConfirmAgregar"
+        CancelControlID="btnCancelarAgregar"
+        BackgroundCssClass="modalBackground" />
     </form>
 </body>
 </html>

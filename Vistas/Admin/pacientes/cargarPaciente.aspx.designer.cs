@@ -78,13 +78,13 @@ namespace Vistas.Admin.pacientes
         protected global::System.Web.UI.WebControls.TextBox txtBirth;
 
         /// <summary>
-        /// Control txtNation.
+        /// Control ddlNation.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNation;
 
         /// <summary>
         /// Control txtAddress.
@@ -105,22 +105,22 @@ namespace Vistas.Admin.pacientes
         protected global::System.Web.UI.WebControls.DropDownList ddlSexo;
 
         /// <summary>
-        /// Control txtCity.
+        /// Control ddlCity.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCity;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCity;
 
         /// <summary>
-        /// Control txtLocality.
+        /// Control ddlLocality.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLocality;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLocality;
 
         /// <summary>
         /// Control txtMail.

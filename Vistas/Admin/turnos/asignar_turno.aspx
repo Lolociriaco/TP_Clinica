@@ -58,6 +58,11 @@
                       class="icon-left" /> Appointments
                   </a>
 
+                  <a href="/Admin/medicos/editar_usuario.aspx" class="menu-item">
+                      <img src="/Imagenes/edituser.png" 
+                      class="icon-left" />Edit User
+                  </a>
+
              </nav>
 
                 <asp:Button ID="btnLogout" runat="server" CssClass="logout logout-button" Text="Logout" />

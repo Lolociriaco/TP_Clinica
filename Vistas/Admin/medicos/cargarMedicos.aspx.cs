@@ -13,10 +13,10 @@ namespace Vistas.Admin.medicos
         {
             if (Session["role"] == null || Session["role"].ToString() != "Admin")
             {
-                //Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/Login.aspx");
             }
 
-            //username.Text = Session["username"].ToString();
+            username.Text = Session["username"].ToString();
         }
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
@@ -29,10 +29,10 @@ namespace Vistas.Admin.medicos
 
             txtDNI.Text = "";
             txtFullName.Text = "";
-            txtLocality.Text = "";
-            txtCity.Text = "";
+            ddlLocality.Text = "";
+            ddlCity.Text = "";
             ddlSexo.Text = "";
-            txtNation.Text = "";
+            ddlNation.Text = "";
             txtAddress.Text = "";
             txtMail.Text = "";
             txtPhone.Text = "";
