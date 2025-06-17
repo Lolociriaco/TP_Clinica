@@ -3,112 +3,108 @@ go
 use  BDCLINICA_TPINTEGRADOR;
 GO
 
-
-
-
--- Tabla: Provincias (Precargada)
-CREATE TABLE PROVINCIAS (
-    id_Prov INT NOT NULL,
-    nombre_Prov VARCHAR(100) NOT NULL,
-    CONSTRAINT PK_PROVINCIAS PRIMARY KEY (id_Prov)
-);
-
-
--- Tabla: Localidades (Precargada)
-CREATE TABLE LOCALIDADES (
-    id_Loc INT NOT NULL,
-    nombre_Loc VARCHAR(100) NOT NULL,
-    id_Prov_Loc INT NOT NULL,
-    CONSTRAINT PK_LOCALIDADES PRIMARY KEY (id_Loc),
-    CONSTRAINT FK_LOCALIDADES_PROVINCIAS FOREIGN KEY (id_Prov_Loc) REFERENCES PROVINCIAS(id_Prov)
-);
-
--- Tabla: Especialidades (Precargada)
-CREATE TABLE ESPECIALIDADES (
-    id_Esp INT NOT NULL,
-    nombre_Esp VARCHAR(100) NOT NULL,
-    CONSTRAINT PK_ESPECIALIDADES PRIMARY KEY (id_Esp)
-);
-
--- Tabla: Usuarios
-CREATE TABLE USUARIOS_ADMINISTRADORES (
-    ID_ADMINISTRADOR INT NOT NULL,
-    nombre_Admin VARCHAR(100) NOT NULL,
-    apellido_Admin VARCHAR(100) NOT NULL,
-    usuario_Admin VARCHAR(50) NOT NULL,
-    contrasena_Admin VARCHAR(50) NOT NULL,
-    CONSTRAINT PK_USUARIOS_ADMINISTRADORES PRIMARY KEY (ID_ADMINISTRADOR)
-);
-
-
-
--- Tabla: Pacientes
-CREATE TABLE PACIENTES (
-    dni_Pac INT NOT NULL,
-    nombre_Pac VARCHAR(100) NOT NULL,
-    apellido_Pac VARCHAR(100) NOT NULL,
-    sexo_Pac VARCHAR(20),
-    nacionalidad_Pac VARCHAR(100),
-    fechaNac_Pac DATE,
-    direccion_Pac VARCHAR(150),
-    id_Loc_Pac INT NOT NULL,
-    id_Prov_Pac INT NOT NULL,
-    correo_Pac VARCHAR(150),
-    telefono_Pac VARCHAR(50),
-    activo_Pac BIT DEFAULT 1,
-    CONSTRAINT PK_PACIENTES PRIMARY KEY (dni_Pac),
-    CONSTRAINT FK_PACIENTES_LOCALIDADES FOREIGN KEY (id_Loc_Pac) REFERENCES LOCALIDADES(id_Loc),
-    CONSTRAINT FK_PACIENTES_PROVINCIAS FOREIGN KEY (id_Prov_Pac) REFERENCES PROVINCIAS(id_Prov)
-);
--- Tabla: Médicos
-CREATE TABLE MEDICOS (
-    legajo_Med INT NOT NULL,
-    dni_Med INT NOT NULL,
-    nombre_Med VARCHAR(100) NOT NULL,
-    apellido_Med VARCHAR(100) NOT NULL,
-    sexo_Med VARCHAR(20),
-    nacionalidad_Med VARCHAR(100),
-    fechaNac_Med DATE,
-    direccion_Med VARCHAR(150),
-    id_Loc_Med INT NOT NULL,
-    id_Prov_Med INT NOT NULL,
-    correo_Med VARCHAR(150),
-    telefono_Med VARCHAR(50),
-    id_Esp_Med INT NOT NULL,
-    dias_Horario_Med VARCHAR(100), 
-    usuario_Med VARCHAR(50),
-    contrasena_Med VARCHAR(50),
-    activo_Med BIT DEFAULT 1,
-    CONSTRAINT PK_MEDICOS PRIMARY KEY (legajo_Med),
-    CONSTRAINT FK_MEDICOS_LOCALIDADES FOREIGN KEY (id_Loc_Med) REFERENCES LOCALIDADES(id_Loc),
-    CONSTRAINT FK_MEDICOS_PROVINCIAS FOREIGN KEY (id_Prov_Med) REFERENCES PROVINCIAS(id_Prov),
-    CONSTRAINT FK_MEDICOS_ESPECIALIDADES FOREIGN KEY (id_Esp_Med) REFERENCES ESPECIALIDADES(id_Esp)
-);
-
-
+-- TABLA: USUARIOS
 CREATE TABLE USUARIOS (
     ID_USUARIO INT IDENTITY(1,1) PRIMARY KEY,
     USUARIO VARCHAR(50) NOT NULL UNIQUE,
     CONTRASENA VARCHAR(100) NOT NULL,
-    TIPO_USUARIO VARCHAR(20) NOT NULL CHECK (TIPO_USUARIO IN ('administrador', 'medico')),
-    ID_ADMINISTRADOR INT NULL,
-    ID_MEDICO INT NULL,
-    CONSTRAINT FK_Usuario_Administrador FOREIGN KEY (ID_ADMINISTRADOR) REFERENCES USUARIOS_ADMINISTRADORES(ID_ADMINISTRADOR),
-    CONSTRAINT FK_Usuario_Medico FOREIGN KEY (ID_MEDICO) REFERENCES MEDICOS(legajo_Med)
+    TIPO_USUARIO VARCHAR(20) NOT NULL CHECK (TIPO_USUARIO IN ('ADMINISTRADOR', 'MEDICO'))
 );
 
--- Tabla: Turnos 
+-- TABLA: ADMINISTRADORES
+CREATE TABLE ADMINISTRADORES (
+    ID_USUARIO INT PRIMARY KEY,
+    NOMBRE_ADMIN VARCHAR(100) NOT NULL,
+    APELLIDO_ADMIN VARCHAR(100) NOT NULL,
+    CONSTRAINT FK_ADMIN_USUARIO FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS(ID_USUARIO)
+);
+
+-- TABLA: PACIENTES
+CREATE TABLE PACIENTES (
+    DNI_PAC INT NOT NULL,
+    NOMBRE_PAC VARCHAR(100) NOT NULL,
+    APELLIDO_PAC VARCHAR(100) NOT NULL,
+    SEXO_PAC VARCHAR(20),
+    NACIONALIDAD_PAC VARCHAR(100),
+    FECHANAC_PAC DATE,
+    DIRECCION_PAC VARCHAR(150),
+    ID_LOC_PAC INT NOT NULL,
+    ID_PROV_PAC INT NOT NULL,
+    CORREO_PAC VARCHAR(150),
+    TELEFONO_PAC VARCHAR(50),
+    ACTIVO_PAC BIT DEFAULT 1,
+    CONSTRAINT PK_PACIENTES PRIMARY KEY (DNI_PAC),
+    CONSTRAINT FK_PACIENTES_LOCALIDADES FOREIGN KEY (ID_LOC_PAC) REFERENCES LOCALIDADES(ID_LOC),
+    CONSTRAINT FK_PACIENTES_PROVINCIAS FOREIGN KEY (ID_PROV_PAC) REFERENCES PROVINCIAS(ID_PROV)
+);
+
+-- TABLA: MEDICOS
+CREATE TABLE MEDICOS (
+    ID_USUARIO INT PRIMARY KEY,
+    DNI_MED INT NOT NULL,
+    NOMBRE_MED VARCHAR(100) NOT NULL,
+    APELLIDO_MED VARCHAR(100) NOT NULL,
+    SEXO_MED VARCHAR(20),
+    NACIONALIDAD_MED VARCHAR(100),
+    FECHANAC_MED DATE,
+    DIRECCION_MED VARCHAR(150),
+    ID_LOC_MED INT NOT NULL,
+    ID_PROV_MED INT NOT NULL,
+    CORREO_MED VARCHAR(150),
+    TELEFONO_MED VARCHAR(50),
+    ID_ESP_MED INT NOT NULL,
+    DIAS_HORARIO_MED VARCHAR(100),
+    ACTIVO_MED BIT DEFAULT 1,
+    CONSTRAINT FK_MEDICO_USUARIO FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS(ID_USUARIO),
+    CONSTRAINT FK_MEDICOS_LOCALIDADES FOREIGN KEY (ID_LOC_MED) REFERENCES LOCALIDADES(ID_LOC),
+    CONSTRAINT FK_MEDICOS_PROVINCIAS FOREIGN KEY (ID_PROV_MED) REFERENCES PROVINCIAS(ID_PROV),
+    CONSTRAINT FK_MEDICOS_ESPECIALIDADES FOREIGN KEY (ID_ESP_MED) REFERENCES ESPECIALIDADES(ID_ESP)
+);
+
+ -- TABLA: HORARIOS
+CREATE TABLE HORARIOS_MEDICOS (
+    ID_HORARIO INT IDENTITY(1,1) PRIMARY KEY,
+    ID_USUARIO_MEDICO INT NOT NULL,
+    DIA_SEMANA VARCHAR(10) NOT NULL CHECK (DIA_SEMANA IN ('LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),
+    HORA_INICIO TIME NOT NULL,
+    HORA_FIN TIME NOT NULL,
+    CONSTRAINT FK_HORARIOS_MEDICOS FOREIGN KEY (ID_USUARIO_MEDICO) REFERENCES MEDICOS(ID_USUARIO)
+);
+
+-- TABLA: TURNOS
 CREATE TABLE TURNOS (
-    id_Turno INT NOT NULL,
-    legajo_Med_Turno INT NOT NULL,
-    dni_Pac_Turno INT NOT NULL,
-    fecha_Turno DATE NOT NULL, 
-    hora_Turno TIME NOT NULL,
-    estado_Turno VARCHAR(20), -- PRESENTE / AUSENTE / OTRO
-    observacion_Turno TEXT,
-    CONSTRAINT PK_TURNOS PRIMARY KEY (id_Turno),
-    CONSTRAINT FK_TURNOS_MEDICOS FOREIGN KEY (legajo_Med_Turno) REFERENCES MEDICOS(legajo_Med),
-    CONSTRAINT FK_TURNOS_PACIENTES FOREIGN KEY (dni_Pac_Turno) REFERENCES PACIENTES(dni_Pac)
+    ID_TURNO INT IDENTITY(1,1) PRIMARY KEY,
+    ID_USUARIO_MEDICO INT NOT NULL,
+    DNI_PAC_TURNO INT NOT NULL,
+    FECHA_TURNO DATE NOT NULL, 
+    HORA_TURNO TIME NOT NULL,
+    ESTADO_TURNO VARCHAR(20) NOT NULL CHECK (ESTADO_TURNO IN ('PRESENTE', 'AUSENTE', 'REPROGRAMADO')),
+    OBSERVACION_TURNO TEXT,
+    CONSTRAINT FK_TURNOS_MEDICOS FOREIGN KEY (ID_USUARIO_MEDICO) REFERENCES MEDICOS(ID_USUARIO),
+    CONSTRAINT FK_TURNOS_PACIENTES FOREIGN KEY (DNI_PAC_TURNO) REFERENCES PACIENTES(DNI_PAC)
+);
+
+-- TABLA: PROVINCIAS
+CREATE TABLE PROVINCIAS (
+    ID_PROV INT NOT NULL,
+    NOMBRE_PROV VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_PROVINCIAS PRIMARY KEY (ID_PROV)
+);
+
+-- TABLA: LOCALIDADES
+CREATE TABLE LOCALIDADES (
+    ID_LOC INT NOT NULL,
+    NOMBRE_LOC VARCHAR(100) NOT NULL,
+    ID_PROV_LOC INT NOT NULL,
+    CONSTRAINT PK_LOCALIDADES PRIMARY KEY (ID_LOC),
+    CONSTRAINT FK_LOCALIDADES_PROVINCIAS FOREIGN KEY (ID_PROV_LOC) REFERENCES PROVINCIAS(ID_PROV)
+);
+
+-- TABLA: ESPECIALIDADES
+CREATE TABLE ESPECIALIDADES (
+    ID_ESP INT NOT NULL,
+    NOMBRE_ESP VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_ESPECIALIDADES PRIMARY KEY (ID_ESP)
 );
 
 
@@ -171,6 +167,72 @@ VALUES
 (11515151, 'Gonzalo', 'Silva', 'Masculino', 'Argentina', '1988-12-01', 'Calle 15', 5, 2, 'gonzalo@gmail.com', '1515151515', 1);
 
 ------ CARGA PARA LOS MEDICOS SI NO ME PIERDO ------
+
+-- USUARIOS (5 administradores y 10 médicos)
+INSERT INTO USUARIOS (USUARIO, CONTRASENA, TIPO_USUARIO) VALUES
+('admin1', 'admin123', 'ADMINISTRADOR'),
+('admin2', 'admin456', 'ADMINISTRADOR'),
+('admin3', 'admin789', 'ADMINISTRADOR'),
+('admin4', 'adminabc', 'ADMINISTRADOR'),
+('admin5', 'admindef', 'ADMINISTRADOR'),
+('medico1', 'med123', 'MEDICO'),
+('medico2', 'med456', 'MEDICO'),
+('medico3', 'med789', 'MEDICO'),
+('medico4', 'medabc', 'MEDICO'),
+('medico5', 'meddef', 'MEDICO'),
+('medico6', 'medghi', 'MEDICO'),
+('medico7', 'medjkl', 'MEDICO'),
+('medico8', 'medmno', 'MEDICO'),
+('medico9', 'medpqr', 'MEDICO'),
+('medico10', 'medstu', 'MEDICO');
+
+-- ADMINISTRADORES (usando los primeros 5 IDs de USUARIOS)
+INSERT INTO ADMINISTRADORES (ID_USUARIO, NOMBRE_ADMIN, APELLIDO_ADMIN) VALUES
+(1, 'Laura', 'Pérez'),
+(2, 'Carlos', 'Fernández'),
+(3, 'Julieta', 'Gómez'),
+(4, 'Marcelo', 'Rodríguez'),
+(5, 'Ana', 'López');
+
+-- MEDICOS (IDs 6 a 15, correspondientes a los médicos en USUARIOS)
+INSERT INTO MEDICOS (ID_USUARIO, DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED, ACTIVO_MED) VALUES
+(6, 2001, 'Jorge', 'Martínez', 'Masculino', 'Argentina', '1975-05-20', 'Medrano 123', 1, 1, 'jorge@clinica.com', '1140000001', 1, 'LUNES-MIERCOLES', 1),
+(7, 2002, 'Lucía', 'Álvarez', 'Femenino', 'Argentina', '1982-03-15', 'Belgrano 456', 2, 1, 'lucia@clinica.com', '1140000002', 2, 'MARTES-JUEVES', 1),
+(8, 2003, 'Diego', 'Paz', 'Masculino', 'Argentina', '1978-08-10', 'Santa Fe 789', 3, 1, 'diego@clinica.com', '1140000003', 3, 'LUNES-VIERNES', 1),
+(9, 2004, 'Valeria', 'Suárez', 'Femenino', 'Argentina', '1985-11-05', 'Corrientes 321', 4, 2, 'valeria@clinica.com', '1140000004', 4, 'MIERCOLES-VIERNES', 1),
+(10, 2005, 'Héctor', 'Ibarra', 'Masculino', 'Argentina', '1970-06-22', 'Callao 654', 5, 2, 'hector@clinica.com', '1140000005', 5, 'LUNES-JUEVES', 1),
+(11, 2006, 'Mariana', 'Bravo', 'Femenino', 'Argentina', '1989-01-10', 'Lavalle 987', 6, 3, 'mariana@clinica.com', '1140000006', 1, 'MARTES-SABADO', 1),
+(12, 2007, 'Pablo', 'Sánchez', 'Masculino', 'Argentina', '1976-09-25', 'Alem 159', 7, 3, 'pablo@clinica.com', '1140000007', 2, 'LUNES-MIERCOLES-VIERNES', 1),
+(13, 2008, 'Laura', 'Molina', 'Femenino', 'Argentina', '1990-07-14', 'Perón 753', 8, 4, 'laura@clinica.com', '1140000008', 3, 'MARTES-JUEVES-SABADO', 1),
+(14, 2009, 'Ramiro', 'Gutiérrez', 'Masculino', 'Argentina', '1981-10-09', 'Urquiza 852', 9, 4, 'ramiro@clinica.com', '1140000009', 4, 'MIERCOLES-VIERNES', 1),
+(15, 2010, 'Florencia', 'Castro', 'Femenino', 'Argentina', '1987-04-18', 'Mitre 147', 10, 5, 'florencia@clinica.com', '1140000010', 5, 'LUNES-JUEVES', 1);
+
+-- HORARIOS_MEDICOS (mínimo 2 horarios por médico)
+INSERT INTO HORARIOS_MEDICOS (ID_USUARIO_MEDICO, DIA_SEMANA, HORA_INICIO, HORA_FIN) VALUES
+(6, 'LUNES', '08:00', '12:00'),
+(6, 'MIERCOLES', '08:00', '12:00'),
+(7, 'MARTES', '10:00', '14:00'),
+(7, 'JUEVES', '10:00', '14:00'),
+(8, 'LUNES', '09:00', '13:00'),
+(8, 'VIERNES', '09:00', '13:00'),
+(9, 'MIERCOLES', '14:00', '18:00'),
+(9, 'VIERNES', '14:00', '18:00'),
+(10, 'LUNES', '08:30', '12:30'),
+(10, 'JUEVES', '08:30', '12:30'),
+(11, 'MARTES', '08:00', '12:00'),
+(11, 'SABADO', '08:00', '12:00'),
+(12, 'LUNES', '13:00', '17:00'),
+(12, 'MIERCOLES', '13:00', '17:00'),
+(12, 'VIERNES', '13:00', '17:00'),
+(13, 'MARTES', '09:00', '13:00'),
+(13, 'JUEVES', '09:00', '13:00'),
+(13, 'SABADO', '09:00', '13:00'),
+(14, 'MIERCOLES', '08:00', '12:00'),
+(14, 'VIERNES', '08:00', '12:00'),
+(15, 'LUNES', '15:00', '19:00'),
+(15, 'JUEVES', '15:00', '19:00');
+
+
 INSERT INTO ESPECIALIDADES (id_Esp, nombre_Esp) VALUES
 (1, 'Clínica Médica'),
 (2, 'Pediatría'),
@@ -178,25 +240,8 @@ INSERT INTO ESPECIALIDADES (id_Esp, nombre_Esp) VALUES
 (4, 'Dermatología'),
 (5, 'Neurología');
 
-INSERT INTO MEDICOS (legajo_Med, dni_Med, nombre_Med, apellido_Med, sexo_Med, nacionalidad_Med, fechaNac_Med, direccion_Med, id_Loc_Med, id_Prov_Med, correo_Med, telefono_Med, id_Esp_Med, dias_Horario_Med, usuario_Med, contrasena_Med, activo_Med)
-VALUES
-(2001, 30111111, 'Roberto', 'González', 'Masculino', 'Argentina', '1975-03-10', 'Av. Siempre Viva 123', 1, 1, 'roberto@gmail.com', '1111222233', 1, 'Lun-Vie 8-16', 'roberto', '1234', 1),
-(2002, 30122222, 'María', 'López', 'Femenino', 'Argentina', '1980-06-22', 'Calle 123', 2, 1, 'maria@gmail.com', '2222333344', 2, 'Lun-Vie 9-17', 'maria', '1234', 1),
-(2003, 30133333, 'Javier', 'Martínez', 'Masculino', 'Argentina', '1970-09-15', 'Calle Falsa 456', 3, 1, 'javier@gmail.com', '3333444455', 3, 'Lun-Vie 10-18', 'javier', '1234', 1),
-(2004, 30144444, 'Patricia', 'Suárez', 'Femenino', 'Argentina', '1985-12-01', 'Calle A', 4, 2, 'patricia@gmail.com', '4444555566', 4, 'Lun-Vie 8-14', 'patricia', '1234', 1),
-(2005, 30155555, 'Carlos', 'Fernández', 'Masculino', 'Argentina', '1982-04-25', 'Calle B', 5, 2, 'carlosf@gmail.com', '5555666677', 5, 'Lun-Vie 9-15', 'carlosf', '1234', 1),
-(2006, 30166666, 'Valeria', 'Sosa', 'Femenino', 'Argentina', '1979-11-30', 'Calle C', 6, 3, 'valerias@gmail.com', '6666777788', 1, 'Lun-Vie 7-13', 'valerias', '1234', 1),
-(2007, 30177777, 'Martín', 'Ríos', 'Masculino', 'Argentina', '1976-05-18', 'Calle D', 7, 3, 'martinr@gmail.com', '7777888899', 2, 'Lun-Vie 10-16', 'martinr', '1234', 1),
-(2008, 30188888, 'Camila', 'Vega', 'Femenino', 'Argentina', '1983-08-12', 'Calle E', 8, 4, 'camilav@gmail.com', '8888999900', 3, 'Lun-Vie 8-14', 'camilav', '1234', 1),
-(2009, 30199999, 'Nicolás', 'García', 'Masculino', 'Argentina', '1971-02-03', 'Calle F', 9, 4, 'nicolasg@gmail.com', '9999000011', 4, 'Lun-Vie 9-17', 'nicolasg', '1234', 1),
-(2010, 30100000, 'Sofía', 'Méndez', 'Femenino', 'Argentina', '1987-03-27', 'Calle G', 10, 5, 'sofia@gmail.com', '0000111122', 5, 'Lun-Vie 10-18', 'sofia', '1234', 1),
-(2011, 30111112, 'Fernando', 'Paz', 'Masculino', 'Argentina', '1980-06-11', 'Calle H', 1, 1, 'fernandop@gmail.com', '1111222244', 1, 'Lun-Vie 8-12', 'fernandop', '1234', 1),
-(2012, 30122223, 'Laura', 'Díaz', 'Femenino', 'Argentina', '1978-10-04', 'Calle I', 2, 1, 'laurad@gmail.com', '2222333355', 2, 'Lun-Vie 14-20', 'laurad', '1234', 1),
-(2013, 30133334, 'Marcelo', 'Torres', 'Masculino', 'Argentina', '1969-07-07', 'Calle J', 3, 1, 'marcelot@gmail.com', '3333444466', 3, 'Lun-Vie 10-18', 'marcelot', '1234', 1),
-(2014, 30144445, 'Paula', 'Agüero', 'Femenino', 'Argentina', '1986-01-17', 'Calle K', 4, 2, 'paulaa@gmail.com', '4444555577', 4, 'Lun-Vie 13-19', 'paulaa', '1234', 1),
-(2015, 30155556, 'Gustavo', 'Leiva', 'Masculino', 'Argentina', '1973-09-09', 'Calle L', 5, 2, 'gustavol@gmail.com', '5555666688', 5, 'Lun-Vie 7-15', 'gustavol', '1234', 1);
 
-INSERT INTO TURNOS (id_Turno, legajo_Med_Turno, dni_Pac_Turno, fecha_Turno, hora_Turno, estado_Turno, observacion_Turno)
+INSERT INTO TURNOS (id_Turno, ID_USUARIO_MEDICO, dni_Pac_Turno, fecha_Turno, hora_Turno, estado_Turno, observacion_Turno)
 VALUES
 (1, 2001, 10101001, '2025-06-10', '08:00:00', 'PRESENTE', 'Control general'),
 (2, 2002, 10202002, '2025-06-10', '09:00:00', 'PRESENTE', 'Chequeo pediátrico'),
