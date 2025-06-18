@@ -202,16 +202,16 @@ INSERT INTO ESPECIALIDADES (id_Esp, nombre_Esp) VALUES
 
 -- MEDICOS (IDs 6 a 15, correspondientes a los médicos en USUARIOS)
 INSERT INTO MEDICOS (ID_USUARIO, DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED, ACTIVO_MED) VALUES
-(6, 2001, 'Jorge', 'Martínez', 'Masculino', 'Argentina', '1975-05-20', 'Medrano 123', 1, 1, 'jorge@clinica.com', '1140000001', 1, 'LUNES-MIERCOLES', 1),
-(7, 2002, 'Lucía', 'Álvarez', 'Femenino', 'Argentina', '1982-03-15', 'Belgrano 456', 2, 1, 'lucia@clinica.com', '1140000002', 2, 'MARTES-JUEVES', 1),
-(8, 2003, 'Diego', 'Paz', 'Masculino', 'Argentina', '1978-08-10', 'Santa Fe 789', 3, 1, 'diego@clinica.com', '1140000003', 3, 'LUNES-VIERNES', 1),
-(9, 2004, 'Valeria', 'Suárez', 'Femenino', 'Argentina', '1985-11-05', 'Corrientes 321', 4, 2, 'valeria@clinica.com', '1140000004', 4, 'MIERCOLES-VIERNES', 1),
-(10, 2005, 'Héctor', 'Ibarra', 'Masculino', 'Argentina', '1970-06-22', 'Callao 654', 5, 2, 'hector@clinica.com', '1140000005', 5, 'LUNES-JUEVES', 1),
-(11, 2006, 'Mariana', 'Bravo', 'Femenino', 'Argentina', '1989-01-10', 'Lavalle 987', 6, 3, 'mariana@clinica.com', '1140000006', 1, 'MARTES-SABADO', 1),
-(12, 2007, 'Pablo', 'Sánchez', 'Masculino', 'Argentina', '1976-09-25', 'Alem 159', 7, 3, 'pablo@clinica.com', '1140000007', 2, 'LUNES-MIERCOLES-VIERNES', 1),
-(13, 2008, 'Laura', 'Molina', 'Femenino', 'Argentina', '1990-07-14', 'Perón 753', 8, 4, 'laura@clinica.com', '1140000008', 3, 'MARTES-JUEVES-SABADO', 1),
-(14, 2009, 'Ramiro', 'Gutiérrez', 'Masculino', 'Argentina', '1981-10-09', 'Urquiza 852', 9, 4, 'ramiro@clinica.com', '1140000009', 4, 'MIERCOLES-VIERNES', 1),
-(15, 2010, 'Florencia', 'Castro', 'Femenino', 'Argentina', '1987-04-18', 'Mitre 147', 10, 5, 'florencia@clinica.com', '1140000010', 5, 'LUNES-JUEVES', 1);
+(6, 20568532, 'Jorge', 'Martínez', 'Masculino', 'Argentina', '1975-05-20', 'Medrano 123', 1, 1, 'jorge@clinica.com', '1140000001', 1, 'LUNES-MIERCOLES', 1),
+(7, 23444567, 'Lucía', 'Álvarez', 'Femenino', 'Argentina', '1982-03-15', 'Belgrano 456', 2, 1, 'lucia@clinica.com', '1140000002', 2, 'MARTES-JUEVES', 1),
+(8, 20323129, 'Diego', 'Paz', 'Masculino', 'Argentina', '1978-08-10', 'Santa Fe 789', 3, 1, 'diego@clinica.com', '1140000003', 3, 'LUNES-VIERNES', 1),
+(9, 20987321, 'Valeria', 'Suárez', 'Femenino', 'Argentina', '1985-11-05', 'Corrientes 321', 4, 2, 'valeria@clinica.com', '1140000004', 4, 'MIERCOLES-VIERNES', 1),
+(10, 20333245, 'Héctor', 'Ibarra', 'Masculino', 'Argentina', '1970-06-22', 'Callao 654', 5, 2, 'hector@clinica.com', '1140000005', 5, 'LUNES-JUEVES', 1),
+(11, 20445789, 'Mariana', 'Bravo', 'Femenino', 'Argentina', '1989-01-10', 'Lavalle 987', 6, 3, 'mariana@clinica.com', '1140000006', 1, 'MARTES-SABADO', 1),
+(12, 20224578, 'Pablo', 'Sánchez', 'Masculino', 'Argentina', '1976-09-25', 'Alem 159', 7, 3, 'pablo@clinica.com', '1140000007', 2, 'LUNES-MIERCOLES-VIERNES', 1),
+(13, 20333999, 'Laura', 'Molina', 'Femenino', 'Argentina', '1990-07-14', 'Perón 753', 8, 4, 'laura@clinica.com', '1140000008', 3, 'MARTES-JUEVES-SABADO', 1),
+(14, 20121498, 'Ramiro', 'Gutiérrez', 'Masculino', 'Argentina', '1981-10-09', 'Urquiza 852', 9, 4, 'ramiro@clinica.com', '1140000009', 4, 'MIERCOLES-VIERNES', 1),
+(15, 20458921, 'Florencia', 'Castro', 'Femenino', 'Argentina', '1987-04-18', 'Mitre 147', 10, 5, 'florencia@clinica.com', '1140000010', 5, 'LUNES-JUEVES', 1);
 
 -- HORARIOS_MEDICOS (mínimo 2 horarios por médico)
 INSERT INTO HORARIOS_MEDICOS (ID_USUARIO_MEDICO, DIA_SEMANA, HORA_INICIO, HORA_FIN) VALUES
