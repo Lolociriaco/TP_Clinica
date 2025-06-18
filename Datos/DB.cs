@@ -10,11 +10,32 @@ namespace Datos
 {
     public class DB
     {
-        private string DbConnection = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDSucursales;Integrated Security=True;Encrypt=False";
+        private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+
+        public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
+        {
+            SqlConnection conexion = new SqlConnection(cadenaConexion);
+            SqlDataAdapter adaptador = new SqlDataAdapter(consultaSQL, conexion);
+            return adaptador;
+        }
+
+        private SqlConnection obtenerConexion()
+        {
+            return new SqlConnection(cadenaConexion);
+        }
+
+        public void ejecutarConsulta(string consulta)
+        {
+            SqlConnection conexion = obtenerConexion();
+            SqlCommand cmd = new SqlCommand(consulta, conexion);
+            conexion.Open();
+            cmd.ExecuteNonQuery();
+            conexion.Close();
+        }
 
         public bool validarUser(string query, SqlParameter[] parametro)
         {
-            using (SqlConnection conn = new SqlConnection(DbConnection))
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
 

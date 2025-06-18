@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace Vistas
 {
@@ -16,15 +17,15 @@ namespace Vistas
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtDni.Text;
+            string username = txtUser.Text;
             string password = txtPassword.Text;
 
-            txtDni.Text = "";
+            txtUser.Text = "";
             txtPassword.Text = "";
 
-            //Validar validar = new Validar();
+            Validar validar = new Validar();
 
-            //validar.validarUsuario(username, password);
+            validar.ValidarUsuario(username, password);
 
             // validar usuario puede devolver un string con el tipo de rol
             // o un null/string vacio si el usuario no existe

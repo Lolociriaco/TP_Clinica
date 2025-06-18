@@ -7,39 +7,26 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using Datos;
+using System.Globalization;
+
 
 namespace Negocio
 {
     public class Validar
     {
-        public bool ValidarDNI(string dni)
+
+        public bool ValidarUsuario(string user, string password)
         {
-            // Verificar que el DNI tenga 8 dígitos y una letra
-            if (dni.Length != 8) return false;
-
-            // Verificar que todos los digitos sean numeros
-
-            foreach (char c in dni)
-            {
-                if (!char.IsDigit(c)) return false;
-            }
-
-            return true;
-        }
-
-        public bool ValidarUsuario(string dni, string password)
-        {
-            if (!ValidarDNI(dni)) return false;
 
             // Verificar que la contraseña tenga al menos 6 caracteres
             if (password.Length < 6) return false;
 
 
-            string query = "SELECT * FROM Usuarios WHERE Dni = @dni AND Password = @password";
+            string query = "SELECT * FROM Usuarios WHERE User = @user AND Password = @password";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
-                new SqlParameter("@dni", dni),
+                new SqlParameter("@user", user),
                 new SqlParameter("@pass", password)
             };
 
@@ -48,5 +35,39 @@ namespace Negocio
 
             return true;
         }
+
+        public DataTable ObtenerMedicos()
+        {
+            string query = "SELECT * FROM MEDICOS";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Medicos");
+            return ds.Tables["Medicos"];
+        }
+
+        public DataTable ObtenerPacientes()
+        {
+            string query = "SELECT * FROM PACIENTES";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Pacientes");
+            return ds.Tables["Pacientes"];
+        }
+
+        /*public void eliminarProducto(Medicos medico)
+        {
+            string consulta = "DELETE FROM MEDICOS WHERE DNI_MEDICO = " + medico.DNI_MEDICO;
+            DB datos = new DB();
+            datos.ejecutarConsulta(consulta);
+        }
+
+        public void ActualizarProducto(Medicos medico)
+        {
+            string consulta = $"UPDATE MEDICOS SET Username = '{medico.Username}', DNI_MEDICO = {medico.DNI_MEDICO.ToString(CultureInfo.InvariantCulture)}";
+            DB datos = new DB();
+            datos.ejecutarConsulta(consulta);
+        }*/
     }
 }

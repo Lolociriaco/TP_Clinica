@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace Vistas
 {
@@ -14,7 +15,7 @@ namespace Vistas
         {
             if (!IsPostBack)
             {
-                BindEmptyGrid();
+                CargarPacientes();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "Admin")
@@ -25,15 +26,10 @@ namespace Vistas
             username.Text = Session["username"].ToString();
         }
 
-        private void BindEmptyGrid()
+        private void CargarPacientes()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Name");
-            dt.Columns.Add("DNI");
-            dt.Columns.Add("Phone Number");
-
-            // No se agregan filas => tabla vacía
-            gvPacientes.DataSource = dt;
+            Validar validar = new Validar();
+            gvPacientes.DataSource = validar.ObtenerPacientes();
             gvPacientes.DataBind();
         }
 

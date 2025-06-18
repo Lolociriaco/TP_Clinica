@@ -20,8 +20,8 @@
                 <h2>LOGIN</h2>
 
                 <div class="form-group">
-                    <label for="txtDni">USER</label>
-                    <asp:TextBox ID="txtDni" runat="server" CssClass="input-text" Font-Names="Bahnschrift"/>
+                    <label for="txtUser">USER</label>
+                    <asp:TextBox ID="txtUser" runat="server" CssClass="input-text" Font-Names="Bahnschrift"/>
                 </div>
 
                 <div class="form-group">

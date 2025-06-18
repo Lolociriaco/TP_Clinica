@@ -97,9 +97,72 @@
 
                     <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px">
                         <Columns>
-                            <asp:BoundField DataField="Name" HeaderText="Name" />
-                            <asp:BoundField DataField="DNI" HeaderText="DNI" />
-                            <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
+                            <asp:TemplateField HeaderText="Nombre">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNombres" runat="server" Text='<%# Bind("NOMBRE_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Apellido">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("APELLIDO_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="DNI">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DNI_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Sexo">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSexo" runat="server" Text='<%# Bind("SEXO_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Nacionalidad">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNacionalidad" runat="server" Text='<%# Bind("NACIONALIDAD_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Fecha de nacimiento">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNacimiento" runat="server" Text='<%# Bind("FECHANAC_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Direccion">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDireccion" runat="server" Text='<%# Bind("DIRECCION_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Provincia">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblProvincia" runat="server" Text='<%# Bind("ID_PROV_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Localidad">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLocalidad" runat="server" Text='<%# Bind("ID_LOC_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Correo">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCorreo" runat="server" Text='<%# Bind("CORREO_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Teléfono">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTelefono" runat="server" Text='<%# Bind("TELEFONO_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
                         </Columns>
                         <EmptyDataTemplate>
                             <tr>
