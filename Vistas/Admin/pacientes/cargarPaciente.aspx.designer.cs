@@ -78,13 +78,13 @@ namespace Vistas.Admin.pacientes
         protected global::System.Web.UI.WebControls.TextBox txtBirth;
 
         /// <summary>
-        /// Control ddlNation.
+        /// Control txtNation.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlNation;
+        protected global::System.Web.UI.WebControls.TextBox txtNation;
 
         /// <summary>
         /// Control txtAddress.
@@ -105,22 +105,22 @@ namespace Vistas.Admin.pacientes
         protected global::System.Web.UI.WebControls.DropDownList ddlSexo;
 
         /// <summary>
-        /// Control ddlCity.
+        /// Control txtCity.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCity;
+        protected global::System.Web.UI.WebControls.TextBox txtCity;
 
         /// <summary>
-        /// Control ddlLocality.
+        /// Control txtLocality.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLocality;
+        protected global::System.Web.UI.WebControls.TextBox txtLocality;
 
         /// <summary>
         /// Control txtMail.
@@ -148,6 +148,15 @@ namespace Vistas.Admin.pacientes
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirm;
+
+        /// <summary>
+        /// Control lblMensaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
         /// Control pnlConfirmLogout.

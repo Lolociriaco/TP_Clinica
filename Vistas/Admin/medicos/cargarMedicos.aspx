@@ -116,7 +116,7 @@
 
                     <div class="form-group">
                       <label>Nationality:</label>
-                      <asp:DropDownList ID="ddlNation" runat="server" CssClass="input-text"></asp:DropDownList>
+                      <asp:TextBox ID="txtNation" runat="server" CssClass="input-text"></asp:TextBox>
                     </div>
                   </div>
 
@@ -135,12 +135,12 @@
                   <div class="row-medicos">
                       <div class="form-group">
                         <label>City:</label>
-                        <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text"></asp:DropDownList>
+                        <asp:TextBox ID="txtCity" runat="server" CssClass="input-text"></asp:TextBox>
                       </div>
 
                       <div class="form-group">
                         <label>Locality:</label>
-                        <asp:DropDownList ID="ddlLocality" runat="server" CssClass="input-text"></asp:DropDownList>
+                        <asp:TextBox ID="txtLocality" runat="server" CssClass="input-text"></asp:TextBox>
                       </div>
                     </div>
 
@@ -195,6 +195,8 @@
                 <div class="row row-center-medicos">
                     <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
                 </div>
+
+                    <asp:Label ID="lblMensaje" runat="server"></asp:Label>
 
             </div>
 

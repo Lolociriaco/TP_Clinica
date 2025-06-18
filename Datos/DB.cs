@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using System.Data.Common;
+using Entidades;
 
 namespace Datos
 {
@@ -31,6 +33,51 @@ namespace Datos
             conexion.Open();
             cmd.ExecuteNonQuery();
             conexion.Close();
+        }
+        public void InsertarPaciente (Paciente pac, string query)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand comando = new SqlCommand(query, conn);
+                comando.Parameters.AddWithValue("@dni", pac._dni);
+                comando.Parameters.AddWithValue("@nombre", pac._nombre);
+                comando.Parameters.AddWithValue("@apellido", pac._apellido);
+                comando.Parameters.AddWithValue("@sexo", pac._sexo);
+                comando.Parameters.AddWithValue("@nacionalidad", pac._nacionalidad);
+                comando.Parameters.AddWithValue("@fecha", pac._fechaNacimiento);
+                comando.Parameters.AddWithValue("@direccion", pac._direccion);
+                comando.Parameters.AddWithValue("@localidad", pac._localidad);
+                comando.Parameters.AddWithValue("@provincia", pac._provincia);
+                comando.Parameters.AddWithValue("@correo", pac._correoElectronico);
+                comando.Parameters.AddWithValue("@telefono", pac._telefono);
+
+                conn.Open();
+                comando.ExecuteNonQuery();
+            }
+        }
+        public void InsertarMedico(Medico med, string query)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand comando = new SqlCommand(query, conn);
+                comando.Parameters.AddWithValue("@dni", med._dni);
+                comando.Parameters.AddWithValue("@nombre", med._nombre);
+                comando.Parameters.AddWithValue("@apellido", med._apellido);
+                comando.Parameters.AddWithValue("@sexo", med._sexo);
+                comando.Parameters.AddWithValue("@nacionalidad", med._nacionalidad);
+                comando.Parameters.AddWithValue("@fecha", med._fechaNacimiento);
+                comando.Parameters.AddWithValue("@direccion", med._direccion);
+                comando.Parameters.AddWithValue("@localidad", med._localidad);
+                comando.Parameters.AddWithValue("@provincia", med._provincia);
+                comando.Parameters.AddWithValue("@correo", med._correoElectronico);
+                comando.Parameters.AddWithValue("@especialidad", med._especialidad);
+                comando.Parameters.AddWithValue("@diasYHorariosAtencion", med._diasYHorariosAtencion);
+                comando.Parameters.AddWithValue("@legajo", med._legajo);
+                comando.Parameters.AddWithValue("@telefono", med._telefono);
+
+                conn.Open();
+                comando.ExecuteNonQuery();
+            }
         }
 
         public bool validarUser(string query, SqlParameter[] parametro)

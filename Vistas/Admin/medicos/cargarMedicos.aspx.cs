@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Entidades;
+using Negocio;
 
 namespace Vistas.Admin.medicos
 {
@@ -11,6 +14,12 @@ namespace Vistas.Admin.medicos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                CargarSexo();
+                CargarEspecialidades();
+            }
+
             if (Session["role"] == null || Session["role"].ToString() != "Admin")
             {
                 Response.Redirect("~/Login.aspx");
@@ -24,29 +33,105 @@ namespace Vistas.Admin.medicos
             Session.Abandon();
             Response.Redirect("~/Login.aspx");
         }
+        private void CargarSexo()
+        {
+            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            DataTable dtSexos = validar.ObtenerSexos();
+
+            ddlSexo.DataSource = dtSexos;
+            ddlSexo.DataTextField = "SEXO_PAC";
+            ddlSexo.DataValueField = "SEXO_PAC";
+            ddlSexo.DataBind();
+
+            ddlSexo.Items.Insert(0, new ListItem("", ""));
+        }
+        private void CargarEspecialidades()
+        {
+            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            DataTable dtSexos = validar.ObtenerEspecialidades();
+
+            ddlSpeciality.DataSource = dtSexos;
+            ddlSpeciality.DataTextField = "NOMBRE_ESP";
+            ddlSpeciality.DataValueField = "NOMBRE_ESP";
+            ddlSpeciality.DataBind();
+
+            ddlSpeciality.Items.Insert(0, new ListItem("", ""));
+        }
+
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(txtLocality.Text) 
+               || string.IsNullOrEmpty(txtCity.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
+               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtLegajo.Text) 
+               || string.IsNullOrEmpty(txtDay.Text) || string.IsNullOrEmpty(txtTimes.Text) || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (ddlSpeciality.SelectedValue == "0" || string.IsNullOrEmpty(ddlSpeciality.SelectedValue) || ddlSexo.SelectedValue == "0" || string.IsNullOrEmpty(ddlSexo.SelectedValue))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+
+            }
+
+            Validar validar = new Validar();
+
+            string nombreCompleto = txtFullName.Text.Trim();
+            string[] partes = nombreCompleto.Split(' ');
+
+            string nombre = partes[0];
+            string apellido = partes.Length > 1 ? string.Join(" ", partes.Skip(1)) : "";
+
+            Medico medico = new Medico
+            {
+                Nombre = nombre,
+                Apellido = apellido,
+                DNI = int.Parse(txtDNI.Text),
+                Localidad = txtLocality.Text,
+                Provincia = txtCity.Text,
+                Nacionalidad = txtNation.Text,
+                CorreoElectronico = txtMail.Text,
+                Direccion = txtAddress.Text,
+                Telefono = txtPhone.Text,
+                Sexo = ddlSexo.SelectedValue,
+                Especialidad = ddlSpeciality.SelectedValue,
+                Legajo = int.Parse(txtLegajo.Text),
+                DiasYHorariosAtencion = txtPhone.Text,
+                Usuario = txtUser.Text,
+                FechaNacimiento = DateTime.Parse(txtBirth.Text),
+                Contrasena = txtPassword.Text
+            };
+
+            validar.AgregarMedico(medico);
+
+            lblMensaje.Text = "¡Doctor added succesfully!";
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
+
             txtDNI.Text = "";
             txtFullName.Text = "";
-            ddlLocality.Text = "";
-            ddlCity.Text = "";
-            ddlSexo.Text = "";
-            ddlNation.Text = "";
+            txtLocality.Text = "";
+            txtCity.Text = "";
+            ddlSexo.SelectedIndex = 0;
+            txtNation.Text = "";
             txtAddress.Text = "";
             txtMail.Text = "";
+            txtBirth.Text = "";
             txtPhone.Text = "";
             txtLegajo.Text = "";
             txtDay.Text = "";
             txtTimes.Text = "";
             txtUser.Text = "";
             txtPassword.Text = "";
-            ddlSpeciality.Text = "";
-        }
-
-        protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
-        {
-            
+            ddlSpeciality.SelectedIndex = 0;
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

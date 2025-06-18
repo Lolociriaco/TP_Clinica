@@ -8,22 +8,22 @@ namespace Entidades
 {
     public class Medico
     {
-        private int _legajo;
-        private int _dni;
-        private string _nombre;
-        private string _apellido;
-        private string _sexo;
-        private string _nacionalidad;
-        private DateTime _fechaNacimiento;
-        private string _direccion;
-        private string _localidad;
-        private string _provincia;
-        private string _correoElectronico;
-        private string _telefono;
-        private string _especialidad;
-        private string _diasYHorariosAtencion;
-        private string _usuario;
-        private string _contrasena;
+        public int _legajo;
+        public int _dni;
+        public string _nombre;
+        public string _apellido;
+        public string _sexo;
+        public string _nacionalidad;
+        public DateTime _fechaNacimiento;
+        public string _direccion;
+        public string _localidad;
+        public string _provincia;
+        public string _correoElectronico;
+        public string _telefono;
+        public string _especialidad;
+        public string _diasYHorariosAtencion;
+        public string _usuario;
+        public string _contrasena;
 
         public Medico() { }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using System.Globalization;
+using Entidades;
 
 
 namespace Negocio
@@ -54,6 +55,58 @@ namespace Negocio
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Pacientes");
             return ds.Tables["Pacientes"];
+        }
+        public DataTable ObtenerTurnos()
+        {
+            string query = "SELECT * FROM TURNOS";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Turnos");
+            return ds.Tables["Turnos"];
+        }
+        public DataTable ObtenerSexos()
+        {
+            string query = "SELECT DISTINCT SEXO_PAC FROM PACIENTES WHERE SEXO_PAC IS NOT NULL";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Sexos");
+            return ds.Tables["Sexos"];
+        }
+        public DataTable ObtenerEspecialidades()
+        {
+            string query = "SELECT DISTINCT NOMBRE_ESP FROM ESPECIALIDADES WHERE NOMBRE_ESP IS NOT NULL";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Especialidades");
+            return ds.Tables["Especialidades"];
+        }
+        public DataTable ObtenerDias()
+        {
+            string query = "SELECT DISTINCT DIA_SEMANA FROM HORARIOS_MEDICOS WHERE DIA_SEMANA IS NOT NULL";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Dias");
+            return ds.Tables["Dias"];
+        }
+        public void AgregarPaciente(Paciente paciente)
+        {
+            string query = "INSERT INTO PACIENTES (DNI_PAC, NOMBRE_PAC, APELLIDO_PAC, SEXO_PAC, NACIONALIDAD_PAC, FECHANAC_PAC, DIRECCION_PAC, ID_LOC_PAC, ID_PROV_PAC, CORREO_PAC, TELEFONO_PAC) " +
+                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono)";
+            DB datos = new DB();
+            datos.InsertarPaciente(paciente, query);
+
+        }
+        public void AgregarMedico(Medico medico)
+        {
+            string query = "INSERT INTO MEDICOS (DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED, ID_USUARIO) " +
+                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion, @legajo)";
+            DB datos = new DB();
+            datos.InsertarMedico(medico, query);
+
         }
 
         /*public void eliminarProducto(Medicos medico)

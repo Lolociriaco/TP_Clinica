@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace Vistas.Medicos
 {
@@ -14,7 +15,7 @@ namespace Vistas.Medicos
 		{
             if (!IsPostBack)
             {
-                BindEmptyGrid();
+                CargarTurnos();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "Doctor")
@@ -24,23 +25,18 @@ namespace Vistas.Medicos
 
             username.Text = Session["username"].ToString();
         }
+        private void CargarTurnos()
+        {
+            Validar validar = new Validar();
+            gvTurnos.DataSource = validar.ObtenerTurnos();
+            gvTurnos.DataBind();
+        }
 
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
             Response.Redirect("~/Login.aspx"); 
-        }
-        private void BindEmptyGrid()
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Name");
-            dt.Columns.Add("Speciality");
-            dt.Columns.Add("Phone Number");
-
-            // No se agregan filas => tabla vacía
-            gvTurnos.DataSource = dt;
-            gvTurnos.DataBind();
         }
 
     }

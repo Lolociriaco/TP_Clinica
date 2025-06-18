@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Entidades;
+using Negocio;
 
 namespace Vistas.Admin.pacientes
 {
@@ -12,6 +15,11 @@ namespace Vistas.Admin.pacientes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                CargarSexo();
+            }
+
             if (Session["role"] == null || Session["role"].ToString() != "Admin")
             {
                 Response.Redirect("~/Login.aspx");
@@ -26,25 +34,82 @@ namespace Vistas.Admin.pacientes
             Response.Redirect("~/Login.aspx"); 
         }
 
+        private void CargarSexo()
+        {
+            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            DataTable dtSexos = validar.ObtenerSexos();
+
+            ddlSexo.DataSource = dtSexos;
+            ddlSexo.DataTextField = "SEXO_PAC";
+            ddlSexo.DataValueField = "SEXO_PAC";
+            ddlSexo.DataBind();
+
+            ddlSexo.Items.Insert(0, new ListItem("", ""));
+        }
+
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
 
+
+        }
+
+
+        protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(txtLocality.Text) 
+               || string.IsNullOrEmpty(txtCity.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
+               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtBirth.Text))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (ddlSexo.SelectedValue == "0" || string.IsNullOrEmpty(ddlSexo.SelectedValue))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            Validar validar = new Validar();
+
+            string nombreCompleto = txtFullName.Text.Trim();
+            string[] partes = nombreCompleto.Split(' ');
+
+            string nombre = partes[0];
+            string apellido = partes.Length > 1 ? string.Join(" ", partes.Skip(1)) : "";
+
+            Paciente paciente = new Paciente
+            {
+                Nombre = nombre,
+                Apellido = apellido,
+                DNI = int.Parse(txtDNI.Text),
+                Localidad = txtLocality.Text,
+                Provincia = txtCity.Text,
+                FechaNacimiento = DateTime.Parse(txtBirth.Text),
+                Nacionalidad = txtNation.Text,
+                CorreoElectronico = txtMail.Text,
+                Direccion = txtAddress.Text,
+                Telefono = txtPhone.Text,
+                Sexo = ddlSexo.SelectedValue,
+            };
+
+            validar.AgregarPaciente(paciente);
+
+            lblMensaje.Text = "¡Patient added succesfully!";
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
+
             txtDNI.Text = "";
             txtFullName.Text = "";
-            ddlLocality.Text = "";
-            ddlCity.Text = "";
-            ddlSexo.Text = "";
-            ddlNation.Text = "";
+            txtLocality.Text = "";
+            txtCity.Text = "";
+            ddlSexo.SelectedIndex = 0;
+            txtNation.Text = "";
             txtAddress.Text = "";
             txtMail.Text = "";
             txtPhone.Text = "";
             txtBirth.Text = "";
-
-        }
-
-        protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
