@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cargarMedicos.aspx.cs" Inherits="Vistas.Admin.medicos.cargarMedicos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="editar_usuario.aspx.cs" Inherits="Vistas.Admin.medicos.editar_usuario" %>
 
 <!DOCTYPE html>
 
@@ -45,7 +45,7 @@
                     Doctors
                 </a>
 
-                <a href="/Admin/medicos/cargarMedicos.aspx" class="menu-item active">
+                <a href="/Admin/medicos/cargarMedicos.aspx" class="menu-item">
                     <img src="/Imagenes/add.png" 
                         class="icon-left" />
                     Add Doctors
@@ -63,7 +63,7 @@
                     Appointments
                 </a>
                 
-                <a href="/Admin/medicos/editar_usuario.aspx" class="menu-item">
+                <a href="/Admin/medicos/editar_usuario.aspx" class="menu-item active">
                     <img src="/Imagenes/edituser.png" 
                         class="icon-left" />
                     Edit User
@@ -86,7 +86,7 @@
             </div>
 
             <h2 class="title">
-                DOCTORS
+                Edit User
             </h2>
 
             </header>
@@ -94,109 +94,35 @@
             <%-----------------AGREGADO DE MEDICO-------------%>
             <div class="content-box">
 
-                <h3>¡Complete the fields!</h3>
+                <h3>Select new username and password</h3>
 
-                  <div class="row-medicos">
-                    <div class="form-group">
-                      <label>Full Name:</label>
-                      <asp:TextBox ID="txtFullName" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-
+                  <div class="row">
                     <div class="form-group">
                       <label>DNI:</label>
                       <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text"></asp:TextBox>
                     </div>
-                  </div>
-
-                  <div class="row-medicos">
-                    <div class="form-group">
-                      <label>Birthdate:</label>
-                      <asp:TextBox ID="txtBirth" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
 
                     <div class="form-group">
-                      <label>Nationality:</label>
-                      <asp:TextBox ID="txtNation" runat="server" CssClass="input-text"></asp:TextBox>
+                      <label>New username:</label>
+                      <asp:TextBox ID="txtUsername" runat="server" CssClass="input-text"></asp:TextBox>
                     </div>
                   </div>
 
-                  <div class="row-medicos">
+                  <div class="row">
                     <div class="form-group">
-                      <label>Address:</label>
-                      <asp:TextBox ID="txtAddress" runat="server" CssClass="input-text"></asp:TextBox>
+                      <label>New password:</label>
+                      <asp:TextBox ID="txtPass" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
                     </div>
 
                     <div class="form-group">
-                      <label>Sex:</label>
-                      <asp:DropDownList ID="ddlSexo" runat="server" CssClass="input-text"></asp:DropDownList>
+                      <label>Repeat password:</label>
+                      <asp:TextBox ID="txtRepPassword" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
                     </div>
                   </div>
 
-                  <div class="row-medicos">
-                      <div class="form-group">
-                        <label>City:</label>
-                        <asp:TextBox ID="txtCity" runat="server" CssClass="input-text"></asp:TextBox>
-                      </div>
-
-                      <div class="form-group">
-                        <label>Locality:</label>
-                        <asp:TextBox ID="txtLocality" runat="server" CssClass="input-text"></asp:TextBox>
-                      </div>
-                    </div>
-
-                  <div class="row-medicos">
-                    <div class="form-group">
-                      <label>Mail:</label>
-                      <asp:TextBox ID="txtMail" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Phone Number:</label>
-                      <asp:TextBox ID="txtPhone" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-                  </div>
-
-                 <div class="row-medicos">
-                   <div class="form-group">
-                     <label>File Number:</label>
-                     <asp:TextBox ID="txtLegajo" runat="server" CssClass="input-text"></asp:TextBox>
-                   </div>
-
-                   <div class="form-group">
-                     <label>Speciality:</label>
-                     <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
-                   </div>
-                 </div>
-
-                 <div class="row-medicos">
-                     <div class="form-group">
-                       <label>Days:</label>
-                       <asp:TextBox ID="txtDay" runat="server" CssClass="input-text"></asp:TextBox>
-                     </div>
-
-                     <div class="form-group">
-                       <label>Times:</label>
-                       <asp:TextBox ID="txtTimes" runat="server" CssClass="input-text"></asp:TextBox>
-                     </div>
-                   </div>
-
-                 <div class="row-medicos">
-                   <div class="form-group">
-                     <label>Username:</label>
-                     <asp:TextBox ID="txtUser" runat="server" CssClass="input-text"></asp:TextBox>
-                   </div>
-
-                   <div class="form-group">
-                     <label>Password:</label>
-                     <asp:TextBox ID="txtPassword" runat="server" CssClass="input-text"></asp:TextBox>
-                   </div>
-                 </div>
-
-                <div class="row row-center-medicos">
+                <div class="row row-center">
                     <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
                 </div>
-
-                    <asp:Label ID="lblMensaje" runat="server"></asp:Label>
 
             </div>
 
@@ -221,8 +147,8 @@
         <%----------------------------------POP UP CONFIRM---------------------------%>
         <asp:Panel ID="pnlConfirmAgregar" runat="server" CssClass="modalPopup" Style="display:none;">
             <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
-                <p>¿Are you sure that you want to add this doctor?</p>
-                <asp:Button ID="btnConfirmarAgregar" runat="server" Text="Yes, add" OnClick="btnConfirmarAgregar_Click" CssClass="confirm-button-add" />
+                <p>¿Are you sure that you want to edit this user?</p>
+                <asp:Button ID="btnConfirmarAgregar" runat="server" Text="Yes, edit" OnClick="btnConfirmarAgregar_Click" CssClass="confirm-button-add" />
                 <asp:Button ID="btnCancelarAgregar" runat="server" Text="Cancel" CssClass="cancel-button" />
             </div>
         </asp:Panel>

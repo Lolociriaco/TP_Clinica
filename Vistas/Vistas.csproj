@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -67,32 +70,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="abmlPaciente.aspx" />
+    <Content Include="Admin\Admin_style.css" />
     <Content Include="Admin\informes\verInformes.aspx" />
+    <Content Include="Admin\medicos\amblMedicos.aspx" />
+    <Content Include="Admin\medicos\editar_usuario.aspx" />
+    <Content Include="Admin\pacientes\abmlPaciente.aspx" />
     <Content Include="Admin\pacientes\cargarPaciente.aspx" />
     <Content Include="Admin\medicos\cargarMedicos.aspx" />
     <Content Include="Admin\turnos\asignar_turno.aspx" />
-    <Content Include="amblMedicos.aspx" />
-    <Content Include="estilos.css" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="login.aspx" />
-    <Content Include="styles.css" />
+    <Content Include="login_style.css" />
+    <Content Include="Medicos\medicos_style.css" />
+    <Content Include="Medicos\turnos.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="abmlPaciente.aspx.cs">
-      <DependentUpon>abmlPaciente.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="abmlPaciente.aspx.designer.cs">
-      <DependentUpon>abmlPaciente.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\informes\verInformes.aspx.cs">
       <DependentUpon>verInformes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\informes\verInformes.aspx.designer.cs">
       <DependentUpon>verInformes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\medicos\amblMedicos.aspx.cs">
+      <DependentUpon>amblMedicos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\medicos\amblMedicos.aspx.designer.cs">
+      <DependentUpon>amblMedicos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\medicos\editar_usuario.aspx.cs">
+      <DependentUpon>editar_usuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\medicos\editar_usuario.aspx.designer.cs">
+      <DependentUpon>editar_usuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\pacientes\abmlPaciente.aspx.cs">
+      <DependentUpon>abmlPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\pacientes\abmlPaciente.aspx.designer.cs">
+      <DependentUpon>abmlPaciente.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\pacientes\cargarPaciente.aspx.cs">
       <DependentUpon>cargarPaciente.aspx</DependentUpon>
@@ -115,19 +135,19 @@
     <Compile Include="Admin\turnos\asignar_turno.aspx.designer.cs">
       <DependentUpon>asignar_turno.aspx</DependentUpon>
     </Compile>
-    <Compile Include="amblMedicos.aspx.cs">
-      <DependentUpon>amblMedicos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="amblMedicos.aspx.designer.cs">
-      <DependentUpon>amblMedicos.aspx</DependentUpon>
-    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Medicos\turnos.aspx.cs">
+      <DependentUpon>turnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Medicos\turnos.aspx.designer.cs">
+      <DependentUpon>turnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,9 +170,7 @@
       <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Medicos\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

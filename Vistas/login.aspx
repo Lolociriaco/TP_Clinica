@@ -5,9 +5,10 @@
 <head runat="server">
     <title>Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
-    <link href="estilos.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
+    <link href="/login_style.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
     <form id="form1" runat="server"> 
         <div class="navbar">
@@ -16,19 +17,19 @@
         </div>
         <div class="login">
             <div class="login-container">
-                <h2>Iniciar Sesión</h2>
+                <h2>LOGIN</h2>
 
                 <div class="form-group">
-                    <label for="txtDni">DNI</label>
-                    <asp:TextBox ID="txtDni" runat="server" CssClass="input-text" Font-Names="Bahnschrift"/>
+                    <label for="txtUser">USER</label>
+                    <asp:TextBox ID="txtUser" runat="server" CssClass="input-text" Font-Names="Bahnschrift"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPassword">CONTRASEÑA</label>
+                    <label for="txtPassword">PASSWORD</label>
                     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input-text" Font-Names="Bahnschrift"/>
                 </div>
 
-                <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn-login" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnLogin" runat="server" Text="Confirm" CssClass="btn-login" OnClick="btnLogin_Click" />
 
                 <asp:Label ID="lblError" runat="server" CssClass="error" Visible="false" />
             </div>

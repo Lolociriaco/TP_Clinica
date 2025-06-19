@@ -1,4 +1,5 @@
 ﻿body {
+    background-color: cornflowerblue;
     margin: 0;
     height: 100vh;
 }
@@ -6,23 +7,23 @@
 .login {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: white;
     height: calc(100vh - 100px); /* restamos la altura del navbar */
     display: flex;
-    background: #3497F966;
+    color: #3497F966;
     align-items: center;
     justify-content: center;
 }
 
 .navbar {
     position: relative;
-    height: 100px;
+    height: 80px;
     padding: 0 32px;
     display: flex;
     z-index: 20;
     gap: 5px;
     align-items: center;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    background: white;
 }
 
     .navbar h2 {
@@ -33,17 +34,17 @@
     }
 
     .navbar img {
-        width: 80px;
+        width: 40px;
         height: auto;
     }
 
 .login-container {
-    background-color: #fff;
     padding: 20px 50px 30px 50px;
     border-radius: 8px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     width: 100%;
     max-width: 400px;
+    background: white;
 }
 
     .login-container h2 {
@@ -101,4 +102,3 @@ input[type="password"] {
     margin-top: 8px;
     text-align: center;
 }
-
