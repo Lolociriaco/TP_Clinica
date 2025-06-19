@@ -15,7 +15,7 @@ namespace Vistas
         {
             if (!IsPostBack)
             {
-                CargarMedicos();
+                //CargarMedicos();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "Admin")

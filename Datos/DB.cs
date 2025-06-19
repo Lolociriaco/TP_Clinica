@@ -12,7 +12,7 @@ namespace Datos
 {
     public class DB
     {
-        private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=False";
+        private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
         {
