@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="abmlPaciente.aspx.cs" Inherits="Vistas.abmlPaciente" %>
+﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="abmlPaciente.aspx.cs" Inherits="Vistas.abmlPaciente" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
 
-    <title>RR-SCD MED</title>
+    <titleRR-SCD MED</title>
 
     <link rel="stylesheet" href="/Admin/Admin_style.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
@@ -17,6 +17,12 @@
 
 <body>
     <form id="form4" runat="server"> 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BDCLINICA_TPINTEGRADORConnectionString %>" SelectCommand="SELECT P.NOMBRE_PAC, P.APELLIDO_PAC, P.DNI_PAC, P.SEXO_PAC, P.NACIONALIDAD_PAC, P.FECHANAC_PAC, P.DIRECCION_PAC, PROV.NOMBRE_PROV, P.CORREO_PAC, P.TELEFONO_PAC, LOC.NOMBRE_LOC 
+	FROM PACIENTES P
+	INNER JOIN LOCALIDADES LOC  
+	ON LOC.ID_LOC = P.ID_LOC_PAC
+	INNER JOIN PROVINCIAS PROV
+	ON PROV.ID_PROV = P.ID_PROV_PAC"></asp:SqlDataSource>
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
 
@@ -95,73 +101,19 @@
 
                 <div style="margin-top: 40px;">
 
-                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px">
+                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px" DataKeyNames="DNI_PAC" DataSourceID="SqlDataSource1">
                         <Columns>
-                            <asp:TemplateField HeaderText="Nombre">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblNombres" runat="server" Text='<%# Bind("NOMBRE_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Apellido">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("APELLIDO_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="DNI">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DNI_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Sexo">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblSexo" runat="server" Text='<%# Bind("SEXO_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Nacionalidad">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblNacionalidad" runat="server" Text='<%# Bind("NACIONALIDAD_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Fecha de nacimiento">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblNacimiento" runat="server" Text='<%# Bind("FECHANAC_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Direccion">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblDireccion" runat="server" Text='<%# Bind("DIRECCION_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Provincia">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblProvincia" runat="server" Text='<%# Bind("ID_PROV_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Localidad">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblLocalidad" runat="server" Text='<%# Bind("ID_LOC_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Correo">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblCorreo" runat="server" Text='<%# Bind("CORREO_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Teléfono">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblTelefono" runat="server" Text='<%# Bind("TELEFONO_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                            <asp:BoundField DataField="NOMBRE_PAC" HeaderText="NOMBRE_PAC" SortExpression="NOMBRE_PAC" />
+                            <asp:BoundField DataField="APELLIDO_PAC" HeaderText="APELLIDO_PAC" SortExpression="APELLIDO_PAC" />
+                            <asp:BoundField DataField="DNI_PAC" HeaderText="DNI_PAC" ReadOnly="True" SortExpression="DNI_PAC" />
+                            <asp:BoundField DataField="SEXO_PAC" HeaderText="SEXO_PAC" SortExpression="SEXO_PAC" />
+                            <asp:BoundField DataField="NACIONALIDAD_PAC" HeaderText="NACIONALIDAD_PAC" SortExpression="NACIONALIDAD_PAC" />
+                            <asp:BoundField DataField="FECHANAC_PAC" HeaderText="FECHANAC_PAC" SortExpression="FECHANAC_PAC" />
+                            <asp:BoundField DataField="DIRECCION_PAC" HeaderText="DIRECCION_PAC" SortExpression="DIRECCION_PAC" />
+                            <asp:BoundField DataField="NOMBRE_PROV" HeaderText="NOMBRE_PROV" SortExpression="NOMBRE_PROV" />
+                            <asp:BoundField DataField="CORREO_PAC" HeaderText="CORREO_PAC" SortExpression="CORREO_PAC" />
+                            <asp:BoundField DataField="TELEFONO_PAC" HeaderText="TELEFONO_PAC" SortExpression="TELEFONO_PAC" />
+                            <asp:BoundField DataField="NOMBRE_LOC" HeaderText="NOMBRE_LOC" SortExpression="NOMBRE_LOC" />
 
                         </Columns>
                         <EmptyDataTemplate>
