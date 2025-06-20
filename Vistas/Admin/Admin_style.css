@@ -28,6 +28,8 @@ body {
     flex-direction: column;
     padding: 20px;
     justify-content: space-between;
+    top: 0;
+    left: 1px;
 }
 
 .logo {

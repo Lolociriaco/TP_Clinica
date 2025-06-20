@@ -126,12 +126,12 @@
                   <div class="row">
                       <div class="form-group">
                         <label>City:</label>
-                        <asp:TextBox ID="txtCity" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text"></asp:DropDownList>
                       </div>
 
                       <div class="form-group">
                         <label>Locality:</label>
-                        <asp:TextBox ID="txtLocality" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlLocality" runat="server" CssClass="input-text"></asp:DropDownList>
                       </div>
                     </div>
 

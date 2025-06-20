@@ -188,7 +188,7 @@
         </div>
     </asp:Panel>
 
-    <ajaxToolkit:ModalPopupExtender ID="mpeLogout" runat="server"
+    <ajaxtoolkit:modalpopupextender ID="mpeLogout" runat="server"
         TargetControlID="btnLogout"
         PopupControlID="pnlConfirmLogout"
         CancelControlID="btnCancelarLogout"

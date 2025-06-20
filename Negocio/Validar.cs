@@ -76,12 +76,31 @@ namespace Negocio
         }
         public DataTable ObtenerEspecialidades()
         {
-            string query = "SELECT DISTINCT NOMBRE_ESP FROM ESPECIALIDADES WHERE NOMBRE_ESP IS NOT NULL";
+            string query = "SELECT NOMBRE_ESP, ID_ESP FROM ESPECIALIDADES";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Especialidades");
             return ds.Tables["Especialidades"];
+        }
+        public DataTable ObtenerProvincia()
+        {
+            string query = "SELECT ID_PROV, NOMBRE_PROV FROM PROVINCIAS";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Provincias");
+            return ds.Tables["Provincias"];
+        }
+
+        public DataTable ObtenerLocalidad()
+        {
+            string query = "SELECT ID_LOC, NOMBRE_LOC FROM LOCALIDADES";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Localidades");
+            return ds.Tables["Localidades"];
         }
         public DataTable ObtenerDias()
         {
@@ -95,18 +114,66 @@ namespace Negocio
         public void AgregarPaciente(Paciente paciente)
         {
             string query = "INSERT INTO PACIENTES (DNI_PAC, NOMBRE_PAC, APELLIDO_PAC, SEXO_PAC, NACIONALIDAD_PAC, FECHANAC_PAC, DIRECCION_PAC, ID_LOC_PAC, ID_PROV_PAC, CORREO_PAC, TELEFONO_PAC) " +
-                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono)";
-            DB datos = new DB();
-            datos.InsertarPaciente(paciente, query);
+                           "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono)";
 
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@dni", paciente._dni),
+                new SqlParameter("@nombre", paciente._nombre),
+                new SqlParameter("@apellido", paciente._apellido),
+                new SqlParameter("@sexo", paciente._sexo),
+                new SqlParameter("@nacionalidad", paciente._nacionalidad),
+                new SqlParameter("@fecha", paciente._fechaNacimiento),
+                new SqlParameter("@direccion", paciente._direccion),
+                new SqlParameter("@localidad", paciente._localidad),
+                new SqlParameter("@provincia", paciente._provincia),
+                new SqlParameter("@correo", paciente._correoElectronico),
+                new SqlParameter("@telefono", paciente._telefono),
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
         }
+
+
+        public void AgregarUsuario(Usuario user)
+        {
+            string query = "INSERT INTO USUARIOS (USUARIO, CONTRASENA, TIPO_USUARIO) " +
+                           "VALUES (@usuario, @contrasena, @tipoUsuario)";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@usuario", user.NombreUsuario),
+                new SqlParameter("@contrasena", user.Contrasena),
+                new SqlParameter("@tipoUsuario", user.TipoUsuario)
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
+        }
+
         public void AgregarMedico(Medico medico)
         {
-            string query = "INSERT INTO MEDICOS (DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED, ID_USUARIO) " +
-                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion, @legajo)";
-            DB datos = new DB();
-            datos.InsertarMedico(medico, query);
+            string query = "INSERT INTO MEDICOS (DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED) " +
+                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion)";
 
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@dni", medico._dni),
+                new SqlParameter("@nombre", medico._nombre),
+                new SqlParameter("@apellido", medico._apellido),
+                new SqlParameter("@sexo", medico._sexo),
+                new SqlParameter("@nacionalidad", medico._nacionalidad),
+                new SqlParameter("@fecha", medico._fechaNacimiento),
+                new SqlParameter("@direccion", medico._direccion),
+                new SqlParameter("@localidad", medico._localidad),
+                new SqlParameter("@provincia", medico._provincia),
+                new SqlParameter("@correo", medico._correoElectronico),
+                new SqlParameter("@telefono", medico._telefono),
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
         }
 
         /*public void eliminarProducto(Medicos medico)

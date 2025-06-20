@@ -52,7 +52,7 @@ namespace Vistas.Admin.medicos
 
             ddlSpeciality.DataSource = dtSexos;
             ddlSpeciality.DataTextField = "NOMBRE_ESP";
-            ddlSpeciality.DataValueField = "NOMBRE_ESP";
+            ddlSpeciality.DataValueField = "ID_ESP";
             ddlSpeciality.DataBind();
 
             ddlSpeciality.Items.Insert(0, new ListItem("", ""));
@@ -91,6 +91,13 @@ namespace Vistas.Admin.medicos
             string nombre = partes[0];
             string apellido = partes.Length > 1 ? string.Join(" ", partes.Skip(1)) : "";
 
+            Usuario user = new Usuario
+            {
+                NombreUsuario = txtUser.Text,
+                Contrasena = txtPassword.Text,
+                TipoUsuario = "MEDICO"
+            };
+
             Medico medico = new Medico
             {
                 Nombre = nombre,
@@ -104,13 +111,13 @@ namespace Vistas.Admin.medicos
                 Telefono = txtPhone.Text,
                 Sexo = ddlSexo.SelectedValue,
                 Especialidad = ddlSpeciality.SelectedValue,
-                Legajo = int.Parse(txtLegajo.Text),
-                DiasYHorariosAtencion = txtPhone.Text,
+                DiasYHorariosAtencion = txtTimes.Text,
                 Usuario = txtUser.Text,
                 FechaNacimiento = DateTime.Parse(txtBirth.Text),
                 Contrasena = txtPassword.Text
             };
 
+            validar.AgregarUsuario(user);
             validar.AgregarMedico(medico);
 
             lblMensaje.Text = "¡Doctor added succesfully!";

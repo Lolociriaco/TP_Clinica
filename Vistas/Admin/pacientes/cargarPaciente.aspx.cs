@@ -18,6 +18,8 @@ namespace Vistas.Admin.pacientes
             if (!IsPostBack)
             {
                 CargarSexo();
+                CargarLocalidad();
+                CargarProvincia();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "Admin")
@@ -53,11 +55,36 @@ namespace Vistas.Admin.pacientes
 
         }
 
+        private void CargarProvincia()
+        {
+            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            DataTable dtCity = validar.ObtenerProvincia();
+
+            ddlCity.DataSource = dtCity;
+            ddlCity.DataTextField = "NOMBRE_PROV";
+            ddlCity.DataValueField = "ID_PROV";
+            ddlCity.DataBind();
+
+            ddlCity.Items.Insert(0, new ListItem("", ""));
+        }
+
+        private void CargarLocalidad()
+        {
+            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            DataTable dtLocality = validar.ObtenerLocalidad();
+
+            ddlLocality.DataSource = dtLocality;
+            ddlLocality.DataTextField  = "NOMBRE_LOC";
+            ddlLocality.DataValueField = "ID_LOC";
+            ddlLocality.DataBind();
+
+            ddlLocality.Items.Insert(0, new ListItem("", ""));
+        }
 
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(txtLocality.Text) 
-               || string.IsNullOrEmpty(txtCity.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(ddlLocality.Text) 
+               || string.IsNullOrEmpty(ddlCity.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
                || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtBirth.Text))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
@@ -85,8 +112,8 @@ namespace Vistas.Admin.pacientes
                 Nombre = nombre,
                 Apellido = apellido,
                 DNI = int.Parse(txtDNI.Text),
-                Localidad = txtLocality.Text,
-                Provincia = txtCity.Text,
+                Localidad = ddlLocality.SelectedValue,
+                Provincia = ddlCity.SelectedValue,
                 FechaNacimiento = DateTime.Parse(txtBirth.Text),
                 Nacionalidad = txtNation.Text,
                 CorreoElectronico = txtMail.Text,
@@ -102,8 +129,8 @@ namespace Vistas.Admin.pacientes
 
             txtDNI.Text = "";
             txtFullName.Text = "";
-            txtLocality.Text = "";
-            txtCity.Text = "";
+            ddlLocality.Text = "";
+            ddlCity.Text = "";
             ddlSexo.SelectedIndex = 0;
             txtNation.Text = "";
             txtAddress.Text = "";

@@ -1,4 +1,3 @@
-﻿
 ﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="amblMedicos.aspx.cs" Inherits="Vistas.amblMedicos" %>
 
 <!DOCTYPE html>
