@@ -136,10 +136,10 @@ namespace Negocio
         }
 
 
-        public void AgregarUsuario(Usuario user)
+        public int AgregarUsuario(Usuario user)
         {
             string query = "INSERT INTO USUARIOS (USUARIO, CONTRASENA, TIPO_USUARIO) " +
-                           "VALUES (@usuario, @contrasena, @tipoUsuario)";
+                           "VALUES (@usuario, @contrasena, @tipoUsuario); SELECT SCOPE_IDENTITY();";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -149,13 +149,20 @@ namespace Negocio
             };
 
             DB datos = new DB();
-            datos.EjecutarInsert(query, parametros);
+            using (SqlConnection conn = datos.obtenerConexion())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddRange(parametros);
+                conn.Open();
+                object result = cmd.ExecuteScalar();
+                return Convert.ToInt32(result); // devuelve el ID generado
+            }
         }
 
         public void AgregarMedico(Medico medico)
         {
-            string query = "INSERT INTO MEDICOS (DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED) " +
-                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion)";
+            string query = "INSERT INTO MEDICOS (DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED, ID_USUARIO) " +
+                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion, @legajo)";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -170,6 +177,9 @@ namespace Negocio
                 new SqlParameter("@provincia", medico._provincia),
                 new SqlParameter("@correo", medico._correoElectronico),
                 new SqlParameter("@telefono", medico._telefono),
+                new SqlParameter("@especialidad", medico._especialidad),
+                new SqlParameter("@diasYHorariosAtencion", medico._diasYHorariosAtencion),
+                new SqlParameter("@legajo", medico._legajo),
             };
 
             DB datos = new DB();

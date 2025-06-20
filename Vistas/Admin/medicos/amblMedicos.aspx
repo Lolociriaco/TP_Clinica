@@ -15,7 +15,7 @@
         <body>
           <form id="form2" runat="server"> 
               <asp:SqlDataSource ID="SqlDataSource1"
-                  runat="server" ConnectionString="<%$ ConnectionStrings:BDCLINICA_TPINTEGRADORConnectionString %>" SelectCommand="SELECT M.ID_USUARIO, M.NOMBRE_MED, M.APELLIDO_MED, M.DNI_MED, M.SEXO_MED, M.NACIONALIDAD_MED, M.DIRECCION_MED, M.FECHANAC_MED, LOC.NOMBRE_LOC, M.ID_LOC_MED, M.ID_PROV_MED, PROV.NOMBRE_PROV,
+                  runat="server" ConnectionString="<%$ ConnectionStrings:BDCLINICA_TPINTEGRADORConnectionString2 %>" SelectCommand="SELECT M.ID_USUARIO, M.NOMBRE_MED, M.APELLIDO_MED, M.DNI_MED, M.SEXO_MED, M.NACIONALIDAD_MED, M.DIRECCION_MED, M.FECHANAC_MED, LOC.NOMBRE_LOC, M.ID_LOC_MED, M.ID_PROV_MED, PROV.NOMBRE_PROV,
                 M.TELEFONO_MED, M.CORREO_MED, M.DIAS_HORARIO_MED 
                 FROM MEDICOS M
 	                INNER JOIN LOCALIDADES LOC  
@@ -39,7 +39,7 @@
                     DIAS_HORARIO_MED = @DIAS_HORARIO_MED,
                     ID_LOC_MED = @ID_LOC_MED,
                     ID_PROV_MED = @ID_PROV_MED
-                    WHERE ID_USUARIO = @ID_USUARIO">
+                    WHERE ID_USUARIO = @ID_USUARIO" ProviderName="<%$ ConnectionStrings:BDCLINICA_TPINTEGRADORConnectionString2.ProviderName %>">
 
                     <UpdateParameters>
                         <asp:Parameter Name="NOMBRE_MED" Type="String" />
@@ -52,9 +52,9 @@
                         <asp:Parameter Name="TELEFONO_MED" Type="String" />
                         <asp:Parameter Name="CORREO_MED" Type="String" />
                         <asp:Parameter Name="DIAS_HORARIO_MED" Type="String" />
-                        <asp:Parameter Name="ID_USUARIO" Type="Int32" />
                         <asp:Parameter Name="ID_LOC_MED" Type="Int32" />
                         <asp:Parameter Name="ID_PROV_MED" Type="Int32" />
+                        <asp:Parameter Name="ID_USUARIO" Type="Int32" />
                     </UpdateParameters>
 
                     <DeleteParameters>

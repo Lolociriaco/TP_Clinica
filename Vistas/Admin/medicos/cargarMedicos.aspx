@@ -135,12 +135,12 @@
                   <div class="row-medicos">
                       <div class="form-group">
                         <label>City:</label>
-                        <asp:TextBox ID="txtCity" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text"></asp:DropDownList>
                       </div>
 
                       <div class="form-group">
                         <label>Locality:</label>
-                        <asp:TextBox ID="txtLocality" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlLocality" runat="server" CssClass="input-text"></asp:DropDownList>
                       </div>
                     </div>
 
@@ -158,13 +158,13 @@
 
                  <div class="row-medicos">
                    <div class="form-group">
-                     <label>File Number:</label>
-                     <asp:TextBox ID="txtLegajo" runat="server" CssClass="input-text"></asp:TextBox>
+                     <label>Speciality:</label>
+                     <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
                    </div>
 
                    <div class="form-group">
-                     <label>Speciality:</label>
-                     <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
+                       <label>Times:</label>
+                       <asp:TextBox ID="txtTimes" runat="server" CssClass="input-text"></asp:TextBox>
                    </div>
                  </div>
 
@@ -175,20 +175,20 @@
                      </div>
 
                      <div class="form-group">
-                       <label>Times:</label>
-                       <asp:TextBox ID="txtTimes" runat="server" CssClass="input-text"></asp:TextBox>
+                         <label>Username:</label>
+                         <asp:TextBox ID="txtUser" runat="server" CssClass="input-text"></asp:TextBox>
                      </div>
                    </div>
 
                  <div class="row-medicos">
                    <div class="form-group">
-                     <label>Username:</label>
-                     <asp:TextBox ID="txtUser" runat="server" CssClass="input-text"></asp:TextBox>
+                     <label>Password:</label>
+                     <asp:TextBox ID="txtPassword" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
                    </div>
 
                    <div class="form-group">
-                     <label>Password:</label>
-                     <asp:TextBox ID="txtPassword" runat="server" CssClass="input-text"></asp:TextBox>
+                     <label>Repeat password:</label>
+                     <asp:TextBox ID="txtRepeatPass" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
                    </div>
                  </div>
 
@@ -196,7 +196,9 @@
                     <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
                 </div>
 
+                <div style="margin-left: 662px; margin-top: 40px;">
                     <asp:Label ID="lblMensaje" runat="server"></asp:Label>
+                </div>
 
             </div>
 

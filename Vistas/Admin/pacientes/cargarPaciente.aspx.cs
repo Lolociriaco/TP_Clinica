@@ -49,12 +49,6 @@ namespace Vistas.Admin.pacientes
             ddlSexo.Items.Insert(0, new ListItem("", ""));
         }
 
-        protected void btnConfirm_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
         private void CargarProvincia()
         {
             Validar validar = new Validar(); // o el nombre real de tu clase de negocio
@@ -81,18 +75,24 @@ namespace Vistas.Admin.pacientes
             ddlLocality.Items.Insert(0, new ListItem("", ""));
         }
 
+        protected void btnConfirm_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(ddlLocality.Text) 
-               || string.IsNullOrEmpty(ddlCity.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
-               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtBirth.Text))
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(txtNation.Text) 
+               || string.IsNullOrEmpty(txtAddress.Text) || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) 
+               || string.IsNullOrEmpty(txtBirth.Text))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
-            if (ddlSexo.SelectedValue == "0" || string.IsNullOrEmpty(ddlSexo.SelectedValue))
+            if (ddlSexo.SelectedValue == "0" || string.IsNullOrEmpty(ddlSexo.SelectedValue) || ddlCity.SelectedValue == "0" || string.IsNullOrEmpty(ddlCity.SelectedValue) || ddlLocality.SelectedValue == "0" || string.IsNullOrEmpty(ddlLocality.SelectedValue))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
@@ -129,8 +129,8 @@ namespace Vistas.Admin.pacientes
 
             txtDNI.Text = "";
             txtFullName.Text = "";
-            ddlLocality.Text = "";
-            ddlCity.Text = "";
+            ddlLocality.SelectedIndex = 0;
+            ddlCity.SelectedIndex = 0;
             ddlSexo.SelectedIndex = 0;
             txtNation.Text = "";
             txtAddress.Text = "";

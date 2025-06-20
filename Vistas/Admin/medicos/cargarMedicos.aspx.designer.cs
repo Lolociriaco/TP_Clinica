@@ -105,22 +105,22 @@ namespace Vistas.Admin.medicos
         protected global::System.Web.UI.WebControls.DropDownList ddlSexo;
 
         /// <summary>
-        /// Control txtCity.
+        /// Control ddlCity.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCity;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCity;
 
         /// <summary>
-        /// Control txtLocality.
+        /// Control ddlLocality.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLocality;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLocality;
 
         /// <summary>
         /// Control txtMail.
@@ -141,15 +141,6 @@ namespace Vistas.Admin.medicos
         protected global::System.Web.UI.WebControls.TextBox txtPhone;
 
         /// <summary>
-        /// Control txtLegajo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLegajo;
-
-        /// <summary>
         /// Control ddlSpeciality.
         /// </summary>
         /// <remarks>
@@ -159,15 +150,6 @@ namespace Vistas.Admin.medicos
         protected global::System.Web.UI.WebControls.DropDownList ddlSpeciality;
 
         /// <summary>
-        /// Control txtDay.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDay;
-
-        /// <summary>
         /// Control txtTimes.
         /// </summary>
         /// <remarks>
@@ -175,6 +157,15 @@ namespace Vistas.Admin.medicos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTimes;
+
+        /// <summary>
+        /// Control txtDay.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDay;
 
         /// <summary>
         /// Control txtUser.
@@ -193,6 +184,15 @@ namespace Vistas.Admin.medicos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
+
+        /// <summary>
+        /// Control txtRepeatPass.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRepeatPass;
 
         /// <summary>
         /// Control btnConfirm.

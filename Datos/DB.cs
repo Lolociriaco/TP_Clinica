@@ -12,7 +12,7 @@ namespace Datos
 {
     public class DB
     {
-        private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
         {
@@ -21,7 +21,7 @@ namespace Datos
             return adaptador;
         }
 
-        private SqlConnection obtenerConexion()
+        public SqlConnection obtenerConexion()
         {
             return new SqlConnection(cadenaConexion);
         }

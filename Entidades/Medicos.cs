@@ -24,13 +24,14 @@ namespace Entidades
         public string _diasYHorariosAtencion;
         public string _usuario;
         public string _contrasena;
+        public string _repecontrasena;
 
         public Medico() { }
 
         public Medico(int legajo, int dni, string nombre, string apellido, string sexo,
                       string nacionalidad, DateTime fechaNacimiento, string direccion,
                       string localidad, string provincia, string correoElectronico, string telefono,
-                      string especialidad, string diasYHorariosAtencion, string usuario, string contrasena)
+                      string especialidad, string diasYHorariosAtencion, string usuario, string contrasena, string repecontrasena)
         {
             _legajo = legajo;
             _dni = dni;
@@ -48,6 +49,7 @@ namespace Entidades
             _diasYHorariosAtencion = diasYHorariosAtencion;
             _usuario = usuario;
             _contrasena = contrasena;
+            _repecontrasena = repecontrasena;
         }
 
         public int Legajo
@@ -144,6 +146,12 @@ namespace Entidades
         {
             get { return _contrasena; }
             set { _contrasena = value; }
+        }
+        
+        public string RepeContrasena
+        {
+            get { return _repecontrasena; }
+            set { _repecontrasena = value; }
         }
     }
 
