@@ -93,114 +93,98 @@
 
             <%-----------------AGREGADO DE MEDICO-------------%>
             <div class="content-box">
-
                 <h3>¡Complete the fields!</h3>
 
-                  <div class="row-medicos">
-                    <div class="form-group">
-                      <label>Full Name:</label>
-                      <asp:TextBox ID="txtFullName" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
+              <div class="form-grid-medicos">
 
-                    <div class="form-group">
-                      <label>DNI:</label>
-                      <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-                  </div>
-
-                  <div class="row-medicos">
-                    <div class="form-group">
-                      <label>Birthdate:</label>
-                      <asp:TextBox ID="txtBirth" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Nationality:</label>
-                      <asp:TextBox ID="txtNation" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-                  </div>
-
-                  <div class="row-medicos">
-                    <div class="form-group">
-                      <label>Address:</label>
-                      <asp:TextBox ID="txtAddress" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Sex:</label>
-                      <asp:DropDownList ID="ddlSexo" runat="server" CssClass="input-text"></asp:DropDownList>
-                    </div>
-                  </div>
-
-                  <div class="row-medicos">
-                      <div class="form-group">
-                        <label>City:</label>
-                        <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text"></asp:DropDownList>
-                      </div>
-
-                      <div class="form-group">
-                        <label>Locality:</label>
-                        <asp:DropDownList ID="ddlLocality" runat="server" CssClass="input-text"></asp:DropDownList>
-                      </div>
-                    </div>
-
-                  <div class="row-medicos">
-                    <div class="form-group">
-                      <label>Mail:</label>
-                      <asp:TextBox ID="txtMail" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Phone Number:</label>
-                      <asp:TextBox ID="txtPhone" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-                  </div>
-
-                 <div class="row-medicos">
-                   <div class="form-group">
-                     <label>Speciality:</label>
-                     <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
-                   </div>
-
-                   <div class="form-group">
-                       <label>Times:</label>
-                       <asp:TextBox ID="txtTimes" runat="server" CssClass="input-text"></asp:TextBox>
-                   </div>
-                 </div>
-
-                 <div class="row-medicos">
-                     <div class="form-group">
-                       <label>Days:</label>
-                       <asp:TextBox ID="txtDay" runat="server" CssClass="input-text"></asp:TextBox>
-                     </div>
-
-                     <div class="form-group">
-                         <label>Username:</label>
-                         <asp:TextBox ID="txtUser" runat="server" CssClass="input-text"></asp:TextBox>
-                     </div>
-                   </div>
-
-                 <div class="row-medicos">
-                   <div class="form-group">
-                     <label>Password:</label>
-                     <asp:TextBox ID="txtPassword" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
-                   </div>
-
-                   <div class="form-group">
-                     <label>Repeat password:</label>
-                     <asp:TextBox ID="txtRepeatPass" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
-                   </div>
-                 </div>
-
-                <div class="row row-center-medicos">
-                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                <div class="form-group">
+                  <label>Full Name:</label>
+                  <asp:TextBox ID="txtFullName" runat="server" CssClass="input-text" />
                 </div>
 
-                <div style="margin-left: 662px; margin-top: 40px;">
-                    <asp:Label ID="lblMensaje" runat="server"></asp:Label>
+                <div class="form-group">
+                  <label>DNI:</label>
+                  <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" />
                 </div>
 
+                <div class="form-group">
+                  <label>Birthdate:</label>
+                  <asp:TextBox ID="txtBirth" runat="server" CssClass="input-text" TextMode="Date" />
+                </div>
+
+                <div class="form-group">
+                  <label>Nationality:</label>
+                  <asp:TextBox ID="txtNation" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Address:</label>
+                  <asp:TextBox ID="txtAddress" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Sex:</label>
+                  <asp:DropDownList ID="ddlSexo" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>City:</label>
+                  <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Locality:</label>
+                  <asp:DropDownList ID="ddlLocality" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Mail:</label>
+                  <asp:TextBox ID="txtMail" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Phone Number:</label>
+                  <asp:TextBox ID="txtPhone" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Speciality:</label>
+                  <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Times:</label>
+                  <asp:TextBox ID="txtTimes" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Days:</label>
+                  <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Username:</label>
+                  <asp:TextBox ID="txtUser" runat="server" CssClass="input-text" />
+                </div>
+
+                <div class="form-group">
+                  <label>Password:</label>
+                  <asp:TextBox ID="txtPassword" runat="server" CssClass="input-text" TextMode="Password" />
+                </div>
+
+                <div class="form-group">
+                  <label>Repeat Password:</label>
+                  <asp:TextBox ID="txtRepeatPass" runat="server" CssClass="input-text" TextMode="Password" />
+                </div>
+
+              </div>
+
+              <div class="form-footer">
+                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                <asp:Label ID="lblMensaje" runat="server" CssClass="form-message" />
+              </div>
             </div>
+
 
         </main>
     </div>

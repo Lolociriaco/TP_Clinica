@@ -183,8 +183,8 @@
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtFECHANAC_MED" runat="server"
-                                                 Text='<%# Bind("FECHANAC_MED") %>'
-                                                 TextMode="Date"></asp:TextBox>
+                                     Text='<%# Bind("FECHANAC_MED", "{0:yyyy-MM-dd}") %>'
+                                     TextMode="Date" />
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
@@ -211,8 +211,8 @@
                                                Text='<%# Bind("ID_PROV_MED") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="txtID_PROV_MED" runat="server"
-                                                 Text='<%# Bind("ID_PROV_MED") %>'></asp:TextBox>
+                                    <asp:DropDownList ID="ddlID_PROV_MED" runat="server"
+                                                 Text='<%# Bind("ID_PROV_MED") %>'></asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
 

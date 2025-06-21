@@ -23,6 +23,34 @@ namespace Negocio
             return db.updateUser(query, parametros);
         }
 
+        public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
+        {
+            List<string> sets = new List<string>();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            if (newUser != null)
+            {
+                sets.Add("USUARIO = @nuevoUsuario");
+                parametros.Add(new SqlParameter("@nuevoUsuario", newUser));
+            }
+
+            if (newPassword != null)
+            {
+                sets.Add("CONTRASENA = @nuevaPass");
+                parametros.Add(new SqlParameter("@nuevaPass", newPassword));
+            }
+
+            // WHERE con el usuario original
+            parametros.Add(new SqlParameter("@usuarioOriginal", user));
+
+            string query = "UPDATE Usuarios SET " + string.Join(", ", sets) + " WHERE Usuario = @usuarioOriginal";
+
+            DB db = new DB();
+
+            return db.updateUser(query, parametros.ToArray());
+        }
+
+
         public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
                                  string direccion, string correo, string telefono, DateTime fechaNac,
                                  string sexo, int idLoc, int idProv, string diasHorario)

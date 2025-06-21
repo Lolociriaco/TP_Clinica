@@ -33,28 +33,59 @@ namespace Vistas
         {
             if (e.Row.RowType == DataControlRowType.DataRow && gvMedicos.EditIndex == e.Row.RowIndex)
             {
+                Validar validar = new Validar(); // clase de acceso a datos
+
+                // LOCALIDAD 
                 DropDownList ddlLocalidad = (DropDownList)e.Row.FindControl("ddlID_LOC_MED");
                 if (ddlLocalidad != null)
                 {
-                    Validar validar = new Validar();
                     DataTable dtLocalidad = validar.ObtenerLocalidad();
-
                     ddlLocalidad.DataSource = dtLocalidad;
-                    ddlLocalidad.DataTextField = "NOMBRE_LOC"; // nombre a mostrar
-                    ddlLocalidad.DataValueField = "ID_LOC";    // valor (clave primaria)
+                    ddlLocalidad.DataTextField = "NOMBRE_LOC";
+                    ddlLocalidad.DataValueField = "ID_LOC";
                     ddlLocalidad.DataBind();
+                    ddlLocalidad.Items.Insert(0, new ListItem("-- Seleccione --", ""));
 
-                    // Seleccionar el valor actual de localidad
-                    string localidadActual = DataBinder.Eval(e.Row.DataItem, "ID_LOC_MED").ToString();
-
-                    // Verificá que el valor existe antes de asignarlo
-                    if (ddlLocalidad.Items.FindByValue(localidadActual) != null)
+                    object locObj = DataBinder.Eval(e.Row.DataItem, "ID_LOC_MED");
+                    if (locObj != null)
                     {
-                        ddlLocalidad.SelectedValue = localidadActual;
+                        string localidadActual = locObj.ToString();
+                        if (ddlLocalidad.Items.FindByValue(localidadActual) != null)
+                        {
+                            ddlLocalidad.SelectedValue = "1";
+                        }
                     }
                 }
+
+                // PROVINCIA 
+                DropDownList ddlProvincia = (DropDownList)e.Row.FindControl("ddlID_PROV_MED");
+                if (ddlProvincia != null)
+                {
+                    DataTable dtProvincia = validar.ObtenerProvincia();
+                    ddlProvincia.DataSource = dtProvincia;
+                    ddlProvincia.DataTextField = "NOMBRE_PROV";
+                    ddlProvincia.DataValueField = "ID_PROV";
+                    ddlProvincia.DataBind();
+
+                    // Agregar opción por defecto
+                    ddlProvincia.Items.Insert(0, new ListItem("-- Seleccione --", ""));
+
+                    object provObj = DataBinder.Eval(e.Row.DataItem, "ID_PROV_MED");
+                    if (provObj != null)
+                    {
+                        string provinciaActual = provObj.ToString();
+
+                        ListItem item = ddlProvincia.Items.FindByValue(provinciaActual);
+                        if (item != null)
+                        {
+                            ddlProvincia.SelectedValue = "1";
+                        }
+                    }
+                }
+
             }
         }
+
 
 
         protected void gvMedicos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -102,7 +133,13 @@ namespace Vistas
             string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
 
             string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_MED")).Text;
-            DateTime nuevaFechaNac = DateTime.Parse(fechaNacString);
+            DateTime nuevaFechaNac;
+            if (!DateTime.TryParse(fechaNacString, out nuevaFechaNac))
+            {
+                // Manejar error!!!
+                //lblMensaje.Text = "La fecha de nacimiento ingresada no es válida.";
+                return;
+            }
 
             string nuevoSexo = ((DropDownList)row.FindControl("ddlSEXO_MED")).SelectedValue;
 

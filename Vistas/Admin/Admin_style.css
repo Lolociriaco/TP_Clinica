@@ -139,38 +139,28 @@ header {
 .content-box {
     background-color: #fff;
     border-radius: 12px;
-    padding: 25px;
+    padding: 40px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    flex: 1;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-
-}
-
-.row-medicos {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.row-center {
-    display: flex;
-    justify-content: center;
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 70px; /* filas y columnas */
     margin-top: 30px;
 }
 
-.row-center-medicos {
-    display: flex;
-    justify-content: center;
-    margin-top: 0px;
+
+.form-grid-medicos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 70px; /* filas y columnas */
+    margin-top: 30px;
 }
 
 .form-group {
-    flex: 0 0 48%;
     display: flex;
     flex-direction: column;
 }
@@ -178,22 +168,33 @@ header {
 .input-text,
 select,
 input[type="text"] {
-    width: 80%;
+    width: 100%;
     margin-top: 4px;
     padding: 10px 14px;
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 14px;
-    box-shadow: 12px 12px 49px -18px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 12px 12px 49px -18px rgba(0,0,0,0.75);
-    -moz-box-shadow: 12px 12px 49px -18px rgba(0,0,0,0.75);
+    transition: box-shadow 0.3s ease;
+}
+
+    .input-text:focus {
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+        outline: none;
+    }
+
+.form-footer {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .btn-confirm {
     width: 60%;
     padding: 12px;
-    margin: 40px auto 0 auto;
+    margin: 30px auto 0 auto;
     background-color: #159EEC;
     border: none;
     font-family: "Work Sans", sans-serif;
@@ -208,6 +209,7 @@ input[type="text"] {
     .btn-confirm:hover {
         background-color: #117FBF;
     }
+
 
 /*--- POP UP STYLE ----*/
 .modalBackground {

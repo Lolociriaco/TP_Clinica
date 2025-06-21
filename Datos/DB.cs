@@ -67,8 +67,8 @@ namespace Datos
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
 
-                cmd.Parameters.Add(parametro);
-
+                cmd.Parameters.AddRange(parametro);
+                conn.Open();
                 // Devuelve true si el user existe
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {

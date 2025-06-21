@@ -84,48 +84,41 @@
               </header>
 
               <div class="content-box">
-                
                 <h3>¡Complete the fields!</h3>
 
-               <div class="row">
-                  <div class="form-group">
-                    <label>Speciality:</label>
-                    <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
-                  </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Speciality:</label>
+                        <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
+                    </div>
 
-                  <div class="form-group">
-                    <label>Doctor:</label>
-                    <asp:TextBox ID="txtDoctor" runat="server" CssClass="input-text"></asp:TextBox>
-                  </div>
-                </div>
+                    <div class="form-group">
+                        <label>Doctor:</label>
+                        <asp:TextBox ID="txtDoctor" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
 
-                <div class="row">
-                  <div class="form-group">
-                    <label>Day:</label>
-                    <asp:DropDownList ID="ddlDay" runat="server" CssClass="input-text"></asp:DropDownList>
-                  </div>
+                    <div class="form-group">
+                        <label>Day:</label>
+                        <asp:DropDownList ID="ddlDay" runat="server" CssClass="input-text"></asp:DropDownList>
+                    </div>
 
-                  <div class="form-group">
-                    <label>Time:</label>
-                    <asp:TextBox ID="txtTime" runat="server" CssClass="input-text"></asp:TextBox>
-                  </div>
-                </div>
+                    <div class="form-group">
+                        <label>Time:</label>
+                        <asp:TextBox ID="txtTime" runat="server" CssClass="input-text"></asp:TextBox>
+                    </div>
 
-                <div class="row">
-                      <div class="form-group">
+                    <div class="form-group">
                         <label>Patient:</label>
                         <asp:TextBox ID="txtPatient" runat="server" CssClass="input-text"></asp:TextBox>
-                      </div>
+                    </div>
                 </div>
 
-                  <div class="row row-center">
+                <div class="form-footer">
                     <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                    <asp:Label ID="lblMensaje" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="Red"></asp:Label>
+                </div>
+            </div>
 
-                  </div>
-
-                      <asp:Label ID="lblMensaje" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="Red"></asp:Label>
-                
-              </div>
             </main>
           </div>
 

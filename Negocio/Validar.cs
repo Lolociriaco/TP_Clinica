@@ -23,7 +23,7 @@ namespace Negocio
             if (password.Length < 6) return false;
 
 
-            string query = "SELECT * FROM Usuarios WHERE User = @user AND Password = @password";
+            string query = "SELECT * FROM USUARIOS WHERE USUARIO = @user AND CONTRASENA = @password";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -34,7 +34,22 @@ namespace Negocio
             DB db = new DB();
             bool existe = db.validarUser(query, parametros);
 
-            return true;
+            return existe;
+        }
+
+        public bool ValidarCambioUsuario(string user)
+        {
+            string query = "SELECT * FROM USUARIOS WHERE USUARIO = @user";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@user", user),
+            };
+
+            DB db = new DB();
+            bool existe = db.validarUser(query, parametros);
+
+            return existe;
         }
 
         public DataTable ObtenerMedicos()

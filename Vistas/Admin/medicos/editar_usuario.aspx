@@ -92,40 +92,39 @@
             </header>
 
             <%-----------------AGREGADO DE MEDICO-------------%>
-            <div class="content-box">
+                <div class="content-box">
 
-                <h3>Select new username and password</h3>
+                    <h3>Select new username and password</h3>
 
-                  <div class="row">
-                    <div class="form-group">
-                      <label>DNI:</label>
-                      <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text"></asp:TextBox>
+                    <asp:Label ID="lblEstado" runat="server" BorderColor="Red" BackColor="Red"></asp:Label>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Usuario:</label>
+                            <asp:TextBox ID="txtUsuario" runat="server" CssClass="input-text"></asp:TextBox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>New username:</label>
+                            <asp:TextBox ID="txtNuevoUsuario" runat="server" CssClass="input-text"></asp:TextBox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>New password:</label>
+                            <asp:TextBox ID="txtPass" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Repeat password:</label>
+                            <asp:TextBox ID="txtRepPassword" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                      <label>New username:</label>
-                      <asp:TextBox ID="txtUsername" runat="server" CssClass="input-text"></asp:TextBox>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="form-group">
-                      <label>New password:</label>
-                      <asp:TextBox ID="txtPass" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
+                    <div class="form-footer">
+                        <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
                     </div>
 
-                    <div class="form-group">
-                      <label>Repeat password:</label>
-                      <asp:TextBox ID="txtRepPassword" runat="server" CssClass="input-text" TextMode="Password"></asp:TextBox>
-                    </div>
-                  </div>
-
-                <div class="row row-center">
-                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
                 </div>
-
-            </div>
-
         </main>
     </div>
 
@@ -148,7 +147,7 @@
         <asp:Panel ID="pnlConfirmAgregar" runat="server" CssClass="modalPopup" Style="display:none;">
             <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
                 <p>¿Are you sure that you want to edit this user?</p>
-                <asp:Button ID="btnConfirmarAgregar" runat="server" Text="Yes, edit" OnClick="btnConfirmarAgregar_Click" CssClass="confirm-button-add" />
+                <asp:Button ID="btnConfirmarAgregar" runat="server" Text="Yes, edit" OnClick="btnConfirm_Click" CssClass="confirm-button-add" />
                 <asp:Button ID="btnCancelarAgregar" runat="server" Text="Cancel" CssClass="cancel-button" />
             </div>
         </asp:Panel>
