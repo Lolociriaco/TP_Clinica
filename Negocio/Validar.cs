@@ -39,7 +39,7 @@ namespace Negocio
 
         public DataTable ObtenerMedicos()
         {
-            string query = "SELECT * FROM MEDICOS";
+            string query = "SELECT \r\n                        M.ID_USUARIO,\r\n                        M.NOMBRE_MED,\r\n                        M.APELLIDO_MED,\r\n                        M.DNI_MED,\r\n                        M.SEXO_MED,\r\n                        M.NACIONALIDAD_MED,\r\n                        M.DIRECCION_MED,\r\n                        M.FECHANAC_MED,\r\n                        LOC.NOMBRE_LOC,\r\n                        M.ID_LOC_MED,\r\n                        M.ID_PROV_MED,\r\n                        PROV.NOMBRE_PROV,\r\n                        ESP.NOMBRE_ESP,\r\n                        M.TELEFONO_MED,\r\n                        M.CORREO_MED,\r\n                        M.DIAS_HORARIO_MED \r\n                    FROM MEDICOS M\r\n                        INNER JOIN LOCALIDADES LOC ON LOC.ID_LOC = M.ID_LOC_MED\r\n                        INNER JOIN PROVINCIAS PROV ON PROV.ID_PROV = M.ID_PROV_MED\r\n                        INNER JOIN ESPECIALIDADES ESP ON ESP.ID_ESP = M.ID_ESP_MED\r\n                    WHERE M.ACTIVO_MED = 1";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();

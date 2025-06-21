@@ -12,7 +12,7 @@ namespace Datos
 {
     public class DB
     {
-        private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
         {
@@ -24,6 +24,20 @@ namespace Datos
         public SqlConnection obtenerConexion()
         {
             return new SqlConnection(cadenaConexion);
+        }
+
+        public bool updateUser(string query, SqlParameter[] parametros)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand comando = new SqlCommand(query, conn))
+                {
+                    comando.Parameters.AddRange(parametros);
+                    conn.Open();
+                    int filasAfectadas = comando.ExecuteNonQuery();
+                    return filasAfectadas > 0; // Retorna true si se actualizó al menos un registro
+                }
+            }
         }
 
         public void ejecutarConsulta(string consulta)
