@@ -33,7 +33,7 @@ namespace Vistas
         {
             if (e.Row.RowType == DataControlRowType.DataRow && gvMedicos.EditIndex == e.Row.RowIndex)
             {
-                Validar validar = new Validar(); // clase de acceso a datos
+                Validar validar = new Validar();
 
                 // LOCALIDAD 
                 DropDownList ddlLocalidad = (DropDownList)e.Row.FindControl("ddlID_LOC_MED");
@@ -44,7 +44,7 @@ namespace Vistas
                     ddlLocalidad.DataTextField = "NOMBRE_LOC";
                     ddlLocalidad.DataValueField = "ID_LOC";
                     ddlLocalidad.DataBind();
-                    ddlLocalidad.Items.Insert(0, new ListItem("-- Seleccione --", ""));
+                    ddlLocalidad.Items.Insert(0, new ListItem("< Seleccione >", ""));
 
                     object locObj = DataBinder.Eval(e.Row.DataItem, "ID_LOC_MED");
                     if (locObj != null)
@@ -52,7 +52,10 @@ namespace Vistas
                         string localidadActual = locObj.ToString();
                         if (ddlLocalidad.Items.FindByValue(localidadActual) != null)
                         {
-                            ddlLocalidad.SelectedValue = "1";
+                            if (ddlLocalidad.Items.FindByValue(localidadActual) != null)
+                            {
+                                ddlLocalidad.SelectedValue = localidadActual;
+                            }
                         }
                     }
                 }
@@ -68,7 +71,7 @@ namespace Vistas
                     ddlProvincia.DataBind();
 
                     // Agregar opción por defecto
-                    ddlProvincia.Items.Insert(0, new ListItem("-- Seleccione --", ""));
+                    ddlProvincia.Items.Insert(0, new ListItem("< Seleccione >", ""));
 
                     object provObj = DataBinder.Eval(e.Row.DataItem, "ID_PROV_MED");
                     if (provObj != null)
@@ -78,7 +81,38 @@ namespace Vistas
                         ListItem item = ddlProvincia.Items.FindByValue(provinciaActual);
                         if (item != null)
                         {
-                            ddlProvincia.SelectedValue = "1";
+                            if (ddlProvincia.Items.FindByValue(provinciaActual) != null)
+                            {
+                                ddlProvincia.SelectedValue = provinciaActual;
+                            }
+                        }
+                    }
+                }
+
+                // ESPECIALIDAD
+                DropDownList ddlEspecialidad = (DropDownList)e.Row.FindControl("ddlID_ESP");
+                if (ddlEspecialidad != null)
+                {
+                    DataTable dtEspecialidad = validar.ObtenerEspecialidades();
+                    ddlEspecialidad.DataSource = dtEspecialidad;
+                    ddlEspecialidad.DataTextField = "NOMBRE_ESP";
+                    ddlEspecialidad.DataValueField = "ID_ESP";
+                    ddlEspecialidad.DataBind();
+
+                    ddlEspecialidad.Items.Insert(0, new ListItem("< Seleccione >", ""));
+
+                    object espObj = DataBinder.Eval(e.Row.DataItem, "ID_ESP_MED");
+                    if (espObj != null)
+                    {
+                        string especialidadctual = espObj.ToString();
+
+                        ListItem item = ddlEspecialidad.Items.FindByValue(especialidadctual);
+                        if (item != null)
+                        {
+                            if (ddlEspecialidad.Items.FindByValue(especialidadctual) != null)
+                            {
+                                ddlEspecialidad.SelectedValue = especialidadctual;
+                            }
                         }
                     }
                 }
@@ -103,21 +137,21 @@ namespace Vistas
             }
         }
 
-        // EDITAR: activa el modo edición
+        // EDITAR
         protected void gvMedicos_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gvMedicos.EditIndex = e.NewEditIndex;
             CargarMedicos();
         }
 
-        // CANCELAR: vuelve al modo normal
+        // CANCELAR
         protected void gvMedicos_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvMedicos.EditIndex = -1;
             CargarMedicos();
         }
 
-        // ACTUALIZAR: guarda los cambios
+        // ACTUALIZAR
         protected void gvMedicos_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             int idUsuario = Convert.ToInt32(gvMedicos.DataKeys[e.RowIndex].Value);
@@ -143,19 +177,22 @@ namespace Vistas
 
             string nuevoSexo = ((DropDownList)row.FindControl("ddlSEXO_MED")).SelectedValue;
 
+            int nuevaEspecialidad = Convert.ToInt32(((DropDownList)row.FindControl("ddlID_ESP")).SelectedValue); 
+
             int nuevaLocalidad = Convert.ToInt32(((DropDownList)row.FindControl("ddlID_LOC_MED")).SelectedValue);
 
-            int nuevaProvincia = Convert.ToInt32(((DropDownList)row.FindControl("ddlID_PROV_MED")).SelectedValue);
+            int nuevaProvincia = Convert.ToInt32(((DropDownList)row.FindControl("ddlID_PROV_MED")).SelectedValue); 
+
+            
 
             UserManager medico = new UserManager();
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
-                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaFechaNac,
+                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaEspecialidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia, nuevoDiasHorario);
 
             gvMedicos.EditIndex = -1;
             CargarMedicos();
         }
-
 
         private void CargarMedicos()
         {
@@ -169,6 +206,11 @@ namespace Vistas
             Session.Clear();
             Session.Abandon();
             Response.Redirect("~/Login.aspx");
+        }
+
+        protected void gvMedicos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
         }
     }
 }

@@ -38,12 +38,12 @@ namespace Vistas.Admin.medicos
 
         private void CargarSexo()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
-            DataTable dtSexos = validar.ObtenerSexos();
+            Validar validar = new Validar(); 
+            DataTable dtSexos = validar.ObtenerSexoMedico();
 
             ddlSexo.DataSource = dtSexos;
-            ddlSexo.DataTextField = "SEXO_PAC";
-            ddlSexo.DataValueField = "SEXO_PAC";
+            ddlSexo.DataTextField = "SEXO_MED";
+            ddlSexo.DataValueField = "SEXO_MED";
             ddlSexo.DataBind();
 
             ddlSexo.Items.Insert(0, new ListItem("", ""));
@@ -51,7 +51,7 @@ namespace Vistas.Admin.medicos
 
         private void CargarEspecialidades()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtEspecialidad = validar.ObtenerEspecialidades();
 
             ddlSpeciality.DataSource = dtEspecialidad;
@@ -64,7 +64,7 @@ namespace Vistas.Admin.medicos
 
         private void CargarProvincia()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtCity = validar.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
@@ -77,7 +77,7 @@ namespace Vistas.Admin.medicos
 
         private void CargarLocalidad()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtLocality = validar.ObtenerLocalidad();
 
             ddlLocality.DataSource = dtLocality;
@@ -96,8 +96,8 @@ namespace Vistas.Admin.medicos
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
-               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text) || string.IsNullOrEmpty(txtDay.Text) 
-               || string.IsNullOrEmpty(txtTimes.Text) || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
+               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text) || string.IsNullOrEmpty(chkDias.Text) 
+               || string.IsNullOrEmpty(rblHorarios.Text) || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
@@ -114,7 +114,6 @@ namespace Vistas.Admin.medicos
 
             }
 
-            //lblMensaje.Text = $"Valores: pass1={txtPassword.Text}, pass2={txtRepeatPass.Text}";
             if (txtPassword.Text.Trim() != txtRepeatPass.Text.Trim())
             {
                 lblMensaje.Text = "Passwords don't match.";
@@ -131,6 +130,8 @@ namespace Vistas.Admin.medicos
 
             string nombre = partes[0];
             string apellido = partes.Length > 1 ? string.Join(" ", partes.Skip(1)) : "";
+
+
 
             Usuario user = new Usuario
             {
@@ -152,16 +153,30 @@ namespace Vistas.Admin.medicos
                 Telefono = txtPhone.Text,
                 Sexo = ddlSexo.SelectedValue,
                 Especialidad = ddlSpeciality.SelectedValue,
-                DiasYHorariosAtencion = txtTimes.Text,
+                DiasYHorariosAtencion = rblHorarios.Text,
                 Usuario = txtUser.Text,
                 FechaNacimiento = DateTime.Parse(txtBirth.Text),
                 Contrasena = txtPassword.Text,
                 RepeContrasena = txtRepeatPass.Text
             };
 
-            int idUsuario = validar.AgregarUsuario(user); // ← obtenés el ID
-            medico.Legajo = idUsuario;                    // ← se lo asignás al médico
+            int idUsuario = validar.AgregarUsuario(user); 
+
+            medico.Legajo = idUsuario;                    
             validar.AgregarMedico(medico);
+
+            string[] horas = rblHorarios.SelectedValue.Split('-');
+            TimeSpan horaInicio = TimeSpan.Parse(horas[0]);
+            TimeSpan horaFin = TimeSpan.Parse(horas[1]);
+
+            foreach (ListItem item in chkDias.Items)
+            {
+                if (item.Selected)
+                {
+                    string dia = item.Value;
+                    validar.InsertarHorarioMedico(idUsuario, dia, horaInicio, horaFin);
+                }
+            }
 
             lblMensaje.Text = "¡Doctor added succesfully!";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
@@ -177,8 +192,8 @@ namespace Vistas.Admin.medicos
             txtBirth.Text = "";
             txtPhone.Text = "";
             txtRepeatPass.Text = "";
-            txtDay.Text = "";
-            txtTimes.Text = "";
+            rblHorarios.Text = "";
+            chkDias.Text = "";
             txtUser.Text = "";
             txtPassword.Text = "";
             ddlSpeciality.SelectedIndex = 0;

@@ -33,49 +33,49 @@ namespace Vistas.Admin.medicos
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            // Validar que el usuario original esté ingresado
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
-                lblEstado.Text = "Ingrese su usuario actual.";
+                lblEstado.ForeColor = System.Drawing.Color.Red;
+                lblEstado.Text = "Enter the current user.";
                 return;
             }
 
-            // Validar que al menos uno de los campos a cambiar esté completo
             bool cambiarPass = !string.IsNullOrWhiteSpace(txtPass.Text);
             bool cambiarUsuario = !string.IsNullOrWhiteSpace(txtNuevoUsuario.Text);
 
             if (!cambiarPass && !cambiarUsuario)
             {
-                lblEstado.Text = "Debe ingresar una nueva contraseña o nuevo usuario.";
+                lblEstado.ForeColor = System.Drawing.Color.Red;
+                lblEstado.Text = "You must add a new password or user.";
                 return;
             }
 
-            // Si quiere cambiar contraseña, validar que repita la misma
             if (cambiarPass)
             {
                 if (string.IsNullOrWhiteSpace(txtRepPassword.Text))
                 {
-                    lblEstado.Text = "Confirme su nueva contraseña.";
+                    lblEstado.ForeColor = System.Drawing.Color.Red;
+                    lblEstado.Text = "Confirm your password.";
                     return;
                 }
 
                 if (txtPass.Text != txtRepPassword.Text)
                 {
-                    lblEstado.Text = "Las contraseñas no coinciden.";
+                    lblEstado.ForeColor = System.Drawing.Color.Red;
+                    lblEstado.Text = "Passwords dont match.";
                     return;
                 }
             }
 
-            // Validar que el usuario actual exista
             Validar validar = new Validar();
             bool userValido = validar.ValidarCambioUsuario(txtUsuario.Text);
             if (!userValido)
             {
-                lblEstado.Text = "El usuario actual no existe.";
+                lblEstado.ForeColor = System.Drawing.Color.Red;
+                lblEstado.Text = "This user doesn´t exist.";
                 return;
             }
 
-            // Realizar el cambio
             UserManager usuario = new UserManager();
             bool cambioUsuario = usuario.modificarUsuario(
                 txtUsuario.Text,
@@ -85,14 +85,14 @@ namespace Vistas.Admin.medicos
 
             if (!cambioUsuario)
             {
-                lblEstado.Text = "Ocurrió un error al actualizar los datos.";
+                lblEstado.ForeColor = System.Drawing.Color.Red;
+                lblEstado.Text = "An error ocurred at updating the data.";
                 return;
             }
 
-            // Éxito
-            lblEstado.Text = "Usuario modificado correctamente.";
+            lblEstado.ForeColor = System.Drawing.Color.Green;
+            lblEstado.Text = "User modified successfully.";
 
-            // Limpiar campos
             txtUsuario.Text = "";
             txtNuevoUsuario.Text = "";
             txtPass.Text = "";

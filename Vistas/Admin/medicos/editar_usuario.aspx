@@ -96,7 +96,6 @@
 
                     <h3>Select new username and password</h3>
 
-                    <asp:Label ID="lblEstado" runat="server" BorderColor="Red" BackColor="Red"></asp:Label>
 
                     <div class="form-grid">
                         <div class="form-group">
@@ -122,7 +121,9 @@
 
                     <div class="form-footer">
                         <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                        <asp:Label ID="lblEstado" runat="server" CssClass="form-message"></asp:Label>
                     </div>
+
 
                 </div>
         </main>

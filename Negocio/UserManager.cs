@@ -23,6 +23,19 @@ namespace Negocio
             return db.updateUser(query, parametros);
         }
 
+        public bool deletePatient(int dni)
+        {
+            DB db = new DB();
+            string query = "UPDATE PACIENTES SET ACTIVO_PAC = 0 WHERE DNI_PAC = @dni";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@cni", dni)
+            };
+
+            return db.updateUser(query, parametros);
+        }
+
         public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
         {
             List<string> sets = new List<string>();
@@ -52,7 +65,7 @@ namespace Negocio
 
 
         public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
-                                 string direccion, string correo, string telefono, DateTime fechaNac,
+                                 string direccion, string correo, string telefono, int idEsp, DateTime fechaNac,
                                  string sexo, int idLoc, int idProv, string diasHorario)
         {
             DB db = new DB();
@@ -65,6 +78,7 @@ namespace Negocio
                 new SqlParameter("@direccion", direccion),
                 new SqlParameter("@correo", correo),
                 new SqlParameter("@telefono", telefono),
+                new SqlParameter("@idEsp", idEsp),
                 new SqlParameter("@fechaNac", fechaNac),
                 new SqlParameter("@sexo", sexo),
                 new SqlParameter("@idLoc", idLoc),
@@ -80,12 +94,47 @@ namespace Negocio
                         DIRECCION_MED = @direccion,
                         CORREO_MED = @correo,
                         TELEFONO_MED = @telefono,
+                        ID_ESP_MED = @idEsp,
                         FECHANAC_MED = @fechaNac,
                         SEXO_MED = @sexo,
                         ID_LOC_MED = @idLoc,
                         ID_PROV_MED = @idProv,
                         DIAS_HORARIO_MED = @diasHorario
                     WHERE ID_USUARIO = @id";
+
+            return db.updateUser(query, parametros);
+        }
+        public bool updatePatient(string nombre, string apellido, string dni,
+                                string direccion, string correo, string telefono, DateTime fechaNac,
+                                string sexo, int idLoc, int idProv)
+        {
+            DB db = new DB();
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@nombre", nombre),
+                new SqlParameter("@apellido", apellido),
+                new SqlParameter("@dni", dni),
+                new SqlParameter("@direccion", direccion),
+                new SqlParameter("@correo", correo),
+                new SqlParameter("@telefono", telefono),
+                new SqlParameter("@fechaNac", fechaNac),
+                new SqlParameter("@sexo", sexo),
+                new SqlParameter("@idLoc", idLoc),
+                new SqlParameter("@idProv", idProv)
+            };
+
+            string query = @"UPDATE Pacientes SET
+                        NOMBRE_PAC = @nombre,
+                        APELLIDO_PAC = @apellido,
+                        DIRECCION_PAC = @direccion,
+                        CORREO_PAC = @correo,
+                        TELEFONO_PAC = @telefono,
+                        FECHANAC_PAC = @fechaNac,
+                        SEXO_PAC = @sexo,
+                        ID_LOC_PAC = @idLoc,
+                        ID_PROV_PAC = @idProv,
+                    WHERE DNI_PAC = @dni";
 
             return db.updateUser(query, parametros);
         }

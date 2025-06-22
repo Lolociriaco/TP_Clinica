@@ -95,72 +95,141 @@
 
                 <div style="margin-top: 40px;">
 
-                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px">
+                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px" OnRowCommand="gvPacientes_RowCommand" AutoGenerateEditButton="True" OnRowEditing="gvPacientes_RowEditing" OnRowUpdating="gvPacientes_RowUpdating" OnRowCancelingEdit="gvPacientes_RowCancelingEdit" OnRowDataBound="gvPacientes_RowDataBound" DataKeyNames="DNI_PAC" AllowPaging="True" OnPageIndexChanging="gvPacientes_PageIndexChanging">
                         <Columns>
-                            <asp:TemplateField HeaderText="Nombre">
+                            <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNombres" runat="server" Text='<%# Bind("NOMBRE_PAC") %>'></asp:Label>
+                                    <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Unsubscribe" CssClass="btn btn-danger" />
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Apellido">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("APELLIDO_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="DNI">
+                            <asp:TemplateField HeaderText="DNI" SortExpression="DNI_PAC">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DNI_PAC") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Sexo">
+                            <asp:TemplateField HeaderText="FIRST NAME" SortExpression="NOMBRE_PAC">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblSexo" runat="server" Text='<%# Bind("SEXO_PAC") %>'></asp:Label>
+                                    <asp:Label ID="lblNombres" runat="server" Text='<%# Bind("NOMBRE_PAC") %>'></asp:Label>
                                 </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtNOMBRE_PAC" runat="server"
+                                                 Text='<%# Bind("NOMBRE_PAC") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                           </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="SURNAME" SortExpression="APELLIDO_PAC">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("APELLIDO_PAC") %>'></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtAPELLIDO_PAC" runat="server"
+                                                 Text='<%# Bind("APELLIDO_PAC") %>'></asp:TextBox>
+                                </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Nacionalidad">
+                             <asp:TemplateField HeaderText="SEX" SortExpression="SEXO_PAC">
+                                 <ItemTemplate>
+                                     <asp:Label ID="lblSEXO_PAC" runat="server"
+                                                Text='<%# Bind("SEXO_PAC") %>'></asp:Label>
+                                 </ItemTemplate>
+                                 <EditItemTemplate>
+                                     <asp:DropDownList ID="ddlSEXO_PAC" runat="server"
+                                                       SelectedValue='<%# Bind("SEXO_PAC") %>'>
+                                         <asp:ListItem Text="Masculino" Value="Masculino" />
+                                         <asp:ListItem Text="Femenino" Value="Femenino" />
+                                         <asp:ListItem Text="OTHER" Value="OTHER" />
+                                     </asp:DropDownList>
+                                 </EditItemTemplate>
+                             </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="NATIONALITY" SortExpression="NACIONALIDAD_PAC">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNacionalidad" runat="server" Text='<%# Bind("NACIONALIDAD_PAC") %>'></asp:Label>
                                 </ItemTemplate>
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="txtNACIONALIDAD_PAC" runat="server"
+                                                     Text='<%# Bind("NACIONALIDAD_PAC") %>'></asp:TextBox>
+                                    </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Fecha de nacimiento">
+                            <asp:TemplateField HeaderText="BIRTHDATE" SortExpression="FECHANAC_PAC">
+                                 <ItemTemplate>
+                                     <asp:Label ID="lblFECHANAC_PAC" runat="server"
+                                                Text='<%# Bind("FECHANAC_PAC") %>'></asp:Label>
+                                 </ItemTemplate>
+                                 <EditItemTemplate>
+                                     <asp:TextBox ID="txtFECHANAC_PAC" runat="server"
+                                      Text='<%# Bind("FECHANAC_PAC", "{0:yyyy-MM-dd}") %>'
+                                      TextMode="Date" />
+                                 </EditItemTemplate>
+                             </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="ADDRESS" SortExpression="DIRECCION_PAC">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNacimiento" runat="server" Text='<%# Bind("FECHANAC_PAC") %>'></asp:Label>
+                                    <asp:Label ID="lblDireccion" runat="server" 
+                                               Text='<%# Bind("DIRECCION_PAC") %>'></asp:Label>
                                 </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtDIRECCION_PAC" runat="server"
+                                                 Text='<%# Bind("DIRECCION_PAC") %>'></asp:TextBox>
+                                </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Direccion">
+<%--                             <asp:TemplateField HeaderText="ID LOCALITY" SortExpression="ID_LOC_PAC">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDireccion" runat="server" Text='<%# Bind("DIRECCION_PAC") %>'></asp:Label>
+                                    <asp:Label ID="lblID_LOC_PAC" runat="server"
+                                               Text='<%# Bind("ID_LOC_PAC") %>'></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
 
-                            <asp:TemplateField HeaderText="Provincia">
+                            <asp:TemplateField HeaderText="LOCALITY" SortExpression="NOMBRE_LOC">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblProvincia" runat="server" Text='<%# Bind("ID_PROV_PAC") %>'></asp:Label>
+                                    <asp:Label ID="lblNOMBRE_LOC" runat="server"
+                                               Text='<%# Bind("NOMBRE_LOC") %>'></asp:Label>
                                 </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:DropDownList ID="ddlID_LOC_PAC" runat="server"></asp:DropDownList>
+                                </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Localidad">
+<%--                            <asp:TemplateField HeaderText="ID CITY" SortExpression="ID_PROV_PAC">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblLocalidad" runat="server" Text='<%# Bind("ID_LOC_PAC") %>'></asp:Label>
+                                    <asp:Label ID="lblID_PROV_PAC" runat="server"
+                                               Text='<%# Bind("ID_PROV_PAC") %>'></asp:Label>
                                 </ItemTemplate>
+                            </asp:TemplateField>--%>
+
+                            <asp:TemplateField HeaderText="CITY" SortExpression="NOMBRE_PROV">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNOMBRE_PROV" runat="server"
+                                               Text='<%# Bind("NOMBRE_PROV") %>'></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:DropDownList ID="ddlID_PROV_PAC" runat="server"></asp:DropDownList>
+                                </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Correo">
+                            <asp:TemplateField HeaderText="MAIL" SortExpression="CORREO_PAC">
                                 <ItemTemplate>
                                     <asp:Label ID="lblCorreo" runat="server" Text='<%# Bind("CORREO_PAC") %>'></asp:Label>
                                 </ItemTemplate>
+                                    <EditItemTemplate>
+                                    <asp:TextBox ID="txtCORREO_PAC" runat="server"
+                                                 Text='<%# Bind("CORREO_PAC") %>'></asp:TextBox>
+                                </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Teléfono">
+
+                            <asp:TemplateField HeaderText="PHONE NUMBER" SortExpression="TELEFONO_PAC">
                                 <ItemTemplate>
                                     <asp:Label ID="lblTelefono" runat="server" Text='<%# Bind("TELEFONO_PAC") %>'></asp:Label>
                                 </ItemTemplate>
+                                    <EditItemTemplate>
+                                    <asp:TextBox ID="txtTELEFONO_PAC" runat="server"
+                                                 Text='<%# Bind("TELEFONO_PAC") %>'></asp:TextBox>
+                                </EditItemTemplate>
                             </asp:TemplateField>
 
                         </Columns>
@@ -171,6 +240,7 @@
                                 </td>
                             </tr>
                         </EmptyDataTemplate>
+                        <PagerSettings Mode="NumericFirstLast" />
                     </asp:GridView>
 
                 </div>

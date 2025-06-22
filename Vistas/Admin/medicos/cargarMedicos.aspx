@@ -148,18 +148,30 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Speciality:</label>
-                  <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text" />
-                </div>
-
-                <div class="form-group">
                   <label>Times:</label>
-                  <asp:TextBox ID="txtTimes" runat="server" CssClass="input-text" />
+                  <asp:RadioButtonList ID="rblHorarios" runat="server" RepeatDirection="Horizontal" CssClass="radio-inline" style="margin-top: 15px;">
+                     <asp:ListItem Text="07:00 a 16:00" Value="07:00-16:00" />
+                     <asp:ListItem Text="08:00 a 17:00" Value="08:00-17:00" />
+                     <asp:ListItem Text="09:00 a 18:00" Value="09:00-18:00" />
+                  </asp:RadioButtonList>
                 </div>
 
                 <div class="form-group">
                   <label>Days:</label>
-                  <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" />
+                  <asp:CheckBoxList ID="chkDias" runat="server" CssClass="checkbox-inline" RepeatDirection="Horizontal" style="margin-top: 15px;">
+                    <asp:ListItem Text="Lunes" Value="LUNES"/>
+                    <asp:ListItem Text="Martes" Value="MARTES" />
+                    <asp:ListItem Text="Miércoles" Value="MIERCOLES" />
+                    <asp:ListItem Text="Jueves" Value="JUEVES" />
+                    <asp:ListItem Text="Viernes" Value="VIERNES" />
+                    <asp:ListItem Text="Sábado" Value="SABADO" />
+                    <asp:ListItem Text="Domingo" Value="DOMINGO" />
+                </asp:CheckBoxList>
+                </div>
+
+                <div class="form-group">
+                  <label>Speciality:</label>
+                  <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text" />
                 </div>
 
                 <div class="form-group">

@@ -39,7 +39,7 @@ namespace Vistas.Admin.pacientes
         private void CargarSexo()
         {
             Validar validar = new Validar(); // o el nombre real de tu clase de negocio
-            DataTable dtSexos = validar.ObtenerSexos();
+            DataTable dtSexos = validar.ObtenerSexoPaciente();
 
             ddlSexo.DataSource = dtSexos;
             ddlSexo.DataTextField = "SEXO_PAC";

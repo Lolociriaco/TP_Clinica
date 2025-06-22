@@ -54,7 +54,10 @@ namespace Negocio
 
         public DataTable ObtenerMedicos()
         {
-            string query = "SELECT \r\n                        M.ID_USUARIO,\r\n                        M.NOMBRE_MED,\r\n                        M.APELLIDO_MED,\r\n                        M.DNI_MED,\r\n                        M.SEXO_MED,\r\n                        M.NACIONALIDAD_MED,\r\n                        M.DIRECCION_MED,\r\n                        M.FECHANAC_MED,\r\n                        LOC.NOMBRE_LOC,\r\n                        M.ID_LOC_MED,\r\n                        M.ID_PROV_MED,\r\n                        PROV.NOMBRE_PROV,\r\n                        ESP.NOMBRE_ESP,\r\n                        M.TELEFONO_MED,\r\n                        M.CORREO_MED,\r\n                        M.DIAS_HORARIO_MED \r\n                    FROM MEDICOS M\r\n                        INNER JOIN LOCALIDADES LOC ON LOC.ID_LOC = M.ID_LOC_MED\r\n                        INNER JOIN PROVINCIAS PROV ON PROV.ID_PROV = M.ID_PROV_MED\r\n                        INNER JOIN ESPECIALIDADES ESP ON ESP.ID_ESP = M.ID_ESP_MED\r\n                    WHERE M.ACTIVO_MED = 1";
+            string query = "SELECT M.ID_USUARIO, M.NOMBRE_MED, M.APELLIDO_MED, M.DNI_MED, M.SEXO_MED, M.NACIONALIDAD_MED, M.DIRECCION_MED, M.FECHANAC_MED," +
+                " LOC.NOMBRE_LOC, M.ID_LOC_MED, M.ID_PROV_MED, PROV.NOMBRE_PROV, ESP.NOMBRE_ESP, M.ID_ESP_MED, M.TELEFONO_MED, M.CORREO_MED, M.DIAS_HORARIO_MED FROM MEDICOS M" +
+                " INNER JOIN LOCALIDADES LOC ON LOC.ID_LOC = M.ID_LOC_MED INNER JOIN PROVINCIAS PROV ON PROV.ID_PROV = M.ID_PROV_MED INNER JOIN " +
+                " ESPECIALIDADES ESP ON ESP.ID_ESP = M.ID_ESP_MED WHERE M.ACTIVO_MED = 1";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -64,7 +67,11 @@ namespace Negocio
 
         public DataTable ObtenerPacientes()
         {
-            string query = "SELECT * FROM PACIENTES";
+            string query = "SELECT P.DNI_PAC, P.NOMBRE_PAC, P.APELLIDO_PAC, P.SEXO_PAC, P.NACIONALIDAD_PAC, P.DIRECCION_PAC," +
+                " P.FECHANAC_PAC, LOC.NOMBRE_LOC, P.ID_LOC_PAC, P.ID_PROV_PAC, PROV.NOMBRE_PROV, P.TELEFONO_PAC," +
+                " P.CORREO_PAC FROM PACIENTES P INNER JOIN LOCALIDADES LOC ON LOC.ID_LOC = P.ID_LOC_PAC" +
+                " INNER JOIN PROVINCIAS PROV ON PROV.ID_PROV = P.ID_PROV_PAC WHERE P.ACTIVO_PAC = 1";
+
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -80,7 +87,7 @@ namespace Negocio
             adapter.Fill(ds, "Turnos");
             return ds.Tables["Turnos"];
         }
-        public DataTable ObtenerSexos()
+        public DataTable ObtenerSexoPaciente()
         {
             string query = "SELECT DISTINCT SEXO_PAC FROM PACIENTES WHERE SEXO_PAC IS NOT NULL";
             DB datos = new DB();
@@ -89,6 +96,17 @@ namespace Negocio
             adapter.Fill(ds, "Sexos");
             return ds.Tables["Sexos"];
         }
+
+        public DataTable ObtenerSexoMedico()
+        {
+            string query = "SELECT DISTINCT SEXO_MED FROM MEDICOS WHERE SEXO_MED IS NOT NULL";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Sexos");
+            return ds.Tables["Sexos"];
+        }
+
         public DataTable ObtenerEspecialidades()
         {
             string query = "SELECT NOMBRE_ESP, ID_ESP FROM ESPECIALIDADES";
@@ -201,18 +219,21 @@ namespace Negocio
             datos.EjecutarInsert(query, parametros);
         }
 
-        /*public void eliminarProducto(Medicos medico)
+        public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
-            string consulta = "DELETE FROM MEDICOS WHERE DNI_MEDICO = " + medico.DNI_MEDICO;
-            DB datos = new DB();
-            datos.ejecutarConsulta(consulta);
-        }
+            string query = "INSERT INTO HORARIOS_MEDICOS (ID_USUARIO, DIA_SEMANA, HORA_INICIO, HORA_FIN) " +
+                           "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
 
-        public void ActualizarProducto(Medicos medico)
-        {
-            string consulta = $"UPDATE MEDICOS SET Username = '{medico.Username}', DNI_MEDICO = {medico.DNI_MEDICO.ToString(CultureInfo.InvariantCulture)}";
-            DB datos = new DB();
-            datos.ejecutarConsulta(consulta);
-        }*/
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@idUsuario", idUsuario),
+                new SqlParameter("@dia", diaSemana),
+                new SqlParameter("@horaInicio", horaInicio),
+                new SqlParameter("@horaFin", horaFin)
+            };
+
+            DB db = new DB();
+            db.EjecutarInsert(query, parametros);
+        }
     }
 }
