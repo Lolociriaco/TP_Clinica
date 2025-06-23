@@ -12,7 +12,7 @@ namespace Datos
 {
     public class DB
     {
-        private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
 
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
@@ -78,6 +78,29 @@ namespace Datos
                 }
             }
         }
+
+        public string ObtenerTipoUsuario(string query, SqlParameter[] parametros)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddRange(parametros);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader["TIPO_USUARIO"].ToString();
+                    }
+                    else
+                    {
+                        return null; // No existe o no coincide
+                    }
+                }
+            }
+        }
+
 
         public object EjecutarEscalar(string query, SqlParameter[] parametros)
         {

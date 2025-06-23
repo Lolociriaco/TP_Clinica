@@ -22,7 +22,7 @@ namespace Vistas.Admin.medicos
                 CargarProvincia();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "Admin")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -131,7 +131,37 @@ namespace Vistas.Admin.medicos
             }
 
 
+            DateTime fechaNacimiento;
+
+            if (!DateTime.TryParse(txtBirth.Text, out fechaNacimiento))
+            {
+                // Mostrar error si no es una fecha válida
+                validateBirthday.ErrorMessage = "Enter a valid birth date.";
+                validateBirthday.IsValid = false;
+                return;
+            }
+
+            int edad = DateTime.Today.Year - fechaNacimiento.Year;
+            if (fechaNacimiento > DateTime.Today.AddYears(-edad)) edad--;
+
+            if (edad < 18)
+            {
+                validateBirthday.ErrorMessage = "Must be at least 18 years old.";
+                validateBirthday.IsValid = false;
+                return;
+            }
+
+
             Validar validar = new Validar();
+
+            string dni = txtDNI.Text.Trim();
+
+            if (!validar.EsDniValido(dni))
+            {
+                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
+                validateDni.IsValid = false;
+                return;
+            }
 
             if (!Page.IsValid) return; 
 
@@ -142,12 +172,17 @@ namespace Vistas.Admin.medicos
                 return;
             }
 
-            if (!Page.IsValid) return; 
-
             if (validar.ExisteTelefono(txtPhone.Text))
             {
                 validatePhone.ErrorMessage = "That phone number is already registered.";
                 validatePhone.IsValid = false; 
+                return;
+            }
+            
+            if (validar.ExisteUsuario(txtUser.Text))
+            {
+                validateUser.ErrorMessage = "That username is already registered.";
+                validateUser.IsValid = false; 
                 return;
             }
 

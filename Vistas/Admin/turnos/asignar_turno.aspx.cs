@@ -19,7 +19,7 @@ namespace Vistas.Admin.turnos
                 CargarDias();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "Admin")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
             {
                 Response.Redirect("~/Login.aspx");
             }

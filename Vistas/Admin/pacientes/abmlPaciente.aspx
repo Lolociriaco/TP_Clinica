@@ -101,7 +101,7 @@
                         Width="100%" OnRowCommand="gvPacientes_RowCommand" OnRowEditing="gvPacientes_RowEditing" OnRowUpdating="gvPacientes_RowUpdating" 
                         OnRowCancelingEdit="gvPacientes_RowCancelingEdit" OnRowDataBound="gvPacientes_RowDataBound" DataKeyNames="DNI_PAC" 
                         AllowPaging="True" OnPageIndexChanging="gvPacientes_PageIndexChanging" CellPadding="4" ForeColor="#333333" 
-                        GridLines="None" PageSize="6" CssClass="gridview-doctores">
+                        GridLines="None" PageSize="8" CssClass="gridview-doctores">
 
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
@@ -155,7 +155,7 @@
                                                        SelectedValue='<%# Bind("SEXO_PAC") %>'>
                                          <asp:ListItem Text="Masculino" Value="Masculino" />
                                          <asp:ListItem Text="Femenino" Value="Femenino" />
-                                         <asp:ListItem Text="OTHER" Value="OTHER" />
+                                         <asp:ListItem Text="Other" Value="OTHER" />
                                      </asp:DropDownList>
                                  </EditItemTemplate>
                              </asp:TemplateField>

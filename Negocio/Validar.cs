@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Datos;
 using System.Globalization;
 using Entidades;
+using System.Text.RegularExpressions;
 
 
 namespace Negocio
@@ -17,25 +18,25 @@ namespace Negocio
     {
 
         // VALIDAR SI EL USUARIO EXISTE
-        public bool ValidarUsuario(string user, string password)
+        public string ValidarUsuario(string user, string password)
         {
 
             // Verificar que la contraseña tenga al menos 6 caracteres
-            if (password.Length < 6) return false;
+            //if (password.Length < 6) return null;
 
 
-            string query = "SELECT * FROM USUARIOS WHERE USUARIO = @user AND CONTRASENA = @password";
+            string query = "SELECT TIPO_USUARIO FROM USUARIOS WHERE USUARIO = @user AND CONTRASENA = @password";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
                 new SqlParameter("@user", user),
-                new SqlParameter("@pass", password)
+                new SqlParameter("@password", password)
             };
 
             DB db = new DB();
-            bool existe = db.validarUser(query, parametros);
+            string tipoUsuario = db.ObtenerTipoUsuario(query, parametros);
 
-            return existe;
+            return tipoUsuario;
         }
 
         // VALIDAR EL CAMBIO DE USUARIO
@@ -261,6 +262,26 @@ namespace Negocio
             string query = "SELECT COUNT(*) FROM MEDICOS WHERE DNI_MED = @dni";
             SqlParameter[] parametros = {
                 new SqlParameter("@dni", dni)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
+        }
+
+
+    public bool EsDniValido(string dni)
+    {
+        string patron = @"^\d{8}$";
+        return Regex.IsMatch(dni, patron);
+    }
+
+
+    public bool ExisteUsuario(string user)
+        {
+            string query = "SELECT COUNT(*) FROM USUARIOS WHERE USUARIO = @user";
+            SqlParameter[] parametros = {
+                new SqlParameter("@user", user)
             };
 
             DB db = new DB();

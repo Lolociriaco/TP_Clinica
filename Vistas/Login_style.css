@@ -98,7 +98,7 @@ input[type="password"] {
 
 .error {
     color: red;
-    font-size: 13px;
-    margin-top: 8px;
+    font-size: 20px;
     text-align: center;
+    font-family: "Work Sans", sans-serif;
 }

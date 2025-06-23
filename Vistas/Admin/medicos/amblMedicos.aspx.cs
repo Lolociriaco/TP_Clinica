@@ -20,7 +20,7 @@ namespace Vistas
                 CargarMedicos();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "Admin")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -126,17 +126,20 @@ namespace Vistas
         // FUNCIONALIDAD DE UNSUBSCRIBE
         protected void gvMedicos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "DarDeBaja")
+            if (e.CommandName != "DarDeBaja")
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow row = gvMedicos.Rows[index];
-                int idUsuario = Convert.ToInt32(gvMedicos.DataKeys[index].Value);
-
-                UserManager medico = new UserManager();
-                medico.deleteDoctor(idUsuario);
-
-                CargarMedicos();
+                return;
             }
+
+            int index = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = gvMedicos.Rows[index];
+            int idUsuario = Convert.ToInt32(gvMedicos.DataKeys[index].Value);
+
+            UserManager medico = new UserManager();
+            medico.deleteDoctor(idUsuario);
+
+            CargarMedicos();
+            
         }
 
         // EDITAR

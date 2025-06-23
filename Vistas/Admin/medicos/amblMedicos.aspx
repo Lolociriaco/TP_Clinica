@@ -96,7 +96,7 @@
                         OnRowCommand="gvMedicos_RowCommand" OnRowEditing="gvMedicos_RowEditing" OnRowUpdating="gvMedicos_RowUpdating" 
                         OnRowCancelingEdit="gvMedicos_RowCancelingEdit" OnRowDataBound="gvMedicos_RowDataBound" 
                         DataKeyNames="ID_USUARIO" AllowPaging="True" OnPageIndexChanging="gvMedicos_PageIndexChanging" 
-                        PageSize="6" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview-doctores">
+                        PageSize="8" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview-doctores">
                         
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         
@@ -105,7 +105,7 @@
                         <asp:CommandField 
                         ShowEditButton="True" 
                         EditText="Edit" 
-                        UpdateText="Save" 
+                        UpdateText="Save"
                         CancelText="Cancel" />
 
                             <asp:TemplateField>

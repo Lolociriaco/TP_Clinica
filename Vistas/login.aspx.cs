@@ -25,25 +25,23 @@ namespace Vistas
 
             Validar validar = new Validar();
 
-            validar.ValidarUsuario(username, password);
-
-            // validar usuario puede devolver un string con el tipo de rol
-            // o un null/string vacio si el usuario no existe
-
-            //ingreso el rol por password para probar
-            string role = password;
+            string role = validar.ValidarUsuario(username, password);
 
             Session["username"] = username;
             Session["role"] = role;
 
-            if(role == "Admin")
+            if(role == "ADMINISTRADOR")
             {
                 Response.Redirect("~/Admin/pacientes/abmlPaciente.aspx");
+                return;
             }
-            else
+            else if( role == "MEDICO")
             {
                 Response.Redirect("~/Medicos/turnos.aspx");
+                return;
             }
+
+            lblError.Text = "Wrong user or password";
         }
     }
 }

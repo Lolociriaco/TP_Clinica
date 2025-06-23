@@ -12,7 +12,7 @@ namespace Vistas.Admin.medicos
 	{
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["role"] == null || Session["role"].ToString() != "Admin")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
             {
                 Response.Redirect("~/Login.aspx");
             }

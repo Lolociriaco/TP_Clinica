@@ -126,6 +126,13 @@
                 <div class="form-group">
                   <label>Birthdate:</label>
                   <asp:TextBox ID="txtBirth" runat="server" CssClass="input-text" TextMode="Date" />
+                    <asp:RegularExpressionValidator
+                      ID="validateBirthday"
+                      runat="server"
+                      ControlToValidate="txtBirth"
+                      ForeColor="Red"
+                      Display="Dynamic" 
+                      ValidationGroup="grupoAlta"/>
                 </div>
 
                 <div class="form-group">
@@ -193,13 +200,13 @@
                 <div class="form-group">
                   <label>Days:</label>
                   <asp:CheckBoxList ID="chkDias" runat="server" CssClass="checkbox-inline" RepeatDirection="Horizontal" style="margin-top: 15px;">
-                    <asp:ListItem Text="Monday" Value="Monay" />
-                    <asp:ListItem Text="Tuesday" Value="Tuesday" />
-                    <asp:ListItem Text="Wednesday" Value="Wednesday" />
-                    <asp:ListItem Text="Thursday" Value="Thursday" />
-                    <asp:ListItem Text="Friday" Value="Friday" />
-                    <asp:ListItem Text="Saturday" Value="Saturday" />
-                    <asp:ListItem Text="Sunday" Value="Sunday" />
+                    <asp:ListItem Text="Monday" Value="LUNES" />
+                    <asp:ListItem Text="Tuesday" Value="MARTES" />
+                    <asp:ListItem Text="Wednesday" Value="MIERCOLES" />
+                    <asp:ListItem Text="Thursday" Value="JUEVES" />
+                    <asp:ListItem Text="Friday" Value="VIERNES" />
+                    <asp:ListItem Text="Saturday" Value="SABADO" />
+                    <asp:ListItem Text="Sunday" Value="DOMINGO" />
                 </asp:CheckBoxList>
                 </div>
 
@@ -211,16 +218,41 @@
                 <div class="form-group">
                   <label>Username:</label>
                   <asp:TextBox ID="txtUser" runat="server" CssClass="input-text" />
+                    <asp:RegularExpressionValidator
+                      ID="validateUser"
+                      runat="server"
+                      ControlToValidate="txtUser"
+                      ForeColor="Red"
+                      Display="Dynamic" 
+                      ValidationGroup="grupoAlta"/>
                 </div>
 
                 <div class="form-group">
                   <label>Password:</label>
                   <asp:TextBox ID="txtPassword" runat="server" CssClass="input-text" TextMode="Password" />
+                  <asp:RegularExpressionValidator
+                      ID="RegularExpressionValidator1"
+                      runat="server"
+                      ControlToValidate="txtDni"
+                      ErrorMessage="Password must be at least 6 characters"
+                      ForeColor="Red"
+                      ValidationExpression="^\d{6}$"
+                      Display="Dynamic" 
+                      ValidationGroup="grupoAlta"/>
                 </div>
 
                 <div class="form-group">
                   <label>Repeat Password:</label>
                   <asp:TextBox ID="txtRepeatPass" runat="server" CssClass="input-text" TextMode="Password" />
+                  <asp:RegularExpressionValidator
+                    ID="RegularExpressionValidator2"
+                    runat="server"
+                    ControlToValidate="txtDni"
+                    ErrorMessage="Password must be at least 6 characters"
+                    ForeColor="Red"
+                    ValidationExpression="^\d{6}$"
+                    Display="Dynamic" 
+                    ValidationGroup="grupoAlta"/>
                 </div>
 
               </div>
