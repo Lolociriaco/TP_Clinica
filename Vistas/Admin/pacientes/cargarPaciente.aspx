@@ -120,6 +120,13 @@
                         <div class="form-group">
                             <label>Birthdate:</label>
                             <asp:TextBox ID="txtBirth" runat="server" CssClass="input-text" TextMode="Date" />
+                            <asp:RegularExpressionValidator
+                              ID="validateBirthday"
+                              runat="server"
+                              ControlToValidate="txtBirth"
+                              ForeColor="Red"
+                              Display="Dynamic" 
+                              ValidationGroup="grupoAlta"/>
                         </div>
 
                         <div class="form-group">

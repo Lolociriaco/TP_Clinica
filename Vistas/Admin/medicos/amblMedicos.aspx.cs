@@ -169,6 +169,7 @@ namespace Vistas
             string nuevaDireccion = ((TextBox)row.FindControl("txtDIRECCION_MED")).Text;
             string nuevoCorreo = ((TextBox)row.FindControl("txtCORREO_MED")).Text;
             string nuevoTelefono = ((TextBox)row.FindControl("txtTELEFONO_MED")).Text;
+            string nuevaNacionalidad = ((TextBox)row.FindControl("txtNACIONALIDAD_MED")).Text;
             string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
 
             string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_MED")).Text;
@@ -201,7 +202,7 @@ namespace Vistas
 
             UserManager medico = new UserManager();
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
-                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaEspecialidad, nuevaFechaNac,
+                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaEspecialidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia, nuevoDiasHorario);
 
             gvMedicos.EditIndex = -1;

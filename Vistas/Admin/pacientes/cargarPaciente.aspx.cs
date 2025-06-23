@@ -106,7 +106,35 @@ namespace Vistas.Admin.pacientes
                 return;
             }
 
+            DateTime fechaNacimiento;
+
+            if (!DateTime.TryParse(txtBirth.Text, out fechaNacimiento))
+            {
+                validateBirthday.ErrorMessage = "Enter a valid birth date.";
+                validateBirthday.IsValid = false;
+                return;
+            }
+
+            int edad = DateTime.Today.Year - fechaNacimiento.Year;
+            if (fechaNacimiento > DateTime.Today.AddYears(-edad)) edad--;
+
+            if (edad < 18)
+            {
+                validateBirthday.ErrorMessage = "Must be at least 18 years old.";
+                validateBirthday.IsValid = false;
+                return;
+            }
+
             Validar validar = new Validar();
+
+            string dni = txtDNI.Text.Trim();
+
+            if (!validar.EsDniValido(dni))
+            {
+                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
+                validateDni.IsValid = false;
+                return;
+            }
 
             if (!Page.IsValid) return; 
 

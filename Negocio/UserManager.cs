@@ -69,7 +69,7 @@ namespace Negocio
 
         // ACTUALIZACION DEL MEDICO
         public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
-                                 string direccion, string correo, string telefono, int idEsp, DateTime fechaNac,
+                                 string direccion, string correo, string telefono, string nacionalidad, int idEsp, DateTime fechaNac,
                                  string sexo, int idLoc, int idProv, string diasHorario)
         {
             DB db = new DB();
@@ -82,6 +82,7 @@ namespace Negocio
                 new SqlParameter("@direccion", direccion),
                 new SqlParameter("@correo", correo),
                 new SqlParameter("@telefono", telefono),
+                new SqlParameter("@nacionalidad", nacionalidad),
                 new SqlParameter("@idEsp", idEsp),
                 new SqlParameter("@fechaNac", fechaNac),
                 new SqlParameter("@sexo", sexo),
@@ -98,6 +99,7 @@ namespace Negocio
                         DIRECCION_MED = @direccion,
                         CORREO_MED = @correo,
                         TELEFONO_MED = @telefono,
+                        NACIONALIDAD_MED = @nacionalidad,
                         ID_ESP_MED = @idEsp,
                         FECHANAC_MED = @fechaNac,
                         SEXO_MED = @sexo,
@@ -111,7 +113,7 @@ namespace Negocio
 
         // ACTUALIZACION DEL PACIENTE
         public bool updatePatient(string nombre, string apellido, string dni,
-                                string direccion, string correo, string telefono, DateTime fechaNac,
+                                string direccion, string correo, string telefono, string nacionalidad, DateTime fechaNac,
                                 string sexo, int idLoc, int idProv)
         {
             DB db = new DB();
@@ -124,6 +126,7 @@ namespace Negocio
                 new SqlParameter("@direccion", direccion),
                 new SqlParameter("@correo", correo),
                 new SqlParameter("@telefono", telefono),
+                new SqlParameter("@nacionalidad", nacionalidad),
                 new SqlParameter("@fechaNac", fechaNac),
                 new SqlParameter("@sexo", sexo),
                 new SqlParameter("@idLoc", idLoc),
@@ -136,6 +139,7 @@ namespace Negocio
                         DIRECCION_PAC = @direccion,
                         CORREO_PAC = @correo,
                         TELEFONO_PAC = @telefono,
+                        NACIONALIDAD_PAC = @nacionalidad,
                         FECHANAC_PAC = @fechaNac,
                         SEXO_PAC = @sexo,
                         ID_LOC_PAC = @idLoc,

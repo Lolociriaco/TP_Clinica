@@ -231,7 +231,7 @@
                   <label>Password:</label>
                   <asp:TextBox ID="txtPassword" runat="server" CssClass="input-text" TextMode="Password" />
                   <asp:RegularExpressionValidator
-                      ID="RegularExpressionValidator1"
+                      ID="validatePassword"
                       runat="server"
                       ControlToValidate="txtDni"
                       ErrorMessage="Password must be at least 6 characters"
@@ -245,7 +245,7 @@
                   <label>Repeat Password:</label>
                   <asp:TextBox ID="txtRepeatPass" runat="server" CssClass="input-text" TextMode="Password" />
                   <asp:RegularExpressionValidator
-                    ID="RegularExpressionValidator2"
+                    ID="validateRepeatPassword"
                     runat="server"
                     ControlToValidate="txtDni"
                     ErrorMessage="Password must be at least 6 characters"

@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="txtPassword">PASSWORD</label>
                     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input-text" Font-Names="Bahnschrift"/>
-                    <asp:Label ID="lblError" runat="server" CssClass="error"></asp:Label>
+                    <asp:Label ID="lblError" runat="server" CssClass="error" Font-Bold="True" Font-Names="Bahnschrift"></asp:Label>
                 </div>
 
                 <asp:Button ID="btnLogin" runat="server" Text="Confirm" CssClass="btn-login" OnClick="btnLogin_Click" />

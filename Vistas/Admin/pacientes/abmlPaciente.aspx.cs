@@ -130,8 +130,10 @@ namespace Vistas
             string nuevaDireccion = ((TextBox)row.FindControl("txtDIRECCION_PAC")).Text;
             string nuevoCorreo = ((TextBox)row.FindControl("txtCORREO_PAC")).Text;
             string nuevoTelefono = ((TextBox)row.FindControl("txtTELEFONO_PAC")).Text;
+            string nuevaNacionalidad = ((TextBox)row.FindControl("txtNACIONALIDAD_PAC")).Text;
 
             string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_PAC")).Text;
+
             DateTime nuevaFechaNac;
             if (!DateTime.TryParse(fechaNacString, out nuevaFechaNac))
             {
@@ -159,7 +161,7 @@ namespace Vistas
 
             UserManager medico = new UserManager();
             medico.updatePatient(nuevoNombre, nuevoApellido, dniPaciente, 
-                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaFechaNac,
+                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia);
 
             gvPacientes.EditIndex = -1;
