@@ -26,6 +26,7 @@ namespace Entidades
         public string _contrasena;
         public string _repecontrasena;
 
+        // CONSTRUCTOR
         public Medico() { }
 
         public Medico(int id_usuario, int dni, string nombre, string apellido, string sexo,
@@ -52,6 +53,7 @@ namespace Entidades
             _repecontrasena = repecontrasena;
         }
 
+        // GETTERS Y SETTERS
         public int Legajo
         {
             get { return _id_usuario; }

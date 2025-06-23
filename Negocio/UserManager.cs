@@ -10,6 +10,8 @@ namespace Negocio
 {
     public class UserManager
     {
+
+        // BAJA LOGICA DEL MEDICO
         public bool deleteDoctor(int id)
         {
             DB db = new DB();
@@ -23,6 +25,7 @@ namespace Negocio
             return db.updateUser(query, parametros);
         }
 
+        // BAJA LOGICA DEL PACIENTE
         public bool deletePatient(int dni)
         {
             DB db = new DB();
@@ -36,6 +39,7 @@ namespace Negocio
             return db.updateUser(query, parametros);
         }
 
+        // MODIFICACION DEL USUARIO
         public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
         {
             List<string> sets = new List<string>();
@@ -63,7 +67,7 @@ namespace Negocio
             return db.updateUser(query, parametros.ToArray());
         }
 
-
+        // ACTUALIZACION DEL MEDICO
         public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
                                  string direccion, string correo, string telefono, int idEsp, DateTime fechaNac,
                                  string sexo, int idLoc, int idProv, string diasHorario)
@@ -104,6 +108,8 @@ namespace Negocio
 
             return db.updateUser(query, parametros);
         }
+
+        // ACTUALIZACION DEL PACIENTE
         public bool updatePatient(string nombre, string apellido, string dni,
                                 string direccion, string correo, string telefono, DateTime fechaNac,
                                 string sexo, int idLoc, int idProv)

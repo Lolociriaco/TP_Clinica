@@ -86,7 +86,7 @@
             </div>
 
             <h2 class="title">
-                Edit User
+                EDIT USER
             </h2>
 
             </header>
@@ -99,7 +99,7 @@
 
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Usuario:</label>
+                            <label>Current username:</label>
                             <asp:TextBox ID="txtUsuario" runat="server" CssClass="input-text"></asp:TextBox>
                         </div>
 

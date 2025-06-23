@@ -30,6 +30,8 @@ namespace Vistas.Admin.medicos
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             username.Text = Session["username"].ToString();
         }
+
+        // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -37,6 +39,7 @@ namespace Vistas.Admin.medicos
             Response.Redirect("~/Login.aspx");
         }
 
+        // CARGAR DDL SEXOS
         private void CargarSexo()
         {
             Validar validar = new Validar(); 
@@ -50,6 +53,7 @@ namespace Vistas.Admin.medicos
             ddlSexo.Items.Insert(0, new ListItem("", ""));
         }
 
+        // CARGAR DDL ESPECIALIDADES
         private void CargarEspecialidades()
         {
             Validar validar = new Validar(); 
@@ -63,6 +67,7 @@ namespace Vistas.Admin.medicos
             ddlSpeciality.Items.Insert(0, new ListItem("", ""));
         }
 
+        // CARGAR DDL PROVINCIA
         private void CargarProvincia()
         {
             Validar validar = new Validar(); 
@@ -76,6 +81,7 @@ namespace Vistas.Admin.medicos
             ddlCity.Items.Insert(0, new ListItem("", ""));
         }
 
+        // CARGAR DDL LOCALIDADES
         private void CargarLocalidad()
         {
             Validar validar = new Validar(); 
@@ -94,10 +100,11 @@ namespace Vistas.Admin.medicos
 
         }
 
+        // AGREGAR MEDICO
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
-               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text) || string.IsNullOrEmpty(chkDias.Text) 
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text)
+               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text) || string.IsNullOrEmpty(chkDias.Text)
                || string.IsNullOrEmpty(rblHorarios.Text) || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
@@ -105,8 +112,8 @@ namespace Vistas.Admin.medicos
                 return;
             }
 
-            if (ddlSpeciality.SelectedValue == "0" || string.IsNullOrEmpty(ddlSpeciality.SelectedValue) || ddlSexo.SelectedValue == "0" 
-               || string.IsNullOrEmpty(ddlSexo.SelectedValue) || ddlCity.SelectedValue == "0" || string.IsNullOrEmpty(ddlCity.SelectedValue) 
+            if (ddlSpeciality.SelectedValue == "0" || string.IsNullOrEmpty(ddlSpeciality.SelectedValue) || ddlSexo.SelectedValue == "0"
+               || string.IsNullOrEmpty(ddlSexo.SelectedValue) || ddlCity.SelectedValue == "0" || string.IsNullOrEmpty(ddlCity.SelectedValue)
                || ddlLocality.SelectedValue == "0" || string.IsNullOrEmpty(ddlLocality.SelectedValue))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
@@ -122,9 +129,27 @@ namespace Vistas.Admin.medicos
                 txtRepeatPass.Text = "";
                 return;
             }
-            
+
 
             Validar validar = new Validar();
+
+            if (!Page.IsValid) return; 
+
+            if (validar.ExisteDni(int.Parse(txtDNI.Text)))
+            {
+                validateDni.ErrorMessage = "That DNI is already registered.";
+                validateDni.IsValid = false;
+                return;
+            }
+
+            if (!Page.IsValid) return; 
+
+            if (validar.ExisteTelefono(txtPhone.Text))
+            {
+                validatePhone.ErrorMessage = "That phone number is already registered.";
+                validatePhone.IsValid = false; 
+                return;
+            }
 
             //  OBTENER DIAS DEL CHECKBOXLIST
 

@@ -30,6 +30,8 @@ namespace Vistas.Admin.pacientes
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             username.Text = Session["username"].ToString();
         }
+
+        // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -37,9 +39,10 @@ namespace Vistas.Admin.pacientes
             Response.Redirect("~/Login.aspx"); 
         }
 
+        // CARGA DE DDL SEXO
         private void CargarSexo()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtSexos = validar.ObtenerSexoPaciente();
 
             ddlSexo.DataSource = dtSexos;
@@ -50,9 +53,10 @@ namespace Vistas.Admin.pacientes
             ddlSexo.Items.Insert(0, new ListItem("", ""));
         }
 
+        // CARGA DE DDL PROVINCIA
         private void CargarProvincia()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtCity = validar.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
@@ -63,9 +67,10 @@ namespace Vistas.Admin.pacientes
             ddlCity.Items.Insert(0, new ListItem("", ""));
         }
 
+        // CARGA DE DDL LOCALIDAD
         private void CargarLocalidad()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtLocality = validar.ObtenerLocalidad();
 
             ddlLocality.DataSource = dtLocality;
@@ -82,6 +87,7 @@ namespace Vistas.Admin.pacientes
 
         }
 
+        // AGREGAR PACIENTE
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) 
@@ -101,6 +107,24 @@ namespace Vistas.Admin.pacientes
             }
 
             Validar validar = new Validar();
+
+            if (!Page.IsValid) return; 
+
+            if (validar.ExisteDni(int.Parse(txtDNI.Text)))
+            {
+                validateDni.ErrorMessage = "That DNI is already registered.";
+                validateDni.IsValid = false; 
+                return;
+            }
+
+            if (!Page.IsValid) return; 
+
+            if (validar.ExisteTelefono(txtPhone.Text))
+            {
+                validatePhone.ErrorMessage = "That phone number is already registered.";
+                validatePhone.IsValid = false; 
+                return;
+            }
 
             Paciente paciente = new Paciente
             {

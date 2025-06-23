@@ -24,6 +24,8 @@ namespace Vistas.Admin.medicos
             }
                 lblEstado.Text = "";
         }
+
+        // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -31,6 +33,7 @@ namespace Vistas.Admin.medicos
             Response.Redirect("~/Login.aspx");
         }
 
+        // AGREGAR USUARIO NUEVO
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))

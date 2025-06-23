@@ -14,12 +14,12 @@
 
 
 </head>
-
 <body>
     <form id="form4" runat="server"> 
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
 
+        <%----------- SIDEBAR --------------%>
         <aside class="sidebar">
             <nav class="menu">
 
@@ -76,6 +76,7 @@
 
         </aside>
 
+        <%----------- CONTENIDO PRINCIPAL --------------%>
         <main class="main-content">
             <header>
 
@@ -84,19 +85,34 @@
                     <asp:Label ID="username" CssClass="username" runat="server"/>
             </div>
             <h2 class="title">
-                DOCTORS
+                PATIENTS
             </h2>
 
             </header>
 
+            <%----------- CONTENIDO GRIDVIEW --------------%>
             <div class="content-box">
 
                 <h3>About the patient</h3>
 
                 <div style="margin-top: 40px;">
 
-                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px" OnRowCommand="gvPacientes_RowCommand" AutoGenerateEditButton="True" OnRowEditing="gvPacientes_RowEditing" OnRowUpdating="gvPacientes_RowUpdating" OnRowCancelingEdit="gvPacientes_RowCancelingEdit" OnRowDataBound="gvPacientes_RowDataBound" DataKeyNames="DNI_PAC" AllowPaging="True" OnPageIndexChanging="gvPacientes_PageIndexChanging">
+                    <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" 
+                        Width="100%" OnRowCommand="gvPacientes_RowCommand" OnRowEditing="gvPacientes_RowEditing" OnRowUpdating="gvPacientes_RowUpdating" 
+                        OnRowCancelingEdit="gvPacientes_RowCancelingEdit" OnRowDataBound="gvPacientes_RowDataBound" DataKeyNames="DNI_PAC" 
+                        AllowPaging="True" OnPageIndexChanging="gvPacientes_PageIndexChanging" CellPadding="4" ForeColor="#333333" 
+                        GridLines="None" PageSize="6" CssClass="gridview-doctores">
+
+                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+
                         <Columns>
+
+                            <asp:CommandField 
+                            ShowEditButton="True" 
+                            EditText="Edit" 
+                            UpdateText="Save" 
+                            CancelText="Cancel" />
+
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Unsubscribe" CssClass="btn btn-danger" />
@@ -177,13 +193,6 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-<%--                             <asp:TemplateField HeaderText="ID LOCALITY" SortExpression="ID_LOC_PAC">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblID_LOC_PAC" runat="server"
-                                               Text='<%# Bind("ID_LOC_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-
                             <asp:TemplateField HeaderText="LOCALITY" SortExpression="NOMBRE_LOC">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_LOC" runat="server"
@@ -193,13 +202,6 @@
                                     <asp:DropDownList ID="ddlID_LOC_PAC" runat="server"></asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-
-<%--                            <asp:TemplateField HeaderText="ID CITY" SortExpression="ID_PROV_PAC">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblID_PROV_PAC" runat="server"
-                                               Text='<%# Bind("ID_PROV_PAC") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
 
                             <asp:TemplateField HeaderText="CITY" SortExpression="NOMBRE_PROV">
                                 <ItemTemplate>
@@ -221,7 +223,6 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-
                             <asp:TemplateField HeaderText="PHONE NUMBER" SortExpression="TELEFONO_PAC">
                                 <ItemTemplate>
                                     <asp:Label ID="lblTelefono" runat="server" Text='<%# Bind("TELEFONO_PAC") %>'></asp:Label>
@@ -233,6 +234,9 @@
                             </asp:TemplateField>
 
                         </Columns>
+
+                        <EditRowStyle BackColor="#999999" />
+
                         <EmptyDataTemplate>
                             <tr>
                                 <td colspan="3" style="text-align:center; padding: 20px;">
@@ -240,11 +244,24 @@
                                 </td>
                             </tr>
                         </EmptyDataTemplate>
-                        <PagerSettings Mode="NumericFirstLast" />
+
+                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#e6f0fa" ForeColor="#004080" Font-Bold="True" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+
                     </asp:GridView>
 
+                    <%----------- MENSAJE DE ERROR O EXITO --------------%>
                 </div>
-
+                    <div style="margin-left: 600px; margin-top:30px;">
+                          <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                    </div>
             </div>
         </main>
     </div>

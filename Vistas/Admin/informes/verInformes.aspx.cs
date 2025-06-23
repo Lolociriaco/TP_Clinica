@@ -19,6 +19,7 @@ namespace Vistas.Admin.informes
             username.Text = Session["username"].ToString();
         }
 
+        // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();

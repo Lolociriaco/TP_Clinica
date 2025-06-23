@@ -8,6 +8,7 @@ namespace Entidades
 {
     public class Usuario
     {
+        // GETTERS Y SETTERS
         public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
         public string Contrasena { get; set; }

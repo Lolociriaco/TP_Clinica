@@ -20,6 +20,7 @@ namespace Entidades
         public string _correoElectronico;
         public string _telefono;
 
+        // CONSTRUCTOR
         public Paciente() { }
 
         public Paciente(int dni, string nombre, string apellido, string sexo, string nacionalidad,
@@ -39,6 +40,7 @@ namespace Entidades
             _telefono = telefono;
         }
 
+        // GETTERS Y SETTERS
         public int DNI
         {
             get { return _dni; }

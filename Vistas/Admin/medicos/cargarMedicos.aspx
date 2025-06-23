@@ -86,7 +86,7 @@
             </div>
 
             <h2 class="title">
-                DOCTORS
+                ADD DOCTORS
             </h2>
 
             </header>
@@ -119,7 +119,8 @@
                     ErrorMessage="Invalid DNI (format: 12345678)"
                     ForeColor="Red"
                     ValidationExpression="^\d{8}$"
-                    Display="Dynamic" />
+                    Display="Dynamic" 
+                    ValidationGroup="grupoAlta"/>
                 </div>
 
                 <div class="form-group">
@@ -175,16 +176,17 @@
                     ErrorMessage="Enter a valid phone number"
                     ForeColor="Red"
                     ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
-                    Display="Dynamic" />
+                    Display="Dynamic" 
+                    ValidationGroup="grupoAlta"/>
 
                 </div>
 
                 <div class="form-group">
                   <label>Times:</label>
                   <asp:RadioButtonList ID="rblHorarios" runat="server" RepeatDirection="Horizontal" CssClass="radio-inline" style="margin-top: 15px;">
-                     <asp:ListItem Text="07:00 a 16:00" Value="07:00-16:00" />
-                     <asp:ListItem Text="08:00 a 17:00" Value="08:00-17:00" />
-                     <asp:ListItem Text="09:00 a 18:00" Value="09:00-18:00" />
+                     <asp:ListItem Text="7AM to 4PM" Value="07:00-16:00" />
+                     <asp:ListItem Text="8AM to 5PM" Value="08:00-17:00" />
+                     <asp:ListItem Text="9AM to 6PM" Value="09:00-18:00" />
                   </asp:RadioButtonList>
                 </div>
 
@@ -224,7 +226,7 @@
               </div>
 
               <div class="form-footer">
-                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" ValidationGroup="grupoAlta"/>
                 <asp:Label ID="lblMensaje" runat="server" CssClass="form-message" />
               </div>
             </div>

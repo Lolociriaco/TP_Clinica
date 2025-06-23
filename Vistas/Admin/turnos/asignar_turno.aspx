@@ -18,7 +18,8 @@
        <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
           <div class="container">
-            
+
+            <%-----------------SIDEBAR-------------------%>
             <aside class="sidebar">
 
               <nav class="menu">
@@ -78,11 +79,12 @@
                     <asp:Label ID="username" CssClass="username" runat="server"/>
                 </div>
                 <h2 class="title">
-                    DOCTORS
+                    ASSIGN APPOINTMENTS
                 </h2>
 
               </header>
 
+              <%-----------------CONTENIDO DE ASIGNACION DE TURNOS-------------------%>
               <div class="content-box">
                 <h3>¡Complete the fields!</h3>
 

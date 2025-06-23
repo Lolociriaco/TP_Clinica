@@ -16,6 +16,7 @@ namespace Negocio
     public class Validar
     {
 
+        // VALIDAR SI EL USUARIO EXISTE
         public bool ValidarUsuario(string user, string password)
         {
 
@@ -37,6 +38,7 @@ namespace Negocio
             return existe;
         }
 
+        // VALIDAR EL CAMBIO DE USUARIO
         public bool ValidarCambioUsuario(string user)
         {
             string query = "SELECT * FROM USUARIOS WHERE USUARIO = @user";
@@ -52,6 +54,7 @@ namespace Negocio
             return existe;
         }
 
+        // CONSULTA PARA OBTENER CAMPOS DE MEDICOS
         public DataTable ObtenerMedicos()
         {
             string query = "SELECT M.ID_USUARIO, M.NOMBRE_MED, M.APELLIDO_MED, M.DNI_MED, M.SEXO_MED, M.NACIONALIDAD_MED, M.DIRECCION_MED, M.FECHANAC_MED," +
@@ -65,6 +68,7 @@ namespace Negocio
             return ds.Tables["Medicos"];
         }
 
+        // CONSULTA PARA OBTENER CAMPOS DE PACIENTES
         public DataTable ObtenerPacientes()
         {
             string query = "SELECT P.DNI_PAC, P.NOMBRE_PAC, P.APELLIDO_PAC, P.SEXO_PAC, P.NACIONALIDAD_PAC, P.DIRECCION_PAC," +
@@ -78,6 +82,8 @@ namespace Negocio
             adapter.Fill(ds, "Pacientes");
             return ds.Tables["Pacientes"];
         }
+
+        // CONSULTA PARA OBTENER CAMPOS DE TURNOS
         public DataTable ObtenerTurnos()
         {
             string query = "SELECT * FROM TURNOS";
@@ -87,6 +93,8 @@ namespace Negocio
             adapter.Fill(ds, "Turnos");
             return ds.Tables["Turnos"];
         }
+
+        // CONSULTA PARA OBTENER SEXO DEL PACIENTE
         public DataTable ObtenerSexoPaciente()
         {
             string query = "SELECT DISTINCT SEXO_PAC FROM PACIENTES WHERE SEXO_PAC IS NOT NULL";
@@ -97,6 +105,7 @@ namespace Negocio
             return ds.Tables["Sexos"];
         }
 
+        // CONSULTA PARA OBTENER SEXO DEL MEDICO
         public DataTable ObtenerSexoMedico()
         {
             string query = "SELECT DISTINCT SEXO_MED FROM MEDICOS WHERE SEXO_MED IS NOT NULL";
@@ -107,6 +116,7 @@ namespace Negocio
             return ds.Tables["Sexos"];
         }
 
+        // CONSULTA PARA OBTENER ESPECIALIDADES
         public DataTable ObtenerEspecialidades()
         {
             string query = "SELECT NOMBRE_ESP, ID_ESP FROM ESPECIALIDADES";
@@ -116,6 +126,8 @@ namespace Negocio
             adapter.Fill(ds, "Especialidades");
             return ds.Tables["Especialidades"];
         }
+
+        // CONSULTA PARA OBTENER CAMPOS DE PROVINCIAS
         public DataTable ObtenerProvincia()
         {
             string query = "SELECT ID_PROV, NOMBRE_PROV FROM PROVINCIAS";
@@ -126,6 +138,7 @@ namespace Negocio
             return ds.Tables["Provincias"];
         }
 
+        // CONSULTA PARA OBTENER CAMPOS DE LOCALIDADES
         public DataTable ObtenerLocalidad()
         {
             string query = "SELECT ID_LOC, NOMBRE_LOC FROM LOCALIDADES";
@@ -135,6 +148,8 @@ namespace Negocio
             adapter.Fill(ds, "Localidades");
             return ds.Tables["Localidades"];
         }
+
+        // CONSULTA PARA OBTENER DIAS DE LA SEMANA
         public DataTable ObtenerDias()
         {
             string query = "SELECT DISTINCT DIA_SEMANA FROM HORARIOS_MEDICOS WHERE DIA_SEMANA IS NOT NULL";
@@ -144,6 +159,8 @@ namespace Negocio
             adapter.Fill(ds, "Dias");
             return ds.Tables["Dias"];
         }
+
+        // CONSULTA PARA INSERTAR EL NUEVO PACIENTE
         public void AgregarPaciente(Paciente paciente)
         {
             string query = "INSERT INTO PACIENTES (DNI_PAC, NOMBRE_PAC, APELLIDO_PAC, SEXO_PAC, NACIONALIDAD_PAC, FECHANAC_PAC, DIRECCION_PAC, ID_LOC_PAC, ID_PROV_PAC, CORREO_PAC, TELEFONO_PAC) " +
@@ -168,7 +185,7 @@ namespace Negocio
             datos.EjecutarInsert(query, parametros);
         }
 
-
+        // CONSULTA PARA INSERTAR EL NUEVO USUARIO
         public int AgregarUsuario(Usuario user)
         {
             string query = "INSERT INTO USUARIOS (USUARIO, CONTRASENA, TIPO_USUARIO) " +
@@ -192,6 +209,7 @@ namespace Negocio
             }
         }
 
+        // CONSULTA PARA INSERTAR EL NUEVO MEDICO
         public void AgregarMedico(Medico medico)
         {
             string query = "INSERT INTO MEDICOS (ID_USUARIO, DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED) " +
@@ -219,6 +237,7 @@ namespace Negocio
             datos.EjecutarInsert(query, parametros);
         }
 
+        // CONSULTA PARA INSERTAR EL HORARIO DEL MEDICO
         public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
             string query = "INSERT INTO HORARIOS_MEDICOS (ID_USUARIO_MEDICO, DIA_SEMANA, HORA_INICIO, HORA_FIN) " +
@@ -234,6 +253,32 @@ namespace Negocio
 
             DB db = new DB();
             db.EjecutarInsert(query, parametros);
+        }
+
+        // CONSULTA PARA VERIFICAR SI EL DNI YA EXISTE
+        public bool ExisteDni(int dni)
+        {
+            string query = "SELECT COUNT(*) FROM MEDICOS WHERE DNI_MED = @dni";
+            SqlParameter[] parametros = {
+                new SqlParameter("@dni", dni)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
+        }
+
+        // CONSULTA PARA VERIFICAR SI EL TELEFONO YA EXISTE
+        public bool ExisteTelefono(string telefono)
+        {
+            string query = "SELECT COUNT(*) FROM MEDICOS WHERE TELEFONO_MED = @telefono";
+            SqlParameter[] parametros = {
+                new SqlParameter("@telefono", telefono)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
         }
     }
 }

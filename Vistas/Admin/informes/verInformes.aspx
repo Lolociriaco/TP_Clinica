@@ -17,7 +17,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
           <div class="container">
-
+            <%------- SIDEBAR -------%>
             <aside class="sidebar">
 
               <nav class="menu">
@@ -69,7 +69,7 @@
 
             </aside>
 
-            
+             <%-----------------CONTENIDO PRINCIPAL-------------------%>
             <main class="main-content">
 
               <header>
@@ -79,11 +79,12 @@
                     <asp:Label ID="username" CssClass="username" runat="server"/>
                 </div>
                 <h2 class="title">
-                    DOCTORS
+                    REPORTS
                 </h2>
 
               </header>
-
+              
+              <%-----------------CONTENIDO REPORTES-------------------%>
               <div class="content-box">
                 
                 <h3>Reports & Statistics</h3>
@@ -91,6 +92,8 @@
               </div>
             </main>
           </div>
+
+          <%-----------------POP UP LOGOUT-------------------%>
           <asp:Panel ID="pnlConfirmLogout" runat="server" CssClass="modalPopup" Style="display:none;">
             <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
                 <p>¿Estas seguro de que deseas cerrar sesión?</p>
@@ -104,6 +107,7 @@
             PopupControlID="pnlConfirmLogout"
             CancelControlID="btnCancelarLogout"
             BackgroundCssClass="modalBackground" />
+
         </form>
         </body>
 </html>

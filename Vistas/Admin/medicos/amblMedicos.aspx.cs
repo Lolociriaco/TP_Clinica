@@ -29,10 +29,13 @@ namespace Vistas
                 username.Text = Session["username"].ToString();
         }
 
+        // CARGA DE DDLS
         protected void gvMedicos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow && gvMedicos.EditIndex == e.Row.RowIndex)
             {
+                e.Row.CssClass = "edit-row";
+
                 Validar validar = new Validar();
 
                 // LOCALIDAD 
@@ -120,8 +123,7 @@ namespace Vistas
             }
         }
 
-
-
+        // FUNCIONALIDAD DE UNSUBSCRIBE
         protected void gvMedicos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "DarDeBaja")
@@ -177,13 +179,22 @@ namespace Vistas
 
             string nuevoSexo = ((DropDownList)row.FindControl("ddlSEXO_MED")).SelectedValue;
 
-            int nuevaEspecialidad = Convert.ToInt32(((DropDownList)row.FindControl("ddlID_ESP")).SelectedValue); 
+            DropDownList ddlEsp = (DropDownList)row.FindControl("ddlID_ESP");
+            DropDownList ddlLoc = (DropDownList)row.FindControl("ddlID_LOC_MED");
+            DropDownList ddlProv = (DropDownList)row.FindControl("ddlID_PROV_MED");
 
-            int nuevaLocalidad = Convert.ToInt32(((DropDownList)row.FindControl("ddlID_LOC_MED")).SelectedValue);
+            if (ddlEsp == null || ddlEsp.SelectedValue == "0" || string.IsNullOrEmpty(ddlEsp.SelectedValue) ||
+                ddlLoc == null || ddlLoc.SelectedValue == "0" || string.IsNullOrEmpty(ddlLoc.SelectedValue) ||
+                ddlProv == null || ddlProv.SelectedValue == "0" || string.IsNullOrEmpty(ddlProv.SelectedValue))
+            {
+                lblMensaje.Text = "Select a valid city, locality and speciality.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
 
-            int nuevaProvincia = Convert.ToInt32(((DropDownList)row.FindControl("ddlID_PROV_MED")).SelectedValue); 
-
-            
+            int nuevaEspecialidad = Convert.ToInt32(ddlEsp.SelectedValue);
+            int nuevaLocalidad = Convert.ToInt32(ddlLoc.SelectedValue);
+            int nuevaProvincia = Convert.ToInt32(ddlProv.SelectedValue);
 
             UserManager medico = new UserManager();
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
@@ -194,6 +205,7 @@ namespace Vistas
             CargarMedicos();
         }
 
+        // CARGA DE GRIDVIEW
         private void CargarMedicos()
         {
             Validar validar = new Validar();
@@ -201,6 +213,7 @@ namespace Vistas
             gvMedicos.DataBind();
         }
 
+        // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -208,9 +221,11 @@ namespace Vistas
             Response.Redirect("~/Login.aspx");
         }
 
+        // CAMBIO DE PAGINA DE GRIDVIEW
         protected void gvMedicos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            gvMedicos.PageIndex = e.NewPageIndex;
+            CargarMedicos();
         }
     }
 }

@@ -27,15 +27,18 @@ namespace Vistas.Admin.turnos
             username.Text = Session["username"].ToString();
         }
 
+        // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
             Response.Redirect("~/Login.aspx");
         }
+
+        // CARGAR ESPECIALIDADES EN DDL
         private void CargarEspecialidades()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtSexos = validar.ObtenerEspecialidades();
 
             ddlSpeciality.DataSource = dtSexos;
@@ -45,9 +48,11 @@ namespace Vistas.Admin.turnos
 
             ddlSpeciality.Items.Insert(0, new ListItem("", ""));
         }
+
+        // CARGAR DIAS EN DDL
         private void CargarDias()
         {
-            Validar validar = new Validar(); // o el nombre real de tu clase de negocio
+            Validar validar = new Validar(); 
             DataTable dtSexos = validar.ObtenerDias();
 
             ddlDay.DataSource = dtSexos;
@@ -62,6 +67,8 @@ namespace Vistas.Admin.turnos
         {
 
         }
+
+        // ASIGNAR TURNO
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtTime.Text) || string.IsNullOrEmpty(txtDoctor.Text) || string.IsNullOrEmpty(txtPatient.Text))

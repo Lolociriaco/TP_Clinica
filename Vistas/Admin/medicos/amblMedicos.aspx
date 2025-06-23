@@ -17,7 +17,8 @@
           <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
           <div class="container">
-            
+
+             <%-----------------SIDEBAR-------------------%>
             <aside class="sidebar">
 
               <nav class="menu">
@@ -69,7 +70,7 @@
 
             </aside>
 
-            
+             <%-----------------CONTENIDO PRINCIPAL-------------------%>
             <main class="main-content">
 
               <header>
@@ -83,7 +84,7 @@
                 </h2>
 
               </header>
-
+              <%-----------------CONTENIDO GRIDVIEW-------------------%>
               <div class="content-box">
                 
                 <h3>About the doctor</h3>
@@ -91,12 +92,22 @@
                   <div style="margin-top: 40px;">
 
                     <asp:GridView ID="gvMedicos" runat="server" AutoGenerateColumns="False" Font-Bold="True" 
-                        Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px" 
-                        OnRowCommand="gvMedicos_RowCommand" AutoGenerateEditButton="True" OnRowEditing="gvMedicos_RowEditing" 
-                        OnRowUpdating="gvMedicos_RowUpdating" OnRowCancelingEdit="gvMedicos_RowCancelingEdit" OnRowDataBound="gvMedicos_RowDataBound" 
-                        DataKeyNames="ID_USUARIO" AllowPaging="True" OnPageIndexChanging="gvMedicos_PageIndexChanging">
+                        Font-Names="Bahnschrift" Width="100%" 
+                        OnRowCommand="gvMedicos_RowCommand" OnRowEditing="gvMedicos_RowEditing" OnRowUpdating="gvMedicos_RowUpdating" 
+                        OnRowCancelingEdit="gvMedicos_RowCancelingEdit" OnRowDataBound="gvMedicos_RowDataBound" 
+                        DataKeyNames="ID_USUARIO" AllowPaging="True" OnPageIndexChanging="gvMedicos_PageIndexChanging" 
+                        PageSize="6" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview-doctores">
+                        
+                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         
                         <Columns>
+
+                        <asp:CommandField 
+                        ShowEditButton="True" 
+                        EditText="Edit" 
+                        UpdateText="Save" 
+                        CancelText="Cancel" />
+
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Unsubscribe" CssClass="btn btn-danger" />
@@ -192,14 +203,6 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-
-<%--                            <asp:TemplateField HeaderText="ID LOCALITY" SortExpression="ID_LOC_MED">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblID_LOC_MED" runat="server"
-                                               Text='<%# Bind("ID_LOC_MED") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-
                             <asp:TemplateField HeaderText="LOCALITY" SortExpression="NOMBRE_LOC">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_LOC" runat="server"
@@ -210,13 +213,6 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-<%--                            <asp:TemplateField HeaderText="ID CITY" SortExpression="ID_PROV_MED">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblID_PROV_MED" runat="server"
-                                               Text='<%# Bind("ID_PROV_MED") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-
                             <asp:TemplateField HeaderText="CITY" SortExpression="NOMBRE_PROV">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_PROV" runat="server"
@@ -226,13 +222,6 @@
                                     <asp:DropDownList ID="ddlID_PROV_MED" runat="server"></asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-
-<%--                           <asp:TemplateField HeaderText="ID SPECIALITY" SortExpression="ID_ESP_MED">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblID_ESP_MED" runat="server"
-                                               Text='<%# Bind("ID_ESP_MED") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
 
                             <asp:TemplateField HeaderText="SPECIALITY" SortExpression="NOMBRE_ESP">
                                 <ItemTemplate>
@@ -277,8 +266,9 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-
                         </Columns>
+
+                        <EditRowStyle BackColor="#999999" />
 
                         <EmptyDataTemplate>
                             <tr>
@@ -287,11 +277,24 @@
                                 </td>
                             </tr>
                         </EmptyDataTemplate>
-                        <PagerSettings Mode="NumericFirstLast" />
-                    </asp:GridView>
 
+                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#e6f0fa" ForeColor="#004080" Font-Bold="True" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+
+                    </asp:GridView>
+                      
+                      <div style="margin-left: 620px; margin-top:30px;">
+                            <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                      </div>
                 </div>
-                
+                    
               </div>
             </main>
           </div>
@@ -310,35 +313,6 @@
             PopupControlID="pnlConfirmLogout"
             CancelControlID="btnCancelarLogout"
             BackgroundCssClass="modalBackground" />
-
-         <!--     <%----------------------------------POP UP EDIT---------------------------%>
-          <asp:Panel ID="pnlConfirmEdit" runat="server" CssClass="modalPopup" Style="display:none;">
-            <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
-                <p>¿Are you sure you want to edit this doctor?</p>
-                <asp:Button ID="btnConfirmarEdit" runat="server" Text="Yes, edit" OnClick="gvMedicos_RowUpdating" CssClass="confirm-button" />
-                <asp:Button ID="btnCancelarEdit" runat="server" Text="Cancel" CssClass="cancel-button" />
-            </div>
-        </asp:Panel>           
-        <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server"
-            TargetControlID="btnBajaLogica"
-            PopupControlID="pnlConfirmEdit"
-            CancelControlID="btnCancelarEdit"
-            BackgroundCssClass="modalBackground" /> -->
-
-              <%----------------------------------POP UP UNSUSCRIBE---------------------------%>
-          <asp:Panel ID="pnlConfirmUnsuscribe" runat="server" CssClass="modalPopup" Style="display:none;">
-            <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
-                <p>¿Are you sure you want to log out?</p>
-                <asp:Button ID="btnConfirmarUnsuscribe" runat="server" Text="Yes, log out" OnClick="gvMedicos_RowCommand" CssClass="confirm-button" />
-                <asp:Button ID="btnCancelarUnsuscribe" runat="server" Text="Cancel" CssClass="cancel-button" />
-            </div>
-        </asp:Panel>
-        <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender2" runat="server"
-            TargetControlID="btnLogout"
-            PopupControlID="pnlConfirmLogout"
-            CancelControlID="btnCancelarLogout"
-            BackgroundCssClass="modalBackground" />
-
 
         </form>
         </body>

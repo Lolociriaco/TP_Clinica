@@ -113,7 +113,8 @@
                                 ErrorMessage="Invalid DNI (format: 12345678)"
                                 ForeColor="Red"
                                 ValidationExpression="^\d{8}$"
-                                Display="Dynamic" />
+                                Display="Dynamic" 
+                                ValidationGroup="grupoAlta"/>
                         </div>
 
                         <div class="form-group">
@@ -169,14 +170,15 @@
                                 ErrorMessage="Enter a valid phone number"
                                 ForeColor="Red"
                                 ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
-                                Display="Dynamic" />
+                                Display="Dynamic" 
+                                ValidationGroup="grupoAlta"/>
 
                         </div>
 
                     </div>
 
                     <div class="form-footer">
-                        <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                        <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" ValidationGroup="grupoAlta"/>
                         <asp:Label ID="lblMensaje" runat="server" CssClass="form-message" />
                     </div>
                 </div>
