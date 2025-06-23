@@ -5,7 +5,7 @@
 <html>
     <head>
 
-    <titleRR-SCD MED</title>
+    <title>RR-SCD MED</title>
 
     <link rel="stylesheet" href="/Admin/Admin_style.css" type="text/css"/>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
@@ -90,7 +90,11 @@
 
                   <div style="margin-top: 40px;">
 
-                    <asp:GridView ID="gvMedicos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px" OnRowCommand="gvMedicos_RowCommand" AutoGenerateEditButton="True" OnRowEditing="gvMedicos_RowEditing" OnRowUpdating="gvMedicos_RowUpdating" OnRowCancelingEdit="gvMedicos_RowCancelingEdit" OnRowDataBound="gvMedicos_RowDataBound" DataKeyNames="ID_USUARIO" AllowPaging="True" OnPageIndexChanging="gvMedicos_PageIndexChanging">
+                    <asp:GridView ID="gvMedicos" runat="server" AutoGenerateColumns="False" Font-Bold="True" 
+                        Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px" 
+                        OnRowCommand="gvMedicos_RowCommand" AutoGenerateEditButton="True" OnRowEditing="gvMedicos_RowEditing" 
+                        OnRowUpdating="gvMedicos_RowUpdating" OnRowCancelingEdit="gvMedicos_RowCancelingEdit" OnRowDataBound="gvMedicos_RowDataBound" 
+                        DataKeyNames="ID_USUARIO" AllowPaging="True" OnPageIndexChanging="gvMedicos_PageIndexChanging">
                         
                         <Columns>
                             <asp:TemplateField>
@@ -147,9 +151,9 @@
                                 <EditItemTemplate>
                                     <asp:DropDownList ID="ddlSEXO_MED" runat="server"
                                                       SelectedValue='<%# Bind("SEXO_MED") %>'>
-                                        <asp:ListItem Text="Masculino" Value="MALE" />
-                                        <asp:ListItem Text="Femenino" Value="FEMALE" />
-                                        <asp:ListItem Text="OTHER" Value="OTHER" />
+                                        <asp:ListItem Text="Male" Value="MALE" />
+                                        <asp:ListItem Text="Female" Value="FEMALE" />
+                                        <asp:ListItem Text="Other" Value="OTHER" />
                                     </asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
@@ -306,6 +310,35 @@
             PopupControlID="pnlConfirmLogout"
             CancelControlID="btnCancelarLogout"
             BackgroundCssClass="modalBackground" />
+
+         <!--     <%----------------------------------POP UP EDIT---------------------------%>
+          <asp:Panel ID="pnlConfirmEdit" runat="server" CssClass="modalPopup" Style="display:none;">
+            <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+                <p>¿Are you sure you want to edit this doctor?</p>
+                <asp:Button ID="btnConfirmarEdit" runat="server" Text="Yes, edit" OnClick="gvMedicos_RowUpdating" CssClass="confirm-button" />
+                <asp:Button ID="btnCancelarEdit" runat="server" Text="Cancel" CssClass="cancel-button" />
+            </div>
+        </asp:Panel>           
+        <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server"
+            TargetControlID="btnBajaLogica"
+            PopupControlID="pnlConfirmEdit"
+            CancelControlID="btnCancelarEdit"
+            BackgroundCssClass="modalBackground" /> -->
+
+              <%----------------------------------POP UP UNSUSCRIBE---------------------------%>
+          <asp:Panel ID="pnlConfirmUnsuscribe" runat="server" CssClass="modalPopup" Style="display:none;">
+            <div style="background:white; padding:20px; border-radius:8px; width:300px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+                <p>¿Are you sure you want to log out?</p>
+                <asp:Button ID="btnConfirmarUnsuscribe" runat="server" Text="Yes, log out" OnClick="gvMedicos_RowCommand" CssClass="confirm-button" />
+                <asp:Button ID="btnCancelarUnsuscribe" runat="server" Text="Cancel" CssClass="cancel-button" />
+            </div>
+        </asp:Panel>
+        <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender2" runat="server"
+            TargetControlID="btnLogout"
+            PopupControlID="pnlConfirmLogout"
+            CancelControlID="btnCancelarLogout"
+            BackgroundCssClass="modalBackground" />
+
 
         </form>
         </body>

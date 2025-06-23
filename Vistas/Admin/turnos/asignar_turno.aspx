@@ -118,7 +118,6 @@
                     <asp:Label ID="lblMensaje" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="Red"></asp:Label>
                 </div>
             </div>
-
             </main>
           </div>
 

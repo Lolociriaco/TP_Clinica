@@ -194,8 +194,8 @@ namespace Negocio
 
         public void AgregarMedico(Medico medico)
         {
-            string query = "INSERT INTO MEDICOS (DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED, ID_USUARIO) " +
-                         "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion, @legajo)";
+            string query = "INSERT INTO MEDICOS (ID_USUARIO, DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED) " +
+                         "VALUES (@id_usuario, @dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion)";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -212,7 +212,7 @@ namespace Negocio
                 new SqlParameter("@telefono", medico._telefono),
                 new SqlParameter("@especialidad", medico._especialidad),
                 new SqlParameter("@diasYHorariosAtencion", medico._diasYHorariosAtencion),
-                new SqlParameter("@legajo", medico._legajo),
+                new SqlParameter("@id_usuario", medico._id_usuario),
             };
 
             DB datos = new DB();
@@ -221,7 +221,7 @@ namespace Negocio
 
         public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
-            string query = "INSERT INTO HORARIOS_MEDICOS (ID_USUARIO, DIA_SEMANA, HORA_INICIO, HORA_FIN) " +
+            string query = "INSERT INTO HORARIOS_MEDICOS (ID_USUARIO_MEDICO, DIA_SEMANA, HORA_INICIO, HORA_FIN) " +
                            "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
 
             SqlParameter[] parametros = new SqlParameter[]

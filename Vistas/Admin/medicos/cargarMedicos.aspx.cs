@@ -27,6 +27,7 @@ namespace Vistas.Admin.medicos
                 Response.Redirect("~/Login.aspx");
             }
 
+            this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             username.Text = Session["username"].ToString();
         }
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
@@ -95,7 +96,7 @@ namespace Vistas.Admin.medicos
 
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text) 
                || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text) || string.IsNullOrEmpty(chkDias.Text) 
                || string.IsNullOrEmpty(rblHorarios.Text) || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
             {
@@ -125,13 +126,19 @@ namespace Vistas.Admin.medicos
 
             Validar validar = new Validar();
 
-            string nombreCompleto = txtFullName.Text.Trim();
-            string[] partes = nombreCompleto.Split(' ');
+            //  OBTENER DIAS DEL CHECKBOXLIST
 
-            string nombre = partes[0];
-            string apellido = partes.Length > 1 ? string.Join(" ", partes.Skip(1)) : "";
+            List<string> diasSeleccionados = new List<string>();
 
+            foreach(ListItem item in chkDias.Items)
+            {
+                if (item.Selected)
+                {
+                    diasSeleccionados.Add(item.Value);
+                }
+            }
 
+            string diasYHorarios = rblHorarios.SelectedValue + " " + string.Join("-", diasSeleccionados);
 
             Usuario user = new Usuario
             {
@@ -140,10 +147,12 @@ namespace Vistas.Admin.medicos
                 TipoUsuario = "MEDICO"
             };
 
+            int idUsuario = validar.AgregarUsuario(user); 
+
             Medico medico = new Medico
             {
-                Nombre = nombre,
-                Apellido = apellido,
+                Nombre = txtName.Text,
+                Apellido = txtSurname.Text,
                 DNI = int.Parse(txtDNI.Text),
                 Localidad = ddlLocality.SelectedValue,
                 Provincia = ddlCity.SelectedValue,
@@ -153,16 +162,14 @@ namespace Vistas.Admin.medicos
                 Telefono = txtPhone.Text,
                 Sexo = ddlSexo.SelectedValue,
                 Especialidad = ddlSpeciality.SelectedValue,
-                DiasYHorariosAtencion = rblHorarios.Text,
+                DiasYHorariosAtencion = diasYHorarios,
                 Usuario = txtUser.Text,
                 FechaNacimiento = DateTime.Parse(txtBirth.Text),
                 Contrasena = txtPassword.Text,
                 RepeContrasena = txtRepeatPass.Text
             };
 
-            int idUsuario = validar.AgregarUsuario(user); 
-
-            medico.Legajo = idUsuario;                    
+            medico._id_usuario = idUsuario;                    
             validar.AgregarMedico(medico);
 
             string[] horas = rblHorarios.SelectedValue.Split('-');
@@ -182,7 +189,8 @@ namespace Vistas.Admin.medicos
             lblMensaje.ForeColor = System.Drawing.Color.Green;
 
             txtDNI.Text = "";
-            txtFullName.Text = "";
+            txtName.Text = "";
+            txtSurname.Text = "";
             ddlLocality.SelectedIndex = 0;
             ddlCity.SelectedIndex = 0;
             ddlSexo.SelectedIndex = 0;
@@ -197,6 +205,13 @@ namespace Vistas.Admin.medicos
             txtUser.Text = "";
             txtPassword.Text = "";
             ddlSpeciality.SelectedIndex = 0;
+
+            // DEJAR CHECK BOX LIST
+
+            foreach(ListItem item in chkDias.Items)
+            {
+                item.Selected = false;
+            }
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

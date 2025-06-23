@@ -30,7 +30,7 @@ namespace Negocio
 
             SqlParameter[] parametros = new SqlParameter[]
             {
-                new SqlParameter("@cni", dni)
+                new SqlParameter("@dni", dni)
             };
 
             return db.updateUser(query, parametros);
@@ -133,7 +133,7 @@ namespace Negocio
                         FECHANAC_PAC = @fechaNac,
                         SEXO_PAC = @sexo,
                         ID_LOC_PAC = @idLoc,
-                        ID_PROV_PAC = @idProv,
+                        ID_PROV_PAC = @idProv
                     WHERE DNI_PAC = @dni";
 
             return db.updateUser(query, parametros);

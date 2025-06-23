@@ -163,13 +163,19 @@ header {
 .form-group {
     display: flex;
     flex-direction: column;
+    flex: 1;
+}
+
+.names {
+    flex-direction: row;
+    gap: 10px;
 }
 
 .input-text,
 select,
 input[type="text"] {
     width: 100%;
-    margin-top: 4px;
+    margin: 3px 0;
     padding: 10px 14px;
     border: 1px solid #ccc;
     border-radius: 6px;

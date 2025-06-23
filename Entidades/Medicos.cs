@@ -8,7 +8,7 @@ namespace Entidades
 {
     public class Medico
     {
-        public int _legajo;
+        public int _id_usuario;
         public int _dni;
         public string _nombre;
         public string _apellido;
@@ -28,12 +28,12 @@ namespace Entidades
 
         public Medico() { }
 
-        public Medico(int legajo, int dni, string nombre, string apellido, string sexo,
+        public Medico(int id_usuario, int dni, string nombre, string apellido, string sexo,
                       string nacionalidad, DateTime fechaNacimiento, string direccion,
                       string localidad, string provincia, string correoElectronico, string telefono,
                       string especialidad, string diasYHorariosAtencion, string usuario, string contrasena, string repecontrasena)
         {
-            _legajo = legajo;
+            _id_usuario = id_usuario;
             _dni = dni;
             _nombre = nombre;
             _apellido = apellido;
@@ -54,8 +54,8 @@ namespace Entidades
 
         public int Legajo
         {
-            get { return _legajo; }
-            set { _legajo = value; }
+            get { return _id_usuario; }
+            set { _id_usuario = value; }
         }
 
         public int DNI

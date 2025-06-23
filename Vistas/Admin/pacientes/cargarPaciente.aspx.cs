@@ -27,6 +27,7 @@ namespace Vistas.Admin.pacientes
                 Response.Redirect("~/Login.aspx");
             }
 
+            this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             username.Text = Session["username"].ToString();
         }
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
@@ -83,7 +84,7 @@ namespace Vistas.Admin.pacientes
 
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtFullName.Text) || string.IsNullOrEmpty(txtNation.Text) 
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) 
                || string.IsNullOrEmpty(txtAddress.Text) || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) 
                || string.IsNullOrEmpty(txtBirth.Text))
             {
@@ -101,16 +102,10 @@ namespace Vistas.Admin.pacientes
 
             Validar validar = new Validar();
 
-            string nombreCompleto = txtFullName.Text.Trim();
-            string[] partes = nombreCompleto.Split(' ');
-
-            string nombre = partes[0];
-            string apellido = partes.Length > 1 ? string.Join(" ", partes.Skip(1)) : "";
-
             Paciente paciente = new Paciente
             {
-                Nombre = nombre,
-                Apellido = apellido,
+                Nombre = txtName.Text,
+                Apellido = txtSurname.Text,
                 DNI = int.Parse(txtDNI.Text),
                 Localidad = ddlLocality.SelectedValue,
                 Provincia = ddlCity.SelectedValue,
@@ -128,7 +123,8 @@ namespace Vistas.Admin.pacientes
             lblMensaje.ForeColor = System.Drawing.Color.Green;
 
             txtDNI.Text = "";
-            txtFullName.Text = "";
+            txtName.Text = "";
+            txtSurname.Text = "";
             ddlLocality.SelectedIndex = 0;
             ddlCity.SelectedIndex = 0;
             ddlSexo.SelectedIndex = 0;

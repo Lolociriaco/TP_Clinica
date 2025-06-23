@@ -83,8 +83,7 @@
                         <img src="/Imagenes/user.png" />
                         <asp:Label ID="username" CssClass="username" runat="server" />
                     </div>
-                    <h2 class="title">DOCTORS
-                    </h2>
+                    <h2 class="title">ADD PATIENTS</h2>
 
                 </header>
 
@@ -93,14 +92,28 @@
                     <h3>¡Complete the fields!</h3>
                     <div class="form-grid">
 
-                        <div class="form-group">
-                            <label>Full Name:</label>
-                            <asp:TextBox ID="txtFullName" runat="server" CssClass="input-text" />
+                        <div class="form-group names">
+                            <div class="form-group">
+                                <label>Name:</label>
+                                <asp:TextBox ID="txtName" runat="server" CssClass="input-text" />
+                            </div>
+                            <div class="form-group">
+                                <label>Surname:</label>
+                                <asp:TextBox ID="txtSurname" runat="server" CssClass="input-text" />
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label>DNI:</label>
                             <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" />
+                            <asp:RegularExpressionValidator
+                                ID="validateDni"
+                                runat="server"
+                                ControlToValidate="txtDni"
+                                ErrorMessage="Invalid DNI (format: 12345678)"
+                                ForeColor="Red"
+                                ValidationExpression="^\d{8}$"
+                                Display="Dynamic" />
                         </div>
 
                         <div class="form-group">
@@ -136,11 +149,28 @@
                         <div class="form-group">
                             <label>Mail:</label>
                             <asp:TextBox ID="txtMail" runat="server" CssClass="input-text" />
+                            <asp:RegularExpressionValidator
+                                ID="validateMail"
+                                runat="server"
+                                ControlToValidate="txtMail"
+                                ErrorMessage="Enter a valid email"
+                                ForeColor="Red"
+                                ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                                Display="Dynamic" />
                         </div>
 
                         <div class="form-group">
                             <label>Phone Number:</label>
                             <asp:TextBox ID="txtPhone" runat="server" CssClass="input-text" />
+                            <asp:RegularExpressionValidator
+                                ID="validatePhone"
+                                runat="server"
+                                ControlToValidate="txtPhone"
+                                ErrorMessage="Enter a valid phone number"
+                                ForeColor="Red"
+                                ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
+                                Display="Dynamic" />
+
                         </div>
 
                     </div>
