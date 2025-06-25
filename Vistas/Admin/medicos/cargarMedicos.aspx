@@ -149,6 +149,38 @@
                   <label>Sex:</label>
                   <asp:DropDownList ID="ddlSexo" runat="server" CssClass="input-text" />
                 </div>
+                
+                <div class="form-group">
+                    <label style="margin-bottom: 15px;">Availability:</label>
+                    <table class="availability-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th></th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                            </tr>
+                        </thead>
+                        <asp:Repeater ID="rptDias" runat="server">
+                            <ItemTemplate>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="lblDia" runat="server" Text='<%# Container.DataItem %>' />
+                                    </td>
+                                    <td>
+                                        <asp:CheckBox ID="chkDia" style="margin-right: 15px;" runat="server" />
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txtHoraInicio" TextMode="time" runat="server" CssClass="input-text" placeholder="Hs:Ms" />
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txtHoraFin" TextMode="time" runat="server" CssClass="input-text" placeholder="Hs:Ms" />
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </table>
+                </div>
 
                 <div class="form-group">
                   <label>City:</label>
@@ -186,28 +218,6 @@
                     Display="Dynamic" 
                     ValidationGroup="grupoAlta"/>
 
-                </div>
-
-                <div class="form-group">
-                  <label>Times:</label>
-                  <asp:RadioButtonList ID="rblHorarios" runat="server" RepeatDirection="Horizontal" CssClass="radio-inline" style="margin-top: 15px;">
-                     <asp:ListItem Text="7AM to 4PM" Value="07:00-16:00" />
-                     <asp:ListItem Text="8AM to 5PM" Value="08:00-17:00" />
-                     <asp:ListItem Text="9AM to 6PM" Value="09:00-18:00" />
-                  </asp:RadioButtonList>
-                </div>
-
-                <div class="form-group">
-                  <label>Days:</label>
-                  <asp:CheckBoxList ID="chkDias" runat="server" CssClass="checkbox-inline" RepeatDirection="Horizontal" style="margin-top: 15px;">
-                    <asp:ListItem Text="Monday" Value="LUNES" />
-                    <asp:ListItem Text="Tuesday" Value="MARTES" />
-                    <asp:ListItem Text="Wednesday" Value="MIERCOLES" />
-                    <asp:ListItem Text="Thursday" Value="JUEVES" />
-                    <asp:ListItem Text="Friday" Value="VIERNES" />
-                    <asp:ListItem Text="Saturday" Value="SABADO" />
-                    <asp:ListItem Text="Sunday" Value="DOMINGO" />
-                </asp:CheckBoxList>
                 </div>
 
                 <div class="form-group">

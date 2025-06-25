@@ -123,7 +123,7 @@ namespace Vistas.Admin.turnos
             lblMensaje.Text = "Appointment registered successfully.";
 
             txtTime.Text = "";
-            txtDoctor.Text = "";
+            txtDate.Text = "";
             ddlSpeciality.SelectedIndex = 0;
             txtDNIPatient.Text = diaTurno; // para debugerarsfra
             ddlDoctor.SelectedIndex = 0;

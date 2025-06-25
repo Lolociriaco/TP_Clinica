@@ -20,6 +20,10 @@ namespace Vistas.Admin.medicos
                 CargarEspecialidades();
                 CargarLocalidad();
                 CargarProvincia();
+
+                List<string> dias = new List<string> { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO" };
+                rptDias.DataSource = dias;
+                rptDias.DataBind();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
@@ -31,69 +35,6 @@ namespace Vistas.Admin.medicos
             username.Text = Session["username"].ToString();
         }
 
-        // VOLVER A LOGIN
-        protected void btnConfirmarLogout_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Session.Abandon();
-            Response.Redirect("~/Login.aspx");
-        }
-
-        // CARGAR DDL SEXOS
-        private void CargarSexo()
-        {
-            Validar validar = new Validar(); 
-            DataTable dtSexos = validar.ObtenerSexoMedico();
-
-            ddlSexo.DataSource = dtSexos;
-            ddlSexo.DataTextField = "SEXO_MED";
-            ddlSexo.DataValueField = "SEXO_MED";
-            ddlSexo.DataBind();
-
-            ddlSexo.Items.Insert(0, new ListItem("", ""));
-        }
-
-        // CARGAR DDL ESPECIALIDADES
-        private void CargarEspecialidades()
-        {
-            Validar validar = new Validar(); 
-            DataTable dtEspecialidad = validar.ObtenerEspecialidades();
-
-            ddlSpeciality.DataSource = dtEspecialidad;
-            ddlSpeciality.DataTextField = "NOMBRE_ESP";
-            ddlSpeciality.DataValueField = "ID_ESP";
-            ddlSpeciality.DataBind();
-
-            ddlSpeciality.Items.Insert(0, new ListItem("", ""));
-        }
-
-        // CARGAR DDL PROVINCIA
-        private void CargarProvincia()
-        {
-            Validar validar = new Validar(); 
-            DataTable dtCity = validar.ObtenerProvincia();
-
-            ddlCity.DataSource = dtCity;
-            ddlCity.DataTextField = "NOMBRE_PROV";
-            ddlCity.DataValueField = "ID_PROV";
-            ddlCity.DataBind();
-
-            ddlCity.Items.Insert(0, new ListItem("", ""));
-        }
-
-        // CARGAR DDL LOCALIDADES
-        private void CargarLocalidad()
-        {
-            Validar validar = new Validar(); 
-            DataTable dtLocality = validar.ObtenerLocalidad();
-
-            ddlLocality.DataSource = dtLocality;
-            ddlLocality.DataTextField = "NOMBRE_LOC";
-            ddlLocality.DataValueField = "ID_LOC";
-            ddlLocality.DataBind();
-
-            ddlLocality.Items.Insert(0, new ListItem("", ""));
-        }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
@@ -104,8 +45,8 @@ namespace Vistas.Admin.medicos
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text)
-               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text) || string.IsNullOrEmpty(chkDias.Text)
-               || string.IsNullOrEmpty(rblHorarios.Text) || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
+               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text)
+               || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
@@ -188,17 +129,38 @@ namespace Vistas.Admin.medicos
 
             //  OBTENER DIAS DEL CHECKBOXLIST
 
-            List<string> diasSeleccionados = new List<string>();
 
-            foreach(ListItem item in chkDias.Items)
+            List<string> diasAtencion = new List<string>();
+            List<TimeSpan> horasInicio = new List<TimeSpan>();
+            List<TimeSpan> horasFin = new List<TimeSpan>();
+
+
+            foreach(RepeaterItem item in rptDias.Items)
             {
-                if (item.Selected)
+                Label lblDia = (Label)item.FindControl("lblDia");
+                CheckBox chkAtiende = (CheckBox)item.FindControl("chkDia");
+                TextBox txtHoraInicio = (TextBox)item.FindControl("txtHoraInicio");
+                TextBox txtHoraFin = (TextBox)item.FindControl("txtHoraFin");
+
+                if (chkAtiende.Checked)
                 {
-                    diasSeleccionados.Add(item.Value);
+                    // Parsear como TimeSpan
+                    TimeSpan horaIni, horaFin;
+
+                    if (TimeSpan.TryParse(txtHoraInicio.Text.Trim(), out horaIni) &&
+                        TimeSpan.TryParse(txtHoraFin.Text.Trim(), out horaFin))
+                    {
+                        diasAtencion.Add(lblDia.Text);
+                        horasInicio.Add(horaIni);
+                        horasFin.Add(horaFin);
+                    }
                 }
+                if (chkAtiende != null) chkAtiende.Checked = false;
+                if (txtHoraInicio != null) txtHoraInicio.Text = string.Empty;
+                if (txtHoraFin != null) txtHoraFin.Text = string.Empty;
             }
 
-            string diasYHorarios = rblHorarios.SelectedValue + " " + string.Join("-", diasSeleccionados);
+            //string diasYHorarios = rblHorarios.SelectedValue + " " + string.Join("-", diasSeleccionados);
 
             Usuario user = new Usuario
             {
@@ -222,7 +184,7 @@ namespace Vistas.Admin.medicos
                 Telefono = txtPhone.Text,
                 Sexo = ddlSexo.SelectedValue,
                 Especialidad = ddlSpeciality.SelectedValue,
-                DiasYHorariosAtencion = diasYHorarios,
+                DiasYHorariosAtencion = "",
                 Usuario = txtUser.Text,
                 FechaNacimiento = DateTime.Parse(txtBirth.Text),
                 Contrasena = txtPassword.Text,
@@ -232,17 +194,10 @@ namespace Vistas.Admin.medicos
             medico._id_usuario = idUsuario;                    
             validar.AgregarMedico(medico);
 
-            string[] horas = rblHorarios.SelectedValue.Split('-');
-            TimeSpan horaInicio = TimeSpan.Parse(horas[0]);
-            TimeSpan horaFin = TimeSpan.Parse(horas[1]);
 
-            foreach (ListItem item in chkDias.Items)
+            for(int i = 0; i < diasAtencion.Count; i++)
             {
-                if (item.Selected)
-                {
-                    string dia = item.Value;
-                    validar.InsertarHorarioMedico(idUsuario, dia, horaInicio, horaFin);
-                }
+                validar.InsertarHorarioMedico(idUsuario, diasAtencion[i], horasInicio[i], horasFin[i]);
             }
 
             lblMensaje.Text = "¡Doctor added succesfully!";
@@ -260,18 +215,82 @@ namespace Vistas.Admin.medicos
             txtBirth.Text = "";
             txtPhone.Text = "";
             txtRepeatPass.Text = "";
-            rblHorarios.Text = "";
-            chkDias.Text = "";
             txtUser.Text = "";
             txtPassword.Text = "";
             ddlSpeciality.SelectedIndex = 0;
 
             // DEJAR CHECK BOX LIST
 
-            foreach(ListItem item in chkDias.Items)
-            {
-                item.Selected = false;
-            }
+            diasAtencion.Clear();
+            horasInicio.Clear();
+            horasFin.Clear();
+        }
+
+
+        // Cargar ddl y validar usuario Administrador
+
+        // VOLVER A LOGIN
+        protected void btnConfirmarLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("~/Login.aspx");
+        }
+
+        // CARGAR DDL SEXOS
+        private void CargarSexo()
+        {
+            Validar validar = new Validar();
+            DataTable dtSexos = validar.ObtenerSexoMedico();
+
+            ddlSexo.DataSource = dtSexos;
+            ddlSexo.DataTextField = "SEXO_MED";
+            ddlSexo.DataValueField = "SEXO_MED";
+            ddlSexo.DataBind();
+
+            ddlSexo.Items.Insert(0, new ListItem("", ""));
+        }
+
+        // CARGAR DDL ESPECIALIDADES
+        private void CargarEspecialidades()
+        {
+            Validar validar = new Validar();
+            DataTable dtEspecialidad = validar.ObtenerEspecialidades();
+
+            ddlSpeciality.DataSource = dtEspecialidad;
+            ddlSpeciality.DataTextField = "NOMBRE_ESP";
+            ddlSpeciality.DataValueField = "ID_ESP";
+            ddlSpeciality.DataBind();
+
+            ddlSpeciality.Items.Insert(0, new ListItem("", ""));
+        }
+
+        // CARGAR DDL PROVINCIA
+        private void CargarProvincia()
+        {
+            Validar validar = new Validar();
+            DataTable dtCity = validar.ObtenerProvincia();
+
+            ddlCity.DataSource = dtCity;
+            ddlCity.DataTextField = "NOMBRE_PROV";
+            ddlCity.DataValueField = "ID_PROV";
+            ddlCity.DataBind();
+
+            ddlCity.Items.Insert(0, new ListItem("", ""));
+        }
+
+        // CARGAR DDL LOCALIDADES
+        private void CargarLocalidad()
+        {
+            Validar validar = new Validar();
+            DataTable dtLocality = validar.ObtenerLocalidad();
+
+            ddlLocality.DataSource = dtLocality;
+            ddlLocality.DataTextField = "NOMBRE_LOC";
+            ddlLocality.DataValueField = "ID_LOC";
+            ddlLocality.DataBind();
+
+            ddlLocality.Items.Insert(0, new ListItem("", ""));
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
