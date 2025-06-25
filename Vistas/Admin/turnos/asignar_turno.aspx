@@ -112,11 +112,20 @@
                     <div class="form-group">
                         <label>DNI Patient:</label>
                         <asp:TextBox ID="txtDNIPatient" runat="server" CssClass="input-text"></asp:TextBox>
+                         <asp:RegularExpressionValidator
+                           ID="validateDni"
+                           runat="server"
+                           ControlToValidate="txtDNIPatient"
+                           ErrorMessage="Invalid DNI (format: 12345678)"
+                           ForeColor="Red"
+                           ValidationExpression="^\d{8}$"
+                           Display="Dynamic" 
+                           ValidationGroup="grupoAlta"/>
                     </div>
                 </div>
 
                 <div class="form-footer">
-                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" ValidationGroup="grupoAlta"/>
                     <asp:Label ID="lblMensaje" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="Red"></asp:Label>
                 </div>
             </div>

@@ -25,6 +25,7 @@ namespace Vistas.Admin.turnos
                 Response.Redirect("~/Login.aspx");
             }
 
+            Page.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
             username.Text = Session["username"].ToString();
         }
 
@@ -47,7 +48,7 @@ namespace Vistas.Admin.turnos
             ddlSpeciality.DataValueField = "NOMBRE_ESP";
             ddlSpeciality.DataBind();
 
-            ddlSpeciality.Items.Insert(0, new ListItem("-- SELECCIONAR --", ""));
+            ddlSpeciality.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
         private void CargarDoctores()
@@ -60,7 +61,7 @@ namespace Vistas.Admin.turnos
             ddlDoctor.DataValueField = "ID_USUARIO";
             ddlDoctor.DataBind();
 
-            ddlDoctor.Items.Insert(0, new ListItem("-- SELECCIONAR --", ""));
+            ddlDoctor.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
@@ -106,6 +107,15 @@ namespace Vistas.Admin.turnos
 
             Validar validar = new Validar();
 
+            string dni = txtDNIPatient.Text.Trim();
+
+            if (!validar.EsDniValido(dni))
+            {
+                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
+                validateDni.IsValid = false;
+                return;
+            }
+
             //validar.MedicoDisponible(diaTurno, horaTurno, id_medico);
 
             Turnos turno = new Turnos
@@ -121,6 +131,7 @@ namespace Vistas.Admin.turnos
             validar.CargarTurno(turno);
 
             lblMensaje.Text = "Appointment registered successfully.";
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
 
             txtTime.Text = "";
             txtDate.Text = "";

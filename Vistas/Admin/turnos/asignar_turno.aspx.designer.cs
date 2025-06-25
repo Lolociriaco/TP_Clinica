@@ -96,6 +96,15 @@ namespace Vistas.Admin.turnos
         protected global::System.Web.UI.WebControls.TextBox txtDNIPatient;
 
         /// <summary>
+        /// Control validateDni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator validateDni;
+
+        /// <summary>
         /// Control btnConfirm.
         /// </summary>
         /// <remarks>
