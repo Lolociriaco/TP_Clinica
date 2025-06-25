@@ -128,6 +128,16 @@ namespace Negocio
             return ds.Tables["Especialidades"];
         }
 
+        public DataTable getNombreYApellidoDoctores()
+        {
+            string query = "SELECT ID_USUARIO, NOMBRE_MED + ' ' + APELLIDO_MED AS NOMBRE_COMPLETO FROM MEDICOS";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Medicos");
+            return ds.Tables["Medicos"];
+        }
+
         // CONSULTA PARA OBTENER CAMPOS DE PROVINCIAS
         public DataTable ObtenerProvincia()
         {
@@ -211,6 +221,38 @@ namespace Negocio
         }
 
         // CONSULTA PARA INSERTAR EL NUEVO MEDICO
+        public void CargarTurno(Turnos turno)
+        {
+            string query = "INSERT INTO TURNOS (ID_USUARIO_MEDICO, DNI_PAC_TURNO, FECHA_TURNO, HORA_TURNO) " +
+                         "VALUES (@id_usuario_med, @dni_paciente, @fecha_turno, @hora_turno)";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@id_usuario_med", turno.IdUsuarioMedico),
+                new SqlParameter("@dni_paciente", turno.DniPacTurno),
+                new SqlParameter("@fecha_turno", turno.FechaTurno),
+                new SqlParameter("@hora_turno", turno.HoraTurno)
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
+        }
+
+        public bool MedicoDisponible(string diaTurno, TimeSpan horaTurno, int id_medico)
+        {
+            string query = "SELECT * FROM MEDICOS WHERE ID_USUARIO = @id_medico";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@id_medico", id_medico),
+            };
+
+            DB db = new DB();
+            bool existe = db.validarUser(query, parametros);
+
+            return existe;
+        }
+
         public void AgregarMedico(Medico medico)
         {
             string query = "INSERT INTO MEDICOS (ID_USUARIO, DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED) " +

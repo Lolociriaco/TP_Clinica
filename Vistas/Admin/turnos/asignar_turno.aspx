@@ -96,22 +96,22 @@
 
                     <div class="form-group">
                         <label>Doctor:</label>
-                        <asp:TextBox ID="txtDoctor" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlDoctor" runat="server" CssClass="input-text"></asp:DropDownList>
                     </div>
 
-                    <div class="form-group">
-                        <label>Day:</label>
-                        <asp:DropDownList ID="ddlDay" runat="server" CssClass="input-text"></asp:DropDownList>
+                   <div class="form-group">
+                      <label>Date:</label>
+                      <asp:TextBox ID="txtDate" runat="server" CssClass="input-text" TextMode="Date" />
                     </div>
 
                     <div class="form-group">
                         <label>Time:</label>
-                        <asp:TextBox ID="txtTime" runat="server" CssClass="input-text"></asp:TextBox>
+                        <asp:TextBox ID="txtTime" runat="server" type="time" CssClass="input-text"></asp:TextBox>
                     </div>
 
                     <div class="form-group">
-                        <label>Patient:</label>
-                        <asp:TextBox ID="txtPatient" runat="server" CssClass="input-text"></asp:TextBox>
+                        <label>DNI Patient:</label>
+                        <asp:TextBox ID="txtDNIPatient" runat="server" CssClass="input-text"></asp:TextBox>
                     </div>
                 </div>
 

@@ -60,22 +60,22 @@ namespace Vistas.Admin.turnos
         protected global::System.Web.UI.WebControls.DropDownList ddlSpeciality;
 
         /// <summary>
-        /// Control txtDoctor.
+        /// Control ddlDoctor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDoctor;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDoctor;
 
         /// <summary>
-        /// Control ddlDay.
+        /// Control txtDate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDay;
+        protected global::System.Web.UI.WebControls.TextBox txtDate;
 
         /// <summary>
         /// Control txtTime.
@@ -87,13 +87,13 @@ namespace Vistas.Admin.turnos
         protected global::System.Web.UI.WebControls.TextBox txtTime;
 
         /// <summary>
-        /// Control txtPatient.
+        /// Control txtDNIPatient.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPatient;
+        protected global::System.Web.UI.WebControls.TextBox txtDNIPatient;
 
         /// <summary>
         /// Control btnConfirm.
