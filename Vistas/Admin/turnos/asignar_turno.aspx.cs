@@ -44,8 +44,8 @@ namespace Vistas.Admin.turnos
             DataTable dtSexos = validar.ObtenerEspecialidades();
 
             ddlSpeciality.DataSource = dtSexos;
-            ddlSpeciality.DataTextField = "NOMBRE_ESP";
-            ddlSpeciality.DataValueField = "NOMBRE_ESP";
+            ddlSpeciality.DataTextField = "NAME_SPE";
+            ddlSpeciality.DataValueField = "NAME_SPE";
             ddlSpeciality.DataBind();
 
             ddlSpeciality.Items.Insert(0, new ListItem("< SELECT >", ""));
@@ -58,7 +58,7 @@ namespace Vistas.Admin.turnos
 
             ddlDoctor.DataSource = dtDoctor;
             ddlDoctor.DataTextField = "NOMBRE_COMPLETO";
-            ddlDoctor.DataValueField = "ID_USUARIO";
+            ddlDoctor.DataValueField = "ID_USER";
             ddlDoctor.DataBind();
 
             ddlDoctor.Items.Insert(0, new ListItem("< SELECT >", ""));

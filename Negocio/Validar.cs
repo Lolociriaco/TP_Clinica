@@ -143,7 +143,7 @@ namespace Negocio
 
         public DataTable getNombreYApellidoDoctores()
         {
-            string query = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS NOMBRE_COMPLETO FROM MEDICOS";
+            string query = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS NOMBRE_COMPLETO FROM DOCTOR";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();

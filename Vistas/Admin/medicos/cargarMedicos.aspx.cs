@@ -243,8 +243,8 @@ namespace Vistas.Admin.medicos
             DataTable dtSexos = validar.ObtenerSexoMedico();
 
             ddlSexo.DataSource = dtSexos;
-            ddlSexo.DataTextField = "SEXO_MED";
-            ddlSexo.DataValueField = "SEXO_MED";
+            ddlSexo.DataTextField = "GENDER_DOC";
+            ddlSexo.DataValueField = "GENDER_DOC";
             ddlSexo.DataBind();
 
             ddlSexo.Items.Insert(0, new ListItem("< SELECT >", ""));
@@ -257,8 +257,8 @@ namespace Vistas.Admin.medicos
             DataTable dtEspecialidad = validar.ObtenerEspecialidades();
 
             ddlSpeciality.DataSource = dtEspecialidad;
-            ddlSpeciality.DataTextField = "NOMBRE_ESP";
-            ddlSpeciality.DataValueField = "ID_ESP";
+            ddlSpeciality.DataTextField = "NAME_SPE";
+            ddlSpeciality.DataValueField = "ID_SPE";
             ddlSpeciality.DataBind();
 
             ddlSpeciality.Items.Insert(0, new ListItem("< SELECT >", ""));
@@ -271,8 +271,8 @@ namespace Vistas.Admin.medicos
             DataTable dtCity = validar.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
-            ddlCity.DataTextField = "NOMBRE_PROV";
-            ddlCity.DataValueField = "ID_PROV";
+            ddlCity.DataTextField = "NAME_STATE";
+            ddlCity.DataValueField = "ID_STATE";
             ddlCity.DataBind();
 
             ddlCity.Items.Insert(0, new ListItem("< SELECT >", ""));
@@ -306,8 +306,8 @@ namespace Vistas.Admin.medicos
                 DataTable dt = validar.ObtenerLocalidadesFiltradas(idProvincia);
 
                 ddlLocality.DataSource = dt;
-                ddlLocality.DataTextField = "NOMBRE_LOC";
-                ddlLocality.DataValueField = "ID_LOC";
+                ddlLocality.DataTextField = "NAME_CITY";
+                ddlLocality.DataValueField = "ID_CITY";
                 ddlLocality.DataBind();
                 ddlLocality.Items.Insert(0, new ListItem("< SELECT >", ""));
             }
