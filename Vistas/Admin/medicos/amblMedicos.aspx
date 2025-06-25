@@ -203,23 +203,23 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="LOCALITY" SortExpression="NOMBRE_LOC">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblNOMBRE_LOC" runat="server"
-                                               Text='<%# Bind("NOMBRE_LOC") %>'></asp:Label>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:DropDownList ID="ddlID_LOC_MED" runat="server"></asp:DropDownList>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
-
                             <asp:TemplateField HeaderText="CITY" SortExpression="NOMBRE_PROV">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_PROV" runat="server"
                                                Text='<%# Bind("NOMBRE_PROV") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <asp:DropDownList ID="ddlID_PROV_MED" runat="server"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlID_PROV_MED" runat="server" OnSelectedIndexChanged="ddlID_PROV_MED_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="LOCALITY" SortExpression="NOMBRE_LOC">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNOMBRE_LOC" runat="server"
+                                               Text='<%# Bind("NOMBRE_LOC") %>'></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:DropDownList ID="ddlID_LOC_MED" runat="server" ></asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
 

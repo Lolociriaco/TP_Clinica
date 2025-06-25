@@ -312,14 +312,14 @@ namespace Negocio
         }
 
 
-    public bool EsDniValido(string dni)
-    {
-        string patron = @"^\d{8}$";
-        return Regex.IsMatch(dni, patron);
-    }
+        public bool EsDniValido(string dni)
+        {
+            string patron = @"^\d{8}$";
+            return Regex.IsMatch(dni, patron);
+        }
 
 
-    public bool ExisteUsuario(string user)
+        public bool ExisteUsuario(string user)
         {
             string query = "SELECT COUNT(*) FROM USUARIOS WHERE USUARIO = @user";
             SqlParameter[] parametros = {
@@ -342,6 +342,18 @@ namespace Negocio
             DB db = new DB();
             int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
             return cantidad > 0;
+        }
+
+        public DataTable ObtenerLocalidadesFiltradas(int idProvincia)
+        {
+            string consulta = "SELECT ID_LOC, NOMBRE_LOC FROM LOCALIDADES WHERE ID_PROV_LOC = @idProv";
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                 new SqlParameter("@idProv", idProvincia)
+            };
+
+            DB accesoDatos = new DB();
+            return accesoDatos.ObtenerDataTable(consulta, parametros);
         }
     }
 

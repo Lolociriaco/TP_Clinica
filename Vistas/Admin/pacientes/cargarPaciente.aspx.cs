@@ -18,7 +18,7 @@ namespace Vistas.Admin.pacientes
             if (!IsPostBack)
             {
                 CargarSexo();
-                CargarLocalidad();
+                //CargarLocalidad();
                 CargarProvincia();
             }
 
@@ -79,6 +79,32 @@ namespace Vistas.Admin.pacientes
             ddlLocality.DataBind();
 
             ddlLocality.Items.Insert(0, new ListItem("", ""));
+        }
+
+        protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarLocalidadesPorProvincia();
+        }
+
+        private void CargarLocalidadesPorProvincia()
+        {
+            int idProvincia;
+            if (int.TryParse(ddlCity.SelectedValue, out idProvincia))
+            {
+                Validar validar = new Validar();
+                DataTable dt = validar.ObtenerLocalidadesFiltradas(idProvincia);
+
+                ddlLocality.DataSource = dt;
+                ddlLocality.DataTextField = "NOMBRE_LOC";
+                ddlLocality.DataValueField = "ID_LOC";
+                ddlLocality.DataBind();
+                ddlLocality.Items.Insert(0, new ListItem("< SELECT >", ""));
+            }
+            else
+            {
+                ddlLocality.Items.Clear();
+                ddlLocality.Items.Insert(0, new ListItem("< Select a city first >", ""));
+            }
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)

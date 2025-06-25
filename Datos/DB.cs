@@ -115,5 +115,22 @@ namespace Datos
             }
         }
 
+        public DataTable ObtenerDataTable(string consulta, SqlParameter[] parametros)
+        {
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand cmd = new SqlCommand(consulta, connection);
+                if (parametros != null)
+                {
+                    cmd.Parameters.AddRange(parametros);
+                }
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+        }
+
     }
 }

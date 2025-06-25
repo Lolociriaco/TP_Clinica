@@ -150,21 +150,21 @@ INSERT INTO CITY (ID_CITY, NAME_CITY, ID_STATE_CITY) VALUES
 
 INSERT INTO PATIENTS (DNI_PAT, NAME_PAT, SURNAME_PAT, GENDER_PAT, NATIONALITY_PAT, DATEBIRTH_PAT, ADDRESS_PAT, ID_CITY_PAT, ID_STATE_PAT, EMAIL_PAT, PHONE_PAT, ACTIVE_PAT)
 VALUES 
-(10101001, 'Juan', 'Pérez', 'Male', 'Argentina', '1985-06-17', 'Street 1', 1, 1, 'juanperez@gmail.com', '1111111111', 1),
-(10202002, 'Lucía', 'Gómez', 'Female', 'Argentina', '1992-03-08', 'Street 2', 2, 1, 'lucia@gmail.com', '2222222222', 1),
-(10303003, 'Carlos', 'López', 'Male', 'Argentina', '1980-02-10', 'Street 3', 3, 1, 'carlos@gmail.com', '3333333333', 1),
-(10404004, 'Ana', 'Martínez', 'Female', 'Argentina', '1995-12-01', 'Street 4', 4, 2, 'ana@gmail.com', '4444444444', 1),
-(10505005, 'Pedro', 'Fernández', 'Male', 'Paraguay', '1989-09-05', 'Street 5', 5, 2, 'pedro@gmail.com', '5555555555', 1),
-(10606006, 'Sofía', 'Sosa', 'Female', 'Argentina', '1995-10-23', 'Street 6', 6, 3, 'sofia@gmail.com', '6666666666', 1),
-(10707007, 'Martín', 'Rodríguez', 'Male', 'Argentina', '1987-11-10', 'Street 7', 7, 3, 'martin@gmail.com', '7777777777', 1),
-(10808008, 'Camila', 'Giménez', 'Female', 'Argentina', '1993-06-07', 'Street 8', 8, 4, 'camila@gmail.com', '8888888888', 1),
-(10909009, 'Nicolás', 'Ramírez', 'Male', 'Uruguay', '1987-07-03', 'Street 9', 9, 4, 'nicolas@gmail.com', '9999999999', 1),
-(11010101, 'Valeria', 'García', 'Female', 'Argentina', '1991-08-25', 'Street 10', 10, 5, 'valeria@gmail.com', '1010101010', 1),
-(11111111, 'Diego', 'Morales', 'Male', 'Argentina', '1982-02-14', 'Street 11', 1, 1, 'diego@gmail.com', '1111112222', 1),
-(11212121, 'Sofía', 'Ruiz', 'Female', 'Argentina', '1996-04-09', 'Street 12', 2, 1, 'sofiaruiz@gmail.com', '1212121212', 1),
-(11313131, 'Leonardo', 'Vega', 'Male', 'Argentina', '1985-03-30', 'Street 13', 3, 1, 'leovega@gmail.com', '1313131313', 1),
-(11414141, 'Laura', 'Benítez', 'Female', 'Argentina', '1994-11-11', 'Street 14', 4, 2, 'laurab@gmail.com', '1414141414', 1),
-(11515151, 'Gonzalo', 'Silva', 'Male', 'Argentina', '1988-12-01', 'Street 15', 5, 2, 'gonzalo@gmail.com', '1515151515', 1);
+(10101001, 'Juan', 'Pérez', 'MALE', 'Argentina', '1985-06-17', 'Street 1', 1, 1, 'juanperez@gmail.com', '1111111111', 1),
+(10202002, 'Lucía', 'Gómez', 'FEMALE', 'Argentina', '1992-03-08', 'Street 2', 2, 1, 'lucia@gmail.com', '2222222222', 1),
+(10303003, 'Carlos', 'López', 'MALE', 'Argentina', '1980-02-10', 'Street 3', 3, 1, 'carlos@gmail.com', '3333333333', 1),
+(10404004, 'Ana', 'Martínez', 'FEMALE', 'Argentina', '1995-12-01', 'Street 4', 4, 2, 'ana@gmail.com', '4444444444', 1),
+(10505005, 'Pedro', 'Fernández', 'MALE', 'Paraguay', '1989-09-05', 'Street 5', 5, 2, 'pedro@gmail.com', '5555555555', 1),
+(10606006, 'Sofía', 'Sosa', 'FEMALE', 'Argentina', '1995-10-23', 'Street 6', 6, 3, 'sofia@gmail.com', '6666666666', 1),
+(10707007, 'Martín', 'Rodríguez', 'MALE', 'Argentina', '1987-11-10', 'Street 7', 7, 3, 'martin@gmail.com', '7777777777', 1),
+(10808008, 'Camila', 'Giménez', 'FEMALE', 'Argentina', '1993-06-07', 'Street 8', 8, 4, 'camila@gmail.com', '8888888888', 1),
+(10909009, 'Nicolás', 'Ramírez', 'MALE', 'Uruguay', '1987-07-03', 'Street 9', 9, 4, 'nicolas@gmail.com', '9999999999', 1),
+(11010101, 'Valeria', 'García', 'FEMALE', 'Argentina', '1991-08-25', 'Street 10', 10, 5, 'valeria@gmail.com', '1010101010', 1),
+(11111111, 'Diego', 'Morales', 'MALE', 'Argentina', '1982-02-14', 'Street 11', 1, 1, 'diego@gmail.com', '1111112222', 1),
+(11212121, 'Sofía', 'Ruiz', 'FEMALE', 'Argentina', '1996-04-09', 'Street 12', 2, 1, 'sofiaruiz@gmail.com', '1212121212', 1),
+(11313131, 'Leonardo', 'Vega', 'MALE', 'Argentina', '1985-03-30', 'Street 13', 3, 1, 'leovega@gmail.com', '1313131313', 1),
+(11414141, 'Laura', 'Benítez', 'FEMALE', 'Argentina', '1994-11-11', 'Street 14', 4, 2, 'laurab@gmail.com', '1414141414', 1),
+(11515151, 'Gonzalo', 'Silva', 'MALE', 'Argentina', '1988-12-01', 'Street 15', 5, 2, 'gonzalo@gmail.com', '1515151515', 1);
 
 
 
@@ -205,17 +205,17 @@ INSERT INTO SPECIALITY (ID_SPE, NAME_SPE) VALUES
 
 
 -- DOCTOR (IDs 6 a 15, corrSPEondientes a los médicos en USERS)
-INSERT INTO DOCTOR (DNI_DOC, NAME_DOC, SURNAME_DOC, GENDER_DOC, NATIONALITY_DOC, DATEBIRTH_DOC, ADDRESS_DOC, ID_CITY_DOC, ID_STATE_DOC, EMAIL_DOC, PHONE_DOC, ID_SPE_DOC, ACTIVE_DOC) VALUES
-( 20568532, 'Jorge', 'Martínez', 'MALE', 'Argentina', '1975-05-20', 'DOCrano 123', 1, 1, 'jorge@clinica.com', '1140000001', 1, 1),
-( 23444567, 'Lucía', 'Álvarez', 'FEMALE', 'Argentina', '1982-03-15', 'Belgrano 456', 2, 1, 'lucia@clinica.com', '1140000002', 2, 1),
-( 20323129, 'Diego', 'Paz', 'MALE', 'Argentina', '1978-08-10', 'Santa Fe 789', 3, 1, 'diego@clinica.com', '1140000003', 3, 1),
-( 20987321, 'Valeria', 'Suárez', 'FEMALE', 'Argentina', '1985-11-05', 'Corrientes 321', 4, 2, 'valeria@clinica.com', '1140000004', 4, 1),
-( 20333245, 'Héctor', 'Ibarra', 'MALE', 'Argentina', '1970-06-22', 'Callao 654', 5, 2, 'hector@clinica.com', '1140000005', 5, 1),
-( 20445789, 'Mariana', 'Bravo', 'FEMALE', 'Argentina', '1989-01-10', 'Lavalle 987', 6, 3, 'mariana@clinica.com', '1140000006', 1, 1),
-( 20224578, 'Pablo', 'Sánchez', 'MALE', 'Argentina', '1976-09-25', 'Alem 159', 7, 3, 'pablo@clinica.com', '1140000007', 2, 1),
-( 20333999, 'Laura', 'Molina', 'FEMALE', 'Argentina', '1990-07-14', 'Perón 753', 8, 4, 'laura@clinica.com', '1140000008', 3, 1),
-( 20121498, 'Ramiro', 'Gutiérrez', 'MALE', 'Argentina', '1981-10-09', 'Urquiza 852', 9, 4, 'ramiro@clinica.com', '1140000009', 4, 1),
-( 20458921, 'Florencia', 'Castro', 'FEMALE', 'Argentina', '1987-04-18', 'Mitre 147', 10, 5, 'florencia@clinica.com', '1140000010', 5, 1);
+INSERT INTO DOCTOR (ID_USER, DNI_DOC, NAME_DOC, SURNAME_DOC, GENDER_DOC, NATIONALITY_DOC, DATEBIRTH_DOC, ADDRESS_DOC, ID_CITY_DOC, ID_STATE_DOC, EMAIL_DOC, PHONE_DOC, ID_SPE_DOC, ACTIVE_DOC) VALUES
+(6, 20568532, 'Jorge', 'Martínez', 'MALE', 'Argentina', '1975-05-20', 'DOCrano 123', 1, 1, 'jorge@clinica.com', '1140000001', 1, 1),
+(7, 23444567, 'Lucía', 'Álvarez', 'FEMALE', 'Argentina', '1982-03-15', 'Belgrano 456', 2, 1, 'lucia@clinica.com', '1140000002', 2, 1),
+(8, 20323129, 'Diego', 'Paz', 'MALE', 'Argentina', '1978-08-10', 'Santa Fe 789', 3, 1, 'diego@clinica.com', '1140000003', 3, 1),
+(9, 20987321, 'Valeria', 'Suárez', 'FEMALE', 'Argentina', '1985-11-05', 'Corrientes 321', 4, 2, 'valeria@clinica.com', '1140000004', 4, 1),
+(10, 20333245, 'Héctor', 'Ibarra', 'MALE', 'Argentina', '1970-06-22', 'Callao 654', 5, 2, 'hector@clinica.com', '1140000005', 5, 1),
+(11, 20445789, 'Mariana', 'Bravo', 'FEMALE', 'Argentina', '1989-01-10', 'Lavalle 987', 6, 3, 'mariana@clinica.com', '1140000006', 1, 1),
+(12, 20224578, 'Pablo', 'Sánchez', 'MALE', 'Argentina', '1976-09-25', 'Alem 159', 7, 3, 'pablo@clinica.com', '1140000007', 2, 1),
+(13, 20333999, 'Laura', 'Molina', 'FEMALE', 'Argentina', '1990-07-14', 'Perón 753', 8, 4, 'laura@clinica.com', '1140000008', 3, 1),
+(14, 20121498, 'Ramiro', 'Gutiérrez', 'MALE', 'Argentina', '1981-10-09', 'Urquiza 852', 9, 4, 'ramiro@clinica.com', '1140000009', 4, 1),
+(15, 20458921, 'Florencia', 'Castro', 'FEMALE', 'Argentina', '1987-04-18', 'Mitre 147', 10, 5, 'florencia@clinica.com', '1140000010', 5, 1);
 
 INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END) VALUES
 (6, 'MONDAY', '08:00', '12:00'),
