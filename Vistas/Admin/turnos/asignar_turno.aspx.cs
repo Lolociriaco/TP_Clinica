@@ -20,7 +20,7 @@ namespace Vistas.Admin.turnos
                 CargarDoctores();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }

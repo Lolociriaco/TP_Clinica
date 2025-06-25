@@ -11,7 +11,7 @@ namespace Vistas.Admin.informes
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }

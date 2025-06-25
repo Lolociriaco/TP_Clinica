@@ -172,10 +172,10 @@ VALUES
 INSERT INTO USERS (USERNAME, PASSWORD_USER, ROLE_USER) VALUES
 ('admin1', 'admin123', 'ADMIN'),
 ('admin2', 'admin456', 'ADMIN'),
-('majo', 'majojo', 'ADMIN'),
 ('admin3', 'admin789', 'ADMIN'),
 ('admin4', 'adminabc', 'ADMIN'),
 ('admin5', 'admindef', 'ADMIN'),
+('majo', 'majojo', 'ADMIN'),
 ('doc1', 'DOC123', 'DOCTOR'),
 ('doc2', 'DOC456', 'DOCTOR'),
 ('doc3', 'DOC789', 'DOCTOR'),
@@ -194,7 +194,8 @@ INSERT INTO ADMINISTRATOR (ID_USER, NAME_ADMIN, SURNAME_ADMIN) VALUES
 (2, 'Carlos', 'Fernández'),
 (3, 'Julieta', 'Gómez'),
 (4, 'Marcelo', 'Rodríguez'),
-(5, 'Ana', 'López');
+(5, 'Ana', 'López'),
+(6, 'Maria Jose', 'Taboada')
 
 INSERT INTO SPECIALITY (ID_SPE, NAME_SPE) VALUES
 (1, 'Internal Medicine'),
@@ -206,20 +207,20 @@ INSERT INTO SPECIALITY (ID_SPE, NAME_SPE) VALUES
 
 -- DOCTOR (IDs 6 a 15, corrSPEondientes a los médicos en USERS)
 INSERT INTO DOCTOR (ID_USER, DNI_DOC, NAME_DOC, SURNAME_DOC, GENDER_DOC, NATIONALITY_DOC, DATEBIRTH_DOC, ADDRESS_DOC, ID_CITY_DOC, ID_STATE_DOC, EMAIL_DOC, PHONE_DOC, ID_SPE_DOC, ACTIVE_DOC) VALUES
-(6, 20568532, 'Jorge', 'Martínez', 'MALE', 'Argentina', '1975-05-20', 'DOCrano 123', 1, 1, 'jorge@clinica.com', '1140000001', 1, 1),
-(7, 23444567, 'Lucía', 'Álvarez', 'FEMALE', 'Argentina', '1982-03-15', 'Belgrano 456', 2, 1, 'lucia@clinica.com', '1140000002', 2, 1),
-(8, 20323129, 'Diego', 'Paz', 'MALE', 'Argentina', '1978-08-10', 'Santa Fe 789', 3, 1, 'diego@clinica.com', '1140000003', 3, 1),
-(9, 20987321, 'Valeria', 'Suárez', 'FEMALE', 'Argentina', '1985-11-05', 'Corrientes 321', 4, 2, 'valeria@clinica.com', '1140000004', 4, 1),
-(10, 20333245, 'Héctor', 'Ibarra', 'MALE', 'Argentina', '1970-06-22', 'Callao 654', 5, 2, 'hector@clinica.com', '1140000005', 5, 1),
-(11, 20445789, 'Mariana', 'Bravo', 'FEMALE', 'Argentina', '1989-01-10', 'Lavalle 987', 6, 3, 'mariana@clinica.com', '1140000006', 1, 1),
-(12, 20224578, 'Pablo', 'Sánchez', 'MALE', 'Argentina', '1976-09-25', 'Alem 159', 7, 3, 'pablo@clinica.com', '1140000007', 2, 1),
-(13, 20333999, 'Laura', 'Molina', 'FEMALE', 'Argentina', '1990-07-14', 'Perón 753', 8, 4, 'laura@clinica.com', '1140000008', 3, 1),
-(14, 20121498, 'Ramiro', 'Gutiérrez', 'MALE', 'Argentina', '1981-10-09', 'Urquiza 852', 9, 4, 'ramiro@clinica.com', '1140000009', 4, 1),
-(15, 20458921, 'Florencia', 'Castro', 'FEMALE', 'Argentina', '1987-04-18', 'Mitre 147', 10, 5, 'florencia@clinica.com', '1140000010', 5, 1);
+(7, 20568532, 'Jorge', 'Martínez', 'MALE', 'Argentina', '1975-05-20', 'DOCrano 123', 1, 1, 'jorge@clinica.com', '1140000001', 1, 1),
+(8, 23444567, 'Lucía', 'Álvarez', 'FEMALE', 'Argentina', '1982-03-15', 'Belgrano 456', 2, 1, 'lucia@clinica.com', '1140000002', 2, 1),
+(9, 20323129, 'Diego', 'Paz', 'MALE', 'Argentina', '1978-08-10', 'Santa Fe 789', 3, 1, 'diego@clinica.com', '1140000003', 3, 1),
+(10, 20987321, 'Valeria', 'Suárez', 'FEMALE', 'Argentina', '1985-11-05', 'Corrientes 321', 4, 2, 'valeria@clinica.com', '1140000004', 4, 1),
+(11, 20333245, 'Héctor', 'Ibarra', 'MALE', 'Argentina', '1970-06-22', 'Callao 654', 5, 2, 'hector@clinica.com', '1140000005', 5, 1),
+(12, 20445789, 'Mariana', 'Bravo', 'FEMALE', 'Argentina', '1989-01-10', 'Lavalle 987', 6, 3, 'mariana@clinica.com', '1140000006', 1, 1),
+(13, 20224578, 'Pablo', 'Sánchez', 'MALE', 'Argentina', '1976-09-25', 'Alem 159', 7, 3, 'pablo@clinica.com', '1140000007', 2, 1),
+(14, 20333999, 'Laura', 'Molina', 'FEMALE', 'Argentina', '1990-07-14', 'Perón 753', 8, 4, 'laura@clinica.com', '1140000008', 3, 1),
+(15, 20121498, 'Ramiro', 'Gutiérrez', 'MALE', 'Argentina', '1981-10-09', 'Urquiza 852', 9, 4, 'ramiro@clinica.com', '1140000009', 4, 1),
+(16, 20458921, 'Florencia', 'Castro', 'FEMALE', 'Argentina', '1987-04-18', 'Mitre 147', 10, 5, 'florencia@clinica.com', '1140000010', 5, 1);
 
 INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END) VALUES
-(6, 'MONDAY', '08:00', '12:00'),
-(6, 'WEDNESDAY', '08:00', '12:00'),
+(16, 'MONDAY', '08:00', '12:00'),
+(16, 'WEDNESDAY', '08:00', '12:00'),
 (7, 'TUESDAY', '10:00', '14:00'),
 (7, 'THURSDAY', '10:00', '14:00'),
 (8, 'MONDAY', '09:00', '13:00'),
@@ -248,8 +249,8 @@ VALUES
 (10, 10202002, '2025-06-10', '09:00:00', 'PRESENT', 'Pediatric check-up'),
 (9, 10303003, '2025-06-10', '10:00:00', 'ABSENT', 'Did not attend'),
 (7, 10404004, '2025-06-11', '08:30:00', 'PRESENT', 'Acne consultation'),
-(6, 10505005, '2025-06-11', '09:30:00', 'PRESENT', 'Headache complaints'),
-(6, 10606006, '2025-06-12', '08:00:00', 'PRESENT', 'Annual check-up'),
+(16, 10505005, '2025-06-11', '09:30:00', 'PRESENT', 'Headache complaints'),
+(16, 10606006, '2025-06-12', '08:00:00', 'PRESENT', 'Annual check-up'),
 (7, 10707007, '2025-06-12', '09:00:00', 'ABSENT', 'No notice of absence'),
 (8, 10808008, '2025-06-13', '10:00:00', 'PRESENT', 'Chest pain'),
 (9, 10909009, '2025-06-13', '11:00:00', 'PRESENT', 'Dermatology follow-up'),
@@ -261,3 +262,4 @@ VALUES
 (15, 11515151, '2025-06-16', '09:30:00', 'PRESENT', 'General check-up');
 
 ---------------------------------------------------------------------------------------------
+

@@ -18,11 +18,11 @@ namespace Vistas.Admin.pacientes
             if (!IsPostBack)
             {
                 CargarSexo();
-                //CargarLocalidad();
+                CargarLocalidadesPorProvincia();
                 CargarProvincia();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -46,8 +46,8 @@ namespace Vistas.Admin.pacientes
             DataTable dtSexos = validar.ObtenerSexoPaciente();
 
             ddlSexo.DataSource = dtSexos;
-            ddlSexo.DataTextField = "SEXO_PAC";
-            ddlSexo.DataValueField = "SEXO_PAC";
+            ddlSexo.DataTextField = "GENDER_PAT";
+            ddlSexo.DataValueField = "GENDER_PAT";
             ddlSexo.DataBind();
 
             ddlSexo.Items.Insert(0, new ListItem("", ""));
@@ -60,26 +60,13 @@ namespace Vistas.Admin.pacientes
             DataTable dtCity = validar.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
-            ddlCity.DataTextField = "NOMBRE_PROV";
-            ddlCity.DataValueField = "ID_PROV";
+            ddlCity.DataTextField = "NAME_STATE";
+            ddlCity.DataValueField = "ID_STATE";
             ddlCity.DataBind();
 
             ddlCity.Items.Insert(0, new ListItem("", ""));
         }
 
-        // CARGA DE DDL LOCALIDAD
-        private void CargarLocalidad()
-        {
-            Validar validar = new Validar(); 
-            DataTable dtLocality = validar.ObtenerLocalidad();
-
-            ddlLocality.DataSource = dtLocality;
-            ddlLocality.DataTextField  = "NOMBRE_LOC";
-            ddlLocality.DataValueField = "ID_LOC";
-            ddlLocality.DataBind();
-
-            ddlLocality.Items.Insert(0, new ListItem("", ""));
-        }
 
         protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -95,10 +82,10 @@ namespace Vistas.Admin.pacientes
                 DataTable dt = validar.ObtenerLocalidadesFiltradas(idProvincia);
 
                 ddlLocality.DataSource = dt;
-                ddlLocality.DataTextField = "NOMBRE_LOC";
-                ddlLocality.DataValueField = "ID_LOC";
+                ddlLocality.DataTextField = "NAME_CITY";
+                ddlLocality.DataValueField = "ID_CITY";
                 ddlLocality.DataBind();
-                ddlLocality.Items.Insert(0, new ListItem("< SELECT >", ""));
+                ddlLocality.Items.Insert(0, new ListItem("< Select >", ""));
             }
             else
             {

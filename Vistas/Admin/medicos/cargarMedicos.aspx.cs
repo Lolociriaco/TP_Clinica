@@ -26,7 +26,7 @@ namespace Vistas.Admin.medicos
                 rptDias.DataBind();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -184,7 +184,6 @@ namespace Vistas.Admin.medicos
                 Telefono = txtPhone.Text,
                 Sexo = ddlSexo.SelectedValue,
                 Especialidad = ddlSpeciality.SelectedValue,
-                DiasYHorariosAtencion = "",
                 Usuario = txtUser.Text,
                 FechaNacimiento = DateTime.Parse(txtBirth.Text),
                 Contrasena = txtPassword.Text,
