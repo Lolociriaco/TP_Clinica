@@ -50,7 +50,7 @@ namespace Vistas.Admin.pacientes
             ddlSexo.DataValueField = "GENDER_PAT";
             ddlSexo.DataBind();
 
-            ddlSexo.Items.Insert(0, new ListItem("", ""));
+            ddlSexo.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
         // CARGA DE DDL PROVINCIA
@@ -64,7 +64,7 @@ namespace Vistas.Admin.pacientes
             ddlCity.DataValueField = "ID_STATE";
             ddlCity.DataBind();
 
-            ddlCity.Items.Insert(0, new ListItem("", ""));
+            ddlCity.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
 
@@ -90,7 +90,7 @@ namespace Vistas.Admin.pacientes
             else
             {
                 ddlLocality.Items.Clear();
-                ddlLocality.Items.Insert(0, new ListItem("< Select a city first >", ""));
+                ddlLocality.Items.Insert(0, new ListItem("< Select a state first >", ""));
             }
         }
 

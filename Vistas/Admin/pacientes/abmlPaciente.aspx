@@ -107,11 +107,22 @@
 
                         <Columns>
 
-                            <asp:CommandField 
-                            ShowEditButton="True" 
-                            EditText="Edit" 
-                            UpdateText="Save" 
-                            CancelText="Cancel" />
+                            <asp:TemplateField HeaderText="ACTIONS">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="btnEdit" runat="server"
+                                        CommandName="Edit" Text="✏️Edit" CssClass="btn btn-primary btn-sm" />
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:LinkButton ID="btnUpdate" runat="server"
+                                        CommandName="Update" Text="💾Save"
+                                        CausesValidation="true"
+                                        ValidationGroup="grupoAlta" CssClass="btn btn-success btn-sm" />
+                                    <asp:LinkButton ID="btnCancel" runat="server"
+                                        CommandName="Cancel" Text="❌Cancel"
+                                        CausesValidation="false" 
+                                        CssClass="btn btn-danger btn-sm" />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
 
                             <asp:TemplateField>
                                 <ItemTemplate>
@@ -141,7 +152,7 @@
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtAPELLIDO_PAC" runat="server"
-                                                 Text='<%# Bind("SURNMAE_PAT") %>'></asp:TextBox>
+                                                 Text='<%# Bind("SURNAME_PAT") %>'></asp:TextBox>
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
@@ -177,8 +188,16 @@
                                  </ItemTemplate>
                                  <EditItemTemplate>
                                      <asp:TextBox ID="txtFECHANAC_PAC" runat="server"
-                                      Text='<%# Bind("DATEBIRT_PAT", "{0:yyyy-MM-dd}") %>'
+                                      Text='<%# Bind("DATEBIRTH_PAT", "{0:yyyy-MM-dd}") %>'
                                       TextMode="Date" />
+                                     <asp:RegularExpressionValidator
+                                          ID="validateBirthday"
+                                          runat="server"
+                                          ControlToValidate="txtFECHANAC_PAC"
+                                          ErrorMessage="Age must be above 18"
+                                          ForeColor="Red"
+                                          Display="Dynamic" 
+                                          ValidationGroup="grupoAlta"/>
                                  </EditItemTemplate>
                              </asp:TemplateField>
 
@@ -193,7 +212,7 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="CITY" SortExpression="NAME_STATE">
+                            <asp:TemplateField HeaderText="STATE" SortExpression="NAME_STATE">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_PROV" runat="server"
                                                Text='<%# Bind("NAME_STATE") %>'></asp:Label>
@@ -203,7 +222,7 @@
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="LOCALITY" SortExpression="NAME_CITY">
+                            <asp:TemplateField HeaderText="CITY" SortExpression="NAME_CITY">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_LOC" runat="server"
                                                Text='<%# Bind("NAME_CITY") %>'></asp:Label>
@@ -220,6 +239,15 @@
                                     <EditItemTemplate>
                                     <asp:TextBox ID="txtCORREO_PAC" runat="server"
                                                  Text='<%# Bind("EMAIL_PAT") %>'></asp:TextBox>
+                                        <asp:RegularExpressionValidator
+                                            ID="validateMail"
+                                            runat="server"
+                                            ControlToValidate="txtCORREO_PAC"
+                                            ErrorMessage="Enter a valid email"
+                                            ForeColor="Red"
+                                            ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                                            Display="Dynamic"
+                                            ValidationGroup="grupoAlta"/>
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
@@ -230,6 +258,15 @@
                                     <EditItemTemplate>
                                     <asp:TextBox ID="txtTELEFONO_PAC" runat="server"
                                                  Text='<%# Bind("PHONE_PAT") %>'></asp:TextBox>
+                                        <asp:RegularExpressionValidator
+                                          ID="validatePhone"
+                                          runat="server"
+                                          ControlToValidate="txtTELEFONO_PAC"
+                                          ErrorMessage="Enter a valid phone number"
+                                          ForeColor="Red"
+                                          ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
+                                          Display="Dynamic" 
+                                          ValidationGroup="grupoAlta"/>
                                 </EditItemTemplate>
                             </asp:TemplateField>
 

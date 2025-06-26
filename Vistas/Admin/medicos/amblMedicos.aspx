@@ -102,11 +102,28 @@
                         
                         <Columns>
 
-                        <asp:CommandField 
-                        ShowEditButton="True" 
-                        EditText="Edit" 
-                        UpdateText="Save"
-                        CancelText="Cancel" />
+                        <asp:TemplateField HeaderText="ACTIONS">
+                             <ItemTemplate>
+                                 <asp:LinkButton ID="btnEdit" runat="server"
+                                     CommandName="Edit" Text="✏️Edit" CssClass="btn btn-primary btn-sm" />
+                             </ItemTemplate>
+                             <EditItemTemplate>
+                                 <asp:LinkButton ID="btnUpdate" runat="server"
+                                     CommandName="Update" Text="💾Save"
+                                     CausesValidation="true"
+                                     ValidationGroup="grupoAlta" CssClass="btn btn-success btn-sm" />
+                                 <asp:LinkButton ID="btnCancel" runat="server"
+                                     CommandName="Cancel" Text="❌Cancel"
+                                     CausesValidation="false" 
+                                     CssClass="btn btn-danger btn-sm" />
+                             </EditItemTemplate>
+                         </asp:TemplateField>
+
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Unsubscribe" CssClass="btn btn-danger" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
 
                            <asp:TemplateField HeaderText="ID USER" SortExpression="ID_USER">
                     <ItemTemplate>
@@ -145,6 +162,15 @@
                     <EditItemTemplate>
                         <asp:TextBox ID="txtDNI_MED" runat="server"
                                      Text='<%# Bind("DNI_DOC") %>'></asp:TextBox>
+                        <asp:RegularExpressionValidator
+                          ID="validateDni"
+                          runat="server"
+                          ControlToValidate="txtDNI_MED"
+                          ErrorMessage="Invalid DNI (format: 12345678)"
+                          ForeColor="Red"
+                          ValidationExpression="^\d{8}$"
+                          Display="Dynamic" 
+                          ValidationGroup="grupoAlta"/>
                     </EditItemTemplate>
                 </asp:TemplateField>
 
@@ -180,7 +206,7 @@
                                    Text='<%# Bind("ADDRESS_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtDIRECCION_MED" runat="server" Width="250px"
+                        <asp:TextBox ID="txtDIRECCION_MED" runat="server"
                                      Text='<%# Bind("ADDRESS_DOC") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
@@ -194,10 +220,18 @@
                         <asp:TextBox ID="txtFECHANAC_MED" runat="server"
                                      Text='<%# Bind("DATEBIRTH_DOC", "{0:yyyy-MM-dd}") %>'
                                      TextMode="Date" />
+                        <asp:RegularExpressionValidator
+                          ID="validateBirthday"
+                          runat="server"
+                          ControlToValidate="txtFECHANAC_MED"
+                          ErrorMessage="Age must be above 18"
+                          ForeColor="Red"
+                          Display="Dynamic" 
+                          ValidationGroup="grupoAlta"/>
                     </EditItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="CITY" SortExpression="NOMBRE_PROV">
+                <asp:TemplateField HeaderText="STATE" SortExpression="NAME_STATE">
                     <ItemTemplate>
                         <asp:Label ID="lblNOMBRE_PROV" runat="server"
                                     Text='<%# Bind("NAME_STATE") %>'></asp:Label>
@@ -207,7 +241,7 @@
                     </EditItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="LOCALITY" SortExpression="NOMBRE_LOC">
+                <asp:TemplateField HeaderText="CITY" SortExpression="NAME_CITY">
                     <ItemTemplate>
                         <asp:Label ID="lblNOMBRE_LOC" runat="server"
                                     Text='<%# Bind("NAME_CITY") %>'></asp:Label>
@@ -217,6 +251,15 @@
                     </EditItemTemplate>
                 </asp:TemplateField>
 
+                <asp:TemplateField HeaderText="SPECIALITY" SortExpression="NAME_SPEC">
+                    <ItemTemplate>
+                        <asp:Label ID="lblNAME_SPE" runat="server"
+                                    Text='<%# Bind("NAME_SPE") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="ddlID_ESP" runat="server" ></asp:DropDownList>
+                    </EditItemTemplate>
+                </asp:TemplateField>
 
                 <asp:TemplateField HeaderText="PHONE NUMBER" SortExpression="PHONE_DOC">
                     <ItemTemplate>
@@ -226,6 +269,15 @@
                     <EditItemTemplate>
                         <asp:TextBox ID="txtTELEFONO_MED" runat="server"
                                      Text='<%# Bind("PHONE_DOC") %>'></asp:TextBox>
+                        <asp:RegularExpressionValidator
+                          ID="validatePhone"
+                          runat="server"
+                          ControlToValidate="txtTELEFONO_MED"
+                          ErrorMessage="Enter a valid phone number"
+                          ForeColor="Red"
+                          ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
+                          Display="Dynamic" 
+                          ValidationGroup="grupoAlta"/>
                     </EditItemTemplate>
                 </asp:TemplateField>
 
@@ -237,6 +289,15 @@
                     <EditItemTemplate>
                         <asp:TextBox ID="txtCORREO_MED" runat="server"
                                      Text='<%# Bind("EMAIL_DOC") %>'></asp:TextBox>
+                        <asp:RegularExpressionValidator
+                            ID="validateMail"
+                            runat="server"
+                            ControlToValidate="txtCORREO_MED"
+                            ErrorMessage="Enter a valid email"
+                            ForeColor="Red"
+                            ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                            Display="Dynamic" 
+                            ValidationGroup="grupoAlta"/>
                     </EditItemTemplate>
                 </asp:TemplateField>
 

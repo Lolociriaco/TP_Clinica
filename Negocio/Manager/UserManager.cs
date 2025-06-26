@@ -70,7 +70,7 @@ namespace Negocio
         // ACTUALIZACION DEL MEDICO
         public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
                                  string direccion, string correo, string telefono, string nacionalidad, int idEsp, DateTime fechaNac,
-                                 string sexo, int idLoc, int idProv, string diasHorario)
+                                 string sexo, int idLoc, int idProv)
         {
             DB db = new DB();
 
@@ -88,7 +88,6 @@ namespace Negocio
                 new SqlParameter("@sexo", sexo),
                 new SqlParameter("@idLoc", idLoc),
                 new SqlParameter("@idProv", idProv),
-                new SqlParameter("@diasHorario", diasHorario),
                 new SqlParameter("@id", idUsuario)
             };
 
@@ -104,8 +103,8 @@ namespace Negocio
                     ID_SPE_DOC = @idEsp,
                     DATEBIRTH_DOC = @fechaNac,
                     GENDER_DOC = @sexo,
-                    ID_CITY_DOC = @idCiudad,
-                    ID_STATE_DOC = @idProvincia
+                    ID_CITY_DOC = @idLoc,
+                    ID_STATE_DOC = @idProv
                 WHERE ID_USER = @id";
 
 
@@ -143,8 +142,8 @@ namespace Negocio
                     NATIONALITY_PAT = @nacionalidad,
                     DATEBIRTH_PAT = @fechaNac,
                     GENDER_PAT = @sexo,
-                    ID_CITY_PAT = @idCiudad,
-                    ID_STATE_PAT = @idProvincia
+                    ID_CITY_PAT = @idLoc,
+                    ID_STATE_PAT = @idProv
                 WHERE DNI_PAT = @dni";
 
 

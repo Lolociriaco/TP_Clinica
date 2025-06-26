@@ -314,7 +314,7 @@ namespace Vistas.Admin.medicos
             else
             {
                 ddlLocality.Items.Clear();
-                ddlLocality.Items.Insert(0, new ListItem("< Select a city first >", ""));
+                ddlLocality.Items.Insert(0, new ListItem("< Select a state first >", ""));
             }
         }
 

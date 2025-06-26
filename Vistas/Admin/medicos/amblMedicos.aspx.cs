@@ -24,9 +24,9 @@ namespace Vistas
             {
                 Response.Redirect("~/Login.aspx");
             }
-            
 
-                username.Text = Session["username"].ToString();
+            this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+            username.Text = Session["username"].ToString();
         }
 
         // CARGA DE DDLS
@@ -46,8 +46,8 @@ namespace Vistas
                 {
                     DataTable dtProvincia = validar.ObtenerProvincia();
                     ddlProvincia.DataSource = dtProvincia;
-                    ddlProvincia.DataTextField = "NOMBRE_PROV";
-                    ddlProvincia.DataValueField = "ID_PROV";
+                    ddlProvincia.DataTextField = "NAME_STATE";
+                    ddlProvincia.DataValueField = "ID_STATE";
                     ddlProvincia.AutoPostBack = true;
                     ddlProvincia.DataBind();
                     ddlProvincia.Items.Insert(0, new ListItem("< SELECT >", ""));
@@ -61,7 +61,7 @@ namespace Vistas
                     }
                     else
                     {
-                        object provObj = DataBinder.Eval(e.Row.DataItem, "ID_PROV_MED");
+                        object provObj = DataBinder.Eval(e.Row.DataItem, "ID_STATE_DOC");
                         idProvinciaActual = provObj != null ? Convert.ToInt32(provObj) : 0;
                     }
 
@@ -72,13 +72,13 @@ namespace Vistas
                     {
                         DataTable dtLocalidades = validar.ObtenerLocalidadesFiltradas(idProvinciaActual);
                         ddlLocalidad.DataSource = dtLocalidades;
-                        ddlLocalidad.DataTextField = "NOMBRE_LOC";
-                        ddlLocalidad.DataValueField = "ID_LOC";
+                        ddlLocalidad.DataTextField = "NAME_CITY";
+                        ddlLocalidad.DataValueField = "ID_CITY";
                         ddlLocalidad.DataBind();
                         ddlLocalidad.Items.Insert(0, new ListItem("< SELECT >", ""));
 
                         // Seleccionar localidad actual
-                        object locObj = DataBinder.Eval(e.Row.DataItem, "ID_LOC_MED");
+                        object locObj = DataBinder.Eval(e.Row.DataItem, "ID_CITY_DOC");
                         string idLocActual = locObj != null ? locObj.ToString() : "";
 
                         if (ddlLocalidad.Items.FindByValue(idLocActual) != null)
@@ -93,13 +93,13 @@ namespace Vistas
                 {
                     DataTable dtEspecialidad = validar.ObtenerEspecialidades();
                     ddlEspecialidad.DataSource = dtEspecialidad;
-                    ddlEspecialidad.DataTextField = "NOMBRE_ESP";
-                    ddlEspecialidad.DataValueField = "ID_ESP";
+                    ddlEspecialidad.DataTextField = "NAME_SPE";
+                    ddlEspecialidad.DataValueField = "ID_SPE";
                     ddlEspecialidad.DataBind();
 
-                    ddlEspecialidad.Items.Insert(0, new ListItem("< Seleccione >", ""));
+                    ddlEspecialidad.Items.Insert(0, new ListItem("< SELECT >", ""));
 
-                    object espObj = DataBinder.Eval(e.Row.DataItem, "ID_ESP_MED");
+                    object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
                     if (espObj != null)
                     {
                         string especialidadctual = espObj.ToString();
@@ -165,7 +165,7 @@ namespace Vistas
             string nuevoCorreo = ((TextBox)row.FindControl("txtCORREO_MED")).Text;
             string nuevoTelefono = ((TextBox)row.FindControl("txtTELEFONO_MED")).Text;
             string nuevaNacionalidad = ((TextBox)row.FindControl("txtNACIONALIDAD_MED")).Text;
-            string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
+            //string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
 
             string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_MED")).Text;
             DateTime nuevaFechaNac;
@@ -198,7 +198,7 @@ namespace Vistas
             UserManager medico = new UserManager();
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
                                 nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaEspecialidad, nuevaFechaNac,
-                                nuevoSexo, nuevaLocalidad, nuevaProvincia, nuevoDiasHorario);
+                                nuevoSexo, nuevaLocalidad, nuevaProvincia);
 
             gvMedicos.EditIndex = -1;
             CargarMedicos();
