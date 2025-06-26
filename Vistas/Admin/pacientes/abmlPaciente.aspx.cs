@@ -89,8 +89,8 @@ namespace Vistas
         {
             if (e.CommandName == "DarDeBaja")
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow row = gvPacientes.Rows[index];
+                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int index = row.RowIndex;
                 int idUsuario = Convert.ToInt32(gvPacientes.DataKeys[index].Value);
 
                 UserManager paciente = new UserManager();

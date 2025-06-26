@@ -12,7 +12,8 @@ namespace Datos
 {
     public class DB
     {
-        private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        //private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
 
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
@@ -99,6 +100,30 @@ namespace Datos
                     }
                 }
             }
+        }
+
+        public WorkingHours ExecWorkingHours(string query, SqlParameter[] parametros)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddRange(parametros);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new WorkingHours
+                        {
+                            TimeStart = reader.GetTimeSpan(0),
+                            TimeEnd = reader.GetTimeSpan(1)
+                        };
+                    }
+                }
+            }
+
+            return null;
         }
 
 

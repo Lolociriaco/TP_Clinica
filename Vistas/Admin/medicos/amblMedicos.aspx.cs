@@ -126,9 +126,10 @@ namespace Vistas
                 return;
             }
 
-            int index = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvMedicos.Rows[index];
+            GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+            int index = row.RowIndex;
             int idUsuario = Convert.ToInt32(gvMedicos.DataKeys[index].Value);
+
 
             UserManager medico = new UserManager();
             medico.deleteDoctor(idUsuario);
