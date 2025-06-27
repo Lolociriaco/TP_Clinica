@@ -150,37 +150,28 @@
                   <asp:DropDownList ID="ddlSexo" runat="server" CssClass="input-text" />
                 </div>
                 
-                <div class="form-group">
-                    <label style="margin-bottom: 15px;">Availability:</label>
-                    <table class="availability-table">
-                        <thead>
-                            <tr>
-                                <th>Day</th>
-                                <th></th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                            </tr>
-                        </thead>
-                        <asp:Repeater ID="rptDias" runat="server">
-                            <ItemTemplate>
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="lblDia" runat="server" Text='<%# Container.DataItem %>' />
-                                    </td>
-                                    <td>
-                                        <asp:CheckBox ID="chkDia" style="margin-right: 15px;" runat="server" />
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtHoraInicio" TextMode="time" runat="server" CssClass="input-text" placeholder="Hs:Ms" />
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtHoraFin" TextMode="time" runat="server" CssClass="input-text" placeholder="Hs:Ms" />
-                                    </td>
-                                </tr>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </table>
-                </div>
+              <div class="form-group">
+              <label style="margin-bottom: 15px;">Availability:</label>
+
+              
+                <asp:Repeater ID="rptDias" runat="server">
+                  <ItemTemplate>
+                    <div class="availability-item">
+                      <div class="availability-top">
+                        <asp:CheckBox ID="chkDia" runat="server" />
+                        <asp:Label ID="lblDia" runat="server" Text='<%# Container.DataItem %>' />
+                      </div>
+                     </div>
+                      <div class="form-group">
+                      <div class="availability-times">
+                        <asp:TextBox ID="txtHoraInicio" TextMode="time" runat="server" CssClass="input-text" />
+                        <asp:TextBox ID="txtHoraFin" TextMode="time" runat="server" CssClass="input-text" />
+                      </div>
+                    </div>
+                  </ItemTemplate>
+                </asp:Repeater>
+              </div>
+           
 
                 <div class="form-group">
                   <label>City:</label>

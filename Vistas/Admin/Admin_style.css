@@ -166,6 +166,25 @@ header {
     flex: 1;
 }
 
+.availability-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.availability-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.availability-times {
+    display: flex;
+    gap: 10px;
+}
+
+
 .names {
     flex-direction: row;
     gap: 10px;
