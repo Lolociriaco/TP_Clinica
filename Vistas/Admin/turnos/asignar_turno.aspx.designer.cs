@@ -78,13 +78,13 @@ namespace Vistas.Admin.turnos
         protected global::System.Web.UI.WebControls.TextBox txtDate;
 
         /// <summary>
-        /// Control txtTime.
+        /// Control ddlTime.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTime;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTime;
 
         /// <summary>
         /// Control txtDNIPatient.
@@ -94,6 +94,15 @@ namespace Vistas.Admin.turnos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDNIPatient;
+
+        /// <summary>
+        /// Control validateDni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator validateDni;
 
         /// <summary>
         /// Control btnConfirm.

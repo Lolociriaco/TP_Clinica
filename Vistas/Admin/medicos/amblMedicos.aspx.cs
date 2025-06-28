@@ -20,13 +20,13 @@ namespace Vistas
                 CargarMedicos();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
-            
 
-                username.Text = Session["username"].ToString();
+            this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+            username.Text = Session["username"].ToString();
         }
 
         // CARGA DE DDLS
@@ -38,59 +38,54 @@ namespace Vistas
 
                 Validar validar = new Validar();
 
-                // LOCALIDAD 
-                DropDownList ddlLocalidad = (DropDownList)e.Row.FindControl("ddlID_LOC_MED");
-                if (ddlLocalidad != null)
-                {
-                    DataTable dtLocalidad = validar.ObtenerLocalidad();
-                    ddlLocalidad.DataSource = dtLocalidad;
-                    ddlLocalidad.DataTextField = "NOMBRE_LOC";
-                    ddlLocalidad.DataValueField = "ID_LOC";
-                    ddlLocalidad.DataBind();
-                    ddlLocalidad.Items.Insert(0, new ListItem("< Seleccione >", ""));
-
-                    object locObj = DataBinder.Eval(e.Row.DataItem, "ID_LOC_MED");
-                    if (locObj != null)
-                    {
-                        string localidadActual = locObj.ToString();
-                        if (ddlLocalidad.Items.FindByValue(localidadActual) != null)
-                        {
-                            if (ddlLocalidad.Items.FindByValue(localidadActual) != null)
-                            {
-                                ddlLocalidad.SelectedValue = localidadActual;
-                            }
-                        }
-                    }
-                }
-
-                // PROVINCIA 
+                // PROVINCIA
                 DropDownList ddlProvincia = (DropDownList)e.Row.FindControl("ddlID_PROV_MED");
+                DropDownList ddlLocalidad = (DropDownList)e.Row.FindControl("ddlID_LOC_MED");
+
                 if (ddlProvincia != null)
                 {
                     DataTable dtProvincia = validar.ObtenerProvincia();
                     ddlProvincia.DataSource = dtProvincia;
-                    ddlProvincia.DataTextField = "NOMBRE_PROV";
-                    ddlProvincia.DataValueField = "ID_PROV";
+                    ddlProvincia.DataTextField = "NAME_STATE";
+                    ddlProvincia.DataValueField = "ID_STATE";
+                    ddlProvincia.AutoPostBack = true;
                     ddlProvincia.DataBind();
+                    ddlProvincia.Items.Insert(0, new ListItem("< SELECT >", ""));
 
-                    // Agregar opción por defecto
-                    ddlProvincia.Items.Insert(0, new ListItem("< Seleccione >", ""));
+                    int idProvinciaActual;
 
-                    object provObj = DataBinder.Eval(e.Row.DataItem, "ID_PROV_MED");
-                    if (provObj != null)
+                    // Verificamos si venimos de un cambio (por ViewState)
+                    if (ViewState["ProvinciaSeleccionadaGV"] != null)
                     {
-                        string provinciaActual = provObj.ToString();
+                        idProvinciaActual = (int)ViewState["ProvinciaSeleccionadaGV"];
+                    }
+                    else
+                    {
+                        object provObj = DataBinder.Eval(e.Row.DataItem, "ID_STATE_DOC");
+                        idProvinciaActual = provObj != null ? Convert.ToInt32(provObj) : 0;
+                    }
 
-                        ListItem item = ddlProvincia.Items.FindByValue(provinciaActual);
-                        if (item != null)
-                        {
-                            if (ddlProvincia.Items.FindByValue(provinciaActual) != null)
-                            {
-                                ddlProvincia.SelectedValue = provinciaActual;
-                            }
-                        }
+                    if (ddlProvincia.Items.FindByValue(idProvinciaActual.ToString()) != null)
+                        ddlProvincia.SelectedValue = idProvinciaActual.ToString();
+
+                    if (ddlLocalidad != null)
+                    {
+                        DataTable dtLocalidades = validar.ObtenerLocalidadesFiltradas(idProvinciaActual);
+                        ddlLocalidad.DataSource = dtLocalidades;
+                        ddlLocalidad.DataTextField = "NAME_CITY";
+                        ddlLocalidad.DataValueField = "ID_CITY";
+                        ddlLocalidad.DataBind();
+                        ddlLocalidad.Items.Insert(0, new ListItem("< SELECT >", ""));
+
+                        // Seleccionar localidad actual
+                        object locObj = DataBinder.Eval(e.Row.DataItem, "ID_CITY_DOC");
+                        string idLocActual = locObj != null ? locObj.ToString() : "";
+
+                        if (ddlLocalidad.Items.FindByValue(idLocActual) != null)
+                            ddlLocalidad.SelectedValue = idLocActual;
                     }
                 }
+
 
                 // ESPECIALIDAD
                 DropDownList ddlEspecialidad = (DropDownList)e.Row.FindControl("ddlID_ESP");
@@ -98,13 +93,13 @@ namespace Vistas
                 {
                     DataTable dtEspecialidad = validar.ObtenerEspecialidades();
                     ddlEspecialidad.DataSource = dtEspecialidad;
-                    ddlEspecialidad.DataTextField = "NOMBRE_ESP";
-                    ddlEspecialidad.DataValueField = "ID_ESP";
+                    ddlEspecialidad.DataTextField = "NAME_SPE";
+                    ddlEspecialidad.DataValueField = "ID_SPE";
                     ddlEspecialidad.DataBind();
 
-                    ddlEspecialidad.Items.Insert(0, new ListItem("< Seleccione >", ""));
+                    ddlEspecialidad.Items.Insert(0, new ListItem("< SELECT >", ""));
 
-                    object espObj = DataBinder.Eval(e.Row.DataItem, "ID_ESP_MED");
+                    object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
                     if (espObj != null)
                     {
                         string especialidadctual = espObj.ToString();
@@ -131,9 +126,10 @@ namespace Vistas
                 return;
             }
 
-            int index = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvMedicos.Rows[index];
+            GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+            int index = row.RowIndex;
             int idUsuario = Convert.ToInt32(gvMedicos.DataKeys[index].Value);
+
 
             UserManager medico = new UserManager();
             medico.deleteDoctor(idUsuario);
@@ -170,7 +166,7 @@ namespace Vistas
             string nuevoCorreo = ((TextBox)row.FindControl("txtCORREO_MED")).Text;
             string nuevoTelefono = ((TextBox)row.FindControl("txtTELEFONO_MED")).Text;
             string nuevaNacionalidad = ((TextBox)row.FindControl("txtNACIONALIDAD_MED")).Text;
-            string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
+            //string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
 
             string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_MED")).Text;
             DateTime nuevaFechaNac;
@@ -191,7 +187,7 @@ namespace Vistas
                 ddlLoc == null || ddlLoc.SelectedValue == "0" || string.IsNullOrEmpty(ddlLoc.SelectedValue) ||
                 ddlProv == null || ddlProv.SelectedValue == "0" || string.IsNullOrEmpty(ddlProv.SelectedValue))
             {
-                lblMensaje.Text = "Select a valid city, locality and speciality.";
+                lblMensaje.Text = "Select a valid city, locality and/or speciality.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
@@ -203,7 +199,7 @@ namespace Vistas
             UserManager medico = new UserManager();
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
                                 nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaEspecialidad, nuevaFechaNac,
-                                nuevoSexo, nuevaLocalidad, nuevaProvincia, nuevoDiasHorario);
+                                nuevoSexo, nuevaLocalidad, nuevaProvincia);
 
             gvMedicos.EditIndex = -1;
             CargarMedicos();
@@ -215,6 +211,27 @@ namespace Vistas
             Validar validar = new Validar();
             gvMedicos.DataSource = validar.ObtenerMedicos();
             gvMedicos.DataBind();
+        }
+
+        protected void ddlID_PROV_MED_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlProvincia = (DropDownList)sender;
+            GridViewRow row = (GridViewRow)ddlProvincia.NamingContainer;
+
+            int index = row.RowIndex;
+            int nuevaProvincia;
+
+            if (int.TryParse(ddlProvincia.SelectedValue, out nuevaProvincia))
+            {
+                ViewState["ProvinciaSeleccionadaGV"] = nuevaProvincia;
+
+                gvMedicos.EditIndex = index;
+                CargarMedicos(); // Vuelve a cargar la grilla con la provincia seleccionada
+            }
+            else
+            {
+                lblMensaje.Text = "You must select a valid city.";
+            }
         }
 
         // VOLVER A LOGIN

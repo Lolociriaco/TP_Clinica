@@ -12,7 +12,10 @@ namespace Datos
 {
     public class DB
     {
+
         private string cadenaConexion = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+
+       
 
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
@@ -91,7 +94,7 @@ namespace Datos
                 {
                     if (reader.Read())
                     {
-                        return reader["TIPO_USUARIO"].ToString();
+                        return reader["ROLE_USER"].ToString();
                     }
                     else
                     {
@@ -99,6 +102,30 @@ namespace Datos
                     }
                 }
             }
+        }
+
+        public WorkingHours ExecWorkingHours(string query, SqlParameter[] parametros)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddRange(parametros);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new WorkingHours
+                        {
+                            TimeStart = reader.GetTimeSpan(0),
+                            TimeEnd = reader.GetTimeSpan(1)
+                        };
+                    }
+                }
+            }
+
+            return null;
         }
 
 
@@ -114,5 +141,23 @@ namespace Datos
                 }
             }
         }
+
+        public DataTable ObtenerDataTable(string consulta, SqlParameter[] parametros)
+        {
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand cmd = new SqlCommand(consulta, connection);
+                if (parametros != null)
+                {
+                    cmd.Parameters.AddRange(parametros);
+                }
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+        }
+
     }
 }

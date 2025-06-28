@@ -25,7 +25,7 @@ namespace Negocio
             //if (password.Length < 6) return null;
 
 
-            string query = "SELECT TIPO_USUARIO FROM USUARIOS WHERE USUARIO = @user AND CONTRASENA = @password";
+            string query = "SELECT ROLE_USER FROM USERS WHERE USERNAME = @user AND PASSWORD_USER = @password";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -42,7 +42,7 @@ namespace Negocio
         // VALIDAR EL CAMBIO DE USUARIO
         public bool ValidarCambioUsuario(string user)
         {
-            string query = "SELECT * FROM USUARIOS WHERE USUARIO = @user";
+            string query = "SELECT * FROM USERS WHERE USERNAME = @user";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -58,24 +58,37 @@ namespace Negocio
         // CONSULTA PARA OBTENER CAMPOS DE MEDICOS
         public DataTable ObtenerMedicos()
         {
-            string query = "SELECT M.ID_USUARIO, M.NOMBRE_MED, M.APELLIDO_MED, M.DNI_MED, M.SEXO_MED, M.NACIONALIDAD_MED, M.DIRECCION_MED, M.FECHANAC_MED," +
-                " LOC.NOMBRE_LOC, M.ID_LOC_MED, M.ID_PROV_MED, PROV.NOMBRE_PROV, ESP.NOMBRE_ESP, M.ID_ESP_MED, M.TELEFONO_MED, M.CORREO_MED, M.DIAS_HORARIO_MED FROM MEDICOS M" +
-                " INNER JOIN LOCALIDADES LOC ON LOC.ID_LOC = M.ID_LOC_MED INNER JOIN PROVINCIAS PROV ON PROV.ID_PROV = M.ID_PROV_MED INNER JOIN " +
-                " ESPECIALIDADES ESP ON ESP.ID_ESP = M.ID_ESP_MED WHERE M.ACTIVO_MED = 1";
+            string query = @"
+                SELECT D.ID_USER, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
+                    D.NATIONALITY_DOC, D.ADDRESS_DOC, D.DATEBIRTH_DOC, C.NAME_CITY, D.ID_CITY_DOC,
+                    D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC, D.PHONE_DOC, D.EMAIL_DOC
+                FROM DOCTOR D
+                INNER JOIN CITY C ON C.ID_CITY = D.ID_CITY_DOC
+                INNER JOIN STATE S ON S.ID_STATE = D.ID_STATE_DOC
+                INNER JOIN SPECIALITY SP ON SP.ID_SPE = D.ID_SPE_DOC
+                WHERE D.ACTIVE_DOC = 1";
+
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
-            adapter.Fill(ds, "Medicos");
-            return ds.Tables["Medicos"];
+            adapter.Fill(ds, "Doctores");
+            return ds.Tables["Doctores"];
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE PACIENTES
         public DataTable ObtenerPacientes()
         {
-            string query = "SELECT P.DNI_PAC, P.NOMBRE_PAC, P.APELLIDO_PAC, P.SEXO_PAC, P.NACIONALIDAD_PAC, P.DIRECCION_PAC," +
-                " P.FECHANAC_PAC, LOC.NOMBRE_LOC, P.ID_LOC_PAC, P.ID_PROV_PAC, PROV.NOMBRE_PROV, P.TELEFONO_PAC," +
-                " P.CORREO_PAC FROM PACIENTES P INNER JOIN LOCALIDADES LOC ON LOC.ID_LOC = P.ID_LOC_PAC" +
-                " INNER JOIN PROVINCIAS PROV ON PROV.ID_PROV = P.ID_PROV_PAC WHERE P.ACTIVO_PAC = 1";
+            string query = @"
+                SELECT 
+                    P.DNI_PAT, P.NAME_PAT, P.SURNAME_PAT, 
+                    P.GENDER_PAT, P.NATIONALITY_PAT, P.ADDRESS_PAT, P.DATEBIRTH_PAT, 
+                    C.NAME_CITY, P.ID_CITY_PAT, S.NAME_STATE, P.ID_STATE_PAT, 
+                    P.PHONE_PAT, P.EMAIL_PAT
+                FROM PATIENTS P
+                INNER JOIN CITY C ON C.ID_CITY = P.ID_CITY_PAT
+                INNER JOIN STATE S ON S.ID_STATE = P.ID_STATE_PAT
+                WHERE P.ACTIVE_PAT = 1";
+
 
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
@@ -87,7 +100,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER CAMPOS DE TURNOS
         public DataTable ObtenerTurnos()
         {
-            string query = "SELECT * FROM TURNOS";
+            string query = "SELECT * FROM APPOINTMENT";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -98,7 +111,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER SEXO DEL PACIENTE
         public DataTable ObtenerSexoPaciente()
         {
-            string query = "SELECT DISTINCT SEXO_PAC FROM PACIENTES WHERE SEXO_PAC IS NOT NULL";
+            string query = "SELECT DISTINCT GENDER_PAT FROM PATIENTS WHERE GENDER_PAT IS NOT NULL";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -109,7 +122,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER SEXO DEL MEDICO
         public DataTable ObtenerSexoMedico()
         {
-            string query = "SELECT DISTINCT SEXO_MED FROM MEDICOS WHERE SEXO_MED IS NOT NULL";
+            string query = "SELECT DISTINCT GENDER_DOC FROM DOCTOR WHERE GENDER_DOC IS NOT NULL";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -120,7 +133,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER ESPECIALIDADES
         public DataTable ObtenerEspecialidades()
         {
-            string query = "SELECT NOMBRE_ESP, ID_ESP FROM ESPECIALIDADES";
+            string query = "SELECT NAME_SPE, ID_SPE FROM SPECIALITY";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -130,7 +143,7 @@ namespace Negocio
 
         public DataTable getNombreYApellidoDoctores()
         {
-            string query = "SELECT ID_USUARIO, NOMBRE_MED + ' ' + APELLIDO_MED AS NOMBRE_COMPLETO FROM MEDICOS";
+            string query = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS NOMBRE_COMPLETO FROM DOCTOR";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -141,7 +154,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER CAMPOS DE PROVINCIAS
         public DataTable ObtenerProvincia()
         {
-            string query = "SELECT ID_PROV, NOMBRE_PROV FROM PROVINCIAS";
+            string query = "SELECT ID_STATE, NAME_STATE FROM STATE";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -152,7 +165,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER CAMPOS DE LOCALIDADES
         public DataTable ObtenerLocalidad()
         {
-            string query = "SELECT ID_LOC, NOMBRE_LOC FROM LOCALIDADES";
+            string query = "SELECT ID_CITY, NAME_CITY FROM CITY";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -163,7 +176,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER DIAS DE LA SEMANA
         public DataTable ObtenerDias()
         {
-            string query = "SELECT DISTINCT DIA_SEMANA FROM HORARIOS_MEDICOS WHERE DIA_SEMANA IS NOT NULL";
+            string query = "SELECT DISTINCT WEEKDAY_SCH FROM DOCTOR_SCHEDULES WHERE WEEKDAY_SCH IS NOT NULL";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
@@ -174,8 +187,16 @@ namespace Negocio
         // CONSULTA PARA INSERTAR EL NUEVO PACIENTE
         public void AgregarPaciente(Paciente paciente)
         {
-            string query = "INSERT INTO PACIENTES (DNI_PAC, NOMBRE_PAC, APELLIDO_PAC, SEXO_PAC, NACIONALIDAD_PAC, FECHANAC_PAC, DIRECCION_PAC, ID_LOC_PAC, ID_PROV_PAC, CORREO_PAC, TELEFONO_PAC) " +
-                           "VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono)";
+            string query = @"
+                INSERT INTO PATIENTS (
+                    DNI_PAT, NAME_PAT, SURNAME_PAT, 
+                    GENDER_PAT, NATIONALITY_PAT, DATEBIRTH_PAT, ADDRESS_PAT, 
+                    ID_CITY_PAT, ID_STATE_PAT, EMAIL_PAT, PHONE_PAT
+                ) VALUES (
+                    @dni, @nombre, @apellido, 
+                    @sexo, @nacionalidad, @fecha, @direccion, 
+                    @ciudad, @provincia, @correo, @telefono
+                )";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -199,7 +220,7 @@ namespace Negocio
         // CONSULTA PARA INSERTAR EL NUEVO USUARIO
         public int AgregarUsuario(Usuario user)
         {
-            string query = "INSERT INTO USUARIOS (USUARIO, CONTRASENA, TIPO_USUARIO) " +
+            string query = "INSERT INTO USERS (USERNAME, PASSWORD_USER, ROLE_USER) " +
                            "VALUES (@usuario, @contrasena, @tipoUsuario); SELECT SCOPE_IDENTITY();";
 
             SqlParameter[] parametros = new SqlParameter[]
@@ -223,7 +244,7 @@ namespace Negocio
         // CONSULTA PARA INSERTAR EL NUEVO MEDICO
         public void CargarTurno(Turnos turno)
         {
-            string query = "INSERT INTO TURNOS (ID_USUARIO_MEDICO, DNI_PAC_TURNO, FECHA_TURNO, HORA_TURNO) " +
+            string query = "INSERT INTO APPOINTMENT (ID_USER_DOCTOR, DNI_PAT_APPO, DATE_APPO, TIME_APPO) " +
                          "VALUES (@id_usuario_med, @dni_paciente, @fecha_turno, @hora_turno)";
 
             SqlParameter[] parametros = new SqlParameter[]
@@ -240,7 +261,7 @@ namespace Negocio
 
         public bool MedicoDisponible(string diaTurno, TimeSpan horaTurno, int id_medico)
         {
-            string query = "SELECT * FROM MEDICOS WHERE ID_USUARIO = @id_medico";
+            string query = "SELECT * FROM DOCTORS WHERE ID_USER = @id_medico";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -255,8 +276,18 @@ namespace Negocio
 
         public void AgregarMedico(Medico medico)
         {
-            string query = "INSERT INTO MEDICOS (ID_USUARIO, DNI_MED, NOMBRE_MED, APELLIDO_MED, SEXO_MED, NACIONALIDAD_MED, FECHANAC_MED, DIRECCION_MED, ID_LOC_MED, ID_PROV_MED, CORREO_MED, TELEFONO_MED, ID_ESP_MED, DIAS_HORARIO_MED) " +
-                         "VALUES (@id_usuario, @dni, @nombre, @apellido, @sexo, @nacionalidad, @fecha, @direccion, @localidad, @provincia, @correo, @telefono, @especialidad, @diasYHorariosAtencion)";
+            string query = @"
+                INSERT INTO DOCTOR (
+                    ID_USER, DNI_DOC, NAME_DOC, SURNAME_DOC, 
+                    GENDER_DOC, NATIONALITY_DOC, DATEBIRTH_DOC, ADDRESS_DOC, 
+                    ID_CITY_DOC, ID_STATE_DOC, EMAIL_DOC, PHONE_DOC, 
+                    ID_SPE_DOC
+                ) VALUES (
+                    @id_usuario, @dni, @nombre, @apellido, 
+                    @sexo, @nacionalidad, @fecha, @direccion, 
+                    @ciudad, @provincia, @correo, @telefono, 
+                    @especialidad
+                )";
 
             SqlParameter[] parametros = new SqlParameter[]
             {
@@ -272,7 +303,6 @@ namespace Negocio
                 new SqlParameter("@correo", medico._correoElectronico),
                 new SqlParameter("@telefono", medico._telefono),
                 new SqlParameter("@especialidad", medico._especialidad),
-                new SqlParameter("@diasYHorariosAtencion", medico._diasYHorariosAtencion),
                 new SqlParameter("@id_usuario", medico._id_usuario),
             };
 
@@ -283,7 +313,7 @@ namespace Negocio
         // CONSULTA PARA INSERTAR EL HORARIO DEL MEDICO
         public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
-            string query = "INSERT INTO HORARIOS_MEDICOS (ID_USUARIO_MEDICO, DIA_SEMANA, HORA_INICIO, HORA_FIN) " +
+            string query = "INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOC, WEEKDAY_SCH, TIME_START, TIME_END) " +
                            "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
 
             SqlParameter[] parametros = new SqlParameter[]
@@ -301,7 +331,7 @@ namespace Negocio
         // CONSULTA PARA VERIFICAR SI EL DNI YA EXISTE
         public bool ExisteDni(int dni)
         {
-            string query = "SELECT COUNT(*) FROM MEDICOS WHERE DNI_MED = @dni";
+            string query = "SELECT COUNT(*) FROM DOCTOR WHERE DNI_DOC = @dni";
             SqlParameter[] parametros = {
                 new SqlParameter("@dni", dni)
             };
@@ -312,16 +342,16 @@ namespace Negocio
         }
 
 
-    public bool EsDniValido(string dni)
-    {
-        string patron = @"^\d{8}$";
-        return Regex.IsMatch(dni, patron);
-    }
-
-
-    public bool ExisteUsuario(string user)
+        public bool EsDniValido(string dni)
         {
-            string query = "SELECT COUNT(*) FROM USUARIOS WHERE USUARIO = @user";
+            string patron = @"^\d{8}$";
+            return Regex.IsMatch(dni, patron);
+        }
+
+
+        public bool ExisteUsuario(string user)
+        {
+            string query = "SELECT COUNT(*) FROM USERS WHERE USERNAME = @user";
             SqlParameter[] parametros = {
                 new SqlParameter("@user", user)
             };
@@ -334,7 +364,7 @@ namespace Negocio
         // CONSULTA PARA VERIFICAR SI EL TELEFONO YA EXISTE
         public bool ExisteTelefono(string telefono)
         {
-            string query = "SELECT COUNT(*) FROM MEDICOS WHERE TELEFONO_MED = @telefono";
+            string query = "SELECT COUNT(*) FROM DOCTOR WHERE PHONE_DOC = @telefono";
             SqlParameter[] parametros = {
                 new SqlParameter("@telefono", telefono)
             };
@@ -344,51 +374,51 @@ namespace Negocio
             return cantidad > 0;
         }
 
+
         public DataTable MedicosConMasTurnos()
         {
-            string query = @"SELECT TOP 10 
-        M.ID_USUARIO,
-        M.DNI_MED,
-        M.NOMBRE_MED,
-        M.APELLIDO_MED,
-        M.SEXO_MED,
-        M.NACIONALIDAD_MED,
-        M.FECHANAC_MED,
-        M.DIRECCION_MED,
-        M.ID_LOC_MED,
-        L.NOMBRE_LOC,
-        M.ID_PROV_MED,
-        P.NOMBRE_PROV,
-        M.ID_ESP_MED,
-        E.NOMBRE_ESP,
-        M.TELEFONO_MED,
-        M.CORREO_MED,
-        M.DIAS_HORARIO_MED,
-        COUNT(T.ID_TURNO) AS TOTALTURNOS
-    FROM MEDICOS M
-    JOIN TURNOS T ON M.ID_USUARIO = T.ID_USUARIO_MEDICO
-    LEFT JOIN LOCALIDADES L ON M.ID_LOC_MED = L.ID_LOC
-    LEFT JOIN PROVINCIAS P ON M.ID_PROV_MED = P.ID_PROV
-    LEFT JOIN ESPECIALIDADES E ON M.ID_ESP_MED = E.ID_ESP
-    GROUP BY 
-        M.ID_USUARIO,
-        M.DNI_MED,
-        M.NOMBRE_MED,
-        M.APELLIDO_MED,
-        M.SEXO_MED,
-        M.NACIONALIDAD_MED,
-        M.FECHANAC_MED,
-        M.DIRECCION_MED,
-        M.ID_LOC_MED,
-        L.NOMBRE_LOC,
-        M.ID_PROV_MED,
-        P.NOMBRE_PROV,
-        M.ID_ESP_MED,
-        E.NOMBRE_ESP,
-        M.TELEFONO_MED,
-        M.CORREO_MED,
-        M.DIAS_HORARIO_MED
-    ORDER BY TOTALTURNOS DESC"; ;
+            string query = @"
+        SELECT TOP 10 
+            D.ID_USER,
+            D.DNI_DOC,
+            D.NAME_DOC,
+            D.SURNAME_DOC,
+            D.GENDER_DOC,
+            D.NATIONALITY_DOC,
+            D.DATEBIRTH_DOC,
+            D.ADDRESS_DOC,
+            D.ID_CITY_DOC,
+            C.NAME_CITY,
+            D.ID_STATE_DOC,
+            S.NAME_STATE,
+            D.ID_SPE_DOC,
+            SP.NAME_SPE,
+            D.PHONE_DOC,
+            D.EMAIL_DOC,
+            COUNT(A.ID_APPO) AS TOTALTURNOS
+        FROM DOCTOR D
+        LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
+        LEFT JOIN CITY C ON D.ID_CITY_DOC = C.ID_CITY
+        LEFT JOIN STATE S ON D.ID_STATE_DOC = S.ID_STATE
+        LEFT JOIN SPECIALITY SP ON D.ID_SPE_DOC = SP.ID_SPE
+        GROUP BY 
+            D.ID_USER,
+            D.DNI_DOC,
+            D.NAME_DOC,
+            D.SURNAME_DOC,
+            D.GENDER_DOC,
+            D.NATIONALITY_DOC,
+            D.DATEBIRTH_DOC,
+            D.ADDRESS_DOC,
+            D.ID_CITY_DOC,
+            C.NAME_CITY,
+            D.ID_STATE_DOC,
+            S.NAME_STATE,
+            D.ID_SPE_DOC,
+            SP.NAME_SPE,
+            D.PHONE_DOC,
+            D.EMAIL_DOC
+        ORDER BY TOTALTURNOS DESC";
 
 
 
@@ -396,12 +426,26 @@ namespace Negocio
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
 
             DataSet ds = new DataSet();
-            adapter.Fill(ds, "Medicos");
-            return ds.Tables["Medicos"];
+            adapter.Fill(ds, "DOCTOR");
+            return ds.Tables["DOCTOR"];
 
 
         }
 
 
+
+        public DataTable ObtenerLocalidadesFiltradas(int idProvincia)
+        {
+            string consulta = "SELECT ID_CITY, NAME_CITY FROM CITY WHERE ID_STATE_CITY = @idProv";
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                 new SqlParameter("@idProv", idProvincia)
+            };
+
+            DB accesoDatos = new DB();
+            return accesoDatos.ObtenerDataTable(consulta, parametros);
+        }
+
     }
+
 }

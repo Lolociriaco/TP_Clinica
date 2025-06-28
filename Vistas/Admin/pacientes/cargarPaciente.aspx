@@ -146,7 +146,7 @@
 
                         <div class="form-group">
                             <label>City:</label>
-                            <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text" />
+                            <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-text" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged" AutoPostBack="true"/>
                         </div>
 
                         <div class="form-group">

@@ -96,27 +96,36 @@
 
                     <div class="form-group">
                         <label>Doctor:</label>
-                        <asp:DropDownList ID="ddlDoctor" runat="server" CssClass="input-text"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlDoctor" runat="server" CssClass="input-text" AutoPostBack="true" OnSelectedIndexChanged="ddlDoctor_SelectedIndexChanged"></asp:DropDownList>
                     </div>
 
                    <div class="form-group">
                       <label>Date:</label>
-                      <asp:TextBox ID="txtDate" runat="server" CssClass="input-text" TextMode="Date" />
+                      <asp:TextBox ID="txtDate" runat="server" CssClass="input-text" TextMode="Date" AutoPostBack="true" OnTextChanged="txtDate_TextChanged" />
                     </div>
 
                     <div class="form-group">
                         <label>Time:</label>
-                        <asp:TextBox ID="txtTime" runat="server" type="time" CssClass="input-text"></asp:TextBox>
+                        <asp:DropDownList ID="ddlTime" runat="server" CssClass="input-text"></asp:DropDownList>
                     </div>
 
                     <div class="form-group">
                         <label>DNI Patient:</label>
                         <asp:TextBox ID="txtDNIPatient" runat="server" CssClass="input-text"></asp:TextBox>
+                         <asp:RegularExpressionValidator
+                           ID="validateDni"
+                           runat="server"
+                           ControlToValidate="txtDNIPatient"
+                           ErrorMessage="Invalid DNI (format: 12345678)"
+                           ForeColor="Red"
+                           ValidationExpression="^\d{8}$"
+                           Display="Dynamic" 
+                           ValidationGroup="grupoAlta"/>
                     </div>
                 </div>
 
                 <div class="form-footer">
-                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
+                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" ValidationGroup="grupoAlta"/>
                     <asp:Label ID="lblMensaje" runat="server" Font-Bold="True" Font-Names="Bahnschrift" Font-Size="Medium" ForeColor="Red"></asp:Label>
                 </div>
             </div>

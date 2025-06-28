@@ -18,7 +18,7 @@ namespace Vistas.Admin.medicos
             {
                 CargarSexo();
                 CargarEspecialidades();
-                CargarLocalidad();
+               // CargarLocalidad();
                 CargarProvincia();
 
                 List<string> dias = new List<string> { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO" };
@@ -26,7 +26,7 @@ namespace Vistas.Admin.medicos
                 rptDias.DataBind();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -184,7 +184,6 @@ namespace Vistas.Admin.medicos
                 Telefono = txtPhone.Text,
                 Sexo = ddlSexo.SelectedValue,
                 Especialidad = ddlSpeciality.SelectedValue,
-                DiasYHorariosAtencion = "",
                 Usuario = txtUser.Text,
                 FechaNacimiento = DateTime.Parse(txtBirth.Text),
                 Contrasena = txtPassword.Text,
@@ -244,11 +243,11 @@ namespace Vistas.Admin.medicos
             DataTable dtSexos = validar.ObtenerSexoMedico();
 
             ddlSexo.DataSource = dtSexos;
-            ddlSexo.DataTextField = "SEXO_MED";
-            ddlSexo.DataValueField = "SEXO_MED";
+            ddlSexo.DataTextField = "GENDER_DOC";
+            ddlSexo.DataValueField = "GENDER_DOC";
             ddlSexo.DataBind();
 
-            ddlSexo.Items.Insert(0, new ListItem("", ""));
+            ddlSexo.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
         // CARGAR DDL ESPECIALIDADES
@@ -258,11 +257,11 @@ namespace Vistas.Admin.medicos
             DataTable dtEspecialidad = validar.ObtenerEspecialidades();
 
             ddlSpeciality.DataSource = dtEspecialidad;
-            ddlSpeciality.DataTextField = "NOMBRE_ESP";
-            ddlSpeciality.DataValueField = "ID_ESP";
+            ddlSpeciality.DataTextField = "NAME_SPE";
+            ddlSpeciality.DataValueField = "ID_SPE";
             ddlSpeciality.DataBind();
 
-            ddlSpeciality.Items.Insert(0, new ListItem("", ""));
+            ddlSpeciality.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
         // CARGAR DDL PROVINCIA
@@ -272,11 +271,11 @@ namespace Vistas.Admin.medicos
             DataTable dtCity = validar.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
-            ddlCity.DataTextField = "NOMBRE_PROV";
-            ddlCity.DataValueField = "ID_PROV";
+            ddlCity.DataTextField = "NAME_STATE";
+            ddlCity.DataValueField = "ID_STATE";
             ddlCity.DataBind();
 
-            ddlCity.Items.Insert(0, new ListItem("", ""));
+            ddlCity.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
         // CARGAR DDL LOCALIDADES
@@ -290,7 +289,33 @@ namespace Vistas.Admin.medicos
             ddlLocality.DataValueField = "ID_LOC";
             ddlLocality.DataBind();
 
-            ddlLocality.Items.Insert(0, new ListItem("", ""));
+            ddlLocality.Items.Insert(0, new ListItem("< SELECT >", ""));
+        }
+
+        protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarLocalidadesPorProvincia();
+        }
+
+        private void CargarLocalidadesPorProvincia()
+        {
+            int idProvincia;
+            if (int.TryParse(ddlCity.SelectedValue, out idProvincia))
+            {
+                Validar validar = new Validar();
+                DataTable dt = validar.ObtenerLocalidadesFiltradas(idProvincia);
+
+                ddlLocality.DataSource = dt;
+                ddlLocality.DataTextField = "NAME_CITY";
+                ddlLocality.DataValueField = "ID_CITY";
+                ddlLocality.DataBind();
+                ddlLocality.Items.Insert(0, new ListItem("< SELECT >", ""));
+            }
+            else
+            {
+                ddlLocality.Items.Clear();
+                ddlLocality.Items.Insert(0, new ListItem("< Select a state first >", ""));
+            }
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

@@ -21,7 +21,6 @@ namespace Entidades
         public string _correoElectronico;
         public string _telefono;
         public string _especialidad;
-        public string _diasYHorariosAtencion;
         public string _usuario;
         public string _contrasena;
         public string _repecontrasena;
@@ -32,7 +31,7 @@ namespace Entidades
         public Medico(int id_usuario, int dni, string nombre, string apellido, string sexo,
                       string nacionalidad, DateTime fechaNacimiento, string direccion,
                       string localidad, string provincia, string correoElectronico, string telefono,
-                      string especialidad, string diasYHorariosAtencion, string usuario, string contrasena, string repecontrasena)
+                      string especialidad, string usuario, string contrasena, string repecontrasena)
         {
             _id_usuario = id_usuario;
             _dni = dni;
@@ -47,7 +46,6 @@ namespace Entidades
             _correoElectronico = correoElectronico;
             _telefono = telefono;
             _especialidad = especialidad;
-            _diasYHorariosAtencion = diasYHorariosAtencion;
             _usuario = usuario;
             _contrasena = contrasena;
             _repecontrasena = repecontrasena;
@@ -130,12 +128,6 @@ namespace Entidades
         {
             get { return _especialidad; }
             set { _especialidad = value; }
-        }
-
-        public string DiasYHorariosAtencion
-        {
-            get { return _diasYHorariosAtencion; }
-            set { _diasYHorariosAtencion = value; }
         }
 
         public string Usuario

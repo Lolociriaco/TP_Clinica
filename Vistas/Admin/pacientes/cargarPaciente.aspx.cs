@@ -18,11 +18,11 @@ namespace Vistas.Admin.pacientes
             if (!IsPostBack)
             {
                 CargarSexo();
-                CargarLocalidad();
+                CargarLocalidadesPorProvincia();
                 CargarProvincia();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -46,11 +46,11 @@ namespace Vistas.Admin.pacientes
             DataTable dtSexos = validar.ObtenerSexoPaciente();
 
             ddlSexo.DataSource = dtSexos;
-            ddlSexo.DataTextField = "SEXO_PAC";
-            ddlSexo.DataValueField = "SEXO_PAC";
+            ddlSexo.DataTextField = "GENDER_PAT";
+            ddlSexo.DataValueField = "GENDER_PAT";
             ddlSexo.DataBind();
 
-            ddlSexo.Items.Insert(0, new ListItem("", ""));
+            ddlSexo.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
         // CARGA DE DDL PROVINCIA
@@ -60,25 +60,38 @@ namespace Vistas.Admin.pacientes
             DataTable dtCity = validar.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
-            ddlCity.DataTextField = "NOMBRE_PROV";
-            ddlCity.DataValueField = "ID_PROV";
+            ddlCity.DataTextField = "NAME_STATE";
+            ddlCity.DataValueField = "ID_STATE";
             ddlCity.DataBind();
 
-            ddlCity.Items.Insert(0, new ListItem("", ""));
+            ddlCity.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
-        // CARGA DE DDL LOCALIDAD
-        private void CargarLocalidad()
+
+        protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Validar validar = new Validar(); 
-            DataTable dtLocality = validar.ObtenerLocalidad();
+            CargarLocalidadesPorProvincia();
+        }
 
-            ddlLocality.DataSource = dtLocality;
-            ddlLocality.DataTextField  = "NOMBRE_LOC";
-            ddlLocality.DataValueField = "ID_LOC";
-            ddlLocality.DataBind();
+        private void CargarLocalidadesPorProvincia()
+        {
+            int idProvincia;
+            if (int.TryParse(ddlCity.SelectedValue, out idProvincia))
+            {
+                Validar validar = new Validar();
+                DataTable dt = validar.ObtenerLocalidadesFiltradas(idProvincia);
 
-            ddlLocality.Items.Insert(0, new ListItem("", ""));
+                ddlLocality.DataSource = dt;
+                ddlLocality.DataTextField = "NAME_CITY";
+                ddlLocality.DataValueField = "ID_CITY";
+                ddlLocality.DataBind();
+                ddlLocality.Items.Insert(0, new ListItem("< Select >", ""));
+            }
+            else
+            {
+                ddlLocality.Items.Clear();
+                ddlLocality.Items.Insert(0, new ListItem("< Select a state first >", ""));
+            }
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)

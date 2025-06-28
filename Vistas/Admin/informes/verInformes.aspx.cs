@@ -9,14 +9,9 @@ using System.Web.UI.WebControls;
 namespace Vistas.Admin.informes
 {
 	public partial class verInformes : System.Web.UI.Page
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                CargarInformes();
-            }
-
+	{
+		protected void Page_Load(object sender, EventArgs e)
+		{
             if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
             {
                 Response.Redirect("~/Login.aspx");

@@ -30,12 +30,12 @@ namespace Vistas
             Session["username"] = username;
             Session["role"] = role;
 
-            if(role == "ADMINISTRADOR")
+            if(role == "ADMIN")
             {
                 Response.Redirect("~/Admin/pacientes/abmlPaciente.aspx");
                 return;
             }
-            else if( role == "MEDICO")
+            else if( role == "DOCTOR")
             {
                 Response.Redirect("~/Medicos/turnos.aspx");
                 return;
