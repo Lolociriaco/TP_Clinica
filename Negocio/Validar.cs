@@ -343,5 +343,65 @@ namespace Negocio
             int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
             return cantidad > 0;
         }
+
+        public DataTable MedicosConMasTurnos()
+        {
+            string query = @"SELECT TOP 10 
+        M.ID_USUARIO,
+        M.DNI_MED,
+        M.NOMBRE_MED,
+        M.APELLIDO_MED,
+        M.SEXO_MED,
+        M.NACIONALIDAD_MED,
+        M.FECHANAC_MED,
+        M.DIRECCION_MED,
+        M.ID_LOC_MED,
+        L.NOMBRE_LOC,
+        M.ID_PROV_MED,
+        P.NOMBRE_PROV,
+        M.ID_ESP_MED,
+        E.NOMBRE_ESP,
+        M.TELEFONO_MED,
+        M.CORREO_MED,
+        M.DIAS_HORARIO_MED,
+        COUNT(T.ID_TURNO) AS TOTALTURNOS
+    FROM MEDICOS M
+    JOIN TURNOS T ON M.ID_USUARIO = T.ID_USUARIO_MEDICO
+    LEFT JOIN LOCALIDADES L ON M.ID_LOC_MED = L.ID_LOC
+    LEFT JOIN PROVINCIAS P ON M.ID_PROV_MED = P.ID_PROV
+    LEFT JOIN ESPECIALIDADES E ON M.ID_ESP_MED = E.ID_ESP
+    GROUP BY 
+        M.ID_USUARIO,
+        M.DNI_MED,
+        M.NOMBRE_MED,
+        M.APELLIDO_MED,
+        M.SEXO_MED,
+        M.NACIONALIDAD_MED,
+        M.FECHANAC_MED,
+        M.DIRECCION_MED,
+        M.ID_LOC_MED,
+        L.NOMBRE_LOC,
+        M.ID_PROV_MED,
+        P.NOMBRE_PROV,
+        M.ID_ESP_MED,
+        E.NOMBRE_ESP,
+        M.TELEFONO_MED,
+        M.CORREO_MED,
+        M.DIAS_HORARIO_MED
+    ORDER BY TOTALTURNOS DESC"; ;
+
+
+
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Medicos");
+            return ds.Tables["Medicos"];
+
+
+        }
+
+
     }
 }

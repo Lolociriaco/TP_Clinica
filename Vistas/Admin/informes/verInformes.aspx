@@ -87,11 +87,204 @@
               <%-----------------CONTENIDO REPORTES-------------------%>
               <div class="content-box">
                 
-                <h3>Reports & Statistics</h3>
-                
+                <h3>Doctors with more shifts</h3>
+                 
+
+        <div style="margin-top: 40px;">
+
+                  <asp:GridView ID="gvReporteMedicosMayoriaTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" 
+    Width="100%"  
+      DataKeyNames="DNI_MED" 
+    AllowPaging="True"  CellPadding="4" ForeColor="#333333" 
+    GridLines="None" PageSize="8" CssClass="gridview-doctores">
+
+    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+
+    <Columns>
+        
+
+<asp:TemplateField HeaderText="ID USER" SortExpression="ID_USUARIO">
+    <ItemTemplate>
+        <asp:Label ID="lblID_USUARIO" runat="server"
+                   Text='<%# Bind("ID_USUARIO") %>'></asp:Label>
+    </ItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="FIRST NAME" SortExpression="NOMBRE_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblNOMBRE_MED" runat="server"
+                   Text='<%# Bind("NOMBRE_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtNOMBRE_MED" runat="server"
+                     Text='<%# Bind("NOMBRE_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="SURNAME" SortExpression="APELLIDO_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblAPELLIDO_MED" runat="server"
+                   Text='<%# Bind("APELLIDO_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtAPELLIDO_MED" runat="server"
+                     Text='<%# Bind("APELLIDO_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="DNI" SortExpression="DNI_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblDNI_MED" runat="server"
+                   Text='<%# Bind("DNI_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtDNI_MED" runat="server"
+                     Text='<%# Bind("DNI_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="SEX" SortExpression="SEXO_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblSEXO_MED" runat="server"
+                   Text='<%# Bind("SEXO_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:DropDownList ID="ddlSEXO_MED" runat="server"
+                          SelectedValue='<%# Bind("SEXO_MED") %>'>
+            <asp:ListItem Text="Male" Value="MALE" />
+            <asp:ListItem Text="Female" Value="FEMALE" />
+            <asp:ListItem Text="Other" Value="OTHER" />
+        </asp:DropDownList>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="NATIONALITY" SortExpression="NACIONALIDAD_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblNACIONALIDAD_MED" runat="server"
+                   Text='<%# Bind("NACIONALIDAD_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtNACIONALIDAD_MED" runat="server"
+                     Text='<%# Bind("NACIONALIDAD_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="ADDRESS" SortExpression="DIRECCION_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblDIRECCION_MED" runat="server"
+                   Text='<%# Bind("DIRECCION_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtDIRECCION_MED" runat="server" Width="250px"
+                     Text='<%# Bind("DIRECCION_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="BIRTHDATE" SortExpression="FECHANAC_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblFECHANAC_MED" runat="server"
+                   Text='<%# Bind("FECHANAC_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtFECHANAC_MED" runat="server"
+         Text='<%# Bind("FECHANAC_MED", "{0:yyyy-MM-dd}") %>'
+         TextMode="Date" />
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="LOCALITY" SortExpression="NOMBRE_LOC">
+    <ItemTemplate>
+        <asp:Label ID="lblNOMBRE_LOC" runat="server"
+                   Text='<%# Bind("NOMBRE_LOC") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:DropDownList ID="ddlID_LOC_MED" runat="server"></asp:DropDownList>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="CITY" SortExpression="NOMBRE_PROV">
+    <ItemTemplate>
+        <asp:Label ID="lblNOMBRE_PROV" runat="server"
+                   Text='<%# Bind("NOMBRE_PROV") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:DropDownList ID="ddlID_PROV_MED" runat="server"></asp:DropDownList>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="SPECIALITY" SortExpression="NOMBRE_ESP">
+    <ItemTemplate>
+        <asp:Label ID="lblNOMBRE_ESP" runat="server"
+                   Text='<%# Bind("NOMBRE_ESP") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:DropDownList ID="ddlID_ESP" runat="server"></asp:DropDownList>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="PHONE NUMBER" SortExpression="TELEFONO_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblTELEFONO_MED" runat="server"
+                   Text='<%# Bind("TELEFONO_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtTELEFONO_MED" runat="server"
+                     Text='<%# Bind("TELEFONO_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="MAIL" SortExpression="CORREO_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblCORREO_MED" runat="server"
+                   Text='<%# Bind("CORREO_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtCORREO_MED" runat="server"
+                     Text='<%# Bind("CORREO_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+<asp:TemplateField HeaderText="DAYS & TIMES" SortExpression="DIAS_HORARIO_MED">
+    <ItemTemplate>
+        <asp:Label ID="lblDIAS_HORARIO_MED" runat="server"
+                   Text='<%# Bind("DIAS_HORARIO_MED") %>'></asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:TextBox ID="txtDIAS_HORARIO_MED" runat="server"
+                     Text='<%# Bind("DIAS_HORARIO_MED") %>'></asp:TextBox>
+    </EditItemTemplate>
+</asp:TemplateField>
+
+
+
+    </Columns>
+
+    <EditRowStyle BackColor="#999999" />
+
+    <EmptyDataTemplate>
+        <tr>
+            <td colspan="3" style="text-align:center; padding: 20px;">
+                No patients recorded.
+            </td>
+        </tr>
+    </EmptyDataTemplate>
+
+    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+    <PagerStyle BackColor="#e6f0fa" ForeColor="#004080" Font-Bold="True" HorizontalAlign="Center" />
+    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+
+</asp:GridView>
+            </div>
               </div>
             </main>
           </div>
+
 
           <%-----------------POP UP LOGOUT-------------------%>
           <asp:Panel ID="pnlConfirmLogout" runat="server" CssClass="modalPopup" Style="display:none;">
