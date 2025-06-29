@@ -445,6 +445,21 @@ namespace Negocio
             DB accesoDatos = new DB();
             return accesoDatos.ObtenerDataTable(consulta, parametros);
         }
+        public DataTable EspecialidadConMasTurnos()
+        {
+            string query = @"
+        SELECT TOP 5 
+            SP.NAME_SPE AS Especialidad,  -- Usando alias
+            COUNT(A.ID_APPO) AS TotalTurnos
+        FROM SPECIALITY SP
+        INNER JOIN DOCTOR D ON SP.ID_SPE = D.ID_SPE_DOC
+        LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
+        GROUP BY SP.NAME_SPE
+        ORDER BY TotalTurnos DESC";
+
+            DB datos = new DB();
+            return datos.ObtenerDataTable(query, null);
+        }
 
     }
 

@@ -263,3 +263,11 @@ VALUES
 
 ---------------------------------------------------------------------------------------------
 
+SELECT TOP 1 
+    SP.NAME_SPE AS Especialidad,
+    COUNT(A.ID_APPO) AS TotalTurnos
+FROM SPECIALITY SP
+INNER JOIN DOCTOR D ON SP.ID_SPE = D.ID_SPE_DOC
+LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
+GROUP BY SP.NAME_SPE
+ORDER BY TotalTurnos DESC

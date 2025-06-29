@@ -13,9 +13,7 @@ namespace Datos
     public class DB
     {
 
-        private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
-
-
+        private string cadenaConexion = @"Data Source=PCBRANDON\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
         {
             SqlConnection conexion = new SqlConnection(cadenaConexion);
