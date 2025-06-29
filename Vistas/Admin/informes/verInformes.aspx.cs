@@ -12,11 +12,17 @@ namespace Vistas.Admin.informes
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            if (Session["role"] == null || Session["role"].ToString() != "ADMINISTRADOR")
+            if (!IsPostBack)
+            {
+                CargarInformes();
+            }
+
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
 
+            this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             username.Text = Session["username"].ToString();
         }
 
@@ -27,8 +33,11 @@ namespace Vistas.Admin.informes
             gvReporteMedicosMayoriaTurnos.DataSource = validar.MedicosConMasTurnos();
             gvReporteMedicosMayoriaTurnos.DataBind();
         }
-
-
+        protected void gvReporteMedicosMayoriaTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvReporteMedicosMayoriaTurnos.PageIndex = e.NewPageIndex;
+            CargarInformes();
+        }
 
         // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)

@@ -92,11 +92,9 @@
 
         <div style="margin-top: 40px;">
 
-                  <asp:GridView ID="gvReporteMedicosMayoriaTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" 
-    Width="100%"  
-      DataKeyNames="DNI_DOC" 
-    AllowPaging="True"  CellPadding="4" ForeColor="#333333" 
-    GridLines="None" PageSize="8" CssClass="gridview-doctores">
+                  <asp:GridView ID="gvReporteMedicosMayoriaTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" 
+                      Font-Names="Bahnschrift" Width="100%" DataKeyNames="DNI_DOC" AllowPaging="True" OnPageIndexChanging="gvReporteMedicosMayoriaTurnos_PageIndexChanging"
+                      CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="8" CssClass="gridview-doctores">
 
     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
