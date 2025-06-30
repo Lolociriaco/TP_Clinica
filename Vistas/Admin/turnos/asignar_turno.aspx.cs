@@ -18,7 +18,8 @@ namespace Vistas.Admin.turnos
             if (!IsPostBack)
             {
                 CargarEspecialidades();
-                CargarDoctores();
+                //CargarDoctores();
+                //CargarMedicosPorEspecialidad();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
@@ -46,23 +47,33 @@ namespace Vistas.Admin.turnos
 
             ddlSpeciality.DataSource = dtSexos;
             ddlSpeciality.DataTextField = "NAME_SPE";
-            ddlSpeciality.DataValueField = "NAME_SPE";
+            ddlSpeciality.DataValueField = "ID_SPE";
             ddlSpeciality.DataBind();
 
             ddlSpeciality.Items.Insert(0, new ListItem("< SELECT >", ""));
+
         }
 
-        private void CargarDoctores()
+        // FILTRAR MEDICOS POR ESPECIALIDAD
+        private void CargarMedicosPorEspecialidad()
         {
-            Validar validar = new Validar();
-            DataTable dtDoctor = validar.getNombreYApellidoDoctores();
+            int idSpe;
+            if (int.TryParse(ddlSpeciality.SelectedValue, out idSpe))
+            {
+                Validar validar = new Validar();
+                DataTable dt = validar.ObtenerMedicosFiltrados(idSpe);
 
-            ddlDoctor.DataSource = dtDoctor;
-            ddlDoctor.DataTextField = "NOMBRE_COMPLETO";
-            ddlDoctor.DataValueField = "ID_USER";
-            ddlDoctor.DataBind();
-
-            ddlDoctor.Items.Insert(0, new ListItem("< SELECT >", ""));
+                ddlDoctor.DataSource = dt;
+                ddlDoctor.DataTextField = "FULL_NAME";
+                ddlDoctor.DataValueField = "ID_USER";
+                ddlDoctor.DataBind();
+                ddlDoctor.Items.Insert(0, new ListItem("< SELECT >", ""));
+            }
+            else
+            {
+                ddlDoctor.Items.Clear();
+                ddlDoctor.Items.Insert(0, new ListItem("< Select a speciality first >", ""));
+            }
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
@@ -142,6 +153,8 @@ namespace Vistas.Admin.turnos
             ddlDoctor.SelectedIndex = 0;
             
         }
+
+        // FILTRAR HORARIOS
         public void filtrarHorarios()
         {
             if (ddlDoctor.SelectedIndex == 0) return;
@@ -162,7 +175,7 @@ namespace Vistas.Admin.turnos
             if (!isAvailable)
             {
                 ddlTime.Items.Clear();
-                ddlTime.Items.Insert(0, new ListItem("< Doctor selected dont work this day >", ""));
+                ddlTime.Items.Insert(0, new ListItem("< Doctor selected doesn't work this day >", ""));
                 return;
             }
 
@@ -204,6 +217,10 @@ namespace Vistas.Admin.turnos
             filtrarHorarios();
         }
 
+        protected void ddlSpeciality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarMedicosPorEspecialidad();
+        }
 
         protected void ddlDoctor_SelectedIndexChanged(object sender, EventArgs e)
         {

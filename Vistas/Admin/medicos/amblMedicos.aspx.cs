@@ -169,11 +169,36 @@ namespace Vistas
             //string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
 
             string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_MED")).Text;
-            DateTime nuevaFechaNac;
-            if (!DateTime.TryParse(fechaNacString, out nuevaFechaNac))
+
+            // Buscamos el TextBox de la fecha de nacimiento
+            TextBox txtFechaNac = (TextBox)row.FindControl("txtFECHANAC_MED");
+
+            if (txtFechaNac == null)
             {
-                // Manejar error!!!
-                //lblMensaje.Text = "La fecha de nacimiento ingresada no es válida.";
+                // Si por alguna razón no se encuentra el control, salimos
+                lblMensaje.Text = "Birth date input not found.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                e.Cancel = true;
+                return;
+            }
+
+            DateTime nuevaFechaNac;
+            if (!DateTime.TryParse(txtFechaNac.Text, out nuevaFechaNac))
+            {
+                lblMensaje.Text = "Enter a valid birth date.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                e.Cancel = true;
+                return;
+            }
+
+            int edad = DateTime.Today.Year - nuevaFechaNac.Year;
+            if (nuevaFechaNac > DateTime.Today.AddYears(-edad)) edad--;
+
+            if (edad < 18)
+            {
+                lblMensaje.Text = "The doctor must be at least 18 years old.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                e.Cancel = true;
                 return;
             }
 
@@ -231,6 +256,7 @@ namespace Vistas
             else
             {
                 lblMensaje.Text = "You must select a valid city.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -378,47 +379,28 @@ namespace Negocio
         public DataTable MedicosConMasTurnos()
         {
             string query = @"
-        SELECT TOP 10 
-            D.ID_USER,
-            D.DNI_DOC,
-            D.NAME_DOC,
-            D.SURNAME_DOC,
-            D.GENDER_DOC,
-            D.NATIONALITY_DOC,
-            D.DATEBIRTH_DOC,
-            D.ADDRESS_DOC,
-            D.ID_CITY_DOC,
-            C.NAME_CITY,
-            D.ID_STATE_DOC,
-            S.NAME_STATE,
-            D.ID_SPE_DOC,
-            SP.NAME_SPE,
-            D.PHONE_DOC,
-            D.EMAIL_DOC,
-            COUNT(A.ID_APPO) AS TOTALTURNOS
-        FROM DOCTOR D
-        LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
-        LEFT JOIN CITY C ON D.ID_CITY_DOC = C.ID_CITY
-        LEFT JOIN STATE S ON D.ID_STATE_DOC = S.ID_STATE
-        LEFT JOIN SPECIALITY SP ON D.ID_SPE_DOC = SP.ID_SPE
-        GROUP BY 
-            D.ID_USER,
-            D.DNI_DOC,
-            D.NAME_DOC,
-            D.SURNAME_DOC,
-            D.GENDER_DOC,
-            D.NATIONALITY_DOC,
-            D.DATEBIRTH_DOC,
-            D.ADDRESS_DOC,
-            D.ID_CITY_DOC,
-            C.NAME_CITY,
-            D.ID_STATE_DOC,
-            S.NAME_STATE,
-            D.ID_SPE_DOC,
-            SP.NAME_SPE,
-            D.PHONE_DOC,
-            D.EMAIL_DOC
-        ORDER BY TOTALTURNOS DESC";
+            SELECT TOP 10 
+                D.ID_USER,
+                D.DNI_DOC,
+                D.NAME_DOC,
+                D.SURNAME_DOC,
+                D.ID_SPE_DOC,
+                SP.NAME_SPE,
+
+                COUNT(A.ID_APPO) AS TOTALTURNOS
+            FROM DOCTOR D
+            LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
+            LEFT JOIN STATE S ON D.ID_STATE_DOC = S.ID_STATE
+            LEFT JOIN SPECIALITY SP ON D.ID_SPE_DOC = SP.ID_SPE
+            GROUP BY 
+                D.ID_USER,
+                D.DNI_DOC,
+                D.NAME_DOC,
+                D.SURNAME_DOC,
+                D.ID_SPE_DOC,
+                SP.NAME_SPE
+
+            ORDER BY TOTALTURNOS DESC";
 
 
 
@@ -432,14 +414,40 @@ namespace Negocio
 
         }
 
-
-
         public DataTable ObtenerLocalidadesFiltradas(int idProvincia)
         {
             string consulta = "SELECT ID_CITY, NAME_CITY FROM CITY WHERE ID_STATE_CITY = @idProv";
             SqlParameter[] parametros = new SqlParameter[]
             {
                  new SqlParameter("@idProv", idProvincia)
+            };
+
+            DB accesoDatos = new DB();
+            return accesoDatos.ObtenerDataTable(consulta, parametros);
+        }
+
+        public DataTable EspecialidadConMasTurnos()
+        {
+            string query = @"
+            SELECT TOP 5 
+                SP.NAME_SPE AS Especialidad,  -- Usando alias
+                COUNT(A.ID_APPO) AS TotalTurnos
+            FROM SPECIALITY SP
+            INNER JOIN DOCTOR D ON SP.ID_SPE = D.ID_SPE_DOC
+            LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
+            GROUP BY SP.NAME_SPE
+            ORDER BY TotalTurnos DESC";
+
+            DB datos = new DB();
+            return datos.ObtenerDataTable(query, null);
+        }
+
+        public DataTable ObtenerMedicosFiltrados(int idSpe)
+        {
+            string consulta = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS FULL_NAME FROM DOCTOR WHERE ID_SPE_DOC = @idSpe";
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                 new SqlParameter("@idSpe", idSpe)
             };
 
             DB accesoDatos = new DB();

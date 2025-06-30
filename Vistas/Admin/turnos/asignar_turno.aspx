@@ -91,7 +91,7 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Speciality:</label>
-                        <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlSpeciality" runat="server" CssClass="input-text" AutoPostBack="true" OnSelectedIndexChanged="ddlSpeciality_SelectedIndexChanged"></asp:DropDownList>
                     </div>
 
                     <div class="form-group">

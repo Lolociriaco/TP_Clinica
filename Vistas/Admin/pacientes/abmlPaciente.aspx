@@ -190,14 +190,6 @@
                                      <asp:TextBox ID="txtFECHANAC_PAC" runat="server"
                                       Text='<%# Bind("DATEBIRTH_PAT", "{0:yyyy-MM-dd}") %>'
                                       TextMode="Date" />
-                                     <asp:RegularExpressionValidator
-                                          ID="validateBirthday"
-                                          runat="server"
-                                          ControlToValidate="txtFECHANAC_PAC"
-                                          ErrorMessage="Age must be above 18"
-                                          ForeColor="Red"
-                                          Display="Dynamic" 
-                                          ValidationGroup="grupoAlta"/>
                                  </EditItemTemplate>
                              </asp:TemplateField>
 
