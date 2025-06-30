@@ -260,10 +260,10 @@ input[type="text"] {
     margin-right: 3px;
 }
 
-/*-------CONTENIDO GRIDVIEW------*/
+/*-------CONTENIDO GRIDVIEW------
 .gridview-doctores {
     border-collapse: separate;
-    border-spacing: 0 10px; /* separación entre filas */
+    border-spacing: 0 10px; /* separación entre filas 
     width: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;

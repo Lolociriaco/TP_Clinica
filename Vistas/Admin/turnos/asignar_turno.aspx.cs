@@ -163,7 +163,7 @@ namespace Vistas.Admin.turnos
 
             if (!DateTime.TryParse(txtDate.Text, out DateTime fechaTurno)) return;
 
-            UserManager manager = new UserManager();
+            AdminDoctorManager manager = new AdminDoctorManager();
 
             DayOfWeek dayWeek = fechaTurno.DayOfWeek;
             string day = fechaTurno.ToString("dddd", new CultureInfo("en-US")).ToUpper();

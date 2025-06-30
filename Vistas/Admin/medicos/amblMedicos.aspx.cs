@@ -131,7 +131,7 @@ namespace Vistas
             int idUsuario = Convert.ToInt32(gvMedicos.DataKeys[index].Value);
 
 
-            UserManager medico = new UserManager();
+            AdminDoctorManager medico = new AdminDoctorManager();
             medico.deleteDoctor(idUsuario);
 
             CargarMedicos();
@@ -221,7 +221,7 @@ namespace Vistas
             int nuevaLocalidad = Convert.ToInt32(ddlLoc.SelectedValue);
             int nuevaProvincia = Convert.ToInt32(ddlProv.SelectedValue);
 
-            UserManager medico = new UserManager();
+            AdminDoctorManager medico = new AdminDoctorManager();
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
                                 nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaEspecialidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia);

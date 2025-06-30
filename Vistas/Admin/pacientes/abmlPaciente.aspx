@@ -8,6 +8,7 @@
     <title>RR-SCD MED</title>
 
     <link rel="stylesheet" href="/Admin/Admin_style.css" type="text/css" />
+    <link rel="stylesheet" href="/grid_view_style.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet" />
 
@@ -101,7 +102,7 @@
                         Width="100%" OnRowCommand="gvPacientes_RowCommand" OnRowEditing="gvPacientes_RowEditing" OnRowUpdating="gvPacientes_RowUpdating" 
                         OnRowCancelingEdit="gvPacientes_RowCancelingEdit" OnRowDataBound="gvPacientes_RowDataBound" DataKeyNames="DNI_PAT" 
                         AllowPaging="True" OnPageIndexChanging="gvPacientes_PageIndexChanging" CellPadding="4" ForeColor="#333333" 
-                        GridLines="None" PageSize="8" CssClass="gridview-doctores">
+                        GridLines="None" PageSize="8" CssClass="gridview">
 
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
@@ -114,11 +115,11 @@
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:LinkButton ID="btnUpdate" runat="server"
-                                        CommandName="Update" Text="💾Save"
+                                        CommandName="Update" Text="💾 Save"
                                         CausesValidation="true"
                                         ValidationGroup="grupoAlta" CssClass="btn btn-success btn-sm" />
                                     <asp:LinkButton ID="btnCancel" runat="server"
-                                        CommandName="Cancel" Text="❌Cancel"
+                                        CommandName="Cancel" Text="❌ Cancel"
                                         CausesValidation="false" 
                                         CssClass="btn btn-danger btn-sm" />
                                 </EditItemTemplate>

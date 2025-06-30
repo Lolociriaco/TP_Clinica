@@ -101,7 +101,7 @@ namespace Negocio
         // CONSULTA PARA OBTENER CAMPOS DE TURNOS
         public DataTable ObtenerTurnos()
         {
-            string query = "SELECT A.DNI_PAT_APPO, A.DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
+            string query = "SELECT A.ID_APPO, A.DNI_PAT_APPO, A.DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
                 "P.NAME_PAT, P.SURNAME_PAT, P.GENDER_PAT " +
                 "FROM APPOINTMENT A " +
                 "INNER JOIN PATIENTS P ON P.DNI_PAT = A.DNI_PAT_APPO " +

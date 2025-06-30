@@ -79,7 +79,7 @@ namespace Vistas.Admin.medicos
                 return;
             }
 
-            UserManager usuario = new UserManager();
+            AdminDoctorManager usuario = new AdminDoctorManager();
             bool cambioUsuario = usuario.modificarUsuario(
                 txtUsuario.Text,
                 cambiarPass ? txtPass.Text : null,

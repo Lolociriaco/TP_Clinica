@@ -42,6 +42,33 @@ namespace Datos
                 }
             }
         }
+        
+        public bool updateAppointment(string state, string observation, int id)
+        {
+            string query = @"
+                UPDATE APPOINTMENT SET
+                    STATE_APPO = @STATE,
+                    OBSERVATION_APPO = @OBSERVATION
+                WHERE ID_APPO = @id";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@STATE", state),
+                new SqlParameter("@OBSERVATION", observation),
+                new SqlParameter("@ID", id)
+            };
+
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand comando = new SqlCommand(query, conn))
+                {
+                    comando.Parameters.AddRange(parametros);
+                    conn.Open();
+                    int filasAfectadas = comando.ExecuteNonQuery();
+                    return filasAfectadas > 0; // Retorna true si se actualizó al menos un registro
+                }
+            }
+        }
 
         public void ejecutarConsulta(string consulta)
         {

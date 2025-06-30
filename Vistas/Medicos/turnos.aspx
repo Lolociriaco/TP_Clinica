@@ -8,6 +8,7 @@
     <title>RR-SCD MED</title>
 
     <link rel="stylesheet" href="/Medicos/medicos_style.css" type="text/css" />
+    <link rel="stylesheet" href="/grid_view_style.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet" />
 
@@ -44,8 +45,29 @@
 
                   <div style="margin-top: 40px;">
 
-                    <asp:GridView ID="gvTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px">
+                    <asp:GridView ID="gvTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift"
+                        Width="100%" OnRowEditing="gvTurnos_RowEditing" OnRowUpdating="gvTurnos_RowUpdating"
+                        OnRowCancelingEdit="gvTurnos_RowCancelingEdit" DataKeyNames="ID_APPO" OnRowDataBound="gvTurnos_RowDataBound"
+                        AllowPaging="True" OnPageIndexChanging="gvTurnos_PageIndexChanging" CellPadding="4" ForeColor="#333333"
+                        GridLines="None" PageSize="8" CssClass="gridview">
                         <Columns>
+                            <asp:TemplateField HeaderText="ACTIONS">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="btnEdit" runat="server"
+                                        CommandName="Edit" Text="✏️Edit" CssClass="btn btn-primary btn-sm" />
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:LinkButton ID="btnUpdate" runat="server"
+                                        CommandName="Update" Text="💾 Save"
+                                        CausesValidation="true"
+                                        ValidationGroup="grupoAlta" CssClass="btn btn-success btn-sm" />
+                                    <asp:LinkButton ID="btnCancel" runat="server"
+                                        CommandName="Cancel" Text="❌ Cancel"
+                                        CausesValidation="false" 
+                                        CssClass="btn btn-danger btn-sm" />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNombre" runat="server" Text='<%# Bind("NAME_PAT") %>'></asp:Label>
@@ -60,38 +82,45 @@
                             
                             <asp:TemplateField HeaderText="DNI">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNombre" runat="server" Text='<%# Bind("DNI_PAT_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DNI_PAT_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Day">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DATE_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblDay" runat="server" Text='<%# Bind("DATE_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             
                             <asp:TemplateField HeaderText="Hour">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("TIME_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblHour" runat="server" Text='<%# Bind("TIME_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Gender">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblSexo" runat="server" Text='<%# Bind("GENDER_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblGender" runat="server" Text='<%# Bind("GENDER_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="State">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblEspecialidad" runat="server" Text='<%# Bind("STATE_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblEstado" runat="server" Text='<%# Bind("STATE_APPO") %>'></asp:Label>
                                 </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:DropDownList ID="ddlSTATE_APPO" runat="server"></asp:DropDownList>
+                                </EditItemTemplate>
                             </asp:TemplateField>
                             
                             <asp:TemplateField HeaderText="Observation">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblEspecialidad" runat="server" Text='<%# Bind("OBSERVATION_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblObservacion" runat="server" Text='<%# Bind("OBSERVATION_APPO") %>'></asp:Label>
                                 </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtOBSERVATION_APPO" runat="server"
+                                                 Text='<%# Bind("OBSERVATION_APPO") %>'></asp:TextBox>
+                                </EditItemTemplate>
                             </asp:TemplateField>
 
                         </Columns>
@@ -103,8 +132,11 @@
                             </tr>
                         </EmptyDataTemplate>
                     </asp:GridView>
-
-</div>
+                    </div>
+                    
+                <div style="margin-left: 600px; margin-top:30px;">
+                      <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                </div>
 
             <asp:Button ID="btnLogout" runat="server" CssClass="logout-button" Text="Logout" />
             </section>

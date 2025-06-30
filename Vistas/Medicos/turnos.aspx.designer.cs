@@ -51,6 +51,15 @@ namespace Vistas.Medicos
         protected global::System.Web.UI.WebControls.GridView gvTurnos;
 
         /// <summary>
+        /// Control lblMensaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
+
+        /// <summary>
         /// Control btnLogout.
         /// </summary>
         /// <remarks>

@@ -10,7 +10,7 @@ using Entidades;
 
 namespace Negocio
 {
-    public class UserManager
+    public class AdminDoctorManager
     {
 
         // BAJA LOGICA DEL MEDICO

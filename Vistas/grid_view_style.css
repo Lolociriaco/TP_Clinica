@@ -1,0 +1,60 @@
+﻿/*-------CONTENIDO GRIDVIEW------*/
+.gridview {
+    border-collapse: separate;
+    border-spacing: 0 10px; /* separación entre filas */
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+    .gridview th {
+        background-color: #4A90E2;
+        color: white;
+        padding: 12px 10px;
+        border-radius: 0;
+        text-align: center;
+    }
+
+    .gridview td {
+        padding: 12px 10px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+    .gridview .btn {
+        padding: 6px 12px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .gridview .btn-danger {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+        .gridview .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+    .gridview .edit-row input,
+    .gridview .edit-row select {
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    .gridview tr.edit-row td {
+        background-color: #f2f2f2;
+    }
+
+    .gridview tr:nth-child(even) td {
+        background-color: #f9f9f9;
+    }
+
+    .gridview tr:hover td {
+        background-color: #eef6ff;
+    }

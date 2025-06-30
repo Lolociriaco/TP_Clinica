@@ -8,6 +8,7 @@
     <title>RR-SCD MED</title>
 
     <link rel="stylesheet" href="/Admin/Admin_style.css" type="text/css"/>
+    <link rel="stylesheet" href="/grid_view_style.css" type="text/css"/>
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
     
@@ -96,7 +97,7 @@
                         OnRowCommand="gvMedicos_RowCommand" OnRowEditing="gvMedicos_RowEditing" OnRowUpdating="gvMedicos_RowUpdating" 
                         OnRowCancelingEdit="gvMedicos_RowCancelingEdit" OnRowDataBound="gvMedicos_RowDataBound" 
                         DataKeyNames="ID_USER" AllowPaging="True" OnPageIndexChanging="gvMedicos_PageIndexChanging" 
-                        PageSize="8" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview-doctores">
+                        PageSize="8" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview">
                         
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         

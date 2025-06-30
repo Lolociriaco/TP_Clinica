@@ -93,7 +93,7 @@ namespace Vistas
                 int index = row.RowIndex;
                 int idUsuario = Convert.ToInt32(gvPacientes.DataKeys[index].Value);
 
-                UserManager paciente = new UserManager();
+                AdminDoctorManager paciente = new AdminDoctorManager();
                 paciente.deletePatient(idUsuario);
 
                 CargarPacientes();
@@ -129,7 +129,7 @@ namespace Vistas
             string nuevoTelefono = ((TextBox)row.FindControl("txtTELEFONO_PAC")).Text;
             string nuevaNacionalidad = ((TextBox)row.FindControl("txtNACIONALIDAD_PAC")).Text;
 
-            string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_PAC")).Text;
+            //string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_PAC")).Text;
 
             // Buscamos el TextBox de la fecha de nacimiento
             TextBox txtFechaNac = (TextBox)row.FindControl("txtFECHANAC_MED");
@@ -180,7 +180,7 @@ namespace Vistas
 
             int nuevaProvincia = Convert.ToInt32(ddlProv.SelectedValue);
 
-            UserManager medico = new UserManager();
+            AdminDoctorManager medico = new AdminDoctorManager();
             medico.updatePatient(nuevoNombre, nuevoApellido, dniPaciente, 
                                 nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia);
