@@ -132,15 +132,6 @@ namespace Vistas.Admin.medicos
         protected global::System.Web.UI.WebControls.DropDownList ddlSexo;
 
         /// <summary>
-        /// Control rptDias.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptDias;
-
-        /// <summary>
         /// Control ddlCity.
         /// </summary>
         /// <remarks>
@@ -193,6 +184,15 @@ namespace Vistas.Admin.medicos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator validatePhone;
+
+        /// <summary>
+        /// Control rptDias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptDias;
 
         /// <summary>
         /// Control ddlSpeciality.

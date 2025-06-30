@@ -45,38 +45,56 @@
                   <div style="margin-top: 40px;">
 
                     <asp:GridView ID="gvTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" Width="100%" BorderColor="CornflowerBlue" BorderWidth="5px">
-                        <%--<Columns>
-                            <asp:TemplateField HeaderText="Nombre">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Name">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNombre" runat="server" Text='<%# Bind("DNI_PAC_TURNO") %>'></asp:Label>
+                                    <asp:Label ID="lblNombre" runat="server" Text='<%# Bind("NAME_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Apellido">
+                            
+                            <asp:TemplateField HeaderText="Surname">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("FECHA_TURNO") %>'></asp:Label>
+                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("SURNAME_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-
+                            
                             <asp:TemplateField HeaderText="DNI">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("HORA_TURNO") %>'></asp:Label>
+                                    <asp:Label ID="lblNombre" runat="server" Text='<%# Bind("DNI_PAT_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Sexo">
+                            <asp:TemplateField HeaderText="Day">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblSexo" runat="server" Text='<%# Bind("ESTADO_TURNO") %>'></asp:Label>
+                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DATE_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Especialidad">
+                            
+                            <asp:TemplateField HeaderText="Hour">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblEspecialidad" runat="server" Text='<%# Bind("OBSERVACION_TURNO") %>'></asp:Label>
+                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("TIME_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                        </Columns>--%>
+                            <asp:TemplateField HeaderText="Gender">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSexo" runat="server" Text='<%# Bind("GENDER_PAT") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="State">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEspecialidad" runat="server" Text='<%# Bind("STATE_APPO") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            
+                            <asp:TemplateField HeaderText="Observation">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEspecialidad" runat="server" Text='<%# Bind("OBSERVATION_APPO") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                        </Columns>
                         <EmptyDataTemplate>
                             <tr>
                                 <td colspan="3" style="text-align:center; padding: 20px;">

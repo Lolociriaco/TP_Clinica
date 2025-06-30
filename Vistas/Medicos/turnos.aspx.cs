@@ -18,7 +18,7 @@ namespace Vistas.Medicos
                 CargarTurnos();
             }
 
-            if (Session["role"] == null || Session["role"].ToString() != "MEDICO")
+            if (Session["role"] == null || Session["role"].ToString() != "DOCTOR")
             {
                 Response.Redirect("~/Login.aspx");
             }

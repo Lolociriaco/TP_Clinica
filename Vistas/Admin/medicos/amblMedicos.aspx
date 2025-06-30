@@ -318,7 +318,7 @@
 
                     </asp:GridView>
                       
-                      <div style="margin-left: 620px; margin-top:30px;">
+                      <div style="margin-left: 600px; margin-top:30px;">
                             <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
                       </div>
                 </div>

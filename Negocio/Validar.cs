@@ -101,7 +101,11 @@ namespace Negocio
         // CONSULTA PARA OBTENER CAMPOS DE TURNOS
         public DataTable ObtenerTurnos()
         {
-            string query = "SELECT * FROM APPOINTMENT";
+            string query = "SELECT A.DNI_PAT_APPO, A.DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
+                "P.NAME_PAT, P.SURNAME_PAT, P.GENDER_PAT " +
+                "FROM APPOINTMENT A " +
+                "INNER JOIN PATIENTS P ON P.DNI_PAT = A.DNI_PAT_APPO " +
+                "WHERE P.ACTIVE_PAT = 1";
             DB datos = new DB();
             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
             DataSet ds = new DataSet();
