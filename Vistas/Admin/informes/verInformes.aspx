@@ -6,6 +6,7 @@
     <head>
         <title>RR-SCD MED</title>
         <link rel="stylesheet" href="/Admin/Admin_style.css" type="text/css"/>
+        <link rel="stylesheet" href="/grid_view_style.css" type="text/css" />
         <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
     </head>
@@ -71,7 +72,7 @@
                         <div style="margin-top: 40px;">
                             <asp:GridView ID="gvReporteMedicosMayoriaTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" 
                                 Font-Names="Bahnschrift" Width="100%" OnRowDataBound="gvReporteMedicosMayoriaTurnos_RowDataBound" DataKeyNames="DNI_DOC" 
-                                AllowPaging="False" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview-doctores">
+                                AllowPaging="False" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview">
 
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
@@ -130,7 +131,7 @@
                         <h3 style="margin-top: 40px;">Specialities with most appointments</h3>
                             <div style="margin-top: 20px;">
                                 <asp:GridView ID="gvEspecialidadTop" runat="server" AutoGenerateColumns="False" Font-Bold="True" 
-                                    CssClass="gridview-doctores" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None">
+                                    CssClass="gridview" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None">
 
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 

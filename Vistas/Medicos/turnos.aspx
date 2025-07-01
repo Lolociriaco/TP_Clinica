@@ -54,7 +54,7 @@
                             <asp:TemplateField HeaderText="ACTIONS">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="btnEdit" runat="server"
-                                        CommandName="Edit" Text="✏️Edit" CssClass="btn btn-primary btn-sm" />
+                                        CommandName="Edit" Text="✏️Change status" CssClass="btn btn-primary btn-sm" />
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:LinkButton ID="btnUpdate" runat="server"

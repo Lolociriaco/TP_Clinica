@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Entidades;
 using Negocio;
 
 namespace Vistas
@@ -115,6 +116,21 @@ namespace Vistas
                     }
                 }
 
+                // DIAS
+                DropDownList ddlDias = (DropDownList)e.Row.FindControl("ddlDIAS");
+                if (ddlDias != null)
+                {
+                    DataTable dtDias = validar.ObtenerDias();
+
+                    ddlDias.DataSource = dtDias;
+                    ddlDias.DataTextField = "WEEKDAY_SCH";
+                    ddlDias.DataValueField = "WEEKDAY_SCH";
+                    ddlDias.AutoPostBack = true;
+                    ddlDias.DataBind();
+
+                    ddlDias.Items.Insert(0, new ListItem("< SELECT >", ""));
+                }
+
             }
         }
 
@@ -166,7 +182,8 @@ namespace Vistas
             string nuevoCorreo = ((TextBox)row.FindControl("txtCORREO_MED")).Text;
             string nuevoTelefono = ((TextBox)row.FindControl("txtTELEFONO_MED")).Text;
             string nuevaNacionalidad = ((TextBox)row.FindControl("txtNACIONALIDAD_MED")).Text;
-            //string nuevoDiasHorario = ((TextBox)row.FindControl("txtDIAS_HORARIO_MED")).Text;
+            string nuevoHorarioInicio = ((TextBox)row.FindControl("txtTIME_START")).Text;
+            string nuevoHorarioFin = ((TextBox)row.FindControl("txtTIME_END")).Text;
 
             string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_MED")).Text;
 
@@ -207,12 +224,14 @@ namespace Vistas
             DropDownList ddlEsp = (DropDownList)row.FindControl("ddlID_ESP");
             DropDownList ddlLoc = (DropDownList)row.FindControl("ddlID_LOC_MED");
             DropDownList ddlProv = (DropDownList)row.FindControl("ddlID_PROV_MED");
+            DropDownList ddlDias = (DropDownList)row.FindControl("ddlDIAS");
 
             if (ddlEsp == null || ddlEsp.SelectedValue == "0" || string.IsNullOrEmpty(ddlEsp.SelectedValue) ||
                 ddlLoc == null || ddlLoc.SelectedValue == "0" || string.IsNullOrEmpty(ddlLoc.SelectedValue) ||
-                ddlProv == null || ddlProv.SelectedValue == "0" || string.IsNullOrEmpty(ddlProv.SelectedValue))
+                ddlProv == null || ddlProv.SelectedValue == "0" || string.IsNullOrEmpty(ddlProv.SelectedValue) ||
+                ddlDias == null || ddlDias.SelectedValue == "0" || string.IsNullOrEmpty(ddlDias.SelectedValue))
             {
-                lblMensaje.Text = "Select a valid city, locality and/or speciality.";
+                lblMensaje.Text = "Select a valid city, day, locality and/or speciality.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
@@ -220,10 +239,11 @@ namespace Vistas
             int nuevaEspecialidad = Convert.ToInt32(ddlEsp.SelectedValue);
             int nuevaLocalidad = Convert.ToInt32(ddlLoc.SelectedValue);
             int nuevaProvincia = Convert.ToInt32(ddlProv.SelectedValue);
+            string nuevosDias = (ddlDias.SelectedValue);
 
             AdminDoctorManager medico = new AdminDoctorManager();
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
-                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaEspecialidad, nuevaFechaNac,
+                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevosDias, nuevoHorarioInicio, nuevoHorarioFin, nuevaEspecialidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia);
 
             gvMedicos.EditIndex = -1;

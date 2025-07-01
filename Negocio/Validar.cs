@@ -62,11 +62,12 @@ namespace Negocio
             string query = @"
                 SELECT D.ID_USER, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
                     D.NATIONALITY_DOC, D.ADDRESS_DOC, D.DATEBIRTH_DOC, C.NAME_CITY, D.ID_CITY_DOC,
-                    D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC, D.PHONE_DOC, D.EMAIL_DOC
+                    D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC, A.WEEKDAY_SCH, A.TIME_START, A.TIME_END, D.PHONE_DOC, D.EMAIL_DOC
                 FROM DOCTOR D
                 INNER JOIN CITY C ON C.ID_CITY = D.ID_CITY_DOC
                 INNER JOIN STATE S ON S.ID_STATE = D.ID_STATE_DOC
                 INNER JOIN SPECIALITY SP ON SP.ID_SPE = D.ID_SPE_DOC
+                INNER JOIN DOCTOR_SCHEDULES A ON A.ID_USER_DOCTOR = D.ID_USER
                 WHERE D.ACTIVE_DOC = 1";
 
             DB datos = new DB();

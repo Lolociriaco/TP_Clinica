@@ -129,7 +129,7 @@ namespace Negocio
 
         // ACTUALIZACION DEL MEDICO
         public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
-                                 string direccion, string correo, string telefono, string nacionalidad, int idEsp, DateTime fechaNac,
+                                 string direccion, string correo, string telefono, string nacionalidad, string dias, string horarioInicio, string horarioFin, int idEsp, DateTime fechaNac,
                                  string sexo, int idLoc, int idProv)
         {
             DB db = new DB();
@@ -143,6 +143,9 @@ namespace Negocio
                 new SqlParameter("@correo", correo),
                 new SqlParameter("@telefono", telefono),
                 new SqlParameter("@nacionalidad", nacionalidad),
+                new SqlParameter("@dias", dias),
+                new SqlParameter("@horarioInicio", horarioInicio),
+                new SqlParameter("@horarioFin", horarioFin),
                 new SqlParameter("@idEsp", idEsp),
                 new SqlParameter("@fechaNac", fechaNac),
                 new SqlParameter("@sexo", sexo),
@@ -165,8 +168,15 @@ namespace Negocio
                     GENDER_DOC = @sexo,
                     ID_CITY_DOC = @idLoc,
                     ID_STATE_DOC = @idProv
-                WHERE ID_USER = @id";
+                WHERE ID_USER = @id;
 
+                UPDATE DOCTOR_SCHEDULES SET
+                    WEEKDAY_SCH = @dias,
+                    TIME_START = @horaInicio,
+                    TIME_END = @horaFin
+                WHERE ID_USER = @id;
+            
+            ";
 
             return db.updateUser(query, parametros);
         }

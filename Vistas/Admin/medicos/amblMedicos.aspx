@@ -254,6 +254,36 @@
                     </EditItemTemplate>
                 </asp:TemplateField>
 
+                <asp:TemplateField HeaderText="DAYS" SortExpression="WEEKDAY_SCH">
+                     <ItemTemplate>
+                         <asp:Label ID="lblWORKINGDAYS" runat="server"
+                                     Text='<%# Bind("WEEKDAY_SCH") %>'></asp:Label>
+                     </ItemTemplate>
+                     <EditItemTemplate>
+                         <asp:DropDownList ID="ddlDIAS" runat="server" ></asp:DropDownList>
+                     </EditItemTemplate>
+                 </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="START SHIFT AT" SortExpression="TIME_START">
+                    <ItemTemplate>
+                        <asp:Label ID="lblTIMESTART" runat="server"
+                                    Text='<%# Bind("TIME_START") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtTIME_START" runat="server" TextMode="Time"></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                            
+                <asp:TemplateField HeaderText="END SHIFT AT" SortExpression="TIME_END">
+                    <ItemTemplate>
+                        <asp:Label ID="lblTIMEEND" runat="server"
+                                    Text='<%# Bind("TIME_END") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtTIME_END" runat="server" TextMode="Time"></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+
                 <asp:TemplateField HeaderText="PHONE NUMBER" SortExpression="PHONE_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblTELEFONO_MED" runat="server"
