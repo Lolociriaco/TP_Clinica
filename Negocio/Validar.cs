@@ -61,7 +61,9 @@ namespace Negocio
         {
             string query = @"
                 SELECT D.ID_USER, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
-                    D.NATIONALITY_DOC, D.ADDRESS_DOC, D.DATEBIRTH_DOC, C.NAME_CITY, D.ID_CITY_DOC,
+                    D.NATIONALITY_DOC, D.ADDRESS_DOC, 
+                    CONVERT(char(10), D.DATEBIRTH_DOC, 23) AS DATEBIRTH_DOC,
+                    C.NAME_CITY, D.ID_CITY_DOC,
                     D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC, 
 
                         (
