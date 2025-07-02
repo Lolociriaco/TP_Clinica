@@ -76,6 +76,7 @@ body {
     position: relative;
 }
 
+
 /*--- POP UP STYLE ----*/
 .logout-button {
     background: url('/Imagenes/logout.png') no-repeat 13px center;
@@ -138,6 +139,7 @@ body {
     color: black;
 }
 
+
 .confirm-button:hover {
     background-color: darkred;
 }
@@ -145,5 +147,4 @@ body {
 .cancel-button:hover {
     background-color: gray;
 }
-
 

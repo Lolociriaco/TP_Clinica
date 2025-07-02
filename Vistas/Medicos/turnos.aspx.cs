@@ -53,7 +53,6 @@ namespace Vistas.Medicos
         }
 
         // LOGICA EDICION Y BORRADO LOGICO GRID
-
         protected void gvTurnos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow && gvTurnos.EditIndex == e.Row.RowIndex)
@@ -77,13 +76,13 @@ namespace Vistas.Medicos
                 ddlState.DataBind();
                 ddlState.Items.Insert(0, new ListItem("<Select status>", ""));
 
-
             }
         }
 
         // EDITAR
         protected void gvTurnos_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            lblMensaje.Text = "";
             gvTurnos.EditIndex = e.NewEditIndex;
             CargarTurnos();
         }
@@ -91,6 +90,7 @@ namespace Vistas.Medicos
         // CANCELAR
         protected void gvTurnos_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
+            lblMensaje.Text = "";
             gvTurnos.EditIndex = -1;
             CargarTurnos();
         }
@@ -107,7 +107,8 @@ namespace Vistas.Medicos
 
             if (ddlState == null || ddlState.SelectedValue == "0" || string.IsNullOrEmpty(ddlState.SelectedValue))
             {
-                //MANEJAR ERROR
+                lblMensaje.Text = "Select a valid state.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
@@ -115,7 +116,9 @@ namespace Vistas.Medicos
 
             DoctorAppointmentsManager appoManager = new DoctorAppointmentsManager();
             appoManager.updateAppointment(newState, newObservation, idAppo);
-            //MOSTRAR CARTEL MOD CORRECTAMENTE
+
+            lblMensaje.Text = "The patient was modified succesfully.";
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
 
             gvTurnos.EditIndex = -1;
             CargarTurnos();

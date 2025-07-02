@@ -32,6 +32,14 @@ namespace Vistas
         {
             if (e.Row.RowType == DataControlRowType.DataRow && gvPacientes.EditIndex == e.Row.RowIndex)
             {
+                cargarProvinciasDDL(e);
+            }
+        }
+
+        // CARGAR DDL DE PROVINCIAS
+        private void cargarProvinciasDDL(GridViewRowEventArgs e)
+        {
+
                 Validar validar = new Validar();
 
                 // PROVINCIA
@@ -81,28 +89,38 @@ namespace Vistas
                             ddlLocalidad.SelectedValue = idLocActual;
                     }
                 }
+        }
+
+        // BAJA LOGICA
+        private void bajaLogica(GridViewCommandEventArgs e)
+        {
+            if (e.CommandName != "DarDeBaja")
+            {
+                return;
             }
+
+            GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+            int index = row.RowIndex;
+            int idUsuario = Convert.ToInt32(gvPacientes.DataKeys[index].Value);
+
+
+            AdminDoctorManager paciente = new AdminDoctorManager();
+            paciente.deletePatient(idUsuario);
+
+            CargarPacientes();
+
         }
 
         // FUNCIONALIDAD DE UNSUBSCRIBE
         protected void gvPacientes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "DarDeBaja")
-            {
-                GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-                int index = row.RowIndex;
-                int idUsuario = Convert.ToInt32(gvPacientes.DataKeys[index].Value);
-
-                AdminDoctorManager paciente = new AdminDoctorManager();
-                paciente.deletePatient(idUsuario);
-
-                CargarPacientes();
-            }
+            bajaLogica(e);
         }
 
         // EDITAR
         protected void gvPacientes_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            lblMensaje.Text = "";
             gvPacientes.EditIndex = e.NewEditIndex;
             CargarPacientes();
         }
@@ -110,6 +128,7 @@ namespace Vistas
         // CANCELAR
         protected void gvPacientes_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
+            lblMensaje.Text = "";
             gvPacientes.EditIndex = -1;
             CargarPacientes();
         }
@@ -185,6 +204,9 @@ namespace Vistas
                                 nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia);
 
+            lblMensaje.Text = "The patient was modified succesfully.";
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
+
             gvPacientes.EditIndex = -1;
             CargarPacientes();
         }
@@ -192,12 +214,15 @@ namespace Vistas
         // CARGA DE PACIENTES EN GRID
         private void CargarPacientes()
         {
+            lblMensaje.Text = "";
             Validar validar = new Validar();
             gvPacientes.DataSource = validar.ObtenerPacientes();
             gvPacientes.DataBind();
         }
+
         protected void ddlID_PROV_PAC_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             DropDownList ddlProvincia = (DropDownList)sender;
             GridViewRow row = (GridViewRow)ddlProvincia.NamingContainer;
 

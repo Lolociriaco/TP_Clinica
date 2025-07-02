@@ -182,6 +182,7 @@ namespace Vistas
         // EDITAR
         protected void gvMedicos_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            lblMensaje.Text = "";
             gvMedicos.EditIndex = e.NewEditIndex;
             CargarMedicos();
         }
@@ -189,6 +190,7 @@ namespace Vistas
         // CANCELAR
         protected void gvMedicos_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
+            lblMensaje.Text = "";
             gvMedicos.EditIndex = -1;
             CargarMedicos();
         }
@@ -266,7 +268,10 @@ namespace Vistas
             medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
                                 nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevosDias, nuevoHorarioInicio, nuevoHorarioFin, nuevaEspecialidad, nuevaFechaNac,
                                 nuevoSexo, nuevaLocalidad, nuevaProvincia);
-            
+
+            lblMensaje.Text = "The doctor was modified succesfully.";
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
+
             gvMedicos.EditIndex = -1;
             CargarMedicos();
         }
@@ -281,6 +286,7 @@ namespace Vistas
 
         protected void ddlID_PROV_MED_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             DropDownList ddlProvincia = (DropDownList)sender;
             GridViewRow row = (GridViewRow)ddlProvincia.NamingContainer;
 

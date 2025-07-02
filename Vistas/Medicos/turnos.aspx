@@ -43,13 +43,16 @@
 
                 <h3>Your appointments</h3>
 
-                <label>Day:</label>
-                <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" AutoPostBack="true" TextMode="Date" OnTextChanged="txtDay_TextChanged" />
-                
-                <label>DNI Patient:</label>
-                <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtDNI_TextChanged"/>
+                <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 15px; align-items: baseline;">
 
-                  <asp:Button ID="btnClear" runat="server" Text="Clear filters" OnClick="btnClear_Click" />
+                        <label>Day:</label>
+                        <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" AutoPostBack="true" TextMode="Date" OnTextChanged="txtDay_TextChanged" />
+
+                        <label>DNI:</label>
+                        <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtDNI_TextChanged"/>
+
+                          <asp:Button ID="btnClear" runat="server" Text="Clear filters" OnClick="btnClear_Click" CssClass="confirm-button"/>
+                    </div>
 
                   <div style="margin-top: 40px;">
 
@@ -142,11 +145,12 @@
                     </asp:GridView>
                     </div>
                     
-                <div style="margin-left: 600px; margin-top:30px;">
+                <div style="display: flex; justify-content:center; margin-top:30px;">
                       <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
                 </div>
 
             <asp:Button ID="btnLogout" runat="server" CssClass="logout-button" Text="Logout" />
+
             </section>
         </main>
     </div>

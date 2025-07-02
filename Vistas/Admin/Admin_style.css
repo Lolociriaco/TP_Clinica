@@ -214,9 +214,6 @@ input[type="text"] {
         outline: none;
     }
 
-
-
-
 .form-footer {
     margin-top: 40px;
     display: flex;
@@ -259,68 +256,6 @@ input[type="text"] {
 .radio-inline input[type="radio"] {
     margin-right: 3px;
 }
-
-/*-------CONTENIDO GRIDVIEW------
-.gridview-doctores {
-    border-collapse: separate;
-    border-spacing: 0 10px; /* separación entre filas 
-    width: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
-}
-
-    .gridview-doctores th {
-        background-color: #4A90E2;
-        color: white;
-        padding: 12px 10px;
-        border-radius: 0;
-        text-align: center;
-    }
-
-    .gridview-doctores td {
-        padding: 12px 10px;
-        background-color: #ffffff;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        text-align: center;
-    }
-
-    .gridview-doctores .btn {
-        padding: 6px 12px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .gridview-doctores .btn-danger {
-        background-color: #e74c3c;
-        color: white;
-    }
-
-        .gridview-doctores .btn-danger:hover {
-            background-color: #c0392b;
-        }
-
-    .gridview-doctores .edit-row input,
-    .gridview-doctores .edit-row select {
-        padding: 6px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 100%;
-    }
-
-    .gridview-doctores tr.edit-row td {
-        background-color: #f2f2f2;
-    }
-
-    .gridview-doctores tr:nth-child(even) td {
-        background-color: #f9f9f9;
-    }
-
-    .gridview-doctores tr:hover td {
-        background-color: #eef6ff;
-    }
-
 
 /*--- POP UP STYLE ----*/
 .modalBackground {
