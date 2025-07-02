@@ -107,6 +107,9 @@ namespace Vistas
             AdminDoctorManager paciente = new AdminDoctorManager();
             paciente.deletePatient(idUsuario);
 
+            lblMensaje.Text = "The patient was deleted succesfully.";
+            lblMensaje.ForeColor = System.Drawing.Color.Red;
+
             CargarPacientes();
 
         }
@@ -214,7 +217,6 @@ namespace Vistas
         // CARGA DE PACIENTES EN GRID
         private void CargarPacientes()
         {
-            lblMensaje.Text = "";
             Validar validar = new Validar();
             gvPacientes.DataSource = validar.ObtenerPacientes();
             gvPacientes.DataBind();

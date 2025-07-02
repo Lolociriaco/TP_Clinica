@@ -42,6 +42,33 @@ namespace Vistas.Medicos
         protected global::System.Web.UI.WebControls.Label username;
 
         /// <summary>
+        /// Control chckToday.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckToday;
+
+        /// <summary>
+        /// Control chckTomorrow.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckTomorrow;
+
+        /// <summary>
+        /// Control ddlState.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlState;
+
+        /// <summary>
         /// Control txtDay.
         /// </summary>
         /// <remarks>

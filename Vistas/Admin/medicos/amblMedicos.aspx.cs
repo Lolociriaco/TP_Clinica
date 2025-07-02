@@ -175,6 +175,9 @@ namespace Vistas
             AdminDoctorManager medico = new AdminDoctorManager();
             medico.deleteDoctor(idUsuario);
 
+            lblMensaje.Text = "The doctor was deleted succesfully.";
+            lblMensaje.ForeColor = System.Drawing.Color.Red;
+
             CargarMedicos();
 
         }
