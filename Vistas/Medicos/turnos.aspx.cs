@@ -37,8 +37,11 @@ namespace Vistas.Medicos
         }
         private void CargarTurnos()
         {
+            string DNI_PAT = txtDNI.Text.Trim();
+            string DAY_APPO = txtDay.Text.Trim();
+
             Validar validar = new Validar();
-            gvTurnos.DataSource = validar.ObtenerTurnos();
+            gvTurnos.DataSource = validar.ObtenerTurnos(DNI_PAT, DAY_APPO);
             gvTurnos.DataBind();
         }
 
@@ -121,6 +124,23 @@ namespace Vistas.Medicos
         protected void gvTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTurnos.PageIndex = e.NewPageIndex;
+            CargarTurnos();
+        }
+
+        protected void txtDay_TextChanged(object sender, EventArgs e)
+        {
+            CargarTurnos();
+        }
+
+        protected void txtDNI_TextChanged(object sender, EventArgs e)
+        {
+            CargarTurnos();
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            txtDNI.Text = "";
+            txtDay.Text = "";
             CargarTurnos();
         }
     }

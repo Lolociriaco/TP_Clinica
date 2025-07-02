@@ -43,6 +43,14 @@
 
                 <h3>Your appointments</h3>
 
+                <label>Day:</label>
+                <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" AutoPostBack="true" TextMode="Date" OnTextChanged="txtDay_TextChanged" />
+                
+                <label>DNI Patient:</label>
+                <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtDNI_TextChanged"/>
+
+                  <asp:Button ID="btnClear" runat="server" Text="Clear filters" OnClick="btnClear_Click" />
+
                   <div style="margin-top: 40px;">
 
                     <asp:GridView ID="gvTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift"

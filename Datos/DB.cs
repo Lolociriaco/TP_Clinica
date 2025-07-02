@@ -13,8 +13,8 @@ namespace Datos
     public class DB
     {
 
-        //private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
-        private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        //private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
 
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
@@ -176,6 +176,23 @@ namespace Datos
                 if (parametros != null)
                 {
                     cmd.Parameters.AddRange(parametros);
+                }
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+        }
+
+        public DataTable ObtenerTurnos(string consulta, List<SqlParameter> parametros)
+        {
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand cmd = new SqlCommand(consulta, connection);
+                if (parametros != null)
+                {
+                    cmd.Parameters.AddRange(parametros.ToArray());
                 }
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);

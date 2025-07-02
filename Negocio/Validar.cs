@@ -61,7 +61,8 @@ namespace Negocio
         {
             string query = @"
                 SELECT D.ID_USER, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
-                    D.NATIONALITY_DOC, D.ADDRESS_DOC, D.DATEBIRTH_DOC, C.NAME_CITY, D.ID_CITY_DOC,
+                    D.NATIONALITY_DOC, D.ADDRESS_DOC, C.NAME_CITY, D.ID_CITY_DOC,
+                    CONVERT(char(10), D.DATEBIRTH_DOC, 23) AS DATEBIRTH_DOC, 
                     D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC, A.WEEKDAY_SCH, A.TIME_START, A.TIME_END, D.PHONE_DOC, D.EMAIL_DOC
                 FROM DOCTOR D
                 INNER JOIN CITY C ON C.ID_CITY = D.ID_CITY_DOC
@@ -83,7 +84,7 @@ namespace Negocio
             string query = @"
                 SELECT 
                     P.DNI_PAT, P.NAME_PAT, P.SURNAME_PAT, 
-                    P.GENDER_PAT, P.NATIONALITY_PAT, P.ADDRESS_PAT, P.DATEBIRTH_PAT, 
+                    P.GENDER_PAT, P.NATIONALITY_PAT, P.ADDRESS_PAT, CONVERT(char(10), P.DATEBIRTH_PAT, 23) AS DATEBIRTH_PAT, 
                     C.NAME_CITY, P.ID_CITY_PAT, S.NAME_STATE, P.ID_STATE_PAT, 
                     P.PHONE_PAT, P.EMAIL_PAT
                 FROM PATIENTS P
@@ -100,18 +101,29 @@ namespace Negocio
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE TURNOS
-        public DataTable ObtenerTurnos()
+        public DataTable ObtenerTurnos(string DNI_PAT, string DAY_APPO)
         {
-            string query = "SELECT A.ID_APPO, A.DNI_PAT_APPO, A.DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
+            string query = "SELECT A.ID_APPO, A.DNI_PAT_APPO, CONVERT(char(10), A.DATE_APPO, 23) AS DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
                 "P.NAME_PAT, P.SURNAME_PAT, P.GENDER_PAT " +
                 "FROM APPOINTMENT A " +
                 "INNER JOIN PATIENTS P ON P.DNI_PAT = A.DNI_PAT_APPO " +
                 "WHERE P.ACTIVE_PAT = 1";
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(DNI_PAT))
+            {
+                query += " AND A.DNI_PAT_APPO = @dni";
+                parametros.Add(new SqlParameter("@dni", DNI_PAT));
+            }
+
+            if (!string.IsNullOrEmpty(DAY_APPO))
+            {
+                query += " AND CONVERT(char(10), A.DATE_APPO, 23) = @day";
+                parametros.Add(new SqlParameter("@day", DAY_APPO));
+            }
+
             DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Turnos");
-            return ds.Tables["Turnos"];
+            return datos.ObtenerTurnos(query, parametros);
         }
 
         // CONSULTA PARA OBTENER SEXO DEL PACIENTE
