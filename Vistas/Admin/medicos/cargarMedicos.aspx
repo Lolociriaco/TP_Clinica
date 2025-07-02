@@ -1,9 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cargarMedicos.aspx.cs" Inherits="Vistas.Admin.medicos.cargarMedicos" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
-<head>
+<head runat="server">
 
     <title>RR-SCD MED</title>
 
@@ -121,6 +122,7 @@
                                 ControlToValidate="txtDni"
                                 ErrorMessage="Invalid DNI (format: 12345678)"
                                 ForeColor="Red"
+                                Font-Bold="true"
                                 ValidationExpression="^\d{8}$"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
@@ -129,11 +131,17 @@
                         <div class="form-group">
                             <label>Birthdate:</label>
                             <asp:TextBox ID="txtBirth" runat="server" CssClass="input-text" TextMode="Date" />
+                            <ajaxToolkit:CalendarExtender 
+                                ID="CalendarExtender1" 
+                                runat="server" 
+                                TargetControlID="txtBirth" 
+                                Format="yyyy-MM-dd" />
                             <asp:RegularExpressionValidator
                                 ID="validateBirthday"
                                 runat="server"
                                 ControlToValidate="txtBirth"
                                 ForeColor="Red"
+                                Font-Bold="true"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
                         </div>
@@ -172,6 +180,7 @@
                                 ControlToValidate="txtMail"
                                 ErrorMessage="Enter a valid email"
                                 ForeColor="Red"
+                                Font-Bold="true"
                                 ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                                 Display="Dynamic" />
                         </div>
@@ -185,6 +194,7 @@
                                 ControlToValidate="txtPhone"
                                 ErrorMessage="Enter a valid phone number"
                                 ForeColor="Red"
+                                Font-Bold="true"
                                 ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
@@ -229,6 +239,7 @@
                                 runat="server"
                                 ControlToValidate="txtUser"
                                 ForeColor="Red"
+                                Font-Bold="true"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
                         </div>
@@ -242,6 +253,7 @@
                                 ControlToValidate="txtDni"
                                 ErrorMessage="Password must be at least 6 characters"
                                 ForeColor="Red"
+                                Font-Bold="true"
                                 ValidationExpression="^\d{6}$"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
@@ -256,6 +268,7 @@
                                 ControlToValidate="txtDni"
                                 ErrorMessage="Password must be at least 6 characters"
                                 ForeColor="Red"
+                                Font-Bold="true"
                                 ValidationExpression="^\d{6}$"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
@@ -265,7 +278,7 @@
 
                     <div class="form-footer">
                         <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" ValidationGroup="grupoAlta" />
-                        <asp:Label ID="lblMensaje" runat="server" CssClass="form-message" />
+                        <asp:Label ID="lblMensaje" runat="server" CssClass="form-message" Font-Bold="true"/>
                     </div>
                 </div>
 

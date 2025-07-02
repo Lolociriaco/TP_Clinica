@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -151,6 +152,13 @@ namespace Vistas.Medicos
 
         protected void txtDay_TextChanged(object sender, EventArgs e)
         {
+            if (!DateTime.TryParse(txtDay.Text, out DateTime fecha))
+            {
+                lblMensaje.Text = "Enter a valid full date.";
+                lblMensaje.ForeColor = Color.Red;
+                return;
+            }
+
             chckToday.Checked = false;
             chckTomorrow.Checked = false;
             CargarTurnos();

@@ -1,9 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="asignar_turno.aspx.cs" Inherits="Vistas.Admin.turnos.asignar_turno" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
-    <head>
+    <head runat="server">
 
 <title>RR-SCD MED</title>
 
@@ -102,6 +103,11 @@
                    <div class="form-group">
                       <label>Date:</label>
                       <asp:TextBox ID="txtDate" runat="server" CssClass="input-text" TextMode="Date" AutoPostBack="true" OnTextChanged="txtDate_TextChanged" />
+                       <ajaxToolkit:CalendarExtender 
+                            ID="CalendarExtender1" 
+                            runat="server" 
+                            TargetControlID="txtDate" 
+                            Format="yyyy-MM-dd" />
                     </div>
 
                     <div class="form-group">
@@ -118,6 +124,7 @@
                            ControlToValidate="txtDNIPatient"
                            ErrorMessage="Invalid DNI (format: 12345678)"
                            ForeColor="Red"
+                           Font-Bold="true"
                            ValidationExpression="^\d{8}$"
                            Display="Dynamic" 
                            ValidationGroup="grupoAlta"/>

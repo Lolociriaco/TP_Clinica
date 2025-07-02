@@ -121,7 +121,7 @@
 
                     <div class="form-footer">
                         <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" />
-                        <asp:Label ID="lblEstado" runat="server" CssClass="form-message"></asp:Label>
+                        <asp:Label ID="lblEstado" runat="server" CssClass="form-message" Font-Bold="true"></asp:Label>
                     </div>
 
 

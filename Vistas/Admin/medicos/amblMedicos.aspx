@@ -1,9 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="amblMedicos.aspx.cs" Inherits="Vistas.amblMedicos" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
-    <head>
+    <head runat="server"> 
 
     <title>RR-SCD MED</title>
 
@@ -169,6 +170,7 @@
                           ControlToValidate="txtDNI_MED"
                           ErrorMessage="Invalid DNI (format: 12345678)"
                           ForeColor="Red"
+                          Font-Bold="true"
                           ValidationExpression="^\d{8}$"
                           Display="Dynamic" 
                           ValidationGroup="grupoAlta"/>
@@ -221,6 +223,11 @@
                         <asp:TextBox ID="txtFECHANAC_MED" runat="server"
                                      Text='<%# Bind("DATEBIRTH_DOC", "{0:yyyy-MM-dd}") %>'
                                      TextMode="Date" />
+                        <ajaxToolkit:CalendarExtender 
+                            ID="CalendarExtender1" 
+                            runat="server" 
+                            TargetControlID="txtFECHANAC_MED" 
+                            Format="yyyy-MM-dd" />
                     </EditItemTemplate>
                 </asp:TemplateField>
 
@@ -260,7 +267,7 @@
                                      Text='<%# Eval("DIAS_TRABAJO") %>'></asp:Label>
                      </ItemTemplate>
                      <EditItemTemplate>
-                         <asp:DropDownList ID="ddlDIAS" runat="server" ></asp:DropDownList>
+                         <asp:DropDownList ID="ddlDIAS" runat="server"></asp:DropDownList>
                      </EditItemTemplate>
                  </asp:TemplateField>
 
@@ -298,6 +305,7 @@
                           ControlToValidate="txtTELEFONO_MED"
                           ErrorMessage="Enter a valid phone number"
                           ForeColor="Red"
+                          Font-Bold="true"
                           ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
                           Display="Dynamic" 
                           ValidationGroup="grupoAlta"/>
@@ -318,6 +326,7 @@
                             ControlToValidate="txtCORREO_MED"
                             ErrorMessage="Enter a valid email"
                             ForeColor="Red"
+                            Font-Bold="true"
                             ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                             Display="Dynamic" 
                             ValidationGroup="grupoAlta"/>
@@ -350,7 +359,7 @@
                     </asp:GridView>
                       
                       <div style="display: flex; justify-content:center; margin-top:30px;">
-                            <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="lblMensaje" runat="server" Text="" Font-Bold="true"></asp:Label>
                       </div>
                 </div>
                     

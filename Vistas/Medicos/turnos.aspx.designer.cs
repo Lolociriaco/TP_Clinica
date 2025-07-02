@@ -78,6 +78,15 @@ namespace Vistas.Medicos
         protected global::System.Web.UI.WebControls.TextBox txtDay;
 
         /// <summary>
+        /// Control CalendarExtender1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+
+        /// <summary>
         /// Control txtDNI.
         /// </summary>
         /// <remarks>

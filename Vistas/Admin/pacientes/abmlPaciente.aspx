@@ -1,9 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="abmlPaciente.aspx.cs" Inherits="Vistas.abmlPaciente" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
-<head>
+<head runat="server">
 
     <title>RR-SCD MED</title>
 
@@ -191,6 +192,11 @@
                                      <asp:TextBox ID="txtFECHANAC_PAC" runat="server"
                                       Text='<%# Bind("DATEBIRTH_PAT", "{0:yyyy-MM-dd}") %>'
                                       TextMode="Date" />
+                                     <ajaxToolkit:CalendarExtender 
+                                        ID="CalendarExtender1" 
+                                        runat="server" 
+                                        TargetControlID="txtFECHANAC_PAC" 
+                                        Format="yyyy-MM-dd" />
                                  </EditItemTemplate>
                              </asp:TemplateField>
 
@@ -238,6 +244,7 @@
                                             ControlToValidate="txtCORREO_PAC"
                                             ErrorMessage="Enter a valid email"
                                             ForeColor="Red"
+                                            Font-Bold="true"
                                             ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                                             Display="Dynamic"
                                             ValidationGroup="grupoAlta"/>
@@ -257,6 +264,7 @@
                                           ControlToValidate="txtTELEFONO_PAC"
                                           ErrorMessage="Enter a valid phone number"
                                           ForeColor="Red"
+                                          Font-Bold="true"
                                           ValidationExpression="^(\+?\d{1,3})?[\s.-]?(\(?\d{2,4}\)?)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
                                           Display="Dynamic" 
                                           ValidationGroup="grupoAlta"/>
@@ -290,7 +298,7 @@
                     <%----------- MENSAJE DE ERROR O EXITO --------------%>
                 </div>
                     <div style="display: flex; justify-content:center; margin-top:30px;">
-                          <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                          <asp:Label ID="lblMensaje" runat="server" Text="" Font-Bold="true"></asp:Label>
                     </div>
             </div>
         </main>

@@ -310,6 +310,29 @@ namespace Vistas
             }
         }
 
+        /*protected void ddlDIAS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblMensaje.Text = "";
+            DropDownList ddlDIAS = (DropDownList)sender;
+            GridViewRow row = (GridViewRow)ddlDIAS.NamingContainer;
+
+            int index = row.RowIndex;
+            int nuevoDia;
+
+            if (int.TryParse(ddlDIAS.SelectedValue, out nuevoDia))
+            {
+                ViewState["DiaSeleccionadoGV"] = nuevoDia;
+
+                gvMedicos.EditIndex = index;
+                CargarMedicos(); // Vuelve a cargar la grilla con la provincia seleccionada
+            }
+            else
+            {
+                lblMensaje.Text = "You must select a valid day.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
+        }*/
+
         // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {

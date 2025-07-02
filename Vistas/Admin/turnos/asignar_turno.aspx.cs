@@ -129,6 +129,15 @@ namespace Vistas.Admin.turnos
                 return;
             }
 
+            if (!Page.IsValid) return;
+
+            if (!validar.ExisteDni(int.Parse(txtDNIPatient.Text)))
+            {
+                validateDni.ErrorMessage = "That DNI doesn't exist.";
+                validateDni.IsValid = false;
+                return;
+            }
+
             //validar.MedicoDisponible(diaTurno, horaTurno, id_medico);
 
             Turnos turno = new Turnos

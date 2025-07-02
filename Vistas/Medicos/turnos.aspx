@@ -1,9 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="turnos.aspx.cs" Inherits="Vistas.Medicos.turnos" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 
 <!DOCTYPE html>
 
 <html>
-<head>
+<head runat="server">
 
     <title>RR-SCD MED</title>
 
@@ -56,6 +58,11 @@
 
                 <label>Day:</label>
                 <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" AutoPostBack="true" TextMode="Date" OnTextChanged="txtDay_TextChanged" />
+                    <ajaxToolkit:CalendarExtender 
+                    ID="CalendarExtender1" 
+                    runat="server" 
+                    TargetControlID="txtDay" 
+                    Format="yyyy-MM-dd" />
                 
                 <label>DNI Patient:</label>
                 <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtDNI_TextChanged"/>
@@ -125,7 +132,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="State">
+                            <asp:TemplateField HeaderText="Status">
                                 <ItemTemplate>
                                     <asp:Label ID="lblEstado" runat="server" Text='<%# Eval("STATE_APPO") %>'></asp:Label>
                                 </ItemTemplate>
@@ -156,7 +163,7 @@
                     </div>
                     
                 <div style="display: flex; justify-content:center; margin-top:30px;">
-                      <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                      <asp:Label ID="lblMensaje" runat="server" Text="" Font-Bold="true"></asp:Label>
                 </div>
 
             <asp:Button ID="btnLogout" runat="server" CssClass="logout-button" Text="Logout" />
