@@ -14,7 +14,7 @@ namespace Vistas.Medicos
     {
         PENDING,
         PRESENT,
-        ABSERNT,
+        ABSENT,
         RESCHEDULED,
         CANCELED
     }
@@ -26,6 +26,7 @@ namespace Vistas.Medicos
             if (!IsPostBack)
             {
                 CargarTurnos();
+                CargarDdlEstado();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "DOCTOR")
@@ -40,8 +41,13 @@ namespace Vistas.Medicos
             string DNI_PAT = txtDNI.Text.Trim();
             string DAY_APPO = txtDay.Text.Trim();
 
+            string todayOrTomorrow = chckToday.Checked ? "TODAY" :
+                           chckTomorrow.Checked ? "TOMORROW" : "";
+
+            string state = ddlState.SelectedValue;
+
             Validar validar = new Validar();
-            gvTurnos.DataSource = validar.ObtenerTurnos(DNI_PAT, DAY_APPO);
+            gvTurnos.DataSource = validar.ObtenerTurnos(DNI_PAT, DAY_APPO, todayOrTomorrow, state);
             gvTurnos.DataBind();
         }
 
@@ -76,8 +82,6 @@ namespace Vistas.Medicos
                 ddlState.DataValueField = "Value";
                 ddlState.DataBind();
                 ddlState.Items.Insert(0, new ListItem("<Select status>", ""));
-
-
             }
         }
 
@@ -121,6 +125,19 @@ namespace Vistas.Medicos
             CargarTurnos();
         }
 
+        protected void CargarDdlEstado()
+        {
+            var statuses = Enum.GetNames(typeof(AppointmentStatus))
+                 .Select(s => new { Value = s, Text = s });
+
+            ddlState.DataSource = statuses;
+            ddlState.DataTextField = "Text";
+            ddlState.DataValueField = "Value";
+            ddlState.DataBind();
+
+            ddlState.Items.Insert(0, new ListItem("All states", ""));
+        }
+
         protected void gvTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTurnos.PageIndex = e.NewPageIndex;
@@ -129,6 +146,8 @@ namespace Vistas.Medicos
 
         protected void txtDay_TextChanged(object sender, EventArgs e)
         {
+            chckToday.Checked = false;
+            chckTomorrow.Checked = false;
             CargarTurnos();
         }
 
@@ -141,6 +160,34 @@ namespace Vistas.Medicos
         {
             txtDNI.Text = "";
             txtDay.Text = "";
+            chckToday.Checked = false;
+            chckTomorrow.Checked = false;
+            ddlState.SelectedIndex = 0;
+            CargarTurnos();
+        }
+
+        protected void chckToday_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckToday.Checked)
+            {
+                chckTomorrow.Checked = false;
+                txtDay.Text = "";
+            }
+            CargarTurnos();
+        }
+
+        protected void chckTomorrow_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chckTomorrow.Checked)
+            {
+                chckToday.Checked = false;
+                txtDay.Text = "";
+            }
+            CargarTurnos();
+        }
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
             CargarTurnos();
         }
     }

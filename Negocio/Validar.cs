@@ -61,8 +61,7 @@ namespace Negocio
         {
             string query = @"
                 SELECT D.ID_USER, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
-                    D.NATIONALITY_DOC, D.ADDRESS_DOC, 
-                    CONVERT(char(10), D.DATEBIRTH_DOC, 23) AS DATEBIRTH_DOC,
+                    D.NATIONALITY_DOC, D.ADDRESS_DOC, DATEBIRTH_DOC,
                     C.NAME_CITY, D.ID_CITY_DOC,
                     D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC, 
 
@@ -107,7 +106,7 @@ namespace Negocio
             string query = @"
                 SELECT 
                     P.DNI_PAT, P.NAME_PAT, P.SURNAME_PAT, 
-                    P.GENDER_PAT, P.NATIONALITY_PAT, P.ADDRESS_PAT, CONVERT(char(10), P.DATEBIRTH_PAT, 23) AS DATEBIRTH_PAT, 
+                    P.GENDER_PAT, P.NATIONALITY_PAT, P.ADDRESS_PAT, P.DATEBIRTH_PAT, 
                     C.NAME_CITY, P.ID_CITY_PAT, S.NAME_STATE, P.ID_STATE_PAT, 
                     P.PHONE_PAT, P.EMAIL_PAT
                 FROM PATIENTS P
@@ -124,9 +123,9 @@ namespace Negocio
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE TURNOS
-        public DataTable ObtenerTurnos(string DNI_PAT, string DAY_APPO)
+        public DataTable ObtenerTurnos(string DNI_PAT, string DAY_APPO, string todayOrTomorrow, string state)
         {
-            string query = "SELECT A.ID_APPO, A.DNI_PAT_APPO, CONVERT(char(10), A.DATE_APPO, 23) AS DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
+            string query = "SELECT A.ID_APPO, A.DNI_PAT_APPO, A.DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
                 "P.NAME_PAT, P.SURNAME_PAT, P.GENDER_PAT " +
                 "FROM APPOINTMENT A " +
                 "INNER JOIN PATIENTS P ON P.DNI_PAT = A.DNI_PAT_APPO " +
@@ -141,8 +140,30 @@ namespace Negocio
 
             if (!string.IsNullOrEmpty(DAY_APPO))
             {
-                query += " AND CONVERT(char(10), A.DATE_APPO, 23) = @day";
+                query += " AND A.DATE_APPO = @day";
                 parametros.Add(new SqlParameter("@day", DAY_APPO));
+            }
+
+            if (!string.IsNullOrEmpty(todayOrTomorrow))
+            {
+                if(todayOrTomorrow == "TODAY")
+                {
+                    query += " AND A.DATE_APPO = @todayDate";
+                    parametros.Add(new SqlParameter("@todayDate", DateTime.Today));
+                }
+
+                else if(todayOrTomorrow == "TOMORROW")
+                {
+                    query += " AND A.DATE_APPO = @tomorrowDate";
+                    parametros.Add(new SqlParameter("@tomorrowDate", DateTime.Today.AddDays(1)));
+                }
+
+            }
+
+            if (!string.IsNullOrEmpty(state))
+            {
+                query += " AND A.STATE_APPO = @state";
+                parametros.Add(new SqlParameter("@state", state));
             }
 
             DB datos = new DB();

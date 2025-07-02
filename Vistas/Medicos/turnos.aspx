@@ -43,6 +43,11 @@
 
                 <h3>Your appointments</h3>
 
+                <asp:CheckBox ID="chckToday" AutoPostBack="true" runat="server" Text="Today" OnCheckedChanged="chckToday_CheckedChanged" />
+                <asp:CheckBox ID="chckTomorrow" AutoPostBack="true" runat="server" Text="Tomorrow" OnCheckedChanged="chckTomorrow_CheckedChanged" />
+
+                <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged"></asp:DropDownList>
+
                 <label>Day:</label>
                 <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" AutoPostBack="true" TextMode="Date" OnTextChanged="txtDay_TextChanged" />
                 
