@@ -82,7 +82,7 @@ namespace Negocio
             return cantidad > 0;
         }
 
-        public WorkingHours ObtenerHorasTrabajadas(int id_user)
+        public DoctorSchedule ObtenerHorasTrabajadas(int id_user)
         {
             string query = "SELECT TIME_START, TIME_END FROM DOCTOR_SCHEDULES WHERE ID_USER_DOCTOR = @id_user";
             SqlParameter[] parametros = {
@@ -129,7 +129,7 @@ namespace Negocio
 
         // ACTUALIZACION DEL MEDICO
         public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
-                                 string direccion, string correo, string telefono, string nacionalidad, string dias, string horarioInicio, string horarioFin, int idEsp, DateTime fechaNac,
+                                 string direccion, string correo, string telefono, string nacionalidad, string diaSeleccionado, string horarioInicio, string horarioFin, int idEsp, DateTime fechaNac,
                                  string sexo, int idLoc, int idProv)
         {
             DB db = new DB();
@@ -143,7 +143,7 @@ namespace Negocio
                 new SqlParameter("@correo", correo),
                 new SqlParameter("@telefono", telefono),
                 new SqlParameter("@nacionalidad", nacionalidad),
-                new SqlParameter("@dias", dias),
+                new SqlParameter("@diaSeleccionado", diaSeleccionado),
                 new SqlParameter("@horarioInicio", horarioInicio),
                 new SqlParameter("@horarioFin", horarioFin),
                 new SqlParameter("@idEsp", idEsp),
@@ -170,11 +170,20 @@ namespace Negocio
                     ID_STATE_DOC = @idProv
                 WHERE ID_USER = @id;
 
-                UPDATE DOCTOR_SCHEDULES SET
-                    WEEKDAY_SCH = @dias,
-                    TIME_START = @horaInicio,
-                    TIME_END = @horaFin
-                WHERE ID_USER = @id;
+                IF EXISTS (
+                    SELECT 1 FROM DOCTOR_SCHEDULES 
+                    WHERE ID_USER_DOCTOR = @id AND WEEKDAY_SCH = @diaSeleccionado
+                )
+                BEGIN
+                    UPDATE DOCTOR_SCHEDULES
+                    SET TIME_START = @horarioInicio, TIME_END = @horarioFin
+                    WHERE ID_USER_DOCTOR = @id AND WEEKDAY_SCH = @diaSeleccionado
+                END
+                ELSE
+                BEGIN
+                    INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END)
+                    VALUES (@id, @diaSeleccionado, @horarioInicio, @horarioFin)
+                END
             
             ";
 

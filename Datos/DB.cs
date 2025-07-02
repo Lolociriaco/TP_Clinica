@@ -130,7 +130,7 @@ namespace Datos
             }
         }
 
-        public WorkingHours ExecWorkingHours(string query, SqlParameter[] parametros)
+        public DoctorSchedule ExecWorkingHours(string query, SqlParameter[] parametros)
         {
             using (SqlConnection conn = new SqlConnection(cadenaConexion))
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -142,10 +142,10 @@ namespace Datos
                 {
                     if (reader.Read())
                     {
-                        return new WorkingHours
+                        return new DoctorSchedule
                         {
-                            TimeStart = reader.GetTimeSpan(0),
-                            TimeEnd = reader.GetTimeSpan(1)
+                            _TimeStart = reader.GetTimeSpan(0),
+                            _TimeEnd = reader.GetTimeSpan(1)
                         };
                     }
                 }

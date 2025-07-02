@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public class WorkingHours
+    public class City
     {
-        public TimeSpan TimeStart { get; set; }
-        public TimeSpan TimeEnd { get; set; }
-    }
+        public int _idCity { get; set; }
+        public string _nameCity { get; set; }
 
+        public City () { }
+    }
 }

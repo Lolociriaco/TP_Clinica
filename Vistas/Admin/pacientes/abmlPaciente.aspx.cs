@@ -132,7 +132,7 @@ namespace Vistas
             //string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_PAC")).Text;
 
             // Buscamos el TextBox de la fecha de nacimiento
-            TextBox txtFechaNac = (TextBox)row.FindControl("txtFECHANAC_MED");
+            TextBox txtFechaNac = (TextBox)row.FindControl("txtFECHANAC_PAC");
 
             if (txtFechaNac == null)
             {

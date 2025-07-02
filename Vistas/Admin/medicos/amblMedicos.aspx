@@ -129,14 +129,14 @@
                            <asp:TemplateField HeaderText="ID USER" SortExpression="ID_USER">
                     <ItemTemplate>
                         <asp:Label ID="lblID_USUARIO" runat="server"
-                                   Text='<%# Bind("ID_USER") %>'></asp:Label>
+                                   Text='<%# Eval("ID_USER") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
                 <asp:TemplateField HeaderText="FIRST NAME" SortExpression="NAME_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblNOMBRE_MED" runat="server"
-                                   Text='<%# Bind("NAME_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("NAME_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtNOMBRE_MED" runat="server"
@@ -147,7 +147,7 @@
                 <asp:TemplateField HeaderText="SURNAME" SortExpression="SURNAME_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblAPELLIDO_MED" runat="server"
-                                   Text='<%# Bind("SURNAME_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("SURNAME_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtAPELLIDO_MED" runat="server"
@@ -158,7 +158,7 @@
                 <asp:TemplateField HeaderText="DNI" SortExpression="DNI_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblDNI_MED" runat="server"
-                                   Text='<%# Bind("DNI_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("DNI_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtDNI_MED" runat="server"
@@ -178,7 +178,7 @@
                 <asp:TemplateField HeaderText="SEX" SortExpression="GENDER_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblSEXO_MED" runat="server"
-                                   Text='<%# Bind("GENDER_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("GENDER_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="ddlSEXO_MED" runat="server"
@@ -193,7 +193,7 @@
                 <asp:TemplateField HeaderText="NATIONALITY" SortExpression="NATIONALITY_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblNACIONALIDAD_MED" runat="server"
-                                   Text='<%# Bind("NATIONALITY_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("NATIONALITY_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtNACIONALIDAD_MED" runat="server"
@@ -204,7 +204,7 @@
                 <asp:TemplateField HeaderText="ADDRESS" SortExpression="ADDRESS_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblDIRECCION_MED" runat="server"
-                                   Text='<%# Bind("ADDRESS_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("ADDRESS_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtDIRECCION_MED" runat="server"
@@ -215,7 +215,7 @@
                 <asp:TemplateField HeaderText="BIRTHDATE" SortExpression="DATEBIRTH_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblFECHANAC_MED" runat="server"
-                                   Text='<%# Bind("DATEBIRTH_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("DATEBIRTH_DOC", "{0:yyyy-MM-dd}") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtFECHANAC_MED" runat="server"
@@ -227,7 +227,7 @@
                 <asp:TemplateField HeaderText="STATE" SortExpression="NAME_STATE">
                     <ItemTemplate>
                         <asp:Label ID="lblNOMBRE_PROV" runat="server"
-                                    Text='<%# Bind("NAME_STATE") %>'></asp:Label>
+                                    Text='<%# Eval("NAME_STATE") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="ddlID_PROV_MED" runat="server" OnSelectedIndexChanged="ddlID_PROV_MED_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
@@ -237,7 +237,7 @@
                 <asp:TemplateField HeaderText="CITY" SortExpression="NAME_CITY">
                     <ItemTemplate>
                         <asp:Label ID="lblNOMBRE_LOC" runat="server"
-                                    Text='<%# Bind("NAME_CITY") %>'></asp:Label>
+                                    Text='<%# Eval("NAME_CITY") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="ddlID_LOC_MED" runat="server" ></asp:DropDownList>
@@ -247,7 +247,7 @@
                 <asp:TemplateField HeaderText="SPECIALITY" SortExpression="NAME_SPEC">
                     <ItemTemplate>
                         <asp:Label ID="lblNAME_SPE" runat="server"
-                                    Text='<%# Bind("NAME_SPE") %>'></asp:Label>
+                                    Text='<%# Eval("NAME_SPE") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="ddlID_ESP" runat="server" ></asp:DropDownList>
@@ -257,7 +257,7 @@
                 <asp:TemplateField HeaderText="DAYS" SortExpression="WEEKDAY_SCH">
                      <ItemTemplate>
                          <asp:Label ID="lblWORKINGDAYS" runat="server"
-                                     Text='<%# Bind("WEEKDAY_SCH") %>'></asp:Label>
+                                     Text='<%# Eval("DIAS_TRABAJO") %>'></asp:Label>
                      </ItemTemplate>
                      <EditItemTemplate>
                          <asp:DropDownList ID="ddlDIAS" runat="server" ></asp:DropDownList>
@@ -267,7 +267,7 @@
                 <asp:TemplateField HeaderText="START SHIFT AT" SortExpression="TIME_START">
                     <ItemTemplate>
                         <asp:Label ID="lblTIMESTART" runat="server"
-                                    Text='<%# Bind("TIME_START") %>'></asp:Label>
+                                    Text='<%# Eval("HORA_ENTRADA") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtTIME_START" runat="server" TextMode="Time"></asp:TextBox>
@@ -277,7 +277,7 @@
                 <asp:TemplateField HeaderText="END SHIFT AT" SortExpression="TIME_END">
                     <ItemTemplate>
                         <asp:Label ID="lblTIMEEND" runat="server"
-                                    Text='<%# Bind("TIME_END") %>'></asp:Label>
+                                    Text='<%# Eval("HORA_SALIDA") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtTIME_END" runat="server" TextMode="Time"></asp:TextBox>
@@ -287,7 +287,7 @@
                 <asp:TemplateField HeaderText="PHONE NUMBER" SortExpression="PHONE_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblTELEFONO_MED" runat="server"
-                                   Text='<%# Bind("PHONE_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("PHONE_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtTELEFONO_MED" runat="server"
@@ -304,10 +304,10 @@
                     </EditItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="MAIL" SortExpression="EMAIL_DOC">
+                <asp:TemplateField HeaderText="EMAIL" SortExpression="EMAIL_DOC">
                     <ItemTemplate>
                         <asp:Label ID="lblCORREO_MED" runat="server"
-                                   Text='<%# Bind("EMAIL_DOC") %>'></asp:Label>
+                                   Text='<%# Eval("EMAIL_DOC") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtCORREO_MED" runat="server"
