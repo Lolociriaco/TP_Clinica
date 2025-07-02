@@ -115,11 +115,11 @@
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:LinkButton ID="btnUpdate" runat="server"
-                                        CommandName="Update" Text="💾 Save"
+                                        CommandName="Update" Text="💾Save"
                                         CausesValidation="true"
                                         ValidationGroup="grupoAlta" CssClass="btn btn-success btn-sm" />
                                     <asp:LinkButton ID="btnCancel" runat="server"
-                                        CommandName="Cancel" Text="❌ Cancel"
+                                        CommandName="Cancel" Text="❌Cancel"
                                         CausesValidation="false" 
                                         CssClass="btn btn-danger btn-sm" />
                                 </EditItemTemplate>
@@ -133,13 +133,13 @@
 
                             <asp:TemplateField HeaderText="DNI" SortExpression="DNI_PAT">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DNI_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Eval("DNI_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="FIRST NAME" SortExpression="NAME_PAT">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNombres" runat="server" Text='<%# Bind("NAME_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblNombres" runat="server" Text='<%# Eval("NAME_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtNOMBRE_PAC" runat="server"
@@ -149,7 +149,7 @@
 
                             <asp:TemplateField HeaderText="SURNAME" SortExpression="SURNAME_PAT">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("SURNAME_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Eval("SURNAME_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtAPELLIDO_PAC" runat="server"
@@ -160,7 +160,7 @@
                              <asp:TemplateField HeaderText="SEX" SortExpression="GENDER_PAT">
                                  <ItemTemplate>
                                      <asp:Label ID="lblSEXO_PAC" runat="server"
-                                                Text='<%# Bind("GENDER_PAT") %>'></asp:Label>
+                                                Text='<%# Eval("GENDER_PAT") %>'></asp:Label>
                                  </ItemTemplate>
                                  <EditItemTemplate>
                                      <asp:DropDownList ID="ddlSEXO_PAC" runat="server"
@@ -174,7 +174,7 @@
 
                             <asp:TemplateField HeaderText="NATIONALITY" SortExpression="NATIONALITY_PAT">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNacionalidad" runat="server" Text='<%# Bind("NATIONALITY_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblNacionalidad" runat="server" Text='<%# Eval("NATIONALITY_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtNACIONALIDAD_PAC" runat="server"
@@ -185,7 +185,7 @@
                             <asp:TemplateField HeaderText="BIRTHDATE" SortExpression="DATEBIRTH_PAT">
                                  <ItemTemplate>
                                      <asp:Label ID="lblFECHANAC_PAC" runat="server"
-                                                Text='<%# Bind("DATEBIRTH_PAT") %>'></asp:Label>
+                                                Text='<%# Eval("DATEBIRTH_PAT", "{0:yyyy-MM-dd}") %>'></asp:Label>
                                  </ItemTemplate>
                                  <EditItemTemplate>
                                      <asp:TextBox ID="txtFECHANAC_PAC" runat="server"
@@ -197,7 +197,7 @@
                             <asp:TemplateField HeaderText="ADDRESS" SortExpression="ADDRESS_PAT">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDireccion" runat="server" 
-                                               Text='<%# Bind("ADDRESS_PAT") %>'></asp:Label>
+                                               Text='<%# Eval("ADDRESS_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtDIRECCION_PAC" runat="server"
@@ -208,7 +208,7 @@
                             <asp:TemplateField HeaderText="STATE" SortExpression="NAME_STATE">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_PROV" runat="server"
-                                               Text='<%# Bind("NAME_STATE") %>'></asp:Label>
+                                               Text='<%# Eval("NAME_STATE") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:DropDownList ID="ddlID_PROV_PAC" runat="server" OnSelectedIndexChanged="ddlID_PROV_PAC_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
@@ -218,16 +218,16 @@
                             <asp:TemplateField HeaderText="CITY" SortExpression="NAME_CITY">
                                 <ItemTemplate>
                                     <asp:Label ID="lblNOMBRE_LOC" runat="server"
-                                               Text='<%# Bind("NAME_CITY") %>'></asp:Label>
+                                               Text='<%# Eval("NAME_CITY") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:DropDownList ID="ddlID_LOC_PAC" runat="server"></asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="MAIL" SortExpression="EMAIL_PAT">
+                            <asp:TemplateField HeaderText="EMAIL" SortExpression="EMAIL_PAT">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblCorreo" runat="server" Text='<%# Bind("EMAIL_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblCorreo" runat="server" Text='<%# Eval("EMAIL_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                                     <EditItemTemplate>
                                     <asp:TextBox ID="txtCORREO_PAC" runat="server"
@@ -246,7 +246,7 @@
 
                             <asp:TemplateField HeaderText="PHONE NUMBER" SortExpression="PHONE_PAT">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblTelefono" runat="server" Text='<%# Bind("PHONE_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblTelefono" runat="server" Text='<%# Eval("PHONE_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                                     <EditItemTemplate>
                                     <asp:TextBox ID="txtTELEFONO_PAC" runat="server"

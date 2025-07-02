@@ -94,6 +94,10 @@
                 <div class="content-box">
                     <h3>¡Complete the fields!</h3>
 
+                    <div class="form-label" style="margin-top: 20px;">
+                        <label>Personal information:</label>
+                    </div>
+
                     <div class="form-grid-medicos">
 
                         <div class="form-group names">
@@ -160,7 +164,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Mail:</label>
+                            <label>Email:</label>
                             <asp:TextBox TextMode="Email" ID="txtMail" runat="server" CssClass="input-text" />
                             <asp:RegularExpressionValidator
                                 ID="validateMail"

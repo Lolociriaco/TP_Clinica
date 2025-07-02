@@ -70,43 +70,43 @@
 
                             <asp:TemplateField HeaderText="Name">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNombre" runat="server" Text='<%# Bind("NAME_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("NAME_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             
                             <asp:TemplateField HeaderText="Surname">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Bind("SURNAME_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblApellido" runat="server" Text='<%# Eval("SURNAME_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             
                             <asp:TemplateField HeaderText="DNI">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Bind("DNI_PAT_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblDNI" runat="server" Text='<%# Eval("DNI_PAT_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Day">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDay" runat="server" Text='<%# Bind("DATE_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblDay" runat="server" Text='<%# Eval("DATE_APPO", "{0:yyyy-MM-dd}") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             
                             <asp:TemplateField HeaderText="Hour">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblHour" runat="server" Text='<%# Bind("TIME_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblHour" runat="server" Text='<%# Eval("TIME_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Gender">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblGender" runat="server" Text='<%# Bind("GENDER_PAT") %>'></asp:Label>
+                                    <asp:Label ID="lblGender" runat="server" Text='<%# Eval("GENDER_PAT") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="State">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblEstado" runat="server" Text='<%# Bind("STATE_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblEstado" runat="server" Text='<%# Eval("STATE_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:DropDownList ID="ddlSTATE_APPO" runat="server"></asp:DropDownList>
@@ -115,7 +115,7 @@
                             
                             <asp:TemplateField HeaderText="Observation">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblObservacion" runat="server" Text='<%# Bind("OBSERVATION_APPO") %>'></asp:Label>
+                                    <asp:Label ID="lblObservacion" runat="server" Text='<%# Eval("OBSERVATION_APPO") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtOBSERVATION_APPO" runat="server"

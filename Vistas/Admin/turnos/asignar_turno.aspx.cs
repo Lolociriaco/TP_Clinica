@@ -179,9 +179,9 @@ namespace Vistas.Admin.turnos
                 return;
             }
 
-            WorkingHours workingHours = manager.ObtenerHorasTrabajadas(id_medico);
+            DoctorSchedule doctorSchedule = manager.ObtenerHorasTrabajadas(id_medico);
 
-            if (workingHours == null)
+            if (doctorSchedule == null)
             {
                 return;
             }
@@ -190,9 +190,9 @@ namespace Vistas.Admin.turnos
             TimeSpan duracionTurno = TimeSpan.FromMinutes(30);
 
             List<TimeSpan> horariosDisponibles = new List<TimeSpan>();
-            TimeSpan horaActual = workingHours.TimeStart;
+            TimeSpan horaActual = doctorSchedule._TimeStart;
 
-            while (horaActual + duracionTurno <= workingHours.TimeEnd)
+            while (horaActual + duracionTurno <= doctorSchedule._TimeEnd)
             {
                 if (!turnosAsignados.Contains(horaActual))
                 {

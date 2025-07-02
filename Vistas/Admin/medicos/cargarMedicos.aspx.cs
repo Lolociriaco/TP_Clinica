@@ -18,7 +18,6 @@ namespace Vistas.Admin.medicos
             {
                 CargarSexo();
                 CargarEspecialidades();
-               // CargarLocalidad();
                 CargarProvincia();
 
                 List<string> dias = new List<string> { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO" };
@@ -128,8 +127,6 @@ namespace Vistas.Admin.medicos
             }
 
             //  OBTENER DIAS DEL CHECKBOXLIST
-
-
             List<string> diasAtencion = new List<string>();
             List<TimeSpan> horasInicio = new List<TimeSpan>();
             List<TimeSpan> horasFin = new List<TimeSpan>();
@@ -159,8 +156,6 @@ namespace Vistas.Admin.medicos
                 if (txtHoraInicio != null) txtHoraInicio.Text = string.Empty;
                 if (txtHoraFin != null) txtHoraFin.Text = string.Empty;
             }
-
-            //string diasYHorarios = rblHorarios.SelectedValue + " " + string.Join("-", diasSeleccionados);
 
             Usuario user = new Usuario
             {
@@ -224,7 +219,6 @@ namespace Vistas.Admin.medicos
             horasInicio.Clear();
             horasFin.Clear();
         }
-
 
         // Cargar ddl y validar usuario Administrador
 
