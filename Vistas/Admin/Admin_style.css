@@ -139,7 +139,7 @@ header {
 .content-box {
     background-color: #fff;
     border-radius: 12px;
-    padding: 30px;
+    padding: 25px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     width: 100%;
     margin: 0 auto;
@@ -156,7 +156,7 @@ header {
 .form-grid-medicos {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px 70px; /* filas y columnas */
+    gap: 16px 70px; /* filas y columnas */
     margin-top: 30px;
 }
 

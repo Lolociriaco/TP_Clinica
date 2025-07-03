@@ -57,10 +57,10 @@ namespace Negocio
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE MEDICOS
-        public DataTable ObtenerMedicos()
+        public DataTable ObtenerMedicos(string state, string weekDay, string speciality, string user)
         {
             string query = @"
-                SELECT D.ID_USER, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
+                SELECT D.ID_USER, U.USERNAME, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
                     D.NATIONALITY_DOC, D.ADDRESS_DOC, DATEBIRTH_DOC,
                     C.NAME_CITY, D.ID_CITY_DOC,
                     D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC, 
@@ -91,13 +91,36 @@ namespace Negocio
                 INNER JOIN CITY C ON C.ID_CITY = D.ID_CITY_DOC
                 INNER JOIN STATE S ON S.ID_STATE = D.ID_STATE_DOC
                 INNER JOIN SPECIALITY SP ON SP.ID_SPE = D.ID_SPE_DOC
+                INNER JOIN USERS U ON U.ID_USER = D.ID_USER
                 WHERE D.ACTIVE_DOC = 1";
 
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            if(!string.IsNullOrEmpty(state))
+            {
+                query += " AND D.ID_STATE_DOC = @state";
+                parametros.Add(new SqlParameter("@state", state));
+            }
+
+            if (!string.IsNullOrEmpty(weekDay))
+            {
+                query += " AND EXISTS (SELECT 1 FROM DOCTOR_SCHEDULES A WHERE A.ID_USER_DOCTOR = D.ID_USER AND A.WEEKDAY_SCH = @weekDay)";
+                parametros.Add(new SqlParameter("@weekDay", weekDay));
+            }
+
+            if (!string.IsNullOrEmpty(speciality))
+            {
+                query += " AND D.ID_SPE_DOC = @speciality";
+                parametros.Add(new SqlParameter("@speciality", speciality));
+            }
+
+            if (!string.IsNullOrEmpty(user))
+            {
+                query += " AND U.USERNAME = @user";
+                parametros.Add(new SqlParameter("@user", user));
+            }
+
             DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Doctores");
-            return ds.Tables["Doctores"];
+            return datos.ObtenerTurnos(query, parametros);
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE PACIENTES

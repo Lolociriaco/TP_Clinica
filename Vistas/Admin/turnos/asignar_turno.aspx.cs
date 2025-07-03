@@ -199,7 +199,7 @@ namespace Vistas.Admin.turnos
         // FILTRAR HORARIOS
         public void filtrarHorarios()
         {
-            if (ddlDoctor.SelectedIndex == 0) return;
+            if (ddlDoctor.SelectedIndex == 0 || string.IsNullOrEmpty(ddlDoctor.SelectedValue)) return;
 
             if (string.IsNullOrWhiteSpace(txtDate.Text)) return;
 

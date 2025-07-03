@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,9 +10,21 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using Negocio;
+using Vistas.Medicos;
 
 namespace Vistas
 {
+    public enum WeekDays
+    {
+        MONDAY,
+        TUESDAY,
+        WEDNESDAY,
+        THURSDAY,
+        FRIDAY,
+        SATURDAY,
+        SUNDAY
+    }
+
 	public partial class amblMedicos : System.Web.UI.Page
 	{
         protected void Page_Load(object sender, EventArgs e)
@@ -19,6 +32,10 @@ namespace Vistas
             if (!IsPostBack)
             {
                 CargarMedicos();
+                username.Text = Session["username"].ToString();
+                cargarWeekDays();
+                cargarStates(ddlState, "Any state");
+                cargarSpecialitiesGeneral(ddlSpeciality, "Any speciality");
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
@@ -27,7 +44,6 @@ namespace Vistas
             }
 
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-            username.Text = Session["username"].ToString();
         }
 
         // CARGA DE DDLS
@@ -43,6 +59,32 @@ namespace Vistas
             }
         }
 
+        private void cargarWeekDays()
+        {
+            var estados = Enum.GetNames(typeof(WeekDays))
+                .Select(s => new { Value = s, Text = s });
+
+            ddlWeekDay.DataSource = estados;
+            ddlWeekDay.DataTextField = "Text";
+            ddlWeekDay.DataValueField = "Value";
+            ddlWeekDay.DataBind();
+
+            ddlWeekDay.Items.Insert(0, new ListItem("Any day", ""));
+        }
+
+        private void cargarStates(DropDownList ddl, string message)
+        {
+            Validar validar = new Validar();    
+
+            DataTable dtProvincia = validar.ObtenerProvincia();
+            ddl.DataSource = dtProvincia;
+            ddl.DataTextField = "NAME_STATE";
+            ddl.DataValueField = "ID_STATE";
+            ddl.AutoPostBack = true;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem(message, ""));
+        }
+
         // CARGA DE DDL PROVINCIAS Y LOCALIDADES
         private void cargarProvinciasDDL(GridViewRowEventArgs e)
         {
@@ -54,13 +96,7 @@ namespace Vistas
 
             if (ddlProvincia != null)
             {
-                DataTable dtProvincia = validar.ObtenerProvincia();
-                ddlProvincia.DataSource = dtProvincia;
-                ddlProvincia.DataTextField = "NAME_STATE";
-                ddlProvincia.DataValueField = "ID_STATE";
-                ddlProvincia.AutoPostBack = true;
-                ddlProvincia.DataBind();
-                ddlProvincia.Items.Insert(0, new ListItem("< SELECT >", ""));
+                cargarStates(ddlProvincia, "< SELECT >");
 
                 int idProvinciaActual;
 
@@ -106,15 +142,9 @@ namespace Vistas
             DropDownList ddlEspecialidad = (DropDownList)e.Row.FindControl("ddlID_ESP");
             if (ddlEspecialidad != null)
             {
-                 DataTable dtEspecialidad = validar.ObtenerEspecialidades();
-                 ddlEspecialidad.DataSource = dtEspecialidad;
-                 ddlEspecialidad.DataTextField = "NAME_SPE";
-                 ddlEspecialidad.DataValueField = "ID_SPE";
-                 ddlEspecialidad.DataBind();
+                 cargarSpecialitiesGeneral(ddlEspecialidad, "< SELECT >");
 
-                 ddlEspecialidad.Items.Insert(0, new ListItem("< SELECT >", ""));
-
-                 object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
+                object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
                  if (espObj != null)
                  {
                      string especialidadctual = espObj.ToString();
@@ -129,6 +159,17 @@ namespace Vistas
                      }
                  }
             }
+        }
+
+        private void cargarSpecialitiesGeneral(DropDownList ddl, string message)
+        {
+            Validar validar = new Validar();
+            DataTable dtEspecialidades = validar.ObtenerEspecialidades();
+            ddl.DataSource = dtEspecialidades;
+            ddl.DataTextField = "NAME_SPE";
+            ddl.DataValueField = "ID_SPE";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem(message, ""));
         }
 
         // CARGA DE DIAS Y HORARIOS EN SUS DDL
@@ -312,8 +353,14 @@ namespace Vistas
         // CARGA DE GRIDVIEW
         private void CargarMedicos()
         {
+            string state = ddlState.SelectedValue;
+            string weekDay = ddlWeekDay.SelectedValue;
+            string speciality = ddlSpeciality.SelectedValue;
+
+            string user = txtUser.Text.Trim();
+
             Validar validar = new Validar();
-            gvMedicos.DataSource = validar.ObtenerMedicos();
+            gvMedicos.DataSource = validar.ObtenerMedicos(state, weekDay, speciality, user);
             gvMedicos.DataBind();
         }
 
@@ -375,6 +422,36 @@ namespace Vistas
         protected void gvMedicos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvMedicos.PageIndex = e.NewPageIndex;
+            CargarMedicos();
+        }
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarMedicos();
+
+        }
+
+        protected void ddlSpeciality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarMedicos();
+        }
+
+        protected void ddlWeekDay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarMedicos();
+        }
+
+        protected void txtUser_TextChanged(object sender, EventArgs e)
+        {
+            CargarMedicos();
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            txtUser.Text = "";
+            ddlWeekDay.SelectedIndex = 0;
+            ddlSpeciality.SelectedIndex = 0;
+            ddlState.SelectedIndex = 0;
             CargarMedicos();
         }
     }

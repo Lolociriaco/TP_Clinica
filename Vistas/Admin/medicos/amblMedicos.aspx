@@ -91,6 +91,21 @@
                 
                 <h3>About the doctor</h3>
 
+                <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 15px; align-items: baseline;">
+
+                    <label>Filter by:</label>
+
+                    <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlSpeciality" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSpeciality_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlWeekDay" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlWeekDay_SelectedIndexChanged"></asp:DropDownList>
+                
+                    <label>User:</label>
+                    <asp:TextBox ID="txtUser" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtUser_TextChanged"/>
+
+                    <asp:Button ID="btnClear" runat="server" Text="Clear filters" OnClick="btnClear_Click" CssClass="confirm-button"/>
+
+                </div>
+
                   <div style="margin-top: 40px;">
 
                     <asp:GridView ID="gvMedicos" runat="server" AutoGenerateColumns="False" Font-Bold="True" 
@@ -98,7 +113,7 @@
                         OnRowCommand="gvMedicos_RowCommand" OnRowEditing="gvMedicos_RowEditing" OnRowUpdating="gvMedicos_RowUpdating" 
                         OnRowCancelingEdit="gvMedicos_RowCancelingEdit" OnRowDataBound="gvMedicos_RowDataBound" 
                         DataKeyNames="ID_USER" AllowPaging="True" OnPageIndexChanging="gvMedicos_PageIndexChanging" 
-                        PageSize="8" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gridview">
+                        PageSize="8" CellPadding="2" ForeColor="#333333" GridLines="None" CssClass="gridview" Font-Overline="False" Font-Size="10pt">
                         
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         
@@ -123,14 +138,21 @@
 
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Unsubscribe" CssClass="btn btn-danger" />
+                                    <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Delete" CssClass="btn btn-danger" />
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                           <asp:TemplateField HeaderText="ID USER" SortExpression="ID_USER">
+                <asp:TemplateField HeaderText="ID USER" SortExpression="ID_USER">
                     <ItemTemplate>
                         <asp:Label ID="lblID_USUARIO" runat="server"
                                    Text='<%# Eval("ID_USER") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                
+                <asp:TemplateField HeaderText="USERNAME" SortExpression="USERNAME">
+                    <ItemTemplate>
+                        <asp:Label ID="lblUSERNAME" runat="server"
+                                   Text='<%# Eval("USERNAME") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
