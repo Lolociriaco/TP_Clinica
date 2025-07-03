@@ -82,11 +82,12 @@ namespace Negocio
             return cantidad > 0;
         }
 
-        public DoctorSchedule ObtenerHorasTrabajadas(int id_user)
+        public DoctorSchedule ObtenerHorasTrabajadas(int id_user, string day)
         {
-            string query = "SELECT TIME_START, TIME_END FROM DOCTOR_SCHEDULES WHERE ID_USER_DOCTOR = @id_user";
+            string query = "SELECT TIME_START, TIME_END FROM DOCTOR_SCHEDULES WHERE ID_USER_DOCTOR = @id_user AND WEEKDAY_SCH = @day";
             SqlParameter[] parametros = {
-                new SqlParameter("@id_user",id_user)
+                new SqlParameter("@id_user",id_user),
+                new SqlParameter("@day", day)
             };
 
             DB db = new DB();

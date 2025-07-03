@@ -39,7 +39,7 @@ namespace Vistas
 
                 cargarProvinciasDDL(e);
                 cargarEspecialidadesDDL(e);
-                cargarDiasDDL(e);
+                cargarDiasHorariosDDL(e);
             }
         }
 
@@ -131,26 +131,56 @@ namespace Vistas
             }
         }
 
-        // CARGA DE DDL DIAS
-        private void cargarDiasDDL (GridViewRowEventArgs e)
+        // CARGA DE DIAS Y HORARIOS EN SUS DDL
+        private void cargarDiasHorariosDDL(GridViewRowEventArgs e)
         {
-            Validar validar = new Validar();
 
-            // DIAS
             DropDownList ddlDias = (DropDownList)e.Row.FindControl("ddlDIAS");
+            TextBox txtStart = (TextBox)e.Row.FindControl("txtTIME_START");
+            TextBox txtEnd = (TextBox)e.Row.FindControl("txtTIME_END");
+
             if (ddlDias != null)
             {
-                 DataTable dtDias = validar.ObtenerDias();
+                Validar validar = new Validar();
+                DataTable dtDias = validar.ObtenerDias();
 
-                 ddlDias.DataSource = dtDias;
-                 ddlDias.DataTextField = "WEEKDAY_SCH";
-                 ddlDias.DataValueField = "WEEKDAY_SCH";
-                 ddlDias.AutoPostBack = true;
-                 ddlDias.DataBind();
+                ddlDias.DataSource = dtDias;
+                ddlDias.DataTextField = "WEEKDAY_SCH";
+                ddlDias.DataValueField = "WEEKDAY_SCH";
+                ddlDias.DataBind();
 
-                 ddlDias.Items.Insert(0, new ListItem("< SELECT >", ""));
+                string diasTrabajo = DataBinder.Eval(e.Row.DataItem, "DIAS_TRABAJO")?.ToString();
+
+                if (!string.IsNullOrEmpty(diasTrabajo))
+                {
+                    string[] diasArray = diasTrabajo.Split(',');
+
+
+                    string primerDia = diasArray[0].Trim();
+
+                    if (ddlDias.Items.FindByValue(primerDia) != null)
+                        ddlDias.SelectedValue = primerDia;
+                }
             }
 
+            string entradas = DataBinder.Eval(e.Row.DataItem, "HORA_ENTRADA")?.ToString();
+            string salidas = DataBinder.Eval(e.Row.DataItem, "HORA_SALIDA")?.ToString();
+
+            if (!string.IsNullOrEmpty(entradas))
+                ViewState["EntradasHorarios"] = entradas.Split(',');
+            if (!string.IsNullOrEmpty(salidas))
+                ViewState["SalidasHorarios"] = salidas.Split(',');
+
+            if (txtStart != null && txtEnd != null)
+            {
+                string[] entradasArray = (string[])ViewState["EntradasHorarios"];
+                string[] salidasArray = (string[])ViewState["SalidasHorarios"];
+
+                if (entradasArray.Length > 0)
+                    txtStart.Text = entradasArray[0].Trim();
+                if (salidasArray.Length > 0)
+                    txtEnd.Text = salidasArray[0].Trim();
+            }
         }
 
         // EVENTO DE UNSUBSCRIBE
@@ -287,6 +317,7 @@ namespace Vistas
             gvMedicos.DataBind();
         }
 
+        // MODIFICACION DE LOCALIDADES SEGUN LA PROV ELEGIDA
         protected void ddlID_PROV_MED_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
@@ -310,28 +341,27 @@ namespace Vistas
             }
         }
 
-        /*protected void ddlDIAS_SelectedIndexChanged(object sender, EventArgs e)
+        // MODIFICACION DE HORARIOS SEGUN EL DIA ELEGIDO
+        protected void ddlDIAS_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
-            DropDownList ddlDIAS = (DropDownList)sender;
-            GridViewRow row = (GridViewRow)ddlDIAS.NamingContainer;
+            DropDownList ddlDias = (DropDownList)sender;
+            GridViewRow row = (GridViewRow)ddlDias.NamingContainer;
 
-            int index = row.RowIndex;
-            int nuevoDia;
+            TextBox txtStart = (TextBox)row.FindControl("txtTIME_START");
+            TextBox txtEnd = (TextBox)row.FindControl("txtTIME_END");
 
-            if (int.TryParse(ddlDIAS.SelectedValue, out nuevoDia))
-            {
-                ViewState["DiaSeleccionadoGV"] = nuevoDia;
+            string[] entradasArray = (string[])ViewState["EntradasHorarios"];
+            string[] salidasArray = (string[])ViewState["SalidasHorarios"];
 
-                gvMedicos.EditIndex = index;
-                CargarMedicos(); // Vuelve a cargar la grilla con la provincia seleccionada
-            }
-            else
-            {
-                lblMensaje.Text = "You must select a valid day.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-            }
-        }*/
+            int diaSeleccionado = ddlDias.SelectedIndex;
+
+            if (diaSeleccionado >= 0 && diaSeleccionado < entradasArray.Length)
+                txtStart.Text = entradasArray[diaSeleccionado].Trim();
+
+            if (diaSeleccionado >= 0 && diaSeleccionado < salidasArray.Length)
+                txtEnd.Text = salidasArray[diaSeleccionado].Trim();
+        }
 
         // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)

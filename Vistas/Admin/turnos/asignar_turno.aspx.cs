@@ -84,6 +84,7 @@ namespace Vistas.Admin.turnos
         // ASIGNAR TURNO
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             if (string.IsNullOrEmpty(txtDNIPatient.Text))
             {
                 lblMensaje.Text = "Please, complete all the fields.";
@@ -122,6 +123,7 @@ namespace Vistas.Admin.turnos
 
             string dni = txtDNIPatient.Text.Trim();
 
+
             if (!validar.EsDniValido(dni))
             {
                 validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
@@ -129,9 +131,7 @@ namespace Vistas.Admin.turnos
                 return;
             }
 
-            if (!Page.IsValid) return;
-
-            if (!validar.ExisteDni(int.Parse(txtDNIPatient.Text)))
+            if (!validar.ExisteDniPaciente(int.Parse(dni)))
             {
                 validateDni.ErrorMessage = "That DNI doesn't exist.";
                 validateDni.IsValid = false;
@@ -188,7 +188,7 @@ namespace Vistas.Admin.turnos
                 return;
             }
 
-            DoctorSchedule doctorSchedule = manager.ObtenerHorasTrabajadas(id_medico);
+            DoctorSchedule doctorSchedule = manager.ObtenerHorasTrabajadas(id_medico, day);
 
             if (doctorSchedule == null)
             {
@@ -201,7 +201,13 @@ namespace Vistas.Admin.turnos
             List<TimeSpan> horariosDisponibles = new List<TimeSpan>();
             TimeSpan horaActual = doctorSchedule._TimeStart;
 
-            while (horaActual + duracionTurno <= doctorSchedule._TimeEnd)
+            if (doctorSchedule._TimeEnd < doctorSchedule._TimeStart)
+            {
+                // Ajustar _TimeEnd sumándole un día para permitir el cruce de medianoche
+                doctorSchedule._TimeEnd = doctorSchedule._TimeEnd.Add(new TimeSpan(1, 0, 0, 0));
+            }
+
+            while (horaActual < doctorSchedule._TimeEnd)
             {
                 if (!turnosAsignados.Contains(horaActual))
                 {
@@ -223,16 +229,19 @@ namespace Vistas.Admin.turnos
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             filtrarHorarios();
         }
 
         protected void ddlSpeciality_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicosPorEspecialidad();
         }
 
         protected void ddlDoctor_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             filtrarHorarios();
         }
     }

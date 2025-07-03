@@ -403,6 +403,17 @@ namespace Negocio
             return cantidad > 0;
         }
 
+        public bool ExisteDniPaciente(int dni)
+        {
+            string query = "SELECT COUNT(*) FROM PATIENTS WHERE DNI_PAT = @dni";
+            SqlParameter[] parametros = {
+                new SqlParameter("@dni", dni)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
+        }
 
         public bool EsDniValido(string dni)
         {
