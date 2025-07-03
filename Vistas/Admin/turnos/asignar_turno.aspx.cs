@@ -18,8 +18,6 @@ namespace Vistas.Admin.turnos
             if (!IsPostBack)
             {
                 CargarEspecialidades();
-                //CargarDoctores();
-                //CargarMedicosPorEspecialidad();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
@@ -85,61 +83,19 @@ namespace Vistas.Admin.turnos
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
-            if (string.IsNullOrEmpty(txtDNIPatient.Text))
-            {
-                lblMensaje.Text = "Please, complete all the fields.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
 
-            if (ddlSpeciality.SelectedValue == "0" || string.IsNullOrEmpty(ddlSpeciality.SelectedValue) || ddlTime.SelectedValue == "0" || string.IsNullOrEmpty(ddlTime.SelectedValue) ||
-                ddlDoctor.SelectedValue == "0" || string.IsNullOrEmpty(ddlDoctor.SelectedValue))
-            {
-                lblMensaje.Text = "Please, complete all the fields.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
+            // VALIDACIONES
+            if (!validarCamposVacios()) return;
 
-            }
+            if (!validarDNI()) return;
 
-            DateTime fechaTurno = DateTime.Parse(txtDate.Text);
+            if (!validarDisponibilidadTurno(out DateTime fechaTurno, out TimeSpan horaTurno)) return;
 
-            if (fechaTurno.Date <= DateTime.Today)
-            {
-                lblMensaje.Text = "You can't make an appointment for a past date.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
-
-            // Validacion de medico disponible el dia seleccionado
-
-            TimeSpan horaTurno = TimeSpan.Parse(ddlTime.SelectedValue);
             int id_medico = int.Parse(ddlDoctor.SelectedValue);
 
-            //obtener dia para validar que el medico labure ese dia
-            DayOfWeek dayWeek = fechaTurno.DayOfWeek;
-            string diaTurno = fechaTurno.ToString("dddd"); // "Monday"
+            validarDNI();
 
-            Validar validar = new Validar();
-
-            string dni = txtDNIPatient.Text.Trim();
-
-
-            if (!validar.EsDniValido(dni))
-            {
-                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
-                validateDni.IsValid = false;
-                return;
-            }
-
-            if (!validar.ExisteDniPaciente(int.Parse(dni)))
-            {
-                validateDni.ErrorMessage = "That DNI doesn't exist.";
-                validateDni.IsValid = false;
-                return;
-            }
-
-            //validar.MedicoDisponible(diaTurno, horaTurno, id_medico);
-
+            // CARGAR TURNO
             Turnos turno = new Turnos
             {
                 IdUsuarioMedico = id_medico,
@@ -150,17 +106,94 @@ namespace Vistas.Admin.turnos
                 ObservacionTurno = ""
             };
 
+            Validar validar = new Validar();
             validar.CargarTurno(turno);
 
             lblMensaje.Text = "Appointment registered successfully.";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
 
+            // VACIAR CONTROLES
             ddlTime.SelectedIndex = 0;
             txtDate.Text = "";
             ddlSpeciality.SelectedIndex = 0;
-            txtDNIPatient.Text = ""; // para debugerarsfra
+            txtDNIPatient.Text = ""; 
             ddlDoctor.SelectedIndex = 0;
             
+        }
+
+        // VALIDAR QUE NO HAYAN CAMPOS VACIOS
+        private bool validarCamposVacios()
+        {
+            if (string.IsNullOrEmpty(txtDNIPatient.Text) ||
+                ddlSpeciality.SelectedValue == "0" || string.IsNullOrEmpty(ddlSpeciality.SelectedValue) ||
+                ddlDoctor.SelectedValue == "0" || string.IsNullOrEmpty(ddlDoctor.SelectedValue) ||
+                ddlTime.SelectedValue == "0" || string.IsNullOrEmpty(ddlTime.SelectedValue))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+
+            return true;
+        }
+
+        // VALIDAR QUE EL DNI EXISTE Y QUE ES VALIDO SU FORMATO
+        private bool validarDNI()
+        {
+            Validar validar = new Validar();
+
+            string dni = txtDNIPatient.Text.Trim();
+
+            if (!validar.EsDniValido(dni))
+            {
+                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
+                validateDni.IsValid = false;
+                return false;
+            }
+
+            if (!validar.ExisteDniPaciente(int.Parse(dni)))
+            {
+                validateDni.ErrorMessage = "That DNI doesn't exist.";
+                validateDni.IsValid = false;
+                return false;
+            }
+
+            return true;
+        }
+
+        // VALIDAR QUE EL MEDICO ESTE DISPONIBLE ESE DIA, Y QUE LA FECHA SEA VALIDA
+        private bool validarDisponibilidadTurno(out DateTime fechaTurno, out TimeSpan horaTurno)
+        {
+            fechaTurno = DateTime.MinValue;
+            horaTurno = TimeSpan.Zero;
+
+            if (!DateTime.TryParse(txtDate.Text, out fechaTurno))
+            {
+                lblMensaje.Text = "Invalid date.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+
+            if (fechaTurno.Date <= DateTime.Today)
+            {
+                lblMensaje.Text = "You can't make an appointment for a past date.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+
+            if (!TimeSpan.TryParse(ddlTime.SelectedValue, out horaTurno))
+            {
+                lblMensaje.Text = "Invalid time selected.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+
+            Validar validar = new Validar();
+            int id_medico = int.Parse(ddlDoctor.SelectedValue);
+            string dia = fechaTurno.ToString("dddd", new CultureInfo("en-US")).ToUpper();
+
+
+            return true;
         }
 
         // FILTRAR HORARIOS

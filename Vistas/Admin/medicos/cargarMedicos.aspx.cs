@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -19,10 +20,8 @@ namespace Vistas.Admin.medicos
                 CargarSexo();
                 CargarEspecialidades();
                 CargarProvincia();
-
-                List<string> dias = new List<string> { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO" };
-                rptDias.DataSource = dias;
-                rptDias.DataBind();
+                CargarDias();
+                
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
@@ -34,7 +33,6 @@ namespace Vistas.Admin.medicos
             username.Text = Session["username"].ToString();
         }
 
-
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
 
@@ -43,125 +41,27 @@ namespace Vistas.Admin.medicos
         // AGREGAR MEDICO
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text)
-               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text)
-               || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
-            {
-                lblMensaje.Text = "Please, complete all the fields.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
+            // VALIDACIONES
+            if (!validarCamposVacios()) return;
 
-            if (ddlSpeciality.SelectedValue == "0" || string.IsNullOrEmpty(ddlSpeciality.SelectedValue) || ddlSexo.SelectedValue == "0"
-               || string.IsNullOrEmpty(ddlSexo.SelectedValue) || ddlCity.SelectedValue == "0" || string.IsNullOrEmpty(ddlCity.SelectedValue)
-               || ddlLocality.SelectedValue == "0" || string.IsNullOrEmpty(ddlLocality.SelectedValue))
-            {
-                lblMensaje.Text = "Please, complete all the fields.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            if (!validarContraseñas()) return;
+
+            if (!validarFechaNacimiento()) return;
+
+            if (!validarDNI()) return;
+
+            if (!validarUserYTelefono()) return;
+
+            if (!ValidarYObtenerDias(out List<string> diasAtencion, out List<TimeSpan> horasInicio, out List<TimeSpan> horasFin))
                 return;
 
-            }
-
-            if (txtPassword.Text.Trim() != txtRepeatPass.Text.Trim())
-            {
-                lblMensaje.Text = "Passwords don't match.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                txtRepeatPass.Text = "";
-                return;
-            }
-
-
-            DateTime fechaNacimiento;
-
-            if (!DateTime.TryParse(txtBirth.Text, out fechaNacimiento))
-            {
-                // Mostrar error si no es una fecha válida
-                validateBirthday.ErrorMessage = "Enter a valid birth date.";
-                validateBirthday.IsValid = false;
-                return;
-            }
-
-            int edad = DateTime.Today.Year - fechaNacimiento.Year;
-            if (fechaNacimiento > DateTime.Today.AddYears(-edad)) edad--;
-
-            if (edad < 18)
-            {
-                validateBirthday.ErrorMessage = "Must be at least 18 years old.";
-                validateBirthday.IsValid = false;
-                return;
-            }
-
-
+            // SI SE VALIDO TODO, SE AGREGA EL MEDICO
             Validar validar = new Validar();
-
-            string dni = txtDNI.Text.Trim();
-
-            if (!validar.EsDniValido(dni))
-            {
-                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
-                validateDni.IsValid = false;
-                return;
-            }
-
-            if (!Page.IsValid) return; 
-
-            if (validar.ExisteDni(int.Parse(txtDNI.Text)))
-            {
-                validateDni.ErrorMessage = "That DNI is already registered.";
-                validateDni.IsValid = false;
-                return;
-            }
-
-            if (validar.ExisteTelefono(txtPhone.Text))
-            {
-                validatePhone.ErrorMessage = "That phone number is already registered.";
-                validatePhone.IsValid = false; 
-                return;
-            }
-            
-            if (validar.ExisteUsuario(txtUser.Text))
-            {
-                validateUser.ErrorMessage = "That username is already registered.";
-                validateUser.IsValid = false; 
-                return;
-            }
-
-            //  OBTENER DIAS DEL CHECKBOXLIST
-            List<string> diasAtencion = new List<string>();
-            List<TimeSpan> horasInicio = new List<TimeSpan>();
-            List<TimeSpan> horasFin = new List<TimeSpan>();
-
-
-            foreach(RepeaterItem item in rptDias.Items)
-            {
-                Label lblDia = (Label)item.FindControl("lblDia");
-                CheckBox chkAtiende = (CheckBox)item.FindControl("chkDia");
-                TextBox txtHoraInicio = (TextBox)item.FindControl("txtHoraInicio");
-                TextBox txtHoraFin = (TextBox)item.FindControl("txtHoraFin");
-
-                if (chkAtiende.Checked)
-                {
-                    // Parsear como TimeSpan
-                    TimeSpan horaIni, horaFin;
-
-                    if (TimeSpan.TryParse(txtHoraInicio.Text.Trim(), out horaIni) &&
-                        TimeSpan.TryParse(txtHoraFin.Text.Trim(), out horaFin))
-                    {
-                        diasAtencion.Add(lblDia.Text);
-                        horasInicio.Add(horaIni);
-                        horasFin.Add(horaFin);
-                    }
-                }
-                if (chkAtiende != null) chkAtiende.Checked = false;
-                if (txtHoraInicio != null) txtHoraInicio.Text = string.Empty;
-                if (txtHoraFin != null) txtHoraFin.Text = string.Empty;
-            }
-
             Usuario user = new Usuario
             {
                 NombreUsuario = txtUser.Text,
                 Contrasena = txtPassword.Text,
-                TipoUsuario = "MEDICO"
+                TipoUsuario = "DOCTOR"
             };
 
             int idUsuario = validar.AgregarUsuario(user); 
@@ -188,12 +88,12 @@ namespace Vistas.Admin.medicos
             medico._id_usuario = idUsuario;                    
             validar.AgregarMedico(medico);
 
-
-            for(int i = 0; i < diasAtencion.Count; i++)
+            for (int i = 0; i < diasAtencion.Count; i++)
             {
                 validar.InsertarHorarioMedico(idUsuario, diasAtencion[i], horasInicio[i], horasFin[i]);
             }
 
+            // LIMPIAR CONTROLES
             lblMensaje.Text = "¡Doctor added succesfully!";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
 
@@ -220,7 +120,158 @@ namespace Vistas.Admin.medicos
             horasFin.Clear();
         }
 
-        // Cargar ddl y validar usuario Administrador
+        // VALIDAR LOS CAMPOS VACIOS
+        private bool validarCamposVacios()
+        {
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) || string.IsNullOrEmpty(txtAddress.Text)
+               || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtRepeatPass.Text)
+               || string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+
+            if (ddlSpeciality.SelectedValue == "0" || string.IsNullOrEmpty(ddlSpeciality.SelectedValue) || ddlSexo.SelectedValue == "0"
+               || string.IsNullOrEmpty(ddlSexo.SelectedValue) || ddlCity.SelectedValue == "0" || string.IsNullOrEmpty(ddlCity.SelectedValue)
+               || ddlLocality.SelectedValue == "0" || string.IsNullOrEmpty(ddlLocality.SelectedValue))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+
+            }
+
+            return true;
+        }
+
+        private bool validarFechaNacimiento()
+        {
+            DateTime fechaNacimiento;
+
+            if (!DateTime.TryParse(txtBirth.Text, out fechaNacimiento))
+            {
+                validateBirthday.ErrorMessage = "Enter a valid birth date.";
+                validateBirthday.IsValid = false;
+                return false;
+            }
+
+            int edad = DateTime.Today.Year - fechaNacimiento.Year;
+            if (fechaNacimiento > DateTime.Today.AddYears(-edad)) edad--;
+
+            if (edad < 18)
+            {
+                validateBirthday.ErrorMessage = "Must be at least 18 years old.";
+                validateBirthday.IsValid = false;
+                return false;
+            }
+
+            return true;
+        }
+
+        // VALIDAR QUE LAS CONTRASEÑAS SEAN IGUALES
+        private bool validarContraseñas() 
+        {
+            if (txtPassword.Text.Trim() != txtRepeatPass.Text.Trim())
+            {
+                lblMensaje.Text = "Passwords don't match.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                txtRepeatPass.Text = "";
+                return false;
+            }
+            return true;
+        }
+
+        // VALIDAR QUE EL USUARIO Y EL TELEFONO NO EXISTAN
+        private bool validarUserYTelefono()
+        {
+            Validar validar = new Validar();
+
+            if (validar.ExisteTelefono(txtPhone.Text))
+            {
+                validatePhone.ErrorMessage = "That phone number is already registered.";
+                validatePhone.IsValid = false;
+                return false;
+            }
+
+            if (validar.ExisteUsuario(txtUser.Text))
+            {
+                validateUser.ErrorMessage = "That username is already registered.";
+                validateUser.IsValid = false;
+                return false;
+            }
+
+            return true;
+        }
+
+        // VALIDAR FORMATO Y EXISTENCIA DEL DNI
+        private bool validarDNI()
+        {
+            Validar validar = new Validar();
+
+            string dni = txtDNI.Text.Trim();
+
+            if (!validar.EsDniValido(dni))
+            {
+                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
+                validateDni.IsValid = false;
+                return false;
+            }
+
+            if (!validar.ExisteDni(int.Parse(dni)))
+            {
+                validateDni.ErrorMessage = "That DNI doesn't exist.";
+                validateDni.IsValid = false;
+                return false;
+            }
+
+            return true;
+        }
+
+        // VALIDAR QUE LOS DIAS Y HORARIOS ESTEN INGRESADOS
+        private bool ValidarYObtenerDias(out List<string> dias, out List<TimeSpan> horasInicio, out List<TimeSpan> horasFin)
+        {
+            dias = new List<string>();
+            horasInicio = new List<TimeSpan>();
+            horasFin = new List<TimeSpan>();
+
+            bool alMenosUno = false;
+
+            foreach (RepeaterItem item in rptDias.Items)
+            {
+                Label lblDia = (Label)item.FindControl("lblDia");
+                CheckBox chkAtiende = (CheckBox)item.FindControl("chkDia");
+                TextBox txtHoraInicio = (TextBox)item.FindControl("txtHoraInicio");
+                TextBox txtHoraFin = (TextBox)item.FindControl("txtHoraFin");
+
+                if (chkAtiende.Checked)
+                {
+                    if (TimeSpan.TryParse(txtHoraInicio.Text.Trim(), out TimeSpan ini) &&
+                        TimeSpan.TryParse(txtHoraFin.Text.Trim(), out TimeSpan fin))
+                    {
+                        dias.Add(lblDia.Text);
+                        horasInicio.Add(ini);
+                        horasFin.Add(fin);
+                        alMenosUno = true;
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Please enter valid hours for the selected days.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        return false;
+                    }
+                }
+            }
+
+            if (!alMenosUno)
+            {
+                lblMensaje.Text = "Please select at least one day with valid hours.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+
+            return true;
+        }
 
         // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
@@ -272,25 +323,7 @@ namespace Vistas.Admin.medicos
             ddlCity.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
-        // CARGAR DDL LOCALIDADES
-        private void CargarLocalidad()
-        {
-            Validar validar = new Validar();
-            DataTable dtLocality = validar.ObtenerLocalidad();
-
-            ddlLocality.DataSource = dtLocality;
-            ddlLocality.DataTextField = "NOMBRE_LOC";
-            ddlLocality.DataValueField = "ID_LOC";
-            ddlLocality.DataBind();
-
-            ddlLocality.Items.Insert(0, new ListItem("< SELECT >", ""));
-        }
-
-        protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CargarLocalidadesPorProvincia();
-        }
-
+        // CARGAR LOCALIDADES SEGUN LA PROVINCIA ELEGIDA
         private void CargarLocalidadesPorProvincia()
         {
             int idProvincia;
@@ -310,6 +343,19 @@ namespace Vistas.Admin.medicos
                 ddlLocality.Items.Clear();
                 ddlLocality.Items.Insert(0, new ListItem("< Select a state first >", ""));
             }
+        }
+
+        // CARGAR DIAS
+        private void CargarDias()
+        {
+            List<string> dias = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+            rptDias.DataSource = dias;
+            rptDias.DataBind();
+        }
+
+        protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarLocalidadesPorProvincia();
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

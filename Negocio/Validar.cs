@@ -306,7 +306,7 @@ namespace Negocio
                 ) VALUES (
                     @dni, @nombre, @apellido, 
                     @sexo, @nacionalidad, @fecha, @direccion, 
-                    @ciudad, @provincia, @correo, @telefono
+                    @localidad, @provincia, @correo, @telefono
                 )";
 
             SqlParameter[] parametros = new SqlParameter[]
@@ -396,7 +396,7 @@ namespace Negocio
                 ) VALUES (
                     @id_usuario, @dni, @nombre, @apellido, 
                     @sexo, @nacionalidad, @fecha, @direccion, 
-                    @ciudad, @provincia, @correo, @telefono, 
+                    @localidad, @provincia, @correo, @telefono, 
                     @especialidad
                 )";
 
@@ -424,7 +424,7 @@ namespace Negocio
         // CONSULTA PARA INSERTAR EL HORARIO DEL MEDICO
         public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
-            string query = "INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOC, WEEKDAY_SCH, TIME_START, TIME_END) " +
+            string query = "INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END) " +
                            "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
 
             SqlParameter[] parametros = new SqlParameter[]

@@ -250,11 +250,11 @@
                             <asp:RegularExpressionValidator
                                 ID="validatePassword"
                                 runat="server"
-                                ControlToValidate="txtDni"
+                                ControlToValidate="txtPassword"
                                 ErrorMessage="Password must be at least 6 characters"
                                 ForeColor="Red"
                                 Font-Bold="true"
-                                ValidationExpression="^\d{6}$"
+                                ValidationExpression="^.{6,}$"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
                         </div>
@@ -265,11 +265,11 @@
                             <asp:RegularExpressionValidator
                                 ID="validateRepeatPassword"
                                 runat="server"
-                                ControlToValidate="txtDni"
+                                ControlToValidate="txtRepeatPass"
                                 ErrorMessage="Password must be at least 6 characters"
                                 ForeColor="Red"
                                 Font-Bold="true"
-                                ValidationExpression="^\d{6}$"
+                                ValidationExpression="^.{6,}$"
                                 Display="Dynamic"
                                 ValidationGroup="grupoAlta" />
                         </div>

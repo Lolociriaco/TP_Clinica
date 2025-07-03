@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -67,12 +68,12 @@ namespace Vistas.Admin.pacientes
             ddlCity.Items.Insert(0, new ListItem("< SELECT >", ""));
         }
 
-
         protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarLocalidadesPorProvincia();
         }
 
+        // CARGAR LOCALIDADES SEGUN LA PROVINCIA ELEGIDA
         private void CargarLocalidadesPorProvincia()
         {
             int idProvincia;
@@ -103,70 +104,16 @@ namespace Vistas.Admin.pacientes
         // AGREGAR PACIENTE
         protected void btnConfirmarAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text) 
-               || string.IsNullOrEmpty(txtAddress.Text) || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text) 
-               || string.IsNullOrEmpty(txtBirth.Text))
-            {
-                lblMensaje.Text = "Please, complete all the fields.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
+            // VALIDACIONES
+            if (!validarCamposVacios()) return;
 
-            if (ddlSexo.SelectedValue == "0" || string.IsNullOrEmpty(ddlSexo.SelectedValue) || ddlCity.SelectedValue == "0" || string.IsNullOrEmpty(ddlCity.SelectedValue) || ddlLocality.SelectedValue == "0" || string.IsNullOrEmpty(ddlLocality.SelectedValue))
-            {
-                lblMensaje.Text = "Please, complete all the fields.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
+            if (!validarFechaNacimiento()) return;
 
-            DateTime fechaNacimiento;
+            if (!validarDNI()) return;
 
-            if (!DateTime.TryParse(txtBirth.Text, out fechaNacimiento))
-            {
-                validateBirthday.ErrorMessage = "Enter a valid birth date.";
-                validateBirthday.IsValid = false;
-                return;
-            }
+            if (!validarTelefono()) return;
 
-            int edad = DateTime.Today.Year - fechaNacimiento.Year;
-            if (fechaNacimiento > DateTime.Today.AddYears(-edad)) edad--;
-
-            if (edad < 18)
-            {
-                validateBirthday.ErrorMessage = "Must be at least 18 years old.";
-                validateBirthday.IsValid = false;
-                return;
-            }
-
-            Validar validar = new Validar();
-
-            string dni = txtDNI.Text.Trim();
-
-            if (!validar.EsDniValido(dni))
-            {
-                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
-                validateDni.IsValid = false;
-                return;
-            }
-
-            if (!Page.IsValid) return; 
-
-            if (validar.ExisteDni(int.Parse(txtDNI.Text)))
-            {
-                validateDni.ErrorMessage = "That DNI is already registered.";
-                validateDni.IsValid = false; 
-                return;
-            }
-
-            if (!Page.IsValid) return; 
-
-            if (validar.ExisteTelefono(txtPhone.Text))
-            {
-                validatePhone.ErrorMessage = "That phone number is already registered.";
-                validatePhone.IsValid = false; 
-                return;
-            }
-
+            // CARGAR PACIENTE
             Paciente paciente = new Paciente
             {
                 Nombre = txtName.Text,
@@ -182,11 +129,13 @@ namespace Vistas.Admin.pacientes
                 Sexo = ddlSexo.SelectedValue,
             };
 
+            Validar validar = new Validar();
             validar.AgregarPaciente(paciente);
 
             lblMensaje.Text = "¡Patient added succesfully!";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
 
+            // VACIAR CONTROLES
             txtDNI.Text = "";
             txtName.Text = "";
             txtSurname.Text = "";
@@ -198,6 +147,93 @@ namespace Vistas.Admin.pacientes
             txtMail.Text = "";
             txtPhone.Text = "";
             txtBirth.Text = "";
+        }
+
+        // VALIDAR FORMATO DE DNI VALIDO Y SI YA EXISTE
+        private bool validarDNI()
+        {
+            Validar validar = new Validar();
+
+            string dni = txtDNI.Text.Trim();
+
+            if (!validar.EsDniValido(dni))
+            {
+                validateDni.ErrorMessage = "Invalid DNI (format: 12345678)";
+                validateDni.IsValid = false;
+                return false;
+            }
+
+            if (!Page.IsValid) return false;
+
+            if (validar.ExisteDni(int.Parse(txtDNI.Text)))
+            {
+                validateDni.ErrorMessage = "That DNI is already registered.";
+                validateDni.IsValid = false;
+                return false;
+            }
+            return true;
+        }
+
+        // VALIDAR SI EL TELEFONO YA EXISTE
+        private bool validarTelefono()
+        {
+            Validar validar = new Validar();
+
+            if (!Page.IsValid) return false;
+
+            if (validar.ExisteTelefono(txtPhone.Text))
+            {
+                validatePhone.ErrorMessage = "That phone number is already registered.";
+                validatePhone.IsValid = false;
+                return false;
+            }
+            return true;   
+        }
+
+        // VALIDAR QUE LA FECHA SEA VALIDA
+        private bool validarFechaNacimiento()
+        {
+            DateTime fechaNacimiento;
+
+            if (!DateTime.TryParse(txtBirth.Text, out fechaNacimiento))
+            {
+                validateBirthday.ErrorMessage = "Enter a valid birth date.";
+                validateBirthday.IsValid = false;
+                return false;
+            }
+
+            int edad = DateTime.Today.Year - fechaNacimiento.Year;
+            if (fechaNacimiento > DateTime.Today.AddYears(-edad)) edad--;
+
+            if (edad < 18)
+            {
+                validateBirthday.ErrorMessage = "Must be at least 18 years old.";
+                validateBirthday.IsValid = false;
+                return false;
+            }
+
+            return true;
+        }
+
+        // VALIDAR QUE NO HAYAN CAMPOS VACIOS
+        private bool validarCamposVacios()
+        {
+            if (string.IsNullOrEmpty(txtDNI.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtSurname.Text) || string.IsNullOrEmpty(txtNation.Text)
+               || string.IsNullOrEmpty(txtAddress.Text) || string.IsNullOrEmpty(txtMail.Text) || string.IsNullOrEmpty(txtPhone.Text)
+               || string.IsNullOrEmpty(txtBirth.Text))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+
+            if (ddlSexo.SelectedValue == "0" || string.IsNullOrEmpty(ddlSexo.SelectedValue) || ddlCity.SelectedValue == "0" || string.IsNullOrEmpty(ddlCity.SelectedValue) || ddlLocality.SelectedValue == "0" || string.IsNullOrEmpty(ddlLocality.SelectedValue))
+            {
+                lblMensaje.Text = "Please, complete all the fields.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+            return true;
         }
     }
 }

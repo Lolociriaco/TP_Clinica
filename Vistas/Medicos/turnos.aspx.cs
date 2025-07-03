@@ -27,7 +27,7 @@ namespace Vistas.Medicos
             if (!IsPostBack)
             {
                 CargarTurnos();
-                CargarDdlEstado();
+                CargarEstadosEnDropDown(ddlState, "< Select a status >");
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "DOCTOR")
@@ -37,6 +37,8 @@ namespace Vistas.Medicos
 
             username.Text = Session["username"].ToString();
         }
+
+        // CARGAR TURNOS
         private void CargarTurnos()
         {
             string DNI_PAT = txtDNI.Text.Trim();
@@ -66,24 +68,28 @@ namespace Vistas.Medicos
             {
                 e.Row.CssClass = "edit-row";
 
-                Validar validar = new Validar();
-
-                // PROVINCIA
+                // CARGAR DDL DE STATUS EN LA GRID
                 DropDownList ddlState = (DropDownList)e.Row.FindControl("ddlSTATE_APPO");
-
-                if (ddlState == null) return;
-                
-                DataTable dtProvincia = validar.ObtenerProvincia();
-                var statuses = Enum.GetNames(typeof(AppointmentStatus))
-                 .Select(s => new { Value = s, Text = s });
-
-                ddlState.DataSource = statuses;
-                ddlState.DataTextField = "Text";
-                ddlState.DataValueField = "Value";
-                ddlState.DataBind();
-                ddlState.Items.Insert(0, new ListItem("<Select status>", ""));
+                if (ddlState != null)
+                {
+                    CargarEstadosEnDropDown(ddlState, "< Select a status >");
+                }
 
             }
+        }
+
+        // CARGAR ESTADOS EN LAS DDL
+        private void CargarEstadosEnDropDown(DropDownList ddl, string primerItem)
+        {
+            var estados = Enum.GetNames(typeof(AppointmentStatus))
+                .Select(s => new { Value = s, Text = s });
+
+            ddl.DataSource = estados;
+            ddl.DataTextField = "Text";
+            ddl.DataValueField = "Value";
+            ddl.DataBind();
+
+            ddl.Items.Insert(0, new ListItem(primerItem, ""));
         }
 
         // EDITAR
@@ -119,6 +125,7 @@ namespace Vistas.Medicos
                 return;
             }
 
+
             string newState = ddlState.SelectedValue.ToString();
 
             DoctorAppointmentsManager appoManager = new DoctorAppointmentsManager();
@@ -131,44 +138,56 @@ namespace Vistas.Medicos
             CargarTurnos();
         }
 
-        protected void CargarDdlEstado()
-        {
-            var statuses = Enum.GetNames(typeof(AppointmentStatus))
-                 .Select(s => new { Value = s, Text = s });
+        //private bool validarCamposVacios(GridViewUpdateEventArgs e)
+        //{
+        //    GridViewRow row = gvTurnos.Rows[e.RowIndex];
+        //    DropDownList ddlState = ((DropDownList)row.FindControl("ddlSTATE_APPO"));
 
-            ddlState.DataSource = statuses;
-            ddlState.DataTextField = "Text";
-            ddlState.DataValueField = "Value";
-            ddlState.DataBind();
+        //    if (ddlState == null || ddlState.SelectedValue == "0" || string.IsNullOrEmpty(ddlState.SelectedValue))
+        //    {
+        //        lblMensaje.Text = "Select a valid state.";
+        //        lblMensaje.ForeColor = System.Drawing.Color.Red;
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
-            ddlState.Items.Insert(0, new ListItem("All states", ""));
-        }
-
+        // CAMBIO DE PAGINA EN LA GRID
         protected void gvTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTurnos.PageIndex = e.NewPageIndex;
             CargarTurnos();
         }
 
+        // CAMBIO DE TEXTO EN TEXTBOX DE DIA
         protected void txtDay_TextChanged(object sender, EventArgs e)
         {
-            if (!DateTime.TryParse(txtDay.Text, out DateTime fecha))
-            {
-                lblMensaje.Text = "Enter a valid full date.";
-                lblMensaje.ForeColor = Color.Red;
-                return;
-            }
+            if(!validarFecha()) return;
 
             chckToday.Checked = false;
             chckTomorrow.Checked = false;
             CargarTurnos();
         }
 
+        // VALIDAR FECHA
+        private bool validarFecha()
+        {
+            if (!DateTime.TryParse(txtDay.Text, out DateTime fecha))
+            {
+                lblMensaje.Text = "Enter a valid full date.";
+                lblMensaje.ForeColor = Color.Red;
+                return false;
+            }
+            return true;
+        }
+
+        // CAMBIO DE TEXTO EN TEXTBOX DE DNI
         protected void txtDNI_TextChanged(object sender, EventArgs e)
         {
             CargarTurnos();
         }
 
+        // BORRAR FILTROS
         protected void btnClear_Click(object sender, EventArgs e)
         {
             txtDNI.Text = "";
@@ -179,6 +198,7 @@ namespace Vistas.Medicos
             CargarTurnos();
         }
 
+        // CAMBIO DE CHECKBOX HOY
         protected void chckToday_CheckedChanged(object sender, EventArgs e)
         {
             if (chckToday.Checked)
@@ -189,6 +209,7 @@ namespace Vistas.Medicos
             CargarTurnos();
         }
 
+        // CAMBIO DE CHECKBOX MAÑANA
         protected void chckTomorrow_CheckedChanged(object sender, EventArgs e)
         {
             if(chckTomorrow.Checked)
@@ -199,8 +220,10 @@ namespace Vistas.Medicos
             CargarTurnos();
         }
 
+        // CAMBIO DE INDICE EN LA DDL DE ESTADO
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarTurnos();
         }
     }
