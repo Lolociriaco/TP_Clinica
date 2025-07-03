@@ -32,38 +32,33 @@ namespace Vistas.Admin.informes
         private void CargarInformes()
         {
             Validar validar = new Validar();
-            gvReporteMedicosMayoriaTurnos.DataSource = validar.MedicosConMasTurnos();
+            gvReporteMedicosMayoriaTurnos.DataSource = validar.MedicosConMasTurnosConPorcentaje();
             gvReporteMedicosMayoriaTurnos.DataBind();
 
-            // Opcional: Ajustar estilo si hay muchos datos
+            // Estilos opcionales
             gvReporteMedicosMayoriaTurnos.HeaderStyle.BackColor = System.Drawing.Color.LightGray;
             gvReporteMedicosMayoriaTurnos.HeaderStyle.Font.Bold = true;
-
         }
 
-        // Nueva función exclusiva para especialidades
         private void CargarInformeEspecialidades()
         {
             Validar validar = new Validar();
-            DataTable datosBrutos = validar.EspecialidadConMasTurnos();
+            DataTable datosBrutos = validar.EspecialidadConMasTurnosConPorcentaje();
 
             if (datosBrutos != null && datosBrutos.Rows.Count > 0)
             {
-                // Asignamos directamente el DataTable devuelto
                 gvEspecialidadTop.DataSource = datosBrutos;
                 gvEspecialidadTop.DataBind();
-
-                // Estilos opcionales
                 gvEspecialidadTop.HeaderStyle.BackColor = System.Drawing.Color.LightGray;
                 gvEspecialidadTop.HeaderStyle.Font.Bold = true;
             }
             else
             {
-                // Manejo cuando no hay datos
                 DataTable dtEmpty = new DataTable();
                 dtEmpty.Columns.Add("Especialidad", typeof(string));
                 dtEmpty.Columns.Add("TotalTurnos", typeof(int));
-                dtEmpty.Rows.Add("No data available", 0);
+                dtEmpty.Columns.Add("PORCENTAJE", typeof(string));
+                dtEmpty.Rows.Add("No data available", 0, "0%");
 
                 gvEspecialidadTop.DataSource = dtEmpty;
                 gvEspecialidadTop.DataBind();

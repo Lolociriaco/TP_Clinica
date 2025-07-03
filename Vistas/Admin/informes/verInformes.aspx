@@ -82,6 +82,11 @@
                                             <asp:Label ID="lblRANK" runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="PERCENTAGE">
+                                         <ItemTemplate>
+                                            <asp:Label ID="lblPorcentaje" runat="server" Text='<%# Eval("PORCENTAJE") %>'></asp:Label>
+                                          </ItemTemplate>
+                                        </asp:TemplateField>
                                     <asp:TemplateField HeaderText="FIRST NAME" SortExpression="NAME_DOC">
                                         <ItemTemplate>
                                             <asp:Label ID="lblNOMBRE_MED" runat="server" Text='<%# Bind("NAME_DOC") %>'></asp:Label>
@@ -136,6 +141,8 @@
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
                                             <Columns>
+                                                <asp:BoundField DataField="PORCENTAJE" HeaderText="PERCENTAGE" DataFormatString="{0}" HtmlEncode="false">
+                                                </asp:BoundField>
                                                 <asp:BoundField DataField="Especialidad" HeaderText="SPECIALITY" />
                                                 <asp:BoundField DataField="TotalTurnos" HeaderText="TOTAL APPOINTMENTS" />
                                             </Columns>

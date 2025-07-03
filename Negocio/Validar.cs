@@ -170,6 +170,55 @@ namespace Negocio
             return datos.ObtenerTurnos(query, parametros);
         }
 
+
+        public int ObtenerTotalTurnos()
+        {
+            string query = "SELECT COUNT(*) FROM APPOINTMENT";
+            DB datos = new DB();
+            object result = datos.EjecutarEscalar(query, new SqlParameter[0]); // Array vacío
+            return result != null ? Convert.ToInt32(result) : 0;
+        }
+
+        public DataTable MedicosConMasTurnosConPorcentaje()
+        {
+            int totalTurnos = ObtenerTotalTurnos();
+            DataTable dtMedicos = MedicosConMasTurnos();
+
+            if (dtMedicos.Columns.Contains("PORCENTAJE"))
+                dtMedicos.Columns.Remove("PORCENTAJE");
+
+            dtMedicos.Columns.Add("PORCENTAJE", typeof(string));
+
+            foreach (DataRow row in dtMedicos.Rows)
+            {
+                int turnos = Convert.ToInt32(row["TOTALTURNOS"]);
+                double porcentaje = totalTurnos > 0 ? (turnos * 100.0) / totalTurnos : 0;
+                row["PORCENTAJE"] = porcentaje.ToString("N2") + "%";
+            }
+
+            return dtMedicos;
+        }
+
+        public DataTable EspecialidadConMasTurnosConPorcentaje()
+        {
+            int totalTurnos = ObtenerTotalTurnos();
+            DataTable dtEspecialidades = EspecialidadConMasTurnos();
+
+            if (dtEspecialidades.Columns.Contains("PORCENTAJE"))
+                dtEspecialidades.Columns.Remove("PORCENTAJE");
+
+            dtEspecialidades.Columns.Add("PORCENTAJE", typeof(string));
+
+            foreach (DataRow row in dtEspecialidades.Rows)
+            {
+                int turnos = Convert.ToInt32(row["TotalTurnos"]);
+                double porcentaje = totalTurnos > 0 ? (turnos * 100.0) / totalTurnos : 0;
+                row["PORCENTAJE"] = porcentaje.ToString("N2") + "%";
+            }
+
+            return dtEspecialidades;
+        }
+
         // CONSULTA PARA OBTENER SEXO DEL PACIENTE
         public DataTable ObtenerSexoPaciente()
         {
