@@ -41,9 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Doctor\DoctorAppointmentsManager.cs" />
+    <Compile Include="Admin\AdminAppoManager.cs" />
+    <Compile Include="Admin\AdminPatientsManager.cs" />
+    <Compile Include="Admin\AdminReportsManager.cs" />
+    <Compile Include="Doctor\DoctorAppoManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Admin\AdminDoctorManager.cs" />
+    <Compile Include="Shared\AuthManager.cs" />
+    <Compile Include="Shared\Validate.cs" />
     <Compile Include="Validar.cs" />
   </ItemGroup>
   <ItemGroup>

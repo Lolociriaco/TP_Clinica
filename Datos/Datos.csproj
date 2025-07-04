@@ -41,14 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminAppoDao.cs" />
+    <Compile Include="Admin\AdminMedicosDao.cs" />
+    <Compile Include="Admin\AdminPatientsDao.cs" />
+    <Compile Include="Admin\AdminReportsDao.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="Doctor\DoctorAppoDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\AuthDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{b23ca4e5-87ec-41da-8d72-3c3c6e5d3e2d}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Base\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

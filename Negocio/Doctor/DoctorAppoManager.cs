@@ -8,7 +8,7 @@ using Datos;
 
 namespace Negocio.Doctor
 {
-    public class DoctorAppointmentsManager
+    public class DoctorAppoManager
     {
         public bool updateAppointment(string state, string observation, int id)
         {

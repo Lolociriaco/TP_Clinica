@@ -22,11 +22,11 @@ namespace Negocio
         public string ValidarUsuario(string user, string password)
         {
 
-            // Verificar que la contraseña tenga al menos 6 caracteres
-            //if (password.Length < 6) return null;
+            // Collate As lo hace case sensitive - Accent Sensitive
 
 
-            string query = "SELECT ROLE_USER FROM USERS WHERE USERNAME = @user AND PASSWORD_USER = @password";
+            string query = "SELECT ROLE_USER FROM USERS WHERE USERNAME COLLATE Latin1_General_CS_AS = @user " +
+                "AND PASSWORD_USER COLLATE Latin1_General_CS_AS = @password";
 
             SqlParameter[] parametros = new SqlParameter[]
             {

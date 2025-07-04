@@ -128,7 +128,7 @@ namespace Vistas.Medicos
 
             string newState = ddlState.SelectedValue.ToString();
 
-            DoctorAppointmentsManager appoManager = new DoctorAppointmentsManager();
+            DoctorAppoManager appoManager = new DoctorAppoManager();
             appoManager.updateAppointment(newState, newObservation, idAppo);
 
             lblMensaje.Text = "The patient was modified succesfully.";
