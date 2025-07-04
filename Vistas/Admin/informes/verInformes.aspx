@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="verInformes.aspx.cs" Inherits="Vistas.Admin.informes.verInformes" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="verInformes.aspx.cs" Inherits="Vistas.Admin.informes.verInformes" %>
 
 <!DOCTYPE html>
 
@@ -9,6 +9,26 @@
         <link rel="stylesheet" href="/grid_view_style.css" type="text/css" />
         <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
+        <style>
+            /* Estilos adicionales para la nueva GridView de texto */
+            .stats-gridview {
+                width: 100%;
+                border: none;
+                margin: 20px 0;
+                font-family: 'Work Sans', sans-serif;
+                font-size: 16px;
+            }
+            .stats-gridview tr {
+                background-color: #f8f9fa;
+            }
+            .stats-gridview tr:nth-child(even) {
+                background-color: #e9ecef;
+            }
+            .stats-gridview td {
+                padding: 12px 15px;
+                border-bottom: 1px solid #dee2e6;
+            }
+        </style>
     </head>
     <body>
         <form id="form1" runat="server"> 
@@ -66,6 +86,29 @@
                         <h2 class="title">REPORTS</h2>
                     </header>
                     
+                    <%-----------------GRID DE ESTADÍSTICAS DE TEXTO-------------------%>
+                    <div class="content-box">
+                        <h3>Appointments Statistics</h3>
+                        <asp:GridView ID="gvEstadisticasTexto" runat="server" AutoGenerateColumns="False" 
+                            CssClass="stats-gridview" Width="100%" GridLines="None" ShowHeader="False">
+                            <Columns>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEstadistica" runat="server" Text='<%# Eval("Estadistica") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <RowStyle BackColor="#F7F6F3" />
+                            <EmptyDataTemplate>
+                                <tr>
+                                    <td style="text-align:center; padding: 20px;">
+                                        No statistics available.
+                                    </td>
+                                </tr>
+                            </EmptyDataTemplate>
+                        </asp:GridView>
+                    </div>
+
                     <%-----------------GRID MEDICOS CON MAS TURNOS-------------------%>
                     <div class="content-box">
                         <h3>Doctors with most appointments</h3>

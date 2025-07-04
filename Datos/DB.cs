@@ -14,10 +14,10 @@ namespace Datos
     {
 
         // /*LOLODOWN*/ private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
-        /*GUIDO*/ private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        //*GUIDO*/ private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
         // /*POLLO*/ private string cadenaConexion = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
         // /*LOLODOWN2*/ private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
-
+           /*Negro*/private string cadenaConexion = @"Data Source=PCBRANDON\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
         {

@@ -616,7 +616,53 @@ namespace Negocio
             DB accesoDatos = new DB();
             return accesoDatos.ObtenerDataTable(consulta, parametros);
         }
+        public DataTable ObtenerEstadisticasMensualesGrid()
+        {
+            DataTable dtResultado = new DataTable();
+            dtResultado.Columns.Add("Estadistica", typeof(string));
 
+            try
+            {
+                string query = @"
+            SELECT TOP 1
+                DATENAME(MONTH, DATE_APPO) AS NombreMes,
+                COUNT(*) AS CantidadTurnos,
+                (SELECT COUNT(*) FROM APPOINTMENT) AS TotalTurnos
+            FROM APPOINTMENT
+            GROUP BY DATENAME(MONTH, DATE_APPO), MONTH(DATE_APPO)
+            ORDER BY CantidadTurnos DESC";
+
+                DB datos = new DB();
+                DataTable dtDatos = datos.ObtenerDataTable(query, null);
+
+                if (dtDatos.Rows.Count == 0)
+                {
+                    dtResultado.Rows.Add("No se encontraron turnos registrados");
+                    return dtResultado;
+                }
+
+                string nombreMes = dtDatos.Rows[0]["NombreMes"].ToString();
+                int cantidad = Convert.ToInt32(dtDatos.Rows[0]["CantidadTurnos"]);
+                int total = Convert.ToInt32(dtDatos.Rows[0]["TotalTurnos"]);
+
+                string mensaje = $"The month with the most shifts was  {nombreMes} with  {cantidad} shifts";
+
+                if (total > 0)
+                {
+                    double porcentaje = Math.Round(cantidad * 100.0 / total, 2);
+                    mensaje += $" ({porcentaje}% of total)";
+                }
+
+                dtResultado.Rows.Add(mensaje);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                dtResultado.Rows.Add("Error al calcular estadísticas mensuales");
+            }
+
+            return dtResultado;
+        }
     }
 
 }

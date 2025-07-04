@@ -15,6 +15,7 @@ namespace Vistas.Admin.informes
         {
             if (!IsPostBack)
             {
+                CargarEstadisticasTexto();  // Nueva función añadida
                 CargarInformes();
                 CargarInformeEspecialidades();
             }
@@ -76,7 +77,7 @@ namespace Vistas.Admin.informes
             // Verifica que es una fila de datos
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                
+
                 Label lblRank = (Label)e.Row.FindControl("lblRANK");
 
                 if (lblRank != null)
@@ -86,7 +87,26 @@ namespace Vistas.Admin.informes
                 }
             }
         }
+        // NUEVO MÉTODO PARA CARGAR LAS ESTADÍSTICAS DE TEXTO
+        private void CargarEstadisticasTexto()
+        {
+            Validar validar = new Validar();
+            DataTable dtEstadisticas = validar.ObtenerEstadisticasMensualesGrid();
 
+            if (dtEstadisticas != null && dtEstadisticas.Rows.Count > 0)
+            {
+                gvEstadisticasTexto.DataSource = dtEstadisticas;
+                gvEstadisticasTexto.DataBind();
+            }
+            else
+            {
+                DataTable dtEmpty = new DataTable();
+                dtEmpty.Columns.Add("Estadistica", typeof(string));
+                dtEmpty.Rows.Add("No statistics data available");
+                gvEstadisticasTexto.DataSource = dtEmpty;
+                gvEstadisticasTexto.DataBind();
+            }
+        }
         // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
