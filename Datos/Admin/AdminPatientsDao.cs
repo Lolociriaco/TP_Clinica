@@ -52,5 +52,16 @@ namespace Datos.Admin
             DB dB = new DB();
             return dB.ObtenerListDT(query, parametros);
         }
+
+        // CONSULTA PARA OBTENER SEXO DEL PACIENTE
+        public DataTable ObtenerSexoPaciente()
+        {
+            string query = "SELECT DISTINCT GENDER_PAT FROM PATIENTS WHERE GENDER_PAT IS NOT NULL";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Sexos");
+            return ds.Tables["Sexos"];
+        }
     }
 }

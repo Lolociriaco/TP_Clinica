@@ -1,4 +1,5 @@
 ﻿using Negocio;
+using Negocio.Admin;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Datos.Admin;
 
 namespace Vistas.Admin.informes
 {
@@ -32,8 +34,8 @@ namespace Vistas.Admin.informes
         // CARGA DE INFORMES EN GRID
         private void CargarInformes()
         {
-            Validar validar = new Validar();
-            gvReporteMedicosMayoriaTurnos.DataSource = validar.MedicosConMasTurnosConPorcentaje();
+            AdminReportsManager reports = new AdminReportsManager();
+            gvReporteMedicosMayoriaTurnos.DataSource = reports.MedicosConMasTurnosConPorcentaje();
             gvReporteMedicosMayoriaTurnos.DataBind();
 
             // Estilos opcionales
@@ -43,8 +45,8 @@ namespace Vistas.Admin.informes
 
         private void CargarInformeEspecialidades()
         {
-            Validar validar = new Validar();
-            DataTable datosBrutos = validar.EspecialidadConMasTurnosConPorcentaje();
+            AdminReportsManager reports = new AdminReportsManager(); 
+            DataTable datosBrutos = reports.EspecialidadConMasTurnosConPorcentaje();
 
             if (datosBrutos != null && datosBrutos.Rows.Count > 0)
             {
@@ -90,22 +92,11 @@ namespace Vistas.Admin.informes
         // NUEVO MÉTODO PARA CARGAR LAS ESTADÍSTICAS DE TEXTO
         private void CargarEstadisticasTexto()
         {
-            Validar validar = new Validar();
-            DataTable dtEstadisticas = validar.ObtenerEstadisticasMensualesGrid();
+            AdminReportsManager negocio = new AdminReportsManager();
+            DataTable dt = negocio.ObtenerTextoEstadisticas();
 
-            if (dtEstadisticas != null && dtEstadisticas.Rows.Count > 0)
-            {
-                gvEstadisticasTexto.DataSource = dtEstadisticas;
-                gvEstadisticasTexto.DataBind();
-            }
-            else
-            {
-                DataTable dtEmpty = new DataTable();
-                dtEmpty.Columns.Add("Estadistica", typeof(string));
-                dtEmpty.Rows.Add("No statistics data available");
-                gvEstadisticasTexto.DataSource = dtEmpty;
-                gvEstadisticasTexto.DataBind();
-            }
+            gvEstadisticasTexto.DataSource = dt;
+            gvEstadisticasTexto.DataBind();
         }
         // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)

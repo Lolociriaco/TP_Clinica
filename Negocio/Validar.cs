@@ -193,7 +193,7 @@ namespace Negocio
         }*/
 
 
-        public int ObtenerTotalTurnos()
+       /* public int ObtenerTotalTurnos()
         {
             string query = "SELECT COUNT(*) FROM APPOINTMENT";
             DB datos = new DB();
@@ -239,7 +239,7 @@ namespace Negocio
             }
 
             return dtEspecialidades;
-        }
+        }*/
 
         // CONSULTA PARA OBTENER SEXO DEL PACIENTE
         public DataTable ObtenerSexoPaciente()
@@ -519,7 +519,7 @@ namespace Negocio
         }
 
 
-        public DataTable MedicosConMasTurnos()
+       /* public DataTable MedicosConMasTurnos()
         {
             string query = @"
             SELECT TOP 10 
@@ -555,7 +555,7 @@ namespace Negocio
             return ds.Tables["DOCTOR"];
 
 
-        }
+        }*/
 
         public DataTable ObtenerLocalidadesFiltradas(int idProvincia)
         {
@@ -569,7 +569,7 @@ namespace Negocio
             return accesoDatos.ObtenerDataTable(consulta, parametros);
         }
 
-        public DataTable EspecialidadConMasTurnos()
+        /*public DataTable EspecialidadConMasTurnos()
         {
             string query = @"
             SELECT TOP 5 
@@ -583,7 +583,7 @@ namespace Negocio
 
             DB datos = new DB();
             return datos.ObtenerDataTable(query, null);
-        }
+        }*/
 
         public DataTable ObtenerMedicosFiltrados(int idSpe)
         {
@@ -596,7 +596,7 @@ namespace Negocio
             DB accesoDatos = new DB();
             return accesoDatos.ObtenerDataTable(consulta, parametros);
         }
-        public DataTable ObtenerEstadisticasMensualesGrid()
+        /*public DataTable ObtenerEstadisticasMensualesGrid()
         {
             DataTable dtResultado = new DataTable();
             dtResultado.Columns.Add("Estadistica", typeof(string));
@@ -642,7 +642,7 @@ namespace Negocio
             }
 
             return dtResultado;
-        }
+        }*/
     }
 
 }
