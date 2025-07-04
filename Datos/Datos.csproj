@@ -42,9 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminAppoDao.cs" />
-    <Compile Include="Admin\AdminMedicosDao.cs" />
+    <Compile Include="Admin\AdminDoctorDao.cs" />
     <Compile Include="Admin\AdminPatientsDao.cs" />
     <Compile Include="Admin\AdminReportsDao.cs" />
+    <Compile Include="Conexion.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="Doctor\DoctorAppoDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

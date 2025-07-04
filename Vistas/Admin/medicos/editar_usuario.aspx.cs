@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
+using Negocio.Shared;
 
 namespace Vistas.Admin.medicos
 {
@@ -80,8 +81,8 @@ namespace Vistas.Admin.medicos
         // VALIDAR QUE EL USER EXISTA
         private bool validarUsuarioInexistente()
         {
-            Validar validar = new Validar();
-            bool userValido = validar.ValidarCambioUsuario(txtUsuario.Text);
+            AuthManager auth = new AuthManager();
+            bool userValido = auth.ValidarUsuarioExistente(txtUsuario.Text);
 
             if (!userValido)
             {

@@ -12,28 +12,21 @@ namespace Datos
 {
     public class DB
     {
-
-        //private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
-        //private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
-        //private string cadenaConexion = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
-        private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
-
-
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
         {
-            SqlConnection conexion = new SqlConnection(cadenaConexion);
+            SqlConnection conexion = new SqlConnection(Conexion.Cadena);
             SqlDataAdapter adaptador = new SqlDataAdapter(consultaSQL, conexion);
             return adaptador;
         }
 
         public SqlConnection obtenerConexion()
         {
-            return new SqlConnection(cadenaConexion);
+            return new SqlConnection(Conexion.Cadena);
         }
 
         public bool updateUser(string query, SqlParameter[] parametros)
         {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             {
                 using (SqlCommand comando = new SqlCommand(query, conn))
                 {
@@ -60,7 +53,7 @@ namespace Datos
                 new SqlParameter("@ID", id)
             };
 
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             {
                 using (SqlCommand comando = new SqlCommand(query, conn))
                 {
@@ -83,7 +76,7 @@ namespace Datos
 
         public void EjecutarInsert(string query, SqlParameter[] parametros)
         {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             {
                 using (SqlCommand comando = new SqlCommand(query, conn))
                 {
@@ -96,7 +89,7 @@ namespace Datos
 
         public bool validarUser(string query, SqlParameter[] parametro)
         {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
 
@@ -110,31 +103,9 @@ namespace Datos
             }
         }
 
-        public string ObtenerTipoUsuario(string query, SqlParameter[] parametros)
-        {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddRange(parametros);
-                conn.Open();
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        return reader["ROLE_USER"].ToString();
-                    }
-                    else
-                    {
-                        return null; // No existe o no coincide
-                    }
-                }
-            }
-        }
-
         public DoctorSchedule ExecWorkingHours(string query, SqlParameter[] parametros)
         {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
                 cmd.Parameters.AddRange(parametros);
@@ -159,7 +130,7 @@ namespace Datos
 
         public object EjecutarEscalar(string query, SqlParameter[] parametros)
         {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             {
                 using (SqlCommand comando = new SqlCommand(query, conn))
                 {
@@ -172,7 +143,7 @@ namespace Datos
 
         public DataTable ObtenerDataTable(string consulta, SqlParameter[] parametros)
         {
-            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(Conexion.Cadena))
             {
                 SqlCommand cmd = new SqlCommand(consulta, connection);
                 if (parametros != null)
@@ -187,9 +158,9 @@ namespace Datos
             }
         }
 
-        public DataTable ObtenerTurnos(string consulta, List<SqlParameter> parametros)
+        public DataTable ObtenerListDT(string consulta, List<SqlParameter> parametros)
         {
-            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(Conexion.Cadena))
             {
                 SqlCommand cmd = new SqlCommand(consulta, connection);
                 if (parametros != null)
@@ -203,6 +174,5 @@ namespace Datos
                 return dt;
             }
         }
-
     }
 }

@@ -49,8 +49,8 @@ namespace Vistas.Medicos
 
             string state = ddlState.SelectedValue;
 
-            Validar validar = new Validar();
-            gvTurnos.DataSource = validar.ObtenerTurnos(DNI_PAT, DAY_APPO, todayOrTomorrow, state);
+            DoctorAppoManager doctorManager = new DoctorAppoManager();
+            gvTurnos.DataSource = doctorManager.ObtenerTurnos(DNI_PAT, DAY_APPO, todayOrTomorrow, state);
             gvTurnos.DataBind();
         }
 

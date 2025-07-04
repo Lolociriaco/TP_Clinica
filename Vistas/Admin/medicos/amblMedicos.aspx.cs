@@ -59,6 +59,7 @@ namespace Vistas
             }
         }
 
+        // CARGAR DIAS EN EL FILTRO
         private void cargarWeekDays()
         {
             var estados = Enum.GetNames(typeof(WeekDays))
@@ -72,6 +73,7 @@ namespace Vistas
             ddlWeekDay.Items.Insert(0, new ListItem("Any day", ""));
         }
 
+        // CARGAR PROVINCIAS EN EL FILTRO
         private void cargarStates(DropDownList ddl, string message)
         {
             Validar validar = new Validar();    
@@ -144,7 +146,7 @@ namespace Vistas
             {
                  cargarSpecialitiesGeneral(ddlEspecialidad, "< SELECT >");
 
-                object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
+                 object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
                  if (espObj != null)
                  {
                      string especialidadctual = espObj.ToString();
@@ -161,6 +163,7 @@ namespace Vistas
             }
         }
 
+        // CARGAR ESPECIALIDADES EN EL FILTRO
         private void cargarSpecialitiesGeneral(DropDownList ddl, string message)
         {
             Validar validar = new Validar();
@@ -318,18 +321,18 @@ namespace Vistas
 
             string nuevoSexo = ((DropDownList)row.FindControl("ddlSEXO_MED")).SelectedValue;
 
-            DropDownList ddlEsp = (DropDownList)row.FindControl("ddlID_ESP");
-            DropDownList ddlLoc = (DropDownList)row.FindControl("ddlID_LOC_MED");
+            DropDownList ddlEsp  = (DropDownList)row.FindControl("ddlID_ESP");
+            DropDownList ddlLoc  = (DropDownList)row.FindControl("ddlID_LOC_MED");
             DropDownList ddlProv = (DropDownList)row.FindControl("ddlID_PROV_MED");
             DropDownList ddlDias = (DropDownList)row.FindControl("ddlDIAS");
 
             int nuevaEspecialidad = Convert.ToInt32(ddlEsp.SelectedValue);
-            int nuevaLocalidad = Convert.ToInt32(ddlLoc.SelectedValue);
-            int nuevaProvincia = Convert.ToInt32(ddlProv.SelectedValue);
-            string nuevosDias = (ddlDias.SelectedValue);
+            int nuevaLocalidad    = Convert.ToInt32(ddlLoc.SelectedValue);
+            int nuevaProvincia    = Convert.ToInt32(ddlProv.SelectedValue);
+            string nuevosDias     = (ddlDias.SelectedValue);
             
-            if (ddlEsp == null || ddlEsp.SelectedValue == "0" || string.IsNullOrEmpty(ddlEsp.SelectedValue) ||
-                ddlLoc == null || ddlLoc.SelectedValue == "0" || string.IsNullOrEmpty(ddlLoc.SelectedValue) ||
+            if (ddlEsp  == null || ddlEsp.SelectedValue ==  "0" || string.IsNullOrEmpty(ddlEsp.SelectedValue)  ||
+                ddlLoc  == null || ddlLoc.SelectedValue ==  "0" || string.IsNullOrEmpty(ddlLoc.SelectedValue)  ||
                 ddlProv == null || ddlProv.SelectedValue == "0" || string.IsNullOrEmpty(ddlProv.SelectedValue) ||
                 ddlDias == null || ddlDias.SelectedValue == "0" || string.IsNullOrEmpty(ddlDias.SelectedValue))
             {
@@ -339,9 +342,25 @@ namespace Vistas
             }
 
             AdminDoctorManager medico = new AdminDoctorManager();
-            medico.updateDoctor(idUsuario, nuevoNombre, nuevoApellido, nuevoDni,
-                                nuevaDireccion, nuevoCorreo, nuevoTelefono, nuevaNacionalidad, nuevosDias, nuevoHorarioInicio, nuevoHorarioFin, nuevaEspecialidad, nuevaFechaNac,
-                                nuevoSexo, nuevaLocalidad, nuevaProvincia);
+
+            Medico objMedico = new Medico
+            {
+                IdUsuario = idUsuario,
+                Nombre = nuevoNombre,
+                Apellido = nuevoApellido,
+                DNI = int.Parse(nuevoDni),
+                Localidad = nuevaLocalidad.ToString(),
+                Provincia = nuevaProvincia.ToString(),
+                Nacionalidad = nuevaNacionalidad,
+                CorreoElectronico = nuevoCorreo,
+                Direccion = nuevaDireccion,
+                Telefono = nuevoTelefono,
+                Sexo = nuevoSexo,
+                Especialidad = nuevaEspecialidad.ToString(),
+                FechaNacimiento = nuevaFechaNac,
+            };
+
+            medico.updateDoctor(objMedico, nuevosDias, nuevoHorarioInicio, nuevoHorarioFin);
 
             lblMensaje.Text = "The doctor was modified succesfully.";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
@@ -359,8 +378,8 @@ namespace Vistas
 
             string user = txtUser.Text.Trim();
 
-            Validar validar = new Validar();
-            gvMedicos.DataSource = validar.ObtenerMedicos(state, weekDay, speciality, user);
+            AdminDoctorManager adminDoctor = new AdminDoctorManager();
+            gvMedicos.DataSource = adminDoctor.ObtenerMedicos(state, weekDay, speciality, user);
             gvMedicos.DataBind();
         }
 
@@ -427,22 +446,26 @@ namespace Vistas
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
 
         }
 
         protected void ddlSpeciality_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
         }
 
         protected void ddlWeekDay_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
         }
 
         protected void txtUser_TextChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
         }
 

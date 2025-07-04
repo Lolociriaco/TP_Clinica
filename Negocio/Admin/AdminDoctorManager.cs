@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Datos;
+using Datos.Admin;
 using Entidades;
 
 namespace Negocio
@@ -129,30 +130,28 @@ namespace Negocio
 
 
         // ACTUALIZACION DEL MEDICO
-        public bool updateDoctor(int idUsuario, string nombre, string apellido, string dni,
-                                 string direccion, string correo, string telefono, string nacionalidad, string diaSeleccionado, string horarioInicio, string horarioFin, int idEsp, DateTime fechaNac,
-                                 string sexo, int idLoc, int idProv)
+        public bool updateDoctor(Medico medico, string diaSeleccionado, string horaInicio, string horaFin)
         {
             DB db = new DB();
 
             SqlParameter[] parametros = new SqlParameter[]
             {
-                new SqlParameter("@nombre", nombre),
-                new SqlParameter("@apellido", apellido),
-                new SqlParameter("@dni", dni),
-                new SqlParameter("@direccion", direccion),
-                new SqlParameter("@correo", correo),
-                new SqlParameter("@telefono", telefono),
-                new SqlParameter("@nacionalidad", nacionalidad),
+                new SqlParameter("@nombre", medico.Nombre),
+                new SqlParameter("@apellido", medico.Apellido),
+                new SqlParameter("@dni", medico.DNI),
+                new SqlParameter("@direccion", medico.Direccion),
+                new SqlParameter("@correo", medico.CorreoElectronico),
+                new SqlParameter("@telefono", medico.Telefono),
+                new SqlParameter("@nacionalidad", medico.Nacionalidad),
                 new SqlParameter("@diaSeleccionado", diaSeleccionado),
-                new SqlParameter("@horarioInicio", horarioInicio),
-                new SqlParameter("@horarioFin", horarioFin),
-                new SqlParameter("@idEsp", idEsp),
-                new SqlParameter("@fechaNac", fechaNac),
-                new SqlParameter("@sexo", sexo),
-                new SqlParameter("@idLoc", idLoc),
-                new SqlParameter("@idProv", idProv),
-                new SqlParameter("@id", idUsuario)
+                new SqlParameter("@horarioInicio", horaInicio),
+                new SqlParameter("@horarioFin", horaFin),
+                new SqlParameter("@idEsp", medico.Especialidad),
+                new SqlParameter("@fechaNac", medico.FechaNacimiento),
+                new SqlParameter("@sexo", medico.Sexo),
+                new SqlParameter("@idLoc", medico.Localidad),
+                new SqlParameter("@idProv", medico.Provincia),
+                new SqlParameter("@id", medico.IdUsuario)
             };
 
             string query = @"
@@ -192,25 +191,23 @@ namespace Negocio
         }
 
         // ACTUALIZACION DEL PACIENTE
-        public bool updatePatient(string nombre, string apellido, string dni,
-                                string direccion, string correo, string telefono, string nacionalidad, DateTime fechaNac,
-                                string sexo, int idLoc, int idProv)
+        public bool updatePatient(Paciente paciente)
         {
             DB db = new DB();
 
             SqlParameter[] parametros = new SqlParameter[]
             {
-                new SqlParameter("@nombre", nombre),
-                new SqlParameter("@apellido", apellido),
-                new SqlParameter("@dni", dni),
-                new SqlParameter("@direccion", direccion),
-                new SqlParameter("@correo", correo),
-                new SqlParameter("@telefono", telefono),
-                new SqlParameter("@nacionalidad", nacionalidad),
-                new SqlParameter("@fechaNac", fechaNac),
-                new SqlParameter("@sexo", sexo),
-                new SqlParameter("@idLoc", idLoc),
-                new SqlParameter("@idProv", idProv)
+                new SqlParameter("@nombre", paciente.Nombre),
+                new SqlParameter("@apellido", paciente.Apellido),
+                new SqlParameter("@dni", paciente.DNI),
+                new SqlParameter("@direccion", paciente.Direccion),
+                new SqlParameter("@correo", paciente.CorreoElectronico),
+                new SqlParameter("@telefono", paciente.Telefono),
+                new SqlParameter("@nacionalidad", paciente.Nacionalidad),
+                new SqlParameter("@fechaNac", paciente.FechaNacimiento),
+                new SqlParameter("@sexo", paciente.Sexo),
+                new SqlParameter("@idLoc", paciente.Localidad),
+                new SqlParameter("@idProv", paciente.Provincia)
             };
             string query = @"
                 UPDATE PATIENTS SET
@@ -230,5 +227,17 @@ namespace Negocio
             return db.updateUser(query, parametros);
         }
 
+
+
+
+
+        //-------------------------------------------------------------------------------------------------- 
+
+
+        public DataTable ObtenerMedicos(string state, string weekDay, string speciality, string user)
+        {
+            AdminDoctorDao doctorDao = new AdminDoctorDao();
+            return doctorDao.ObtenerMedicosFiltrados(state, weekDay, speciality, user);
+        }
     }
 }

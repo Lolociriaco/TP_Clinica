@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
+using Negocio.Shared;
 
 namespace Vistas
 {
@@ -23,9 +24,9 @@ namespace Vistas
             txtUser.Text = "";
             txtPassword.Text = "";
 
-            Validar validar = new Validar();
+            AuthManager auth = new AuthManager();
 
-            string role = validar.ValidarUsuario(username, password);
+            string role = auth.ValidarUsuario(username, password);
 
             Session["username"] = username;
             Session["role"] = role;

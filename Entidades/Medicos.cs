@@ -52,6 +52,12 @@ namespace Entidades
         }
 
         // GETTERS Y SETTERS
+
+        public int IdUsuario
+        {
+            get { return _id_usuario; }
+            set { _id_usuario = value; }
+        }
         public int Legajo
         {
             get { return _id_usuario; }

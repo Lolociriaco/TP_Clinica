@@ -17,31 +17,8 @@ namespace Negocio
 {
     public class Validar
     {
-
-        // VALIDAR SI EL USUARIO EXISTE
-        public string ValidarUsuario(string user, string password)
-        {
-
-            // Collate As lo hace case sensitive - Accent Sensitive
-
-
-            string query = "SELECT ROLE_USER FROM USERS WHERE USERNAME COLLATE Latin1_General_CS_AS = @user " +
-                "AND PASSWORD_USER COLLATE Latin1_General_CS_AS = @password";
-
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@user", user),
-                new SqlParameter("@password", password)
-            };
-
-            DB db = new DB();
-            string tipoUsuario = db.ObtenerTipoUsuario(query, parametros);
-
-            return tipoUsuario;
-        }
-
         // VALIDAR EL CAMBIO DE USUARIO
-        public bool ValidarCambioUsuario(string user)
+        /*public bool ValidarCambioUsuario(string user)
         {
             string query = "SELECT * FROM USERS WHERE USERNAME = @user";
 
@@ -115,16 +92,16 @@ namespace Negocio
 
             if (!string.IsNullOrEmpty(user))
             {
-                query += " AND U.USERNAME = @user";
-                parametros.Add(new SqlParameter("@user", user));
+                query += " AND U.USERNAME LIKE @user";
+                parametros.Add(new SqlParameter("@user", "%" + user + "%"));
             }
 
             DB datos = new DB();
-            return datos.ObtenerTurnos(query, parametros);
+            return datos.ObtenerListDT(query, parametros);
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE PACIENTES
-        public DataTable ObtenerPacientes()
+        public DataTable ObtenerPacientes(string state, string name, string dni, string sexo)
         {
             string query = @"
                 SELECT 
@@ -138,11 +115,33 @@ namespace Negocio
                 WHERE P.ACTIVE_PAT = 1";
 
 
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(state))
+            {
+                query += " AND P.ID_STATE_PAT = @state";
+                parametros.Add(new SqlParameter("@state", state));
+            }
+
+            if (!string.IsNullOrEmpty(sexo))
+            {
+                query += " AND P.GENDER_PAT = @sexo";
+                parametros.Add(new SqlParameter("@sexo", sexo));
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query += " AND P.NAME_PAT LIKE @name";
+                parametros.Add(new SqlParameter("@name", "%" + name + "%"));
+            }
+            
+            if (!string.IsNullOrEmpty(dni))
+            {
+                query += " AND P.DNI_PAT LIKE @dni";
+                parametros.Add(new SqlParameter("@dni", dni + "%"));
+            }
+
             DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Pacientes");
-            return ds.Tables["Pacientes"];
+            return datos.(query, parametros);
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE TURNOS
@@ -157,8 +156,8 @@ namespace Negocio
             List<SqlParameter> parametros = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(DNI_PAT))
             {
-                query += " AND A.DNI_PAT_APPO = @dni";
-                parametros.Add(new SqlParameter("@dni", DNI_PAT));
+                query += " AND A.DNI_PAT_APPO LIKE @dni";
+                parametros.Add(new SqlParameter("@dni", DNI_PAT + "%"));
             }
 
             if (!string.IsNullOrEmpty(DAY_APPO))
@@ -190,8 +189,8 @@ namespace Negocio
             }
 
             DB datos = new DB();
-            return datos.ObtenerTurnos(query, parametros);
-        }
+            return datos.ObtenerListDT(query, parametros);
+        }*/
 
 
         public int ObtenerTotalTurnos()
