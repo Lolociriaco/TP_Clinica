@@ -16,6 +16,8 @@ namespace Vistas
             if (!IsPostBack)
             {
                 CargarPacientes();
+                cargarStates(ddlState, "Any state");
+                cargarSexoGeneral(ddlSexo, "Any gender");
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
@@ -36,6 +38,32 @@ namespace Vistas
             }
         }
 
+        // CARGAR ESPECIALIDADES EN EL FILTRO
+        private void cargarSexoGeneral(DropDownList ddl, string message)
+        {
+            Validar validar = new Validar();
+            DataTable dtSexo = validar.ObtenerSexoPaciente();
+            ddl.DataSource = dtSexo;
+            ddl.DataTextField = "GENDER_PAT";
+            ddl.DataValueField = "GENDER_PAT";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem(message, ""));
+        }
+
+        // CARGAR PROVINCIAS EN EL FILTRO
+        private void cargarStates(DropDownList ddl, string message)
+        {
+            Validar validar = new Validar();
+
+            DataTable dtProvincia = validar.ObtenerProvincia();
+            ddl.DataSource = dtProvincia;
+            ddl.DataTextField = "NAME_STATE";
+            ddl.DataValueField = "ID_STATE";
+            ddl.AutoPostBack = true;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem(message, ""));
+        }
+
         // CARGAR DDL DE PROVINCIAS
         private void cargarProvinciasDDL(GridViewRowEventArgs e)
         {
@@ -48,13 +76,8 @@ namespace Vistas
 
                 if (ddlProvincia != null)
                 {
-                    DataTable dtProvincia = validar.ObtenerProvincia();
-                    ddlProvincia.DataSource = dtProvincia;
-                    ddlProvincia.DataTextField = "NAME_STATE";
-                    ddlProvincia.DataValueField = "ID_STATE";
-                    ddlProvincia.AutoPostBack = true;
-                    ddlProvincia.DataBind();
-                    ddlProvincia.Items.Insert(0, new ListItem("< SELECT >", ""));
+
+                    cargarStates(ddlProvincia, "< SELECT >");
 
                     int idProvinciaActual;
 
@@ -217,8 +240,13 @@ namespace Vistas
         // CARGA DE PACIENTES EN GRID
         private void CargarPacientes()
         {
+            string state = ddlState.SelectedValue;
+            string sexo = ddlSexo.SelectedValue;
+            string name = txtName.Text.Trim();
+            string dni = txtDNI.Text.Trim();
+
             Validar validar = new Validar();
-            gvPacientes.DataSource = validar.ObtenerPacientes();
+            gvPacientes.DataSource = validar.ObtenerPacientes(state, name, dni, sexo);
             gvPacientes.DataBind();
         }
 
@@ -251,6 +279,39 @@ namespace Vistas
             Session.Clear();
             Session.Abandon();
             Response.Redirect("~/Login.aspx");
+        }
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblMensaje.Text = "";
+            CargarPacientes();
+        }
+
+        protected void ddlSexo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblMensaje.Text = "";
+            CargarPacientes();
+        }
+
+        protected void txtDNI_TextChanged(object sender, EventArgs e)
+        {
+            lblMensaje.Text = "";
+            CargarPacientes();
+        }
+
+        protected void txtName_TextChanged(object sender, EventArgs e)
+        {
+            lblMensaje.Text = "";
+            CargarPacientes();
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            txtDNI.Text = "";
+            txtName.Text = "";
+            ddlSexo.SelectedIndex = 0;
+            ddlState.SelectedIndex = 0;
+            CargarPacientes();
         }
 
         // CAMBIO DE PAGINA EN GRID

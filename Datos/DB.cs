@@ -13,10 +13,10 @@ namespace Datos
     public class DB
     {
 
-        //private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
-        //private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
-        //private string cadenaConexion = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
-        private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        // /*LOLODOWN*/ private string cadenaConexion = @"Data Source=CIRIACO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        /*GUIDO*/ private string cadenaConexion = @"Data Source=DESKTOP-GUU4RQA\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        // /*POLLO*/ private string cadenaConexion = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
+        // /*LOLODOWN2*/ private string cadenaConexion = @"Data Source=LOLO\SQLEXPRESS;Initial Catalog=BDCLINICA_TPINTEGRADOR;Integrated Security=True;TrustServerCertificate=True";
 
 
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
@@ -187,7 +187,7 @@ namespace Datos
             }
         }
 
-        public DataTable ObtenerTurnos(string consulta, List<SqlParameter> parametros)
+        public DataTable ObtenerListDT(string consulta, List<SqlParameter> parametros)
         {
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {

@@ -59,6 +59,7 @@ namespace Vistas
             }
         }
 
+        // CARGAR DIAS EN EL FILTRO
         private void cargarWeekDays()
         {
             var estados = Enum.GetNames(typeof(WeekDays))
@@ -72,6 +73,7 @@ namespace Vistas
             ddlWeekDay.Items.Insert(0, new ListItem("Any day", ""));
         }
 
+        // CARGAR PROVINCIAS EN EL FILTRO
         private void cargarStates(DropDownList ddl, string message)
         {
             Validar validar = new Validar();    
@@ -144,7 +146,7 @@ namespace Vistas
             {
                  cargarSpecialitiesGeneral(ddlEspecialidad, "< SELECT >");
 
-                object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
+                 object espObj = DataBinder.Eval(e.Row.DataItem, "ID_SPE_DOC");
                  if (espObj != null)
                  {
                      string especialidadctual = espObj.ToString();
@@ -161,6 +163,7 @@ namespace Vistas
             }
         }
 
+        // CARGAR ESPECIALIDADES EN EL FILTRO
         private void cargarSpecialitiesGeneral(DropDownList ddl, string message)
         {
             Validar validar = new Validar();
@@ -427,22 +430,26 @@ namespace Vistas
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
 
         }
 
         protected void ddlSpeciality_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
         }
 
         protected void ddlWeekDay_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
         }
 
         protected void txtUser_TextChanged(object sender, EventArgs e)
         {
+            lblMensaje.Text = "";
             CargarMedicos();
         }
 

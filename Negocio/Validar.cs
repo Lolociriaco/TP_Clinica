@@ -22,9 +22,6 @@ namespace Negocio
         public string ValidarUsuario(string user, string password)
         {
 
-            // Verificar que la contraseña tenga al menos 6 caracteres
-            //if (password.Length < 6) return null;
-
 
             string query = "SELECT ROLE_USER FROM USERS WHERE USERNAME = @user AND PASSWORD_USER = @password";
 
@@ -115,16 +112,16 @@ namespace Negocio
 
             if (!string.IsNullOrEmpty(user))
             {
-                query += " AND U.USERNAME = @user";
-                parametros.Add(new SqlParameter("@user", user));
+                query += " AND U.USERNAME LIKE @user";
+                parametros.Add(new SqlParameter("@user", "%" + user + "%"));
             }
 
             DB datos = new DB();
-            return datos.ObtenerTurnos(query, parametros);
+            return datos.ObtenerListDT(query, parametros);
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE PACIENTES
-        public DataTable ObtenerPacientes()
+        public DataTable ObtenerPacientes(string state, string name, string dni, string sexo)
         {
             string query = @"
                 SELECT 
@@ -138,11 +135,33 @@ namespace Negocio
                 WHERE P.ACTIVE_PAT = 1";
 
 
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(state))
+            {
+                query += " AND P.ID_STATE_PAT = @state";
+                parametros.Add(new SqlParameter("@state", state));
+            }
+
+            if (!string.IsNullOrEmpty(sexo))
+            {
+                query += " AND P.GENDER_PAT = @sexo";
+                parametros.Add(new SqlParameter("@sexo", sexo));
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query += " AND P.NAME_PAT LIKE @name";
+                parametros.Add(new SqlParameter("@name", "%" + name + "%"));
+            }
+            
+            if (!string.IsNullOrEmpty(dni))
+            {
+                query += " AND P.DNI_PAT LIKE @dni";
+                parametros.Add(new SqlParameter("@dni", dni + "%"));
+            }
+
             DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Pacientes");
-            return ds.Tables["Pacientes"];
+            return datos.ObtenerListDT(query, parametros);
         }
 
         // CONSULTA PARA OBTENER CAMPOS DE TURNOS
@@ -190,7 +209,7 @@ namespace Negocio
             }
 
             DB datos = new DB();
-            return datos.ObtenerTurnos(query, parametros);
+            return datos.ObtenerListDT(query, parametros);
         }
 
 

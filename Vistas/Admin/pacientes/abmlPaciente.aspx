@@ -97,6 +97,23 @@
 
                 <h3>About the patient</h3>
 
+                <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 15px; align-items: baseline;">
+
+                    <label>Filter by:</label>
+
+                    <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlSexo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSexo_SelectedIndexChanged"></asp:DropDownList>
+                   
+                    <label>DNI:</label>
+                    <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtDNI_TextChanged"/>
+                
+                    <label>Name:</label>
+                    <asp:TextBox ID="txtName" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtName_TextChanged"/>
+
+                    <asp:Button ID="btnClear" runat="server" Text="Clear filters" OnClick="btnClear_Click" CssClass="confirm-button"/>
+
+                </div>
+
                 <div style="margin-top: 40px;">
 
                     <asp:GridView ID="gvPacientes" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift" 
@@ -128,7 +145,7 @@
 
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Unsubscribe" CssClass="btn btn-danger" />
+                                    <asp:Button ID="btnBajaLogica" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CommandName="DarDeBaja" Text="Delete" CssClass="btn btn-danger" />
                                 </ItemTemplate>
                             </asp:TemplateField>
 
