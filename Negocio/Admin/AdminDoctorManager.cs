@@ -234,10 +234,22 @@ namespace Negocio
         //-------------------------------------------------------------------------------------------------- 
 
 
-        public DataTable ObtenerMedicos(string state, string weekDay, string speciality, string user)
+        public DataTable ObtenerMedicos()
+        {
+            AdminDoctorDao doctorDao = new AdminDoctorDao();
+            return doctorDao.ObtenerMedicos();
+        }
+
+        public DataTable ObtenerMedicosFiltrados(string state, string weekDay, string speciality, string user)
         {
             AdminDoctorDao doctorDao = new AdminDoctorDao();
             return doctorDao.ObtenerMedicosFiltrados(state, weekDay, speciality, user);
+        }
+
+        public DataTable ObtenerSexoMedico()
+        {
+            AdminDoctorDao admin = new AdminDoctorDao();
+            return admin.ObtenerSexoMedico();
         }
     }
 }

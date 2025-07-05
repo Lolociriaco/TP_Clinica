@@ -43,8 +43,8 @@ namespace Vistas
         // CARGAR ESPECIALIDADES EN EL FILTRO
         private void cargarSexoGeneral(DropDownList ddl, string message)
         {
-            Validar validar = new Validar();
-            DataTable dtSexo = validar.ObtenerSexoPaciente();
+            AdminPatientsManager admin = new AdminPatientsManager();
+            DataTable dtSexo = admin.ObtenerSexoPaciente();
             ddl.DataSource = dtSexo;
             ddl.DataTextField = "GENDER_PAT";
             ddl.DataValueField = "GENDER_PAT";
@@ -262,7 +262,7 @@ namespace Vistas
             string dni = txtDNI.Text.Trim();
 
             AdminPatientsManager adminPatients = new AdminPatientsManager();
-            gvPacientes.DataSource = adminPatients.ObtenerPacientes(state, name, dni, sexo);
+            gvPacientes.DataSource = adminPatients.ObtenerPacientesFiltrados(state, name, dni, sexo);
             gvPacientes.DataBind();
         }
 

@@ -12,10 +12,22 @@ namespace Negocio.Admin
 {
     public class AdminPatientsManager
     {
-        public DataTable ObtenerPacientes(string state, string name, string dni, string sexo)
+        public DataTable ObtenerPacientes()
         {
             AdminPatientsDao daoPatients = new AdminPatientsDao();
-            return daoPatients.ObtenerPacientes(state, name, dni, sexo);
+            return daoPatients.ObtenerPacientes();
+        }
+
+        public DataTable ObtenerPacientesFiltrados(string state, string name, string dni, string sexo)
+        {
+            AdminPatientsDao patientDao = new AdminPatientsDao();
+            return patientDao.ObtenerPacientesFiltrados(state, name, dni, sexo);
+        }
+
+        public DataTable ObtenerSexoPaciente()
+        {
+            AdminPatientsDao admin = new AdminPatientsDao();
+            return admin.ObtenerSexoPaciente();
         }
     }
 }

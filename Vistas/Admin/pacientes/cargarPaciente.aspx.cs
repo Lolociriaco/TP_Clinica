@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using Negocio;
+using Negocio.Admin;
 
 namespace Vistas.Admin.pacientes
 {
@@ -43,8 +44,8 @@ namespace Vistas.Admin.pacientes
         // CARGA DE DDL SEXO
         private void CargarSexo()
         {
-            Validar validar = new Validar(); 
-            DataTable dtSexos = validar.ObtenerSexoPaciente();
+            AdminPatientsManager admin = new AdminPatientsManager(); 
+            DataTable dtSexos = admin.ObtenerSexoPaciente();
 
             ddlSexo.DataSource = dtSexos;
             ddlSexo.DataTextField = "GENDER_PAT";

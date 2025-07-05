@@ -31,11 +31,11 @@ namespace Vistas
         {
             if (!IsPostBack)
             {
-                CargarMedicos();
                 username.Text = Session["username"].ToString();
                 cargarWeekDays();
                 cargarStates(ddlState, "Any state");
                 cargarSpecialitiesGeneral(ddlSpeciality, "Any speciality");
+                CargarMedicos();
             }
 
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
@@ -379,7 +379,7 @@ namespace Vistas
             string user = txtUser.Text.Trim();
 
             AdminDoctorManager adminDoctor = new AdminDoctorManager();
-            gvMedicos.DataSource = adminDoctor.ObtenerMedicos(state, weekDay, speciality, user);
+            gvMedicos.DataSource = adminDoctor.ObtenerMedicosFiltrados(state, weekDay, speciality, user);
             gvMedicos.DataBind();
         }
 

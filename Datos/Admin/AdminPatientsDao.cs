@@ -10,7 +10,7 @@ namespace Datos.Admin
 {
     public class AdminPatientsDao
     {
-        public DataTable ObtenerPacientes(string state, string name, string dni, string sexo)
+        public DataTable ObtenerPacientesFiltrados(string state, string name, string dni, string sexo)
         {
             string query = @"
                 SELECT 
@@ -51,6 +51,31 @@ namespace Datos.Admin
 
             DB dB = new DB();
             return dB.ObtenerListDT(query, parametros);
+        }
+
+        public DataTable ObtenerPacientes()
+        {
+            string query = @"
+                SELECT 
+                    P.DNI_PAT, P.NAME_PAT, P.SURNAME_PAT, 
+                    P.GENDER_PAT, P.NATIONALITY_PAT, P.ADDRESS_PAT, P.DATEBIRTH_PAT, 
+                    C.NAME_CITY, P.ID_CITY_PAT, S.NAME_STATE, P.ID_STATE_PAT, 
+                    P.PHONE_PAT, P.EMAIL_PAT
+                FROM PATIENTS P
+                INNER JOIN CITY C ON C.ID_CITY = P.ID_CITY_PAT
+                INNER JOIN STATE S ON S.ID_STATE = P.ID_STATE_PAT
+                WHERE P.ACTIVE_PAT = 1";
+
+            using (SqlConnection connection = new SqlConnection(Conexion.Cadena))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
         }
 
         // CONSULTA PARA OBTENER SEXO DEL PACIENTE

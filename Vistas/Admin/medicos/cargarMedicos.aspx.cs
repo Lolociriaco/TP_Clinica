@@ -284,8 +284,8 @@ namespace Vistas.Admin.medicos
         // CARGAR DDL SEXOS
         private void CargarSexo()
         {
-            Validar validar = new Validar();
-            DataTable dtSexos = validar.ObtenerSexoMedico();
+            AdminDoctorManager admin = new AdminDoctorManager();
+            DataTable dtSexos = admin.ObtenerSexoMedico();
 
             ddlSexo.DataSource = dtSexos;
             ddlSexo.DataTextField = "GENDER_DOC";

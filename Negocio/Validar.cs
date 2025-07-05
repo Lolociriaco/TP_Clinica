@@ -241,7 +241,7 @@ namespace Negocio
             return dtEspecialidades;
         }*/
 
-        // CONSULTA PARA OBTENER SEXO DEL PACIENTE
+       /*// CONSULTA PARA OBTENER SEXO DEL PACIENTE
         public DataTable ObtenerSexoPaciente()
         {
             string query = "SELECT DISTINCT GENDER_PAT FROM PATIENTS WHERE GENDER_PAT IS NOT NULL";
@@ -250,9 +250,9 @@ namespace Negocio
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Sexos");
             return ds.Tables["Sexos"];
-        }
+        }*/
 
-        // CONSULTA PARA OBTENER SEXO DEL MEDICO
+        /*// CONSULTA PARA OBTENER SEXO DEL MEDICO
         public DataTable ObtenerSexoMedico()
         {
             string query = "SELECT DISTINCT GENDER_DOC FROM DOCTOR WHERE GENDER_DOC IS NOT NULL";
@@ -261,7 +261,7 @@ namespace Negocio
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Sexos");
             return ds.Tables["Sexos"];
-        }
+        }*/
 
         // CONSULTA PARA OBTENER ESPECIALIDADES
         public DataTable ObtenerEspecialidades()
