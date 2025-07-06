@@ -27,14 +27,28 @@ namespace Datos.Admin
         public DoctorSchedule ObtenerHorasTrabajadas(int id_user, string day)
         {
             string query = "SELECT TIME_START, TIME_END FROM DOCTOR_SCHEDULES WHERE ID_USER_DOCTOR = @id_user AND WEEKDAY_SCH = @day";
-            SqlParameter[] parametros = {
-                new SqlParameter("@id_user",id_user),
-                new SqlParameter("@day", day)
-            };
 
-            DB db = new DB();
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@id_user", id_user);
+                cmd.Parameters.AddWithValue("@day", day);
+                conn.Open();
 
-            return db.ExecWorkingHours(query, parametros);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new DoctorSchedule
+                        {
+                            _TimeStart = reader.GetTimeSpan(0),
+                            _TimeEnd = reader.GetTimeSpan(1)
+                        };
+                    }
+                }
+            }
+
+            return null;
         }
 
         public List<TimeSpan> ObtenerTurnosAsignados(int id_doctor, DateTime date)
@@ -43,7 +57,7 @@ namespace Datos.Admin
             SqlParameter[] parametros = {
             new SqlParameter("@id_doctor", id_doctor),
             new SqlParameter("@date", date.Date)
-    };
+            };
 
             DB db = new DB();
             DataTable dt = db.ObtenerDataTable(query, parametros); // asumimos que lo devuelve como DataTable
@@ -55,6 +69,22 @@ namespace Datos.Admin
             }
 
             return turnosOcupados;
+        }
+        public void CargarTurno(Turnos turno)
+        {
+            string query = "INSERT INTO APPOINTMENT (ID_USER_DOCTOR, DNI_PAT_APPO, DATE_APPO, TIME_APPO) " +
+                         "VALUES (@id_usuario_med, @dni_paciente, @fecha_turno, @hora_turno)";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@id_usuario_med", turno.IdUsuarioMedico),
+                new SqlParameter("@dni_paciente", turno.DniPacTurno),
+                new SqlParameter("@fecha_turno", turno.FechaTurno),
+                new SqlParameter("@hora_turno", turno.HoraTurno)
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
         }
     }
 }

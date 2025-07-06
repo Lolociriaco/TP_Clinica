@@ -82,6 +82,7 @@
     <Content Include="Imagenes\logo.png" />
     <Content Include="login.aspx" />
     <Content Include="login_style.css" />
+    <Content Include="Medicos\editar_usuario.aspx" />
     <Content Include="Medicos\medicos_style.css" />
     <Content Include="Medicos\turnos.aspx" />
     <Content Include="Web.config" />
@@ -142,6 +143,13 @@
     </Compile>
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Medicos\editar_usuario.aspx.cs">
+      <DependentUpon>editar_usuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Medicos\editar_usuario.aspx.designer.cs">
+      <DependentUpon>editar_usuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Medicos\turnos.aspx.cs">
       <DependentUpon>turnos.aspx</DependentUpon>

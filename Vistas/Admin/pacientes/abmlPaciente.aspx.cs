@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Entidades;
 using Negocio;
 using Negocio.Admin;
+using Negocio.Shared;
 
 namespace Vistas
 {
@@ -55,9 +56,9 @@ namespace Vistas
         // CARGAR PROVINCIAS EN EL FILTRO
         private void cargarStates(DropDownList ddl, string message)
         {
-            Validar validar = new Validar();
+            GetUbicationManager manager = new GetUbicationManager();
 
-            DataTable dtProvincia = validar.ObtenerProvincia();
+            DataTable dtProvincia = manager.ObtenerProvincia();
             ddl.DataSource = dtProvincia;
             ddl.DataTextField = "NAME_STATE";
             ddl.DataValueField = "ID_STATE";
@@ -70,10 +71,10 @@ namespace Vistas
         private void cargarProvinciasDDL(GridViewRowEventArgs e)
         {
 
-                Validar validar = new Validar();
+            GetUbicationManager manager = new GetUbicationManager();
 
-                // PROVINCIA
-                DropDownList ddlProvincia = (DropDownList)e.Row.FindControl("ddlID_PROV_PAC");
+            // PROVINCIA
+            DropDownList ddlProvincia = (DropDownList)e.Row.FindControl("ddlID_PROV_PAC");
                 DropDownList ddlLocalidad = (DropDownList)e.Row.FindControl("ddlID_LOC_PAC");
 
                 if (ddlProvincia != null)
@@ -99,7 +100,7 @@ namespace Vistas
 
                     if (ddlLocalidad != null)
                     {
-                        DataTable dtLocalidades = validar.ObtenerLocalidadesFiltradas(idProvinciaActual);
+                        DataTable dtLocalidades = manager.ObtenerLocalidadesFiltradas(idProvinciaActual);
                         ddlLocalidad.DataSource = dtLocalidades;
                         ddlLocalidad.DataTextField = "NAME_CITY";
                         ddlLocalidad.DataValueField = "ID_CITY";

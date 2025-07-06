@@ -45,11 +45,12 @@
     <Compile Include="Admin\AdminDoctorDao.cs" />
     <Compile Include="Admin\AdminPatientsDao.cs" />
     <Compile Include="Admin\AdminReportsDao.cs" />
-    <Compile Include="Conexion.cs" />
-    <Compile Include="DB.cs" />
+    <Compile Include="Base\Conexion.cs" />
+    <Compile Include="Base\DB.cs" />
     <Compile Include="Doctor\DoctorAppoDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\AuthDao.cs" />
+    <Compile Include="Shared\GetUbicationDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
@@ -57,8 +58,6 @@
       <Name>Entidades</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

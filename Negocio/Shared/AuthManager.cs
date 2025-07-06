@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Datos;
 using Datos.Shared;
@@ -20,11 +21,17 @@ namespace Negocio.Shared
             return role;
         }
 
-        public bool ValidarUsuarioExistente(string user)
+        public bool UserExist(string user)
         {
             AuthDao auth = new AuthDao();
             bool existe = auth.validateUserExist(user);
             return existe;
+        }
+
+        public bool EsDniValido(string dni)
+        {
+            string patron = @"^\d{8}$";
+            return Regex.IsMatch(dni, patron);
         }
     }
 }

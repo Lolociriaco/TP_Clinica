@@ -15,8 +15,8 @@ namespace Negocio.Doctor
     {
         public bool updateAppointment(string state, string observation, int id)
         {
-            DB db = new DB();
-            return db.updateAppointment(state, observation, id);
+            DoctorAppoDao appoDao = new DoctorAppoDao();
+            return appoDao.updateAppointment(state, observation, id);
         }
 
         public DataTable ObtenerTurnos(string DNI_PAT, string DAY_APPO, string todayOrTomorrow, string state)

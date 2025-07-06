@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using Entidades;
 using Negocio;
 using Negocio.Admin;
+using Negocio.Shared;
 
 namespace Vistas.Admin.pacientes
 {
@@ -58,8 +59,8 @@ namespace Vistas.Admin.pacientes
         // CARGA DE DDL PROVINCIA
         private void CargarProvincia()
         {
-            Validar validar = new Validar(); 
-            DataTable dtCity = validar.ObtenerProvincia();
+            GetUbicationManager manager = new GetUbicationManager();
+            DataTable dtCity = manager.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
             ddlCity.DataTextField = "NAME_STATE";
@@ -80,8 +81,8 @@ namespace Vistas.Admin.pacientes
             int idProvincia;
             if (int.TryParse(ddlCity.SelectedValue, out idProvincia))
             {
-                Validar validar = new Validar();
-                DataTable dt = validar.ObtenerLocalidadesFiltradas(idProvincia);
+                GetUbicationManager manager = new GetUbicationManager();
+                DataTable dt = manager.ObtenerLocalidadesFiltradas(idProvincia);
 
                 ddlLocality.DataSource = dt;
                 ddlLocality.DataTextField = "NAME_CITY";
@@ -130,8 +131,8 @@ namespace Vistas.Admin.pacientes
                 Sexo = ddlSexo.SelectedValue,
             };
 
-            Validar validar = new Validar();
-            validar.AgregarPaciente(paciente);
+            AdminPatientsManager manager = new AdminPatientsManager();
+            manager.AgregarPaciente(paciente);
 
             lblMensaje.Text = "¡Patient added succesfully!";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
@@ -154,7 +155,7 @@ namespace Vistas.Admin.pacientes
         private bool validarDNI()
         {
             AdminPatientsManager adminPatients = new AdminPatientsManager();
-            Validar validar = new Validar();   
+            AuthManager validar = new AuthManager();   
 
             string dni = txtDNI.Text.Trim();
 

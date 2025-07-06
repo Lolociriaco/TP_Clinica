@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using Negocio;
 using Negocio.Shared;
 
-namespace Vistas.Admin.medicos
+namespace Vistas.Medicos
 {
 	public partial class editar_usuario : System.Web.UI.Page
 	{

@@ -48,7 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Admin\AdminDoctorManager.cs" />
     <Compile Include="Shared\AuthManager.cs" />
-    <Compile Include="Shared\Validate.cs" />
+    <Compile Include="Shared\GetUbicationManager.cs" />
     <Compile Include="Validar.cs" />
   </ItemGroup>
   <ItemGroup>

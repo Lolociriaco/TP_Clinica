@@ -63,37 +63,37 @@ namespace Datos.Admin
         public DataTable ObtenerMedicosFiltrados(string state, string weekDay, string speciality, string user)
         {
             string queryBase = @"
-        SELECT D.ID_USER, U.USERNAME, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
-            D.NATIONALITY_DOC, D.ADDRESS_DOC, D.DATEBIRTH_DOC,
-            C.NAME_CITY, D.ID_CITY_DOC,
-            D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC,
+                SELECT D.ID_USER, U.USERNAME, D.NAME_DOC, D.SURNAME_DOC, D.DNI_DOC, D.GENDER_DOC,
+                    D.NATIONALITY_DOC, D.ADDRESS_DOC, D.DATEBIRTH_DOC,
+                    C.NAME_CITY, D.ID_CITY_DOC,
+                    D.ID_STATE_DOC, S.NAME_STATE, SP.NAME_SPE, D.ID_SPE_DOC,
 
-            (
-                SELECT STRING_AGG(A.WEEKDAY_SCH, ', ') 
-                FROM DOCTOR_SCHEDULES A 
-                WHERE A.ID_USER_DOCTOR = D.ID_USER
-            ) AS DIAS_TRABAJO,
+                    (
+                        SELECT STRING_AGG(A.WEEKDAY_SCH, ', ') 
+                        FROM DOCTOR_SCHEDULES A 
+                        WHERE A.ID_USER_DOCTOR = D.ID_USER
+                    ) AS DIAS_TRABAJO,
 
-            (
-                SELECT STRING_AGG(CONVERT(VARCHAR(5), A.TIME_START, 108), ', ') 
-                FROM DOCTOR_SCHEDULES A 
-                WHERE A.ID_USER_DOCTOR = D.ID_USER
-            ) AS HORA_ENTRADA,
+                    (
+                        SELECT STRING_AGG(CONVERT(VARCHAR(5), A.TIME_START, 108), ', ') 
+                        FROM DOCTOR_SCHEDULES A 
+                        WHERE A.ID_USER_DOCTOR = D.ID_USER
+                    ) AS HORA_ENTRADA,
 
-            (
-                SELECT STRING_AGG(CONVERT(VARCHAR(5), A.TIME_END, 108), ', ') 
-                FROM DOCTOR_SCHEDULES A 
-                WHERE A.ID_USER_DOCTOR = D.ID_USER
-            ) AS HORA_SALIDA,
+                    (
+                        SELECT STRING_AGG(CONVERT(VARCHAR(5), A.TIME_END, 108), ', ') 
+                        FROM DOCTOR_SCHEDULES A 
+                        WHERE A.ID_USER_DOCTOR = D.ID_USER
+                    ) AS HORA_SALIDA,
 
-            D.PHONE_DOC, D.EMAIL_DOC
+                    D.PHONE_DOC, D.EMAIL_DOC
 
-        FROM DOCTOR D
-        INNER JOIN CITY C ON C.ID_CITY = D.ID_CITY_DOC
-        INNER JOIN STATE S ON S.ID_STATE = D.ID_STATE_DOC
-        INNER JOIN SPECIALITY SP ON SP.ID_SPE = D.ID_SPE_DOC
-        INNER JOIN USERS U ON U.ID_USER = D.ID_USER
-        WHERE D.ACTIVE_DOC = 1";
+                FROM DOCTOR D
+                INNER JOIN CITY C ON C.ID_CITY = D.ID_CITY_DOC
+                INNER JOIN STATE S ON S.ID_STATE = D.ID_STATE_DOC
+                INNER JOIN SPECIALITY SP ON SP.ID_SPE = D.ID_SPE_DOC
+                INNER JOIN USERS U ON U.ID_USER = D.ID_USER
+                WHERE D.ACTIVE_DOC = 1";
 
             List<string> condiciones = new List<string>();
             List<SqlParameter> parametros = new List<SqlParameter>();
@@ -296,7 +296,7 @@ namespace Datos.Admin
             return ds.Tables["Dias"];
         }
 
-        /*public void AgregarMedico(Medico medico)
+        public void AgregarMedico(Medico medico)
         {
             string query = @"
                 INSERT INTO DOCTOR (
@@ -348,7 +348,7 @@ namespace Datos.Admin
 
             DB db = new DB();
             db.EjecutarInsert(query, parametros);
-        }*/
+        }
 
         public bool ExisteDniDoctor(int dni)
         {
@@ -374,6 +374,30 @@ namespace Datos.Admin
             DB db = new DB();
             int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
             return cantidad > 0;
+        }
+
+        // CONSULTA PARA INSERTAR EL NUEVO USUARIO
+        public int AgregarUsuario(Usuario user)
+        {
+            string query = "INSERT INTO USERS (USERNAME, PASSWORD_USER, ROLE_USER) " +
+                           "VALUES (@usuario, @contrasena, @tipoUsuario); SELECT SCOPE_IDENTITY();";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@usuario", user.NombreUsuario),
+                new SqlParameter("@contrasena", user.Contrasena),
+                new SqlParameter("@tipoUsuario", user.TipoUsuario)
+            };
+
+            DB datos = new DB();
+            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddRange(parametros);
+                conn.Open();
+                object result = cmd.ExecuteScalar();
+                return Convert.ToInt32(result); // devuelve el ID generado
+            }
         }
     }
 }

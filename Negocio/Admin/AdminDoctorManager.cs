@@ -291,17 +291,17 @@ namespace Negocio
             return adminDoctorDao.ObtenerDias();
         }
 
-        /*public void AgregarMedico(Medico medico)
+        public void AgregarMedico(Medico medico)
         {
             AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
-            return adminDoctorDao.AgregarMedico(medico);
+            adminDoctorDao.AgregarMedico(medico);
         }
 
         public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
             AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
-            return adminDoctorDao.InsertarHorarioMedico(idUsuario, diaSemana, horaInicio, horaFin);
-        }*/
+            adminDoctorDao.InsertarHorarioMedico(idUsuario, diaSemana, horaInicio, horaFin);
+        }
 
         public bool ExisteDniDoctor(int dni)
         {
@@ -313,6 +313,12 @@ namespace Negocio
         {
             AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
             return adminDoctorDao.ExisteTelefonoDoctor(telefono);
+        }
+
+        public int AgregarUsuario(Usuario user)
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.AgregarUsuario(user);
         }
     }
 }

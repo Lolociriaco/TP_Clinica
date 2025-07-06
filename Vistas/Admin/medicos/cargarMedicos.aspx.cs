@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using Negocio;
+using Negocio.Shared;
 
 namespace Vistas.Admin.medicos
 {
@@ -56,7 +57,7 @@ namespace Vistas.Admin.medicos
                 return;
 
             // SI SE VALIDO TODO, SE AGREGA EL MEDICO
-            Validar validar = new Validar();
+            AdminDoctorManager manager = new AdminDoctorManager();
             Usuario user = new Usuario
             {
                 NombreUsuario = txtUser.Text,
@@ -64,7 +65,7 @@ namespace Vistas.Admin.medicos
                 TipoUsuario = "DOCTOR"
             };
 
-            int idUsuario = validar.AgregarUsuario(user); 
+            int idUsuario = manager.AgregarUsuario(user); 
 
             Medico medico = new Medico
             {
@@ -86,11 +87,11 @@ namespace Vistas.Admin.medicos
             };
 
             medico._id_usuario = idUsuario;                    
-            validar.AgregarMedico(medico);
+            manager.AgregarMedico(medico);
 
             for (int i = 0; i < diasAtencion.Count; i++)
             {
-                validar.InsertarHorarioMedico(idUsuario, diasAtencion[i], horasInicio[i], horasFin[i]);
+                manager.InsertarHorarioMedico(idUsuario, diasAtencion[i], horasInicio[i], horasFin[i]);
             }
 
             // LIMPIAR CONTROLES
@@ -186,7 +187,7 @@ namespace Vistas.Admin.medicos
         private bool validarUserYTelefono()
         {
             AdminDoctorManager adminDoctor = new AdminDoctorManager();
-            Validar validar = new Validar();
+            AuthManager validar = new AuthManager();
 
             if (adminDoctor.ExisteTelefonoDoctor(txtPhone.Text))
             {
@@ -195,7 +196,7 @@ namespace Vistas.Admin.medicos
                 return false;
             }
 
-            if (validar.ExisteUsuario(txtUser.Text))
+            if (validar.UserExist(txtUser.Text))
             {
                 validateUser.ErrorMessage = "That username is already registered.";
                 validateUser.IsValid = false;
@@ -210,7 +211,7 @@ namespace Vistas.Admin.medicos
         {
             AdminDoctorManager adminDoctor = new AdminDoctorManager();
 
-            Validar validar = new Validar();
+            AuthManager validar = new AuthManager();
 
             string dni = txtDNI.Text.Trim();
 
@@ -315,8 +316,8 @@ namespace Vistas.Admin.medicos
         // CARGAR DDL PROVINCIA
         private void CargarProvincia()
         {
-            Validar validar = new Validar();
-            DataTable dtCity = validar.ObtenerProvincia();
+            GetUbicationManager manager = new GetUbicationManager();
+            DataTable dtCity = manager.ObtenerProvincia();
 
             ddlCity.DataSource = dtCity;
             ddlCity.DataTextField = "NAME_STATE";
@@ -332,8 +333,8 @@ namespace Vistas.Admin.medicos
             int idProvincia;
             if (int.TryParse(ddlCity.SelectedValue, out idProvincia))
             {
-                Validar validar = new Validar();
-                DataTable dt = validar.ObtenerLocalidadesFiltradas(idProvincia);
+                GetUbicationManager manager = new GetUbicationManager();
+                DataTable dt = manager.ObtenerLocalidadesFiltradas(idProvincia);
 
                 ddlLocality.DataSource = dt;
                 ddlLocality.DataTextField = "NAME_CITY";

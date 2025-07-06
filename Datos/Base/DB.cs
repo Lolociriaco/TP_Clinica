@@ -19,11 +19,6 @@ namespace Datos
             return adaptador;
         }
 
-        public SqlConnection obtenerConexion()
-        {
-            return new SqlConnection(Conexion.Cadena);
-        }
-
         public bool updateUser(string query, SqlParameter[] parametros)
         {
             using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
@@ -37,42 +32,7 @@ namespace Datos
                 }
             }
         }
-        
-        public bool updateAppointment(string state, string observation, int id)
-        {
-            string query = @"
-                UPDATE APPOINTMENT SET
-                    STATE_APPO = @STATE,
-                    OBSERVATION_APPO = @OBSERVATION
-                WHERE ID_APPO = @id";
 
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@STATE", state),
-                new SqlParameter("@OBSERVATION", observation),
-                new SqlParameter("@ID", id)
-            };
-
-            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
-            {
-                using (SqlCommand comando = new SqlCommand(query, conn))
-                {
-                    comando.Parameters.AddRange(parametros);
-                    conn.Open();
-                    int filasAfectadas = comando.ExecuteNonQuery();
-                    return filasAfectadas > 0; // Retorna true si se actualizó al menos un registro
-                }
-            }
-        }
-
-        public void ejecutarConsulta(string consulta)
-        {
-            SqlConnection conexion = obtenerConexion();
-            SqlCommand cmd = new SqlCommand(consulta, conexion);
-            conexion.Open();
-            cmd.ExecuteNonQuery();
-            conexion.Close();
-        }
 
         public void EjecutarInsert(string query, SqlParameter[] parametros)
         {
@@ -86,47 +46,6 @@ namespace Datos
                 }
             }
         }
-
-        public bool validarUser(string query, SqlParameter[] parametro)
-        {
-            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-
-                cmd.Parameters.AddRange(parametro);
-                conn.Open();
-                // Devuelve true si el user existe
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    return reader.HasRows;
-                }
-            }
-        }
-
-        public DoctorSchedule ExecWorkingHours(string query, SqlParameter[] parametros)
-        {
-            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddRange(parametros);
-                conn.Open();
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        return new DoctorSchedule
-                        {
-                            _TimeStart = reader.GetTimeSpan(0),
-                            _TimeEnd = reader.GetTimeSpan(1)
-                        };
-                    }
-                }
-            }
-
-            return null;
-        }
-
 
         public object EjecutarEscalar(string query, SqlParameter[] parametros)
         {

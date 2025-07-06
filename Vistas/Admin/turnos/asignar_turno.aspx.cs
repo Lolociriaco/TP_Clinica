@@ -9,6 +9,7 @@ using Negocio.Admin;
 using Negocio;
 using Entidades;
 using System.Globalization;
+using Negocio.Shared;
 
 namespace Vistas.Admin.turnos
 {
@@ -107,8 +108,8 @@ namespace Vistas.Admin.turnos
                 ObservacionTurno = ""
             };
 
-            Validar validar = new Validar();
-            validar.CargarTurno(turno);
+            AdminAppoManager manager = new AdminAppoManager();
+            manager.CargarTurno(turno);
 
             lblMensaje.Text = "Appointment registered successfully.";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
@@ -142,7 +143,7 @@ namespace Vistas.Admin.turnos
         private bool validarDNI()
         {
             AdminPatientsManager adminPatients = new AdminPatientsManager();
-            Validar validar = new Validar();
+            AuthManager validar = new AuthManager();
 
             string dni = txtDNIPatient.Text.Trim();
 
@@ -190,11 +191,6 @@ namespace Vistas.Admin.turnos
                 return false;
             }
 
-            Validar validar = new Validar();
-            int id_medico = int.Parse(ddlDoctor.SelectedValue);
-            string dia = fechaTurno.ToString("dddd", new CultureInfo("en-US")).ToUpper();
-
-
             return true;
         }
 
@@ -209,7 +205,6 @@ namespace Vistas.Admin.turnos
 
             AdminAppoManager manager = new AdminAppoManager();
 
-            DayOfWeek dayWeek = fechaTurno.DayOfWeek;
             string day = fechaTurno.ToString("dddd", new CultureInfo("en-US")).ToUpper();
 
             int id_medico = int.Parse(ddlDoctor.SelectedValue);

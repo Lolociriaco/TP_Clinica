@@ -300,44 +300,15 @@ namespace Negocio
              return ds.Tables["Dias"];
          }*/
 
-        //!!!!!!!!!!!!!!!!!!!!!!!! ESTOS Q SON COMPARTIDOS NO SE DONDE PONERLOS PERRITO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_______________
-        public DataTable ObtenerProvincia()
-        {
-            string query = "SELECT ID_STATE, NAME_STATE FROM STATE";
-            DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Provincias");
-            return ds.Tables["Provincias"];
-        }
-
-        // CONSULTA PARA OBTENER CAMPOS DE LOCALIDADES
-        public DataTable ObtenerLocalidad()
-        {
-            string query = "SELECT ID_CITY, NAME_CITY FROM CITY";
-            DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Localidades");
-            return ds.Tables["Localidades"];
-        }
-        public DataTable ObtenerLocalidadesFiltradas(int idProvincia)
-        {
-            string consulta = "SELECT ID_CITY, NAME_CITY FROM CITY WHERE ID_STATE_CITY = @idProv";
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                 new SqlParameter("@idProv", idProvincia)
-            };
-
-            DB accesoDatos = new DB();
-            return accesoDatos.ObtenerDataTable(consulta, parametros);
-        }
+        //!!!!!!!!!!!!!!!!!!!!!!!! ESTOS Q SON COMPARTIDOS NO SE DONDE PONERLOS PERRITO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ESTOS LOS PUSE PERO LOS COMENTE PORQUE SON VOID
         // Y SI LOS PONEMOS EN MANAGER HAY Q CAMBIAR EL EJECUTAR INSERT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+        // POR QUE? NO ENTIENDO GATOO
 
         // CONSULTA PARA INSERTAR EL NUEVO PACIENTE
+        /*       
         public void AgregarPaciente(Paciente paciente)
         {
             string query = @"
@@ -421,53 +392,15 @@ namespace Negocio
 
             DB db = new DB();
             db.EjecutarInsert(query, parametros);
-        }
+        }*/
 
         // !!!!!!!!!!!!!!!!!!!!!!! ESTOS TE LOS DEJO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        // CONSULTA PARA INSERTAR EL NUEVO USUARIO
-        public int AgregarUsuario(Usuario user)
-        {
-            string query = "INSERT INTO USERS (USERNAME, PASSWORD_USER, ROLE_USER) " +
-                           "VALUES (@usuario, @contrasena, @tipoUsuario); SELECT SCOPE_IDENTITY();";
-
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@usuario", user.NombreUsuario),
-                new SqlParameter("@contrasena", user.Contrasena),
-                new SqlParameter("@tipoUsuario", user.TipoUsuario)
-            };
-
-            DB datos = new DB();
-            using (SqlConnection conn = datos.obtenerConexion())
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddRange(parametros);
-                conn.Open();
-                object result = cmd.ExecuteScalar();
-                return Convert.ToInt32(result); // devuelve el ID generado
-            }
-        }
 
         // CONSULTA PARA INSERTAR EL NUEVO MEDICO
-        public void CargarTurno(Turnos turno)
-        {
-            string query = "INSERT INTO APPOINTMENT (ID_USER_DOCTOR, DNI_PAT_APPO, DATE_APPO, TIME_APPO) " +
-                         "VALUES (@id_usuario_med, @dni_paciente, @fecha_turno, @hora_turno)";
 
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@id_usuario_med", turno.IdUsuarioMedico),
-                new SqlParameter("@dni_paciente", turno.DniPacTurno),
-                new SqlParameter("@fecha_turno", turno.FechaTurno),
-                new SqlParameter("@hora_turno", turno.HoraTurno)
-            };
-
-            DB datos = new DB();
-            datos.EjecutarInsert(query, parametros);
-        }
-
-        public bool MedicoDisponible(string diaTurno, TimeSpan horaTurno, int id_medico)
+        /* CREO QUE LO PASAMOS PERO NO LO BORRAMOS
+        public bool MedicoDisponible(string diaTurno, int id_medico)
         {
             string query = "SELECT * FROM DOCTORS WHERE ID_USER = @id_medico";
 
@@ -480,28 +413,11 @@ namespace Negocio
             bool existe = db.validarUser(query, parametros);
 
             return existe;
-        }
+        }*/
 
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!! ESTOS HAY Q PONERLOS EN VALIDATE PERO HAY Q CREAR EL VALIDATE EN DATOS !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        public bool EsDniValido(string dni)
-        {
-            string patron = @"^\d{8}$";
-            return Regex.IsMatch(dni, patron);
-        }
 
-
-        public bool ExisteUsuario(string user)
-        {
-            string query = "SELECT COUNT(*) FROM USERS WHERE USERNAME = @user";
-            SqlParameter[] parametros = {
-                new SqlParameter("@user", user)
-            };
-
-            DB db = new DB();
-            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
-            return cantidad > 0;
-        }
 
         // CONSULTA PARA VERIFICAR SI EL DNI YA EXISTE
         /*public bool ExisteDni(int dni)

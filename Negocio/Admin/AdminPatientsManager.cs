@@ -55,5 +55,11 @@ namespace Negocio.Admin
             AdminPatientsDao adminPatientsDao = new AdminPatientsDao();
             return adminPatientsDao.ExisteTelefonoPaciente(telefono);
         }
+
+        public void AgregarPaciente(Paciente paciente)
+        {
+            AdminPatientsDao adminPatientsDao = new AdminPatientsDao();
+            adminPatientsDao.AgregarPaciente(paciente);
+        }
     }
-}
+}  

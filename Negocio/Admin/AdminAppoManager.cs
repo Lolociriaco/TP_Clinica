@@ -30,5 +30,11 @@ namespace Negocio.Admin
             AdminAppoDao appoDao = new AdminAppoDao();
             return appoDao.ObtenerTurnosAsignados(id_doctor, date); 
         }
+
+        public void CargarTurno(Turnos turno)
+        {
+            AdminAppoDao appoDao = new AdminAppoDao();
+            appoDao.CargarTurno(turno);
+        }
     }
 }

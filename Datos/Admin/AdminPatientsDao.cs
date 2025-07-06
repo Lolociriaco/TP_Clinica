@@ -164,5 +164,37 @@ namespace Datos.Admin
             int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
             return cantidad > 0;
         }
+
+        public void AgregarPaciente(Paciente paciente)
+        {
+            string query = @"
+                INSERT INTO PATIENTS (
+                    DNI_PAT, NAME_PAT, SURNAME_PAT, 
+                    GENDER_PAT, NATIONALITY_PAT, DATEBIRTH_PAT, ADDRESS_PAT, 
+                    ID_CITY_PAT, ID_STATE_PAT, EMAIL_PAT, PHONE_PAT
+                ) VALUES (
+                    @dni, @nombre, @apellido, 
+                    @sexo, @nacionalidad, @fecha, @direccion, 
+                    @localidad, @provincia, @correo, @telefono
+                )";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@dni", paciente._dni),
+                new SqlParameter("@nombre", paciente._nombre),
+                new SqlParameter("@apellido", paciente._apellido),
+                new SqlParameter("@sexo", paciente._sexo),
+                new SqlParameter("@nacionalidad", paciente._nacionalidad),
+                new SqlParameter("@fecha", paciente._fechaNacimiento),
+                new SqlParameter("@direccion", paciente._direccion),
+                new SqlParameter("@localidad", paciente._localidad),
+                new SqlParameter("@provincia", paciente._provincia),
+                new SqlParameter("@correo", paciente._correoElectronico),
+                new SqlParameter("@telefono", paciente._telefono),
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
+        }
     }
 }
