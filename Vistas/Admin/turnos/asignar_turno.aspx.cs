@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio.Admin;
 using Negocio;
 using Entidades;
 using System.Globalization;
@@ -40,8 +41,8 @@ namespace Vistas.Admin.turnos
         // CARGAR ESPECIALIDADES EN DDL
         private void CargarEspecialidades()
         {
-            Validar validar = new Validar(); 
-            DataTable dtSexos = validar.ObtenerEspecialidades();
+            AdminDoctorManager adminManager = new AdminDoctorManager(); 
+            DataTable dtSexos = adminManager.ObtenerEspecialidades();
 
             ddlSpeciality.DataSource = dtSexos;
             ddlSpeciality.DataTextField = "NAME_SPE";
@@ -58,8 +59,8 @@ namespace Vistas.Admin.turnos
             int idSpe;
             if (int.TryParse(ddlSpeciality.SelectedValue, out idSpe))
             {
-                Validar validar = new Validar();
-                DataTable dt = validar.ObtenerMedicosFiltrados(idSpe);
+                AdminDoctorManager doctorManager = new AdminDoctorManager();
+                DataTable dt = doctorManager.ObtenerMedicosFiltradosEspecialidad(idSpe);
 
                 ddlDoctor.DataSource = dt;
                 ddlDoctor.DataTextField = "FULL_NAME";
@@ -140,6 +141,7 @@ namespace Vistas.Admin.turnos
         // VALIDAR QUE EL DNI EXISTE Y QUE ES VALIDO SU FORMATO
         private bool validarDNI()
         {
+            AdminPatientsManager adminPatients = new AdminPatientsManager();
             Validar validar = new Validar();
 
             string dni = txtDNIPatient.Text.Trim();
@@ -151,7 +153,7 @@ namespace Vistas.Admin.turnos
                 return false;
             }
 
-            if (!validar.ExisteDniPaciente(int.Parse(dni)))
+            if (!adminPatients.ExisteDniPaciente(int.Parse(dni)))
             {
                 validateDni.ErrorMessage = "That DNI doesn't exist.";
                 validateDni.IsValid = false;
@@ -205,7 +207,7 @@ namespace Vistas.Admin.turnos
 
             if (!DateTime.TryParse(txtDate.Text, out DateTime fechaTurno)) return;
 
-            AdminDoctorManager manager = new AdminDoctorManager();
+            AdminAppoManager manager = new AdminAppoManager();
 
             DayOfWeek dayWeek = fechaTurno.DayOfWeek;
             string day = fechaTurno.ToString("dddd", new CultureInfo("en-US")).ToUpper();

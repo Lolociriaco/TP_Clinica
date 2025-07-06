@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Datos;
@@ -14,33 +15,33 @@ namespace Negocio
     public class AdminDoctorManager
     {
 
-        // BAJA LOGICA DEL MEDICO
-        public bool deleteDoctor(int id)
-        {
-            DB db = new DB();
-            string query = "UPDATE DOCTOR SET ACTIVE_DOC = 0 WHERE ID_USER = @id";
+        /* // BAJA LOGICA DEL MEDICO
+         public bool deleteDoctor(int id)
+         {
+             DB db = new DB();
+             string query = "UPDATE DOCTOR SET ACTIVE_DOC = 0 WHERE ID_USER = @id";
 
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@id", id)
-            };
+             SqlParameter[] parametros = new SqlParameter[]
+             {
+                 new SqlParameter("@id", id)
+             };
 
-            return db.updateUser(query, parametros);
-        }
+             return db.updateUser(query, parametros);
+         }
 
-        // BAJA LOGICA DEL PACIENTE
-        public bool deletePatient(int dni)
-        {
-            DB db = new DB();
-            string query = "UPDATE PATIENTS SET ACTIVE_PAT = 0 WHERE DNI_PAT = @dni";
+         // BAJA LOGICA DEL PACIENTE
+         public bool deletePatient(int dni)
+         {
+             DB db = new DB();
+             string query = "UPDATE PATIENTS SET ACTIVE_PAT = 0 WHERE DNI_PAT = @dni";
 
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@dni", dni)
-            };
+             SqlParameter[] parametros = new SqlParameter[]
+             {
+                 new SqlParameter("@dni", dni)
+             };
 
-            return db.updateUser(query, parametros);
-        }
+             return db.updateUser(query, parametros);
+         }
 
         // MODIFICACION DEL USUARIO
         public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
@@ -68,9 +69,9 @@ namespace Negocio
             DB db = new DB();
 
             return db.updateUser(query, parametros.ToArray());
-        }
+        }*/
 
-        public bool medicoDisponible(string day, int id_user)
+       /* public bool medicoDisponible(string day, int id_user)
         {
             string query = "SELECT COUNT(*) FROM DOCTOR_SCHEDULES WHERE WEEKDAY_SCH = @day AND ID_USER_DOCTOR = @id_user";
             SqlParameter[] parametros = {
@@ -94,8 +95,9 @@ namespace Negocio
             DB db = new DB();
 
             return db.ExecWorkingHours(query, parametros);
-        }
+        }*/
 
+        // ESTA LA USAMOS PERRITO???
         public DataTable horariosDisponibles(DateTime date)
         {
             string consulta = "SELECT , NAME_CITY FROM CITY WHERE ID_STATE_CITY = @date";
@@ -108,7 +110,8 @@ namespace Negocio
             return accesoDatos.ObtenerDataTable(consulta, parametros);
         }
 
-        public List<TimeSpan> ObtenerTurnosAsignados(int id_doctor, DateTime date)
+
+       /*public List<TimeSpan> ObtenerTurnosAsignados(int id_doctor, DateTime date)
         {
             string query = "SELECT TIME_APPO FROM APPOINTMENT WHERE ID_USER_DOCTOR = @id_doctor AND DATE_APPO = @date";
             SqlParameter[] parametros = {
@@ -126,10 +129,10 @@ namespace Negocio
             }
 
             return turnosOcupados;
-        }
+        }*/
 
 
-        // ACTUALIZACION DEL MEDICO
+        /*// ACTUALIZACION DEL MEDICO
         public bool updateDoctor(Medico medico, string diaSeleccionado, string horaInicio, string horaFin)
         {
             DB db = new DB();
@@ -225,14 +228,20 @@ namespace Negocio
 
 
             return db.updateUser(query, parametros);
-        }
-
-
-
-
+        }*/
 
         //-------------------------------------------------------------------------------------------------- 
+        public DataTable ObtenerMedicosFiltradosEspecialidad(int idSpe)
+        {
+            AdminDoctorDao doctorDao = new AdminDoctorDao();
+            return doctorDao.ObtenerMedicosFiltradosEspecialidad(idSpe);
+        }
 
+        public bool deleteDoctor(int id)
+        {
+            AdminDoctorDao doctorDao = new AdminDoctorDao();
+            return doctorDao.deleteDoctor(id);
+        }
 
         public DataTable ObtenerMedicos()
         {
@@ -250,6 +259,60 @@ namespace Negocio
         {
             AdminDoctorDao admin = new AdminDoctorDao();
             return admin.ObtenerSexoMedico();
+        }
+
+        public bool updateDoctor(Medico medico, string diaSeleccionado, string horaInicio, string horaFin)
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.updateDoctor(medico, diaSeleccionado, horaInicio, horaFin);
+        }
+
+        public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.modificarUsuario(user, newPassword, newUser);
+        }
+
+        public DataTable ObtenerEspecialidades()
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.ObtenerEspecialidades();
+        }
+
+        public DataTable getNombreYApellidoDoctores()
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.getNombreYApellidoDoctores();
+        }
+
+        public DataTable ObtenerDias()
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.ObtenerDias();
+        }
+
+        /*public void AgregarMedico(Medico medico)
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.AgregarMedico(medico);
+        }
+
+        public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.InsertarHorarioMedico(idUsuario, diaSemana, horaInicio, horaFin);
+        }*/
+
+        public bool ExisteDniDoctor(int dni)
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.ExisteDniDoctor(dni);
+        }
+
+        public bool ExisteTelefonoDoctor(string telefono)
+        {
+            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
+            return adminDoctorDao.ExisteTelefonoDoctor(telefono);
         }
     }
 }

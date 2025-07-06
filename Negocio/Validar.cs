@@ -193,64 +193,64 @@ namespace Negocio
         }*/
 
 
-       /* public int ObtenerTotalTurnos()
-        {
-            string query = "SELECT COUNT(*) FROM APPOINTMENT";
-            DB datos = new DB();
-            object result = datos.EjecutarEscalar(query, new SqlParameter[0]); // Array vacío
-            return result != null ? Convert.ToInt32(result) : 0;
-        }
+        /* public int ObtenerTotalTurnos()
+         {
+             string query = "SELECT COUNT(*) FROM APPOINTMENT";
+             DB datos = new DB();
+             object result = datos.EjecutarEscalar(query, new SqlParameter[0]); // Array vacío
+             return result != null ? Convert.ToInt32(result) : 0;
+         }
 
-        public DataTable MedicosConMasTurnosConPorcentaje()
-        {
-            int totalTurnos = ObtenerTotalTurnos();
-            DataTable dtMedicos = MedicosConMasTurnos();
+         public DataTable MedicosConMasTurnosConPorcentaje()
+         {
+             int totalTurnos = ObtenerTotalTurnos();
+             DataTable dtMedicos = MedicosConMasTurnos();
 
-            if (dtMedicos.Columns.Contains("PORCENTAJE"))
-                dtMedicos.Columns.Remove("PORCENTAJE");
+             if (dtMedicos.Columns.Contains("PORCENTAJE"))
+                 dtMedicos.Columns.Remove("PORCENTAJE");
 
-            dtMedicos.Columns.Add("PORCENTAJE", typeof(string));
+             dtMedicos.Columns.Add("PORCENTAJE", typeof(string));
 
-            foreach (DataRow row in dtMedicos.Rows)
-            {
-                int turnos = Convert.ToInt32(row["TOTALTURNOS"]);
-                double porcentaje = totalTurnos > 0 ? (turnos * 100.0) / totalTurnos : 0;
-                row["PORCENTAJE"] = porcentaje.ToString("N2") + "%";
-            }
+             foreach (DataRow row in dtMedicos.Rows)
+             {
+                 int turnos = Convert.ToInt32(row["TOTALTURNOS"]);
+                 double porcentaje = totalTurnos > 0 ? (turnos * 100.0) / totalTurnos : 0;
+                 row["PORCENTAJE"] = porcentaje.ToString("N2") + "%";
+             }
 
-            return dtMedicos;
-        }
+             return dtMedicos;
+         }
 
-        public DataTable EspecialidadConMasTurnosConPorcentaje()
-        {
-            int totalTurnos = ObtenerTotalTurnos();
-            DataTable dtEspecialidades = EspecialidadConMasTurnos();
+         public DataTable EspecialidadConMasTurnosConPorcentaje()
+         {
+             int totalTurnos = ObtenerTotalTurnos();
+             DataTable dtEspecialidades = EspecialidadConMasTurnos();
 
-            if (dtEspecialidades.Columns.Contains("PORCENTAJE"))
-                dtEspecialidades.Columns.Remove("PORCENTAJE");
+             if (dtEspecialidades.Columns.Contains("PORCENTAJE"))
+                 dtEspecialidades.Columns.Remove("PORCENTAJE");
 
-            dtEspecialidades.Columns.Add("PORCENTAJE", typeof(string));
+             dtEspecialidades.Columns.Add("PORCENTAJE", typeof(string));
 
-            foreach (DataRow row in dtEspecialidades.Rows)
-            {
-                int turnos = Convert.ToInt32(row["TotalTurnos"]);
-                double porcentaje = totalTurnos > 0 ? (turnos * 100.0) / totalTurnos : 0;
-                row["PORCENTAJE"] = porcentaje.ToString("N2") + "%";
-            }
+             foreach (DataRow row in dtEspecialidades.Rows)
+             {
+                 int turnos = Convert.ToInt32(row["TotalTurnos"]);
+                 double porcentaje = totalTurnos > 0 ? (turnos * 100.0) / totalTurnos : 0;
+                 row["PORCENTAJE"] = porcentaje.ToString("N2") + "%";
+             }
 
-            return dtEspecialidades;
-        }*/
+             return dtEspecialidades;
+         }*/
 
-       /*// CONSULTA PARA OBTENER SEXO DEL PACIENTE
-        public DataTable ObtenerSexoPaciente()
-        {
-            string query = "SELECT DISTINCT GENDER_PAT FROM PATIENTS WHERE GENDER_PAT IS NOT NULL";
-            DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Sexos");
-            return ds.Tables["Sexos"];
-        }*/
+        /*// CONSULTA PARA OBTENER SEXO DEL PACIENTE
+         public DataTable ObtenerSexoPaciente()
+         {
+             string query = "SELECT DISTINCT GENDER_PAT FROM PATIENTS WHERE GENDER_PAT IS NOT NULL";
+             DB datos = new DB();
+             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+             DataSet ds = new DataSet();
+             adapter.Fill(ds, "Sexos");
+             return ds.Tables["Sexos"];
+         }*/
 
         /*// CONSULTA PARA OBTENER SEXO DEL MEDICO
         public DataTable ObtenerSexoMedico()
@@ -261,7 +261,7 @@ namespace Negocio
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Sexos");
             return ds.Tables["Sexos"];
-        }*/
+        }
 
         // CONSULTA PARA OBTENER ESPECIALIDADES
         public DataTable ObtenerEspecialidades()
@@ -282,9 +282,25 @@ namespace Negocio
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Medicos");
             return ds.Tables["Medicos"];
-        }
+        }*/
+
+
+
 
         // CONSULTA PARA OBTENER CAMPOS DE PROVINCIAS
+
+        /* // CONSULTA PARA OBTENER DIAS DE LA SEMANA
+         public DataTable ObtenerDias()
+         {
+             string query = "SELECT DISTINCT WEEKDAY_SCH FROM DOCTOR_SCHEDULES WHERE WEEKDAY_SCH IS NOT NULL";
+             DB datos = new DB();
+             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+             DataSet ds = new DataSet();
+             adapter.Fill(ds, "Dias");
+             return ds.Tables["Dias"];
+         }*/
+
+        //!!!!!!!!!!!!!!!!!!!!!!!! ESTOS Q SON COMPARTIDOS NO SE DONDE PONERLOS PERRITO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_______________
         public DataTable ObtenerProvincia()
         {
             string query = "SELECT ID_STATE, NAME_STATE FROM STATE";
@@ -305,17 +321,21 @@ namespace Negocio
             adapter.Fill(ds, "Localidades");
             return ds.Tables["Localidades"];
         }
-
-        // CONSULTA PARA OBTENER DIAS DE LA SEMANA
-        public DataTable ObtenerDias()
+        public DataTable ObtenerLocalidadesFiltradas(int idProvincia)
         {
-            string query = "SELECT DISTINCT WEEKDAY_SCH FROM DOCTOR_SCHEDULES WHERE WEEKDAY_SCH IS NOT NULL";
-            DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "Dias");
-            return ds.Tables["Dias"];
+            string consulta = "SELECT ID_CITY, NAME_CITY FROM CITY WHERE ID_STATE_CITY = @idProv";
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                 new SqlParameter("@idProv", idProvincia)
+            };
+
+            DB accesoDatos = new DB();
+            return accesoDatos.ObtenerDataTable(consulta, parametros);
         }
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ESTOS LOS PUSE PERO LOS COMENTE PORQUE SON VOID
+        // Y SI LOS PONEMOS EN MANAGER HAY Q CAMBIAR EL EJECUTAR INSERT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
         // CONSULTA PARA INSERTAR EL NUEVO PACIENTE
         public void AgregarPaciente(Paciente paciente)
@@ -349,6 +369,61 @@ namespace Negocio
             DB datos = new DB();
             datos.EjecutarInsert(query, parametros);
         }
+        public void AgregarMedico(Medico medico)
+        {
+            string query = @"
+                INSERT INTO DOCTOR (
+                    ID_USER, DNI_DOC, NAME_DOC, SURNAME_DOC, 
+                    GENDER_DOC, NATIONALITY_DOC, DATEBIRTH_DOC, ADDRESS_DOC, 
+                    ID_CITY_DOC, ID_STATE_DOC, EMAIL_DOC, PHONE_DOC, 
+                    ID_SPE_DOC
+                ) VALUES (
+                    @id_usuario, @dni, @nombre, @apellido, 
+                    @sexo, @nacionalidad, @fecha, @direccion, 
+                    @localidad, @provincia, @correo, @telefono, 
+                    @especialidad
+                )";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@dni", medico._dni),
+                new SqlParameter("@nombre", medico._nombre),
+                new SqlParameter("@apellido", medico._apellido),
+                new SqlParameter("@sexo", medico._sexo),
+                new SqlParameter("@nacionalidad", medico._nacionalidad),
+                new SqlParameter("@fecha", medico._fechaNacimiento),
+                new SqlParameter("@direccion", medico._direccion),
+                new SqlParameter("@localidad", medico._localidad),
+                new SqlParameter("@provincia", medico._provincia),
+                new SqlParameter("@correo", medico._correoElectronico),
+                new SqlParameter("@telefono", medico._telefono),
+                new SqlParameter("@especialidad", medico._especialidad),
+                new SqlParameter("@id_usuario", medico._id_usuario),
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
+        }
+
+        // CONSULTA PARA INSERTAR EL HORARIO DEL MEDICO
+        public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
+        {
+            string query = "INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END) " +
+                           "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@idUsuario", idUsuario),
+                new SqlParameter("@dia", diaSemana),
+                new SqlParameter("@horaInicio", horaInicio),
+                new SqlParameter("@horaFin", horaFin)
+            };
+
+            DB db = new DB();
+            db.EjecutarInsert(query, parametros);
+        }
+
+        // !!!!!!!!!!!!!!!!!!!!!!! ESTOS TE LOS DEJO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // CONSULTA PARA INSERTAR EL NUEVO USUARIO
         public int AgregarUsuario(Usuario user)
@@ -407,62 +482,29 @@ namespace Negocio
             return existe;
         }
 
-        public void AgregarMedico(Medico medico)
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!! ESTOS HAY Q PONERLOS EN VALIDATE PERO HAY Q CREAR EL VALIDATE EN DATOS !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public bool EsDniValido(string dni)
         {
-            string query = @"
-                INSERT INTO DOCTOR (
-                    ID_USER, DNI_DOC, NAME_DOC, SURNAME_DOC, 
-                    GENDER_DOC, NATIONALITY_DOC, DATEBIRTH_DOC, ADDRESS_DOC, 
-                    ID_CITY_DOC, ID_STATE_DOC, EMAIL_DOC, PHONE_DOC, 
-                    ID_SPE_DOC
-                ) VALUES (
-                    @id_usuario, @dni, @nombre, @apellido, 
-                    @sexo, @nacionalidad, @fecha, @direccion, 
-                    @localidad, @provincia, @correo, @telefono, 
-                    @especialidad
-                )";
-
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@dni", medico._dni),
-                new SqlParameter("@nombre", medico._nombre),
-                new SqlParameter("@apellido", medico._apellido),
-                new SqlParameter("@sexo", medico._sexo),
-                new SqlParameter("@nacionalidad", medico._nacionalidad),
-                new SqlParameter("@fecha", medico._fechaNacimiento),
-                new SqlParameter("@direccion", medico._direccion),
-                new SqlParameter("@localidad", medico._localidad),
-                new SqlParameter("@provincia", medico._provincia),
-                new SqlParameter("@correo", medico._correoElectronico),
-                new SqlParameter("@telefono", medico._telefono),
-                new SqlParameter("@especialidad", medico._especialidad),
-                new SqlParameter("@id_usuario", medico._id_usuario),
-            };
-
-            DB datos = new DB();
-            datos.EjecutarInsert(query, parametros);
+            string patron = @"^\d{8}$";
+            return Regex.IsMatch(dni, patron);
         }
 
-        // CONSULTA PARA INSERTAR EL HORARIO DEL MEDICO
-        public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
-        {
-            string query = "INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END) " +
-                           "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
 
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@idUsuario", idUsuario),
-                new SqlParameter("@dia", diaSemana),
-                new SqlParameter("@horaInicio", horaInicio),
-                new SqlParameter("@horaFin", horaFin)
+        public bool ExisteUsuario(string user)
+        {
+            string query = "SELECT COUNT(*) FROM USERS WHERE USERNAME = @user";
+            SqlParameter[] parametros = {
+                new SqlParameter("@user", user)
             };
 
             DB db = new DB();
-            db.EjecutarInsert(query, parametros);
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
         }
 
         // CONSULTA PARA VERIFICAR SI EL DNI YA EXISTE
-        public bool ExisteDni(int dni)
+        /*public bool ExisteDni(int dni)
         {
             string query = "SELECT COUNT(*) FROM DOCTOR WHERE DNI_DOC = @dni";
             SqlParameter[] parametros = {
@@ -484,90 +526,72 @@ namespace Negocio
             DB db = new DB();
             int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
             return cantidad > 0;
-        }
-
-        public bool EsDniValido(string dni)
-        {
-            string patron = @"^\d{8}$";
-            return Regex.IsMatch(dni, patron);
-        }
-
-
-        public bool ExisteUsuario(string user)
-        {
-            string query = "SELECT COUNT(*) FROM USERS WHERE USERNAME = @user";
-            SqlParameter[] parametros = {
-                new SqlParameter("@user", user)
-            };
-
-            DB db = new DB();
-            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
-            return cantidad > 0;
-        }
-
-        // CONSULTA PARA VERIFICAR SI EL TELEFONO YA EXISTE
-        public bool ExisteTelefono(string telefono)
-        {
-            string query = "SELECT COUNT(*) FROM DOCTOR WHERE PHONE_DOC = @telefono";
-            SqlParameter[] parametros = {
-                new SqlParameter("@telefono", telefono)
-            };
-
-            DB db = new DB();
-            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
-            return cantidad > 0;
-        }
-
-
-       /* public DataTable MedicosConMasTurnos()
-        {
-            string query = @"
-            SELECT TOP 10 
-                D.ID_USER,
-                D.DNI_DOC,
-                D.NAME_DOC,
-                D.SURNAME_DOC,
-                D.ID_SPE_DOC,
-                SP.NAME_SPE,
-
-                COUNT(A.ID_APPO) AS TOTALTURNOS
-            FROM DOCTOR D
-            LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
-            LEFT JOIN STATE S ON D.ID_STATE_DOC = S.ID_STATE
-            LEFT JOIN SPECIALITY SP ON D.ID_SPE_DOC = SP.ID_SPE
-            GROUP BY 
-                D.ID_USER,
-                D.DNI_DOC,
-                D.NAME_DOC,
-                D.SURNAME_DOC,
-                D.ID_SPE_DOC,
-                SP.NAME_SPE
-
-            ORDER BY TOTALTURNOS DESC";
-
-
-
-            DB datos = new DB();
-            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
-
-            DataSet ds = new DataSet();
-            adapter.Fill(ds, "DOCTOR");
-            return ds.Tables["DOCTOR"];
-
-
         }*/
 
-        public DataTable ObtenerLocalidadesFiltradas(int idProvincia)
-        {
-            string consulta = "SELECT ID_CITY, NAME_CITY FROM CITY WHERE ID_STATE_CITY = @idProv";
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                 new SqlParameter("@idProv", idProvincia)
-            };
 
-            DB accesoDatos = new DB();
-            return accesoDatos.ObtenerDataTable(consulta, parametros);
-        }
+        /*  // CONSULTA PARA VERIFICAR SI EL TELEFONO DE DOCTOR YA EXISTE
+          public bool ExisteTelefonoDoctor(string telefono)
+          {
+              string query = "SELECT COUNT(*) FROM DOCTOR WHERE PHONE_DOC = @telefono";
+              SqlParameter[] parametros = {
+                  new SqlParameter("@telefono", telefono)
+              };
+
+              DB db = new DB();
+              int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+              return cantidad > 0;
+          }
+
+          // CONSULTA PARA VERIFICAR SI EL TELEFONO DE PACIENTE YA EXISTE
+          public bool ExisteTelefonoPaciente(string telefono)
+          {
+              string query = "SELECT COUNT(*) FROM PATIENT WHERE PHONE_PAT = @telefono";
+              SqlParameter[] parametros = {
+                  new SqlParameter("@telefono", telefono)
+              };
+
+              DB db = new DB();
+              int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+              return cantidad > 0;
+          }*/
+
+        /* public DataTable MedicosConMasTurnos()
+         {
+             string query = @"
+             SELECT TOP 10 
+                 D.ID_USER,
+                 D.DNI_DOC,
+                 D.NAME_DOC,
+                 D.SURNAME_DOC,
+                 D.ID_SPE_DOC,
+                 SP.NAME_SPE,
+
+                 COUNT(A.ID_APPO) AS TOTALTURNOS
+             FROM DOCTOR D
+             LEFT JOIN APPOINTMENT A ON D.ID_USER = A.ID_USER_DOCTOR
+             LEFT JOIN STATE S ON D.ID_STATE_DOC = S.ID_STATE
+             LEFT JOIN SPECIALITY SP ON D.ID_SPE_DOC = SP.ID_SPE
+             GROUP BY 
+                 D.ID_USER,
+                 D.DNI_DOC,
+                 D.NAME_DOC,
+                 D.SURNAME_DOC,
+                 D.ID_SPE_DOC,
+                 SP.NAME_SPE
+
+             ORDER BY TOTALTURNOS DESC";
+
+
+
+             DB datos = new DB();
+             SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+
+             DataSet ds = new DataSet();
+             adapter.Fill(ds, "DOCTOR");
+             return ds.Tables["DOCTOR"];
+
+
+         }*/
 
         /*public DataTable EspecialidadConMasTurnos()
         {
@@ -585,7 +609,7 @@ namespace Negocio
             return datos.ObtenerDataTable(query, null);
         }*/
 
-        public DataTable ObtenerMedicosFiltrados(int idSpe)
+        /*public DataTable ObtenerMedicosFiltradosEspecialidad(int idSpe)
         {
             string consulta = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS FULL_NAME FROM DOCTOR WHERE ID_SPE_DOC = @idSpe";
             SqlParameter[] parametros = new SqlParameter[]
@@ -595,7 +619,7 @@ namespace Negocio
 
             DB accesoDatos = new DB();
             return accesoDatos.ObtenerDataTable(consulta, parametros);
-        }
+        }*/
         /*public DataTable ObtenerEstadisticasMensualesGrid()
         {
             DataTable dtResultado = new DataTable();

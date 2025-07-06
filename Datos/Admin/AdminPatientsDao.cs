@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entidades;
 
 namespace Datos.Admin
 {
@@ -78,6 +79,19 @@ namespace Datos.Admin
             }
         }
 
+        public bool deletePatient(int dni)
+        {
+            DB db = new DB();
+            string query = "UPDATE PATIENTS SET ACTIVE_PAT = 0 WHERE DNI_PAT = @dni";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@dni", dni)
+            };
+
+            return db.updateUser(query, parametros);
+        }
+
         // CONSULTA PARA OBTENER SEXO DEL PACIENTE
         public DataTable ObtenerSexoPaciente()
         {
@@ -87,6 +101,68 @@ namespace Datos.Admin
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Sexos");
             return ds.Tables["Sexos"];
+        }
+
+        // ACTUALIZACION DEL PACIENTE
+        public bool updatePatient(Paciente paciente)
+        {
+            DB db = new DB();
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@nombre", paciente.Nombre),
+                new SqlParameter("@apellido", paciente.Apellido),
+                new SqlParameter("@dni", paciente.DNI),
+                new SqlParameter("@direccion", paciente.Direccion),
+                new SqlParameter("@correo", paciente.CorreoElectronico),
+                new SqlParameter("@telefono", paciente.Telefono),
+                new SqlParameter("@nacionalidad", paciente.Nacionalidad),
+                new SqlParameter("@fechaNac", paciente.FechaNacimiento),
+                new SqlParameter("@sexo", paciente.Sexo),
+                new SqlParameter("@idLoc", paciente.Localidad),
+                new SqlParameter("@idProv", paciente.Provincia)
+            };
+            string query = @"
+                UPDATE PATIENTS SET
+                    NAME_PAT = @nombre,
+                    SURNAME_PAT = @apellido,
+                    ADDRESS_PAT = @direccion,
+                    EMAIL_PAT = @correo,
+                    PHONE_PAT = @telefono,
+                    NATIONALITY_PAT = @nacionalidad,
+                    DATEBIRTH_PAT = @fechaNac,
+                    GENDER_PAT = @sexo,
+                    ID_CITY_PAT = @idLoc,
+                    ID_STATE_PAT = @idProv
+                WHERE DNI_PAT = @dni";
+
+
+            return db.updateUser(query, parametros);
+        }
+
+        public bool ExisteDniPaciente(int dni)
+        {
+            string query = "SELECT COUNT(*) FROM PATIENTS WHERE DNI_PAT = @dni";
+            SqlParameter[] parametros = {
+                new SqlParameter("@dni", dni)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
+        }
+
+        // CONSULTA PARA VERIFICAR SI EL TELEFONO DE PACIENTE YA EXISTE
+        public bool ExisteTelefonoPaciente(string telefono)
+        {
+            string query = "SELECT COUNT(*) FROM PATIENT WHERE PHONE_PAT = @telefono";
+            SqlParameter[] parametros = {
+                new SqlParameter("@telefono", telefono)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
         }
     }
 }

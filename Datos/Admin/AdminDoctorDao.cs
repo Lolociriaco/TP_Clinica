@@ -141,6 +141,32 @@ namespace Datos.Admin
             }
         }
 
+        public DataTable ObtenerMedicosFiltradosEspecialidad(int idSpe)
+        {
+            string consulta = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS FULL_NAME FROM DOCTOR WHERE ID_SPE_DOC = @idSpe";
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                 new SqlParameter("@idSpe", idSpe)
+            };
+
+            DB accesoDatos = new DB();
+            return accesoDatos.ObtenerDataTable(consulta, parametros);
+        }
+
+        // BAJA LOGICA DEL MEDICO
+        public bool deleteDoctor(int id)
+        {
+            DB db = new DB();
+            string query = "UPDATE DOCTOR SET ACTIVE_DOC = 0 WHERE ID_USER = @id";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@id", id)
+            };
+
+            return db.updateUser(query, parametros);
+        }
+
         // CONSULTA PARA OBTENER SEXO DEL MEDICO
         public DataTable ObtenerSexoMedico()
         {
@@ -150,6 +176,204 @@ namespace Datos.Admin
             DataSet ds = new DataSet();
             adapter.Fill(ds, "Sexos");
             return ds.Tables["Sexos"];
+        }
+
+        // ACTUALIZACION DEL MEDICO
+        public bool updateDoctor(Medico medico, string diaSeleccionado, string horaInicio, string horaFin)
+        {
+            DB db = new DB();
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@nombre", medico.Nombre),
+                new SqlParameter("@apellido", medico.Apellido),
+                new SqlParameter("@dni", medico.DNI),
+                new SqlParameter("@direccion", medico.Direccion),
+                new SqlParameter("@correo", medico.CorreoElectronico),
+                new SqlParameter("@telefono", medico.Telefono),
+                new SqlParameter("@nacionalidad", medico.Nacionalidad),
+                new SqlParameter("@diaSeleccionado", diaSeleccionado),
+                new SqlParameter("@horarioInicio", horaInicio),
+                new SqlParameter("@horarioFin", horaFin),
+                new SqlParameter("@idEsp", medico.Especialidad),
+                new SqlParameter("@fechaNac", medico.FechaNacimiento),
+                new SqlParameter("@sexo", medico.Sexo),
+                new SqlParameter("@idLoc", medico.Localidad),
+                new SqlParameter("@idProv", medico.Provincia),
+                new SqlParameter("@id", medico.IdUsuario)
+            };
+
+            string query = @"
+                UPDATE DOCTOR SET
+                    NAME_DOC = @nombre,
+                    SURNAME_DOC = @apellido,
+                    DNI_DOC = @dni,
+                    ADDRESS_DOC = @direccion,
+                    EMAIL_DOC = @correo,
+                    PHONE_DOC = @telefono,
+                    NATIONALITY_DOC = @nacionalidad,
+                    ID_SPE_DOC = @idEsp,
+                    DATEBIRTH_DOC = @fechaNac,
+                    GENDER_DOC = @sexo,
+                    ID_CITY_DOC = @idLoc,
+                    ID_STATE_DOC = @idProv
+                WHERE ID_USER = @id;
+
+                IF EXISTS (
+                    SELECT 1 FROM DOCTOR_SCHEDULES 
+                    WHERE ID_USER_DOCTOR = @id AND WEEKDAY_SCH = @diaSeleccionado
+                )
+                BEGIN
+                    UPDATE DOCTOR_SCHEDULES
+                    SET TIME_START = @horarioInicio, TIME_END = @horarioFin
+                    WHERE ID_USER_DOCTOR = @id AND WEEKDAY_SCH = @diaSeleccionado
+                END
+                ELSE
+                BEGIN
+                    INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END)
+                    VALUES (@id, @diaSeleccionado, @horarioInicio, @horarioFin)
+                END
+            
+            ";
+
+            return db.updateUser(query, parametros);
+        }
+
+        public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
+        {
+            List<string> sets = new List<string>();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            if (newUser != null)
+            {
+                sets.Add("USERNAME = @nuevoUsuario");
+                parametros.Add(new SqlParameter("@nuevoUsuario", newUser));
+            }
+
+            if (newPassword != null)
+            {
+                sets.Add("PASSWORD_USER = @nuevaPass");
+                parametros.Add(new SqlParameter("@nuevaPass", newPassword));
+            }
+
+            // WHERE con el usuario original
+            parametros.Add(new SqlParameter("@usuarioOriginal", user));
+
+            string query = "UPDATE USERS SET " + string.Join(", ", sets) + " WHERE USERNAME = @usuarioOriginal";
+
+            DB db = new DB();
+
+            return db.updateUser(query, parametros.ToArray());
+        }
+
+        public DataTable ObtenerEspecialidades()
+        {
+            string query = "SELECT NAME_SPE, ID_SPE FROM SPECIALITY";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Especialidades");
+            return ds.Tables["Especialidades"];
+        }
+
+        public DataTable getNombreYApellidoDoctores()
+        {
+            string query = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS NOMBRE_COMPLETO FROM DOCTOR";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Medicos");
+            return ds.Tables["Medicos"];
+        }
+
+        public DataTable ObtenerDias()
+        {
+            string query = "SELECT DISTINCT WEEKDAY_SCH FROM DOCTOR_SCHEDULES WHERE WEEKDAY_SCH IS NOT NULL";
+            DB datos = new DB();
+            SqlDataAdapter adapter = datos.ObtenerAdaptador(query);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds, "Dias");
+            return ds.Tables["Dias"];
+        }
+
+        /*public void AgregarMedico(Medico medico)
+        {
+            string query = @"
+                INSERT INTO DOCTOR (
+                    ID_USER, DNI_DOC, NAME_DOC, SURNAME_DOC, 
+                    GENDER_DOC, NATIONALITY_DOC, DATEBIRTH_DOC, ADDRESS_DOC, 
+                    ID_CITY_DOC, ID_STATE_DOC, EMAIL_DOC, PHONE_DOC, 
+                    ID_SPE_DOC
+                ) VALUES (
+                    @id_usuario, @dni, @nombre, @apellido, 
+                    @sexo, @nacionalidad, @fecha, @direccion, 
+                    @localidad, @provincia, @correo, @telefono, 
+                    @especialidad
+                )";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@dni", medico._dni),
+                new SqlParameter("@nombre", medico._nombre),
+                new SqlParameter("@apellido", medico._apellido),
+                new SqlParameter("@sexo", medico._sexo),
+                new SqlParameter("@nacionalidad", medico._nacionalidad),
+                new SqlParameter("@fecha", medico._fechaNacimiento),
+                new SqlParameter("@direccion", medico._direccion),
+                new SqlParameter("@localidad", medico._localidad),
+                new SqlParameter("@provincia", medico._provincia),
+                new SqlParameter("@correo", medico._correoElectronico),
+                new SqlParameter("@telefono", medico._telefono),
+                new SqlParameter("@especialidad", medico._especialidad),
+                new SqlParameter("@id_usuario", medico._id_usuario),
+            };
+
+            DB datos = new DB();
+            datos.EjecutarInsert(query, parametros);
+        }
+
+        // CONSULTA PARA INSERTAR EL HORARIO DEL MEDICO
+        public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
+        {
+            string query = "INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END) " +
+                           "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("@idUsuario", idUsuario),
+                new SqlParameter("@dia", diaSemana),
+                new SqlParameter("@horaInicio", horaInicio),
+                new SqlParameter("@horaFin", horaFin)
+            };
+
+            DB db = new DB();
+            db.EjecutarInsert(query, parametros);
+        }*/
+
+        public bool ExisteDniDoctor(int dni)
+        {
+            string query = "SELECT COUNT(*) FROM DOCTOR WHERE DNI_DOC = @dni";
+            SqlParameter[] parametros = {
+                new SqlParameter("@dni", dni)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
+        }
+
+
+        // CONSULTA PARA VERIFICAR SI EL TELEFONO DE DOCTOR YA EXISTE
+        public bool ExisteTelefonoDoctor(string telefono)
+        {
+            string query = "SELECT COUNT(*) FROM DOCTOR WHERE PHONE_DOC = @telefono";
+            SqlParameter[] parametros = {
+                new SqlParameter("@telefono", telefono)
+            };
+
+            DB db = new DB();
+            int cantidad = Convert.ToInt32(db.EjecutarEscalar(query, parametros));
+            return cantidad > 0;
         }
     }
 }

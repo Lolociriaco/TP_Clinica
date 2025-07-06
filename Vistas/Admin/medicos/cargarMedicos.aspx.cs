@@ -185,9 +185,10 @@ namespace Vistas.Admin.medicos
         // VALIDAR QUE EL USUARIO Y EL TELEFONO NO EXISTAN
         private bool validarUserYTelefono()
         {
+            AdminDoctorManager adminDoctor = new AdminDoctorManager();
             Validar validar = new Validar();
 
-            if (validar.ExisteTelefono(txtPhone.Text))
+            if (adminDoctor.ExisteTelefonoDoctor(txtPhone.Text))
             {
                 validatePhone.ErrorMessage = "That phone number is already registered.";
                 validatePhone.IsValid = false;
@@ -207,6 +208,8 @@ namespace Vistas.Admin.medicos
         // VALIDAR FORMATO Y EXISTENCIA DEL DNI
         private bool validarDNI()
         {
+            AdminDoctorManager adminDoctor = new AdminDoctorManager();
+
             Validar validar = new Validar();
 
             string dni = txtDNI.Text.Trim();
@@ -218,7 +221,7 @@ namespace Vistas.Admin.medicos
                 return false;
             }
 
-            if (!validar.ExisteDni(int.Parse(dni)))
+            if (!adminDoctor.ExisteDniDoctor(int.Parse(dni)))
             {
                 validateDni.ErrorMessage = "That DNI doesn't exist.";
                 validateDni.IsValid = false;
@@ -298,8 +301,8 @@ namespace Vistas.Admin.medicos
         // CARGAR DDL ESPECIALIDADES
         private void CargarEspecialidades()
         {
-            Validar validar = new Validar();
-            DataTable dtEspecialidad = validar.ObtenerEspecialidades();
+            AdminDoctorManager adminDoctor = new AdminDoctorManager();
+            DataTable dtEspecialidad = adminDoctor.ObtenerEspecialidades();
 
             ddlSpeciality.DataSource = dtEspecialidad;
             ddlSpeciality.DataTextField = "NAME_SPE";

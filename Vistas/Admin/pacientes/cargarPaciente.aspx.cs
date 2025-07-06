@@ -153,7 +153,8 @@ namespace Vistas.Admin.pacientes
         // VALIDAR FORMATO DE DNI VALIDO Y SI YA EXISTE
         private bool validarDNI()
         {
-            Validar validar = new Validar();
+            AdminPatientsManager adminPatients = new AdminPatientsManager();
+            Validar validar = new Validar();   
 
             string dni = txtDNI.Text.Trim();
 
@@ -166,7 +167,7 @@ namespace Vistas.Admin.pacientes
 
             if (!Page.IsValid) return false;
 
-            if (validar.ExisteDni(int.Parse(txtDNI.Text)))
+            if (adminPatients.ExisteDniPaciente(int.Parse(txtDNI.Text)))
             {
                 validateDni.ErrorMessage = "That DNI is already registered.";
                 validateDni.IsValid = false;
@@ -178,11 +179,11 @@ namespace Vistas.Admin.pacientes
         // VALIDAR SI EL TELEFONO YA EXISTE
         private bool validarTelefono()
         {
-            Validar validar = new Validar();
+            AdminPatientsManager adminPatients = new AdminPatientsManager();
 
             if (!Page.IsValid) return false;
 
-            if (validar.ExisteTelefono(txtPhone.Text))
+            if (adminPatients.ExisteTelefonoPaciente(txtPhone.Text))
             {
                 validatePhone.ErrorMessage = "That phone number is already registered.";
                 validatePhone.IsValid = false;

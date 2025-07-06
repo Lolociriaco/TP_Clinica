@@ -138,20 +138,6 @@ namespace Vistas.Medicos
             CargarTurnos();
         }
 
-        //private bool validarCamposVacios(GridViewUpdateEventArgs e)
-        //{
-        //    GridViewRow row = gvTurnos.Rows[e.RowIndex];
-        //    DropDownList ddlState = ((DropDownList)row.FindControl("ddlSTATE_APPO"));
-
-        //    if (ddlState == null || ddlState.SelectedValue == "0" || string.IsNullOrEmpty(ddlState.SelectedValue))
-        //    {
-        //        lblMensaje.Text = "Select a valid state.";
-        //        lblMensaje.ForeColor = System.Drawing.Color.Red;
-        //        return false;
-        //    }
-        //    return true;
-        //}
-
         // CAMBIO DE PAGINA EN LA GRID
         protected void gvTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

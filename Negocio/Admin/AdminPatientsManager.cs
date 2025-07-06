@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using Datos.Admin;
+using Entidades;
+using System.Net;
 
 namespace Negocio.Admin
 {
@@ -28,6 +30,30 @@ namespace Negocio.Admin
         {
             AdminPatientsDao admin = new AdminPatientsDao();
             return admin.ObtenerSexoPaciente();
+        }
+
+        public bool updatePatient(Paciente paciente)
+        {
+            AdminPatientsDao adminPatientsDao = new AdminPatientsDao();
+            return adminPatientsDao.updatePatient(paciente);
+        }
+
+        public bool deletePatient(int dni)
+        {
+            AdminPatientsDao adminPatientsDao = new AdminPatientsDao();
+            return adminPatientsDao.deletePatient(dni);
+        }
+
+        public bool ExisteDniPaciente(int dni)
+        {
+            AdminPatientsDao adminPatientsDao = new AdminPatientsDao();
+            return adminPatientsDao.ExisteDniPaciente(dni);
+        }
+
+        public bool ExisteTelefonoPaciente(string telefono)
+        {
+            AdminPatientsDao adminPatientsDao = new AdminPatientsDao();
+            return adminPatientsDao.ExisteTelefonoPaciente(telefono);
         }
     }
 }

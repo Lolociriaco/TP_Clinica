@@ -129,7 +129,7 @@ namespace Vistas
             int idUsuario = Convert.ToInt32(gvPacientes.DataKeys[index].Value);
 
 
-            AdminDoctorManager paciente = new AdminDoctorManager();
+            AdminPatientsManager paciente = new AdminPatientsManager();
             paciente.deletePatient(idUsuario);
 
             lblMensaje.Text = "The patient was deleted succesfully.";
@@ -227,7 +227,7 @@ namespace Vistas
 
             int nuevaProvincia = Convert.ToInt32(ddlProv.SelectedValue);
 
-            AdminDoctorManager medico = new AdminDoctorManager();
+            AdminPatientsManager adminPaciente = new AdminPatientsManager();
 
             Paciente paciente = new Paciente
             (
@@ -244,7 +244,7 @@ namespace Vistas
                 nuevoTelefono
             );
 
-            medico.updatePatient(paciente);
+            adminPaciente.updatePatient(paciente);
 
             lblMensaje.Text = "The patient was modified succesfully.";
             lblMensaje.ForeColor = System.Drawing.Color.Green;

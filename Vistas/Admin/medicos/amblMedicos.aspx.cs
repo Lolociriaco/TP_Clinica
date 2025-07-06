@@ -166,8 +166,8 @@ namespace Vistas
         // CARGAR ESPECIALIDADES EN EL FILTRO
         private void cargarSpecialitiesGeneral(DropDownList ddl, string message)
         {
-            Validar validar = new Validar();
-            DataTable dtEspecialidades = validar.ObtenerEspecialidades();
+            AdminDoctorManager adminDoctor = new AdminDoctorManager();
+            DataTable dtEspecialidades = adminDoctor.ObtenerEspecialidades();
             ddl.DataSource = dtEspecialidades;
             ddl.DataTextField = "NAME_SPE";
             ddl.DataValueField = "ID_SPE";
@@ -185,8 +185,8 @@ namespace Vistas
 
             if (ddlDias != null)
             {
-                Validar validar = new Validar();
-                DataTable dtDias = validar.ObtenerDias();
+                AdminDoctorManager adminDoctor = new AdminDoctorManager();
+                DataTable dtDias = adminDoctor.ObtenerDias();
 
                 ddlDias.DataSource = dtDias;
                 ddlDias.DataTextField = "WEEKDAY_SCH";
