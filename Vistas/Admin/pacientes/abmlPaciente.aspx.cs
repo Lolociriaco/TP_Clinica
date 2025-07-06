@@ -106,7 +106,6 @@ namespace Vistas
                         ddlLocalidad.DataBind();
                         ddlLocalidad.Items.Insert(0, new ListItem("< SELECT >", ""));
 
-                        // Seleccionar localidad actual
                         object locObj = DataBinder.Eval(e.Row.DataItem, "ID_CITY_PAT");
                         string idLocActual = locObj != null ? locObj.ToString() : "";
 
@@ -280,7 +279,7 @@ namespace Vistas
                 ViewState["ProvinciaSeleccionadaGV"] = nuevaProvincia;
 
                 gvPacientes.EditIndex = index;
-                CargarPacientes(); // Vuelve a cargar la grilla con la provincia seleccionada
+                CargarPacientes(); 
             }
             else
             {

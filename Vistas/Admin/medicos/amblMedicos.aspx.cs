@@ -398,7 +398,7 @@ namespace Vistas
                 ViewState["ProvinciaSeleccionadaGV"] = nuevaProvincia;
 
                 gvMedicos.EditIndex = index;
-                CargarMedicos(); // Vuelve a cargar la grilla con la provincia seleccionada
+                CargarMedicos(); 
             }
             else
             {

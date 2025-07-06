@@ -118,13 +118,7 @@ namespace Vistas.Medicos
             string newObservation = ((TextBox)row.FindControl("txtOBSERVATION_APPO")).Text;
             DropDownList ddlState = ((DropDownList)row.FindControl("ddlSTATE_APPO"));
 
-            if (ddlState == null || ddlState.SelectedValue == "0" || string.IsNullOrEmpty(ddlState.SelectedValue))
-            {
-                lblMensaje.Text = "Select a valid state.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
-
+            if (!validarCamposVacios(e)) return;
 
             string newState = ddlState.SelectedValue.ToString();
 
@@ -136,6 +130,17 @@ namespace Vistas.Medicos
 
             gvTurnos.EditIndex = -1;
             CargarTurnos();
+        }
+
+        private bool validarCamposVacios (GridViewUpdateEventArgs e)
+        {
+            if (ddlState == null || ddlState.SelectedValue == "0" || string.IsNullOrEmpty(ddlState.SelectedValue))
+            {
+                lblMensaje.Text = "Select a valid state.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+            return true;
         }
 
         // CAMBIO DE PAGINA EN LA GRID
