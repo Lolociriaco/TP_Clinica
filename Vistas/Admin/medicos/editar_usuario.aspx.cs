@@ -19,13 +19,12 @@ namespace Vistas.Admin.medicos
                 Response.Redirect("~/Login.aspx");
             }
 
-            username.Text = Session["username"].ToString();
 
             if (!IsPostBack)
             {
-
-            }
+                username.Text = Session["username"].ToString();
                 lblEstado.Text = "";
+            }
         }
 
         // VOLVER A LOGIN
@@ -47,9 +46,10 @@ namespace Vistas.Admin.medicos
             if (!validarUsuarioInexistente()) return;
 
             // CAMBIAR USUARIO
-            AdminDoctorManager usuario = new AdminDoctorManager();
+            UserManager usuario = new UserManager();
             bool cambiarPass = !string.IsNullOrWhiteSpace(txtPass.Text);
             bool cambiarUsuario = !string.IsNullOrWhiteSpace(txtNuevoUsuario.Text);
+
             bool cambioUsuario = usuario.modificarUsuario(
                 txtUsuario.Text,
                 cambiarPass ? txtPass.Text : null,
@@ -58,6 +58,12 @@ namespace Vistas.Admin.medicos
 
             lblEstado.ForeColor = System.Drawing.Color.Green;
             lblEstado.Text = "User modified successfully.";
+
+            if (cambiarUsuario)
+            {
+                Session["username"] = txtNuevoUsuario.Text;
+                username.Text = txtNuevoUsuario.Text; // Actualizar el campo de usuario en la página
+            }
 
             // VACIAR CONTROLES
             txtUsuario.Text = "";

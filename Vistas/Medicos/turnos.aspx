@@ -20,25 +20,48 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
 
-        <div class="navbar">
-            <div class="icon">
-                <img src="/Imagenes/logo.png" alt="Logo RR-SCD"/>
-                <h2>RR-SCD MED</h2>
-            </div>
-            <div>
-                <h3 style="display: flex; align-items: center; gap: 10px; font-size: 16px;">
-                  <img src="/Imagenes/user.png" style="width: 40px; height: auto;" />
-                  <asp:Label ID="username" CssClass="username" runat="server"/>
-                </h3>
+        <%------------------SIDEBAR----------------%>
+        <aside class="sidebar">
 
-            </div>
+            <nav class="menu">
 
-        </div>
+                <div class="logo">
+                    <img src="/Imagenes/logo.png" alt="Logo RR-SCD" />
+                    <h2>RR-SCD MED</h2>
+                </div>
+
+                <a href="/Medicos/turnos.aspx" class="menu-item active">
+                    <img src="/Imagenes/turnos.png" 
+                        class="icon-left" />
+                    Appointments
+                </a>
+                
+                <a href="/Medicos/editar_usuario.aspx" class="menu-item">
+                    <img src="/Imagenes/edituser.png" 
+                        class="icon-left" />
+                    Edit User
+                </a>
+
+            </nav>
+
+            <asp:Button ID="btnLogout" runat="server" CssClass="logout-button logout" Text="Logout" />
+
+
+        </aside>
 
         <main class="main-content">
 
-            <header class="header">
-                <h2>SEE APPOINTMENTS</h2>
+            <header>
+
+                <div class="user-container">
+                    <img src="/Imagenes/user.png"/>
+                        <asp:Label ID="username" CssClass="username" runat="server"/>
+                </div>
+
+                <h2 class="title">
+                    EDIT USER
+                </h2>
+
             </header>
 
             <section class="content-box">
@@ -46,28 +69,34 @@
                 <h3>Your appointments</h3>
 
 
-                <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 15px; align-items: baseline;">
+                <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 40px; align-items: baseline;">
 
-                <label>Filter by:</label>
+                    <label style="font-size: 18px; font-weight: bold">Filter by:</label>
 
-                <asp:CheckBox ID="chckToday" AutoPostBack="true" runat="server" Text="Today" OnCheckedChanged="chckToday_CheckedChanged" />
+                    <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 10px; align-items: baseline">
+                        <asp:CheckBox ID="chckToday" AutoPostBack="true" runat="server" Text="Today" OnCheckedChanged="chckToday_CheckedChanged" />
 
-                <asp:CheckBox ID="chckTomorrow" AutoPostBack="true" runat="server" Text="Tomorrow" OnCheckedChanged="chckTomorrow_CheckedChanged" />
+                        <asp:CheckBox ID="chckTomorrow" AutoPostBack="true" runat="server" Text="Tomorrow" OnCheckedChanged="chckTomorrow_CheckedChanged" />
+                    </div>
 
-                <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged"></asp:DropDownList>
 
-                <label>Day:</label>
-                <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" AutoPostBack="true" TextMode="Date" OnTextChanged="txtDay_TextChanged" />
-                    <ajaxToolkit:CalendarExtender 
-                    ID="CalendarExtender1" 
-                    runat="server" 
-                    TargetControlID="txtDay" 
-                    Format="yyyy-MM-dd" />
-                
-                <label>DNI Patient:</label>
-                <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtDNI_TextChanged"/>
+                    <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 10px; align-items: baseline">
+                        <label>Day:</label>
+                        <asp:TextBox ID="txtDay" runat="server" CssClass="input-text" AutoPostBack="true" TextMode="Date" OnTextChanged="txtDay_TextChanged" />
+                            <ajaxToolkit:CalendarExtender 
+                            ID="CalendarExtender1" 
+                            runat="server" 
+                            TargetControlID="txtDay" 
+                            Format="yyyy-MM-dd" />
+                    </div>
 
-                <asp:Button ID="btnClear" runat="server" Text="Clear filters" OnClick="btnClear_Click" CssClass="confirm-button"/>
+                    <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 10px; align-items: baseline">
+                        <label>DNI Patient:</label>
+                        <asp:TextBox ID="txtDNI" runat="server" CssClass="input-text" AutoPostBack="true" OnTextChanged="txtDNI_TextChanged"/>
+                    </div>
+
+                    <asp:Button ID="btnClear" runat="server" Text="Clear filters" OnClick="btnClear_Click" CssClass="confirm-button"/>
 
                 </div>
 
@@ -77,7 +106,7 @@
                         Width="100%" OnRowEditing="gvTurnos_RowEditing" OnRowUpdating="gvTurnos_RowUpdating"
                         OnRowCancelingEdit="gvTurnos_RowCancelingEdit" DataKeyNames="ID_APPO" OnRowDataBound="gvTurnos_RowDataBound"
                         AllowPaging="True" OnPageIndexChanging="gvTurnos_PageIndexChanging" CellPadding="4" ForeColor="#333333"
-                        GridLines="None" PageSize="8" CssClass="gridview">
+                        GridLines="None" PageSize="10" CssClass="gridview">
                         <Columns>
                             <asp:TemplateField HeaderText="ACTIONS">
                                 <ItemTemplate>
@@ -166,7 +195,6 @@
                       <asp:Label ID="lblMensaje" runat="server" Text="" Font-Bold="true"></asp:Label>
                 </div>
 
-            <asp:Button ID="btnLogout" runat="server" CssClass="logout-button" Text="Logout" />
 
             </section>
         </main>

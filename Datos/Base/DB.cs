@@ -33,8 +33,7 @@ namespace Datos
             }
         }
 
-
-        public void EjecutarInsert(string query, SqlParameter[] parametros)
+        public bool EjecutarInsert(string query, SqlParameter[] parametros)
         {
             using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             {
@@ -42,7 +41,8 @@ namespace Datos
                 {
                     comando.Parameters.AddRange(parametros);
                     conn.Open();
-                    comando.ExecuteNonQuery();
+                    int filasAfectadas = comando.ExecuteNonQuery();
+                    return filasAfectadas > 0;
                 }
             }
         }

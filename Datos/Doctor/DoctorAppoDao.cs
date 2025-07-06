@@ -10,15 +10,19 @@ namespace Datos.Doctor
 {
     public class DoctorAppoDao
     {
-        public DataTable ObtenerTurnosFiltrados(string DNI_PAT, string DAY_APPO, string todayOrTomorrow, string state)
+        public DataTable ObtenerTurnosFiltrados(string DNI_PAT, string DAY_APPO, string todayOrTomorrow, string state, int id_doctor)
         {
             string query = "SELECT A.ID_APPO, A.DNI_PAT_APPO, A.DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
                 "P.NAME_PAT, P.SURNAME_PAT, P.GENDER_PAT " +
                 "FROM APPOINTMENT A " +
                 "INNER JOIN PATIENTS P ON P.DNI_PAT = A.DNI_PAT_APPO " +
-                "WHERE P.ACTIVE_PAT = 1";
+                "WHERE P.ACTIVE_PAT = 1 " +
+                "AND A.ID_USER_DOCTOR = @id_doctor";
 
             List<SqlParameter> parametros = new List<SqlParameter>();
+
+            parametros.Add(new SqlParameter("@id_doctor", id_doctor));
+
             if (!string.IsNullOrEmpty(DNI_PAT))
             {
                 query += " AND A.DNI_PAT_APPO LIKE @dni";
@@ -81,6 +85,23 @@ namespace Datos.Doctor
                     return filasAfectadas > 0; // Retorna true si se actualizó al menos un registro
                 }
             }
+        }
+
+        public int GetDoctorID(string username)
+        {
+            string query = "SELECT ID_USER" +
+                          " FROM USERS " +
+                          "WHERE USERNAME = @username";
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@username", username)
+            };
+
+            DB db = new DB();
+            object res = db.EjecutarEscalar(query, parameters);
+
+            return res != null ? Convert.ToInt32(res) : -1;
         }
     }
 }

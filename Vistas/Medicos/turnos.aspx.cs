@@ -49,8 +49,11 @@ namespace Vistas.Medicos
 
             string state = ddlState.SelectedValue;
 
+            string user = Session["username"].ToString();
+
             DoctorAppoManager doctorManager = new DoctorAppoManager();
-            gvTurnos.DataSource = doctorManager.ObtenerTurnos(DNI_PAT, DAY_APPO, todayOrTomorrow, state);
+            int id_doctor = doctorManager.GetDoctorID(user);
+            gvTurnos.DataSource = doctorManager.ObtenerTurnos(DNI_PAT, DAY_APPO, todayOrTomorrow, state, id_doctor);
             gvTurnos.DataBind();
         }
 

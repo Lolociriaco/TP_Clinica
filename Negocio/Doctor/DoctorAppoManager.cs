@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Datos;
 using Datos.Admin;
 using Datos.Doctor;
+using Entidades;
 
 namespace Negocio.Doctor
 {
@@ -19,10 +20,16 @@ namespace Negocio.Doctor
             return appoDao.updateAppointment(state, observation, id);
         }
 
-        public DataTable ObtenerTurnos(string DNI_PAT, string DAY_APPO, string todayOrTomorrow, string state)
+        public DataTable ObtenerTurnos(string DNI_PAT, string DAY_APPO, string todayOrTomorrow, string state, int doctor_id)
         {
             DoctorAppoDao appoDao = new DoctorAppoDao();
-            return appoDao.ObtenerTurnosFiltrados(DNI_PAT, DAY_APPO, todayOrTomorrow, state);
+            return appoDao.ObtenerTurnosFiltrados(DNI_PAT, DAY_APPO, todayOrTomorrow, state, doctor_id);
+        }
+
+        public int GetDoctorID(string username)
+        {
+            DoctorAppoDao appoDao = new DoctorAppoDao();
+            return appoDao.GetDoctorID(username);
         }
 
     }

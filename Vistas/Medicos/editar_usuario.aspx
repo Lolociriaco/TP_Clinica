@@ -27,43 +27,13 @@
                     <h2>RR-SCD MED</h2>
                 </div>
 
-                <a href="/Admin/pacientes/abmlPaciente.aspx" class="menu-item">
-                    <img src="/Imagenes/pacientes.png" 
-                        class="icon-left" />
-                    Patients
-                </a>
-
-                <a href="/Admin/pacientes/cargarPaciente.aspx" class="menu-item">
-                    <img src="/Imagenes/add.png" 
-                        class="icon-left" />
-                    Add Patients
-                </a>
-
-                <a href="/Admin/medicos/amblMedicos.aspx" class="menu-item">
-                    <img src="/Imagenes/doctores.png" 
-                        class="icon-left" />
-                    Doctors
-                </a>
-
-                <a href="/Admin/medicos/cargarMedicos.aspx" class="menu-item">
-                    <img src="/Imagenes/add.png" 
-                        class="icon-left" />
-                    Add Doctors
-                </a>
-
-                <a href="/Admin/informes/verInformes.aspx" class="menu-item">
-                    <img src="/Imagenes/stats.png" 
-                        class="icon-left" />
-                    Reports
-                </a>
-
-                <a href="/Admin/turnos/asignar_turno.aspx" class="menu-item">
+                <a href="/Medicos/turnos.aspx" class="menu-item">
                     <img src="/Imagenes/turnos.png" 
                         class="icon-left" />
                     Appointments
                 </a>
                 
-                <a href="/Admin/medicos/editar_usuario.aspx" class="menu-item active">
+                <a href="/Medicos/editar_usuario.aspx" class="menu-item active">
                     <img src="/Imagenes/edituser.png" 
                         class="icon-left" />
                     Edit User
@@ -98,10 +68,6 @@
 
 
                     <div class="form-grid">
-                        <div class="form-group">
-                            <label>Current username:</label>
-                            <asp:TextBox ID="txtUsuario" runat="server" CssClass="input-text"></asp:TextBox>
-                        </div>
 
                         <div class="form-group">
                             <label>New username:</label>

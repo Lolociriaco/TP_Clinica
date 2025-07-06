@@ -99,7 +99,7 @@
 
                 <div style="display: flex; margin-top: 15px; flex-direction: row; gap: 15px; align-items: baseline;">
 
-                    <label>Filter by:</label>
+                    <label style="display: inline-block; white-space: nowrap;">Filter by:</label>
 
                     <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged"></asp:DropDownList>
                     <asp:DropDownList ID="ddlSexo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSexo_SelectedIndexChanged"></asp:DropDownList>

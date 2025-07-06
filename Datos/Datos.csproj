@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\AuthDao.cs" />
     <Compile Include="Shared\GetUbicationDao.cs" />
+    <Compile Include="Shared\UserDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">

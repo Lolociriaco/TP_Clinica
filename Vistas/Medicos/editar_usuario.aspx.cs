@@ -14,18 +14,17 @@ namespace Vistas.Medicos
 	{
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
+            if (Session["role"] == null || Session["role"].ToString() != "DOCTOR")
             {
                 Response.Redirect("~/Login.aspx");
             }
 
-            username.Text = Session["username"].ToString();
 
             if (!IsPostBack)
             {
-
-            }
+                username.Text = Session["username"].ToString();
                 lblEstado.Text = "";
+            }
         }
 
         // VOLVER A LOGIN
@@ -40,18 +39,17 @@ namespace Vistas.Medicos
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             // VALIDACIONES
-            if (!validarCamposVacios()) return;
-
             if (!validarCambioContraseña()) return;
 
-            if (!validarUsuarioInexistente()) return;
-
             // CAMBIAR USUARIO
-            AdminDoctorManager usuario = new AdminDoctorManager();
+            UserManager usuario = new UserManager();
             bool cambiarPass = !string.IsNullOrWhiteSpace(txtPass.Text);
             bool cambiarUsuario = !string.IsNullOrWhiteSpace(txtNuevoUsuario.Text);
+            string user = Session["username"].ToString();
+
+
             bool cambioUsuario = usuario.modificarUsuario(
-                txtUsuario.Text,
+                user,
                 cambiarPass ? txtPass.Text : null,
                 cambiarUsuario ? txtNuevoUsuario.Text : null
             );
@@ -59,39 +57,18 @@ namespace Vistas.Medicos
             lblEstado.ForeColor = System.Drawing.Color.Green;
             lblEstado.Text = "User modified successfully.";
 
+            if (cambiarUsuario)
+            {
+                Session["username"] = txtNuevoUsuario.Text;
+                username.Text = txtNuevoUsuario.Text; // Actualizar el campo de usuario en la página
+            }
+
             // VACIAR CONTROLES
-            txtUsuario.Text = "";
             txtNuevoUsuario.Text = "";
             txtPass.Text = "";
             txtRepPassword.Text = "";
         }
 
-        // VALIDAR CAMPOS VACIOS
-        private bool validarCamposVacios()
-        {
-            if (string.IsNullOrWhiteSpace(txtUsuario.Text))
-            {
-                lblEstado.ForeColor = System.Drawing.Color.Red;
-                lblEstado.Text = "Enter the current user.";
-                return false;
-            }
-            return true;
-        }
-
-        // VALIDAR QUE EL USER EXISTA
-        private bool validarUsuarioInexistente()
-        {
-            AuthManager auth = new AuthManager();
-            bool userValido = auth.UserExist(txtUsuario.Text);
-
-            if (!userValido)
-            {
-                lblEstado.ForeColor = System.Drawing.Color.Red;
-                lblEstado.Text = "This user doesn´t exist.";
-                return false;
-            }
-            return true;
-        }
 
         // VALIDAR EL CAMBIO DE LA CONTRASEÑA
         private bool validarCambioContraseña()

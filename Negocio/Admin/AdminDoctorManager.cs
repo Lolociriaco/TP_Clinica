@@ -267,12 +267,6 @@ namespace Negocio
             return adminDoctorDao.updateDoctor(medico, diaSeleccionado, horaInicio, horaFin);
         }
 
-        public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
-        {
-            AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
-            return adminDoctorDao.modificarUsuario(user, newPassword, newUser);
-        }
-
         public DataTable ObtenerEspecialidades()
         {
             AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
@@ -291,16 +285,16 @@ namespace Negocio
             return adminDoctorDao.ObtenerDias();
         }
 
-        public void AgregarMedico(Medico medico)
+        public bool AgregarMedico(Medico medico)
         {
             AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
-            adminDoctorDao.AgregarMedico(medico);
+            return adminDoctorDao.AgregarMedico(medico);
         }
 
-        public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
+        public bool InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
             AdminDoctorDao adminDoctorDao = new AdminDoctorDao();
-            adminDoctorDao.InsertarHorarioMedico(idUsuario, diaSemana, horaInicio, horaFin);
+            return adminDoctorDao.InsertarHorarioMedico(idUsuario, diaSemana, horaInicio, horaFin);
         }
 
         public bool ExisteDniDoctor(int dni)

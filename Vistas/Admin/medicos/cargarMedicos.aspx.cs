@@ -86,12 +86,23 @@ namespace Vistas.Admin.medicos
                 RepeContrasena = txtRepeatPass.Text
             };
 
-            medico._id_usuario = idUsuario;                    
-            manager.AgregarMedico(medico);
+            medico._id_usuario = idUsuario;
+            if (!manager.AgregarMedico(medico))
+            {
+                lblMensaje.Text = "Error adding doctor. Please try again.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
 
             for (int i = 0; i < diasAtencion.Count; i++)
             {
-                manager.InsertarHorarioMedico(idUsuario, diasAtencion[i], horasInicio[i], horasFin[i]);
+                bool res = manager.InsertarHorarioMedico(idUsuario, diasAtencion[i], horasInicio[i], horasFin[i]);
+                if (!res)
+                {
+                    lblMensaje.Text = "Error adding doctor's schedule. Please try again.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
             }
 
             // LIMPIAR CONTROLES

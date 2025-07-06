@@ -10,7 +10,7 @@ body {
     margin: 0;
     height: 100vh;
 }
-
+/*
 .navbar {
     position: relative;
     height: 80px;
@@ -45,7 +45,7 @@ body {
         width: 40px;
         height: auto;
     }
-
+*/
 .container {
     display: flex;
     flex-direction: column;
@@ -79,28 +79,23 @@ body {
 
 /*--- POP UP STYLE ----*/
 .logout-button {
-    background: url('/Imagenes/logout.png') no-repeat 13px center;
+    background: url('/Imagenes/logout.png') no-repeat 10px center;
     background-size: 20px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 6px;
     border: none;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 150px;
-    background-color: rgba(255, 0, 0, 0.3);
-    color: red;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-    .logout-button:hover {
-        background-color: rgba(255, 0, 0, 0.4);
-
-    }
+.logout {
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    font-weight: bold;
+    margin-top: auto;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    padding: 10px;
+    gap: 5px;
+}
 
     .logout:hover {
         color: red;
@@ -148,3 +143,133 @@ body {
     background-color: gray;
 }
 
+/*-------CONTENIDO SIDEBAR------*/
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    width: 200px;
+    background-color: #fff;
+    border-right: 2px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+    top: 0;
+    left: 1px;
+}
+
+.logo {
+    position: relative;
+    justify-content: center;
+    display: flex;
+    z-index: 20;
+    gap: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+    .logo h2 {
+        font-family: 'Yeseva One', serif;
+        font-size: 25px;
+        color: #1F2B86;
+        margin: 0;
+    }
+
+    .logo img {
+        width: 60px;
+        height: auto;
+    }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+    .menu-item .icon-left {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        position: relative;
+        margin-right: 10px;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+        background-color: #e3f2fd;
+        color: #187bcd;
+    }
+
+/*-------CONTENIDO HEADER------*/
+.main-content {
+    flex: 1;
+    margin-left: 200px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+header {
+    margin-bottom: 20px;
+    text-align: center;
+    color: whitesmoke;
+}
+
+    header img {
+        width: 10px;
+        height: 10px;
+    }
+
+.user-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 20px;
+    right: 40px;
+    gap: 10px;
+    font-size: 16px;
+    max-width: 200px
+}
+
+    .user-container .username {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .user-container img {
+        width: 40px;
+        height: auto;
+    }
+
+/*      ESTILO DDL & INPUTS        */
+
+.input-text,
+select,
+input[type="text"] {
+    margin: 3px 0;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: box-shadow 0.3s ease;
+}
+
+    .input-text:focus {
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+        outline: none;
+    }

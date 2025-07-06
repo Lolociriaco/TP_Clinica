@@ -296,7 +296,7 @@ namespace Datos.Admin
             return ds.Tables["Dias"];
         }
 
-        public void AgregarMedico(Medico medico)
+        public bool AgregarMedico(Medico medico)
         {
             string query = @"
                 INSERT INTO DOCTOR (
@@ -329,11 +329,11 @@ namespace Datos.Admin
             };
 
             DB datos = new DB();
-            datos.EjecutarInsert(query, parametros);
+            return datos.EjecutarInsert(query, parametros);
         }
 
         // CONSULTA PARA INSERTAR EL HORARIO DEL MEDICO
-        public void InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
+        public bool InsertarHorarioMedico(int idUsuario, string diaSemana, TimeSpan horaInicio, TimeSpan horaFin)
         {
             string query = "INSERT INTO DOCTOR_SCHEDULES (ID_USER_DOCTOR, WEEKDAY_SCH, TIME_START, TIME_END) " +
                            "VALUES (@idUsuario, @dia, @horaInicio, @horaFin)";
@@ -347,7 +347,7 @@ namespace Datos.Admin
             };
 
             DB db = new DB();
-            db.EjecutarInsert(query, parametros);
+            return db.EjecutarInsert(query, parametros);
         }
 
         public bool ExisteDniDoctor(int dni)
