@@ -34,7 +34,6 @@ namespace Vistas
             if (!IsPostBack)
             {
                 username.Text = Session["username"].ToString();
-                cargarWeekDays();
                 cargarStates(ddlState, "Any state");
                 cargarSpecialitiesGeneral(ddlSpeciality, "Any speciality");
                 CargarMedicos();
@@ -59,20 +58,6 @@ namespace Vistas
                 cargarEspecialidadesDDL(e);
                 cargarDiasHorariosDDL(e);
             }
-        }
-
-        // CARGAR DIAS EN EL FILTRO
-        private void cargarWeekDays()
-        {
-            var estados = Enum.GetNames(typeof(WeekDays))
-                .Select(s => new { Value = s, Text = s });
-
-            ddlWeekDay.DataSource = estados;
-            ddlWeekDay.DataTextField = "Text";
-            ddlWeekDay.DataValueField = "Value";
-            ddlWeekDay.DataBind();
-
-            ddlWeekDay.Items.Insert(0, new ListItem("Any day", ""));
         }
 
         // CARGAR PROVINCIAS EN EL FILTRO
@@ -140,8 +125,6 @@ namespace Vistas
         // CARGA DE DDL ESPECIALIDADES 
         private void cargarEspecialidadesDDL(GridViewRowEventArgs e)
         {
-            Validar validar = new Validar();
-
             // ESPECIALIDAD
             DropDownList ddlEspecialidad = (DropDownList)e.Row.FindControl("ddlID_ESP");
             if (ddlEspecialidad != null)
