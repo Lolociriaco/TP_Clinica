@@ -233,9 +233,9 @@ namespace Vistas.Admin.medicos
                 return false;
             }
 
-            if (!adminDoctor.ExisteDniDoctor(int.Parse(dni)))
+            if (adminDoctor.ExisteDniDoctor(int.Parse(dni)))
             {
-                validateDni.ErrorMessage = "That DNI doesn't exist.";
+                validateDni.ErrorMessage = "That DNI is already registered.";
                 validateDni.IsValid = false;
                 return false;
             }
@@ -264,7 +264,7 @@ namespace Vistas.Admin.medicos
                     if (TimeSpan.TryParse(txtHoraInicio.Text.Trim(), out TimeSpan ini) &&
                         TimeSpan.TryParse(txtHoraFin.Text.Trim(), out TimeSpan fin))
                     {
-                        dias.Add(lblDia.Text);
+                        dias.Add(lblDia.Text.ToUpper());
                         horasInicio.Add(ini);
                         horasFin.Add(fin);
                         alMenosUno = true;

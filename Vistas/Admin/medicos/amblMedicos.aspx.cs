@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -186,12 +187,7 @@ namespace Vistas
 
             if (ddlDias != null)
             {
-                AdminDoctorManager adminDoctor = new AdminDoctorManager();
-                DataTable dtDias = adminDoctor.ObtenerDias();
-
-                ddlDias.DataSource = dtDias;
-                ddlDias.DataTextField = "WEEKDAY_SCH";
-                ddlDias.DataValueField = "WEEKDAY_SCH";
+                ddlDias.DataSource = Enum.GetNames(typeof(WeekDays));
                 ddlDias.DataBind();
 
                 string diasTrabajo = DataBinder.Eval(e.Row.DataItem, "DIAS_TRABAJO")?.ToString();
@@ -199,7 +195,6 @@ namespace Vistas
                 if (!string.IsNullOrEmpty(diasTrabajo))
                 {
                     string[] diasArray = diasTrabajo.Split(',');
-
 
                     string primerDia = diasArray[0].Trim();
 
@@ -326,11 +321,6 @@ namespace Vistas
             DropDownList ddlLoc  = (DropDownList)row.FindControl("ddlID_LOC_MED");
             DropDownList ddlProv = (DropDownList)row.FindControl("ddlID_PROV_MED");
             DropDownList ddlDias = (DropDownList)row.FindControl("ddlDIAS");
-
-            int nuevaEspecialidad = Convert.ToInt32(ddlEsp.SelectedValue);
-            int nuevaLocalidad    = Convert.ToInt32(ddlLoc.SelectedValue);
-            int nuevaProvincia    = Convert.ToInt32(ddlProv.SelectedValue);
-            string nuevosDias     = (ddlDias.SelectedValue);
             
             if (ddlEsp  == null || ddlEsp.SelectedValue ==  "0" || string.IsNullOrEmpty(ddlEsp.SelectedValue)  ||
                 ddlLoc  == null || ddlLoc.SelectedValue ==  "0" || string.IsNullOrEmpty(ddlLoc.SelectedValue)  ||
@@ -341,6 +331,11 @@ namespace Vistas
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
+
+            int nuevaEspecialidad = Convert.ToInt32(ddlEsp.SelectedValue);
+            int nuevaLocalidad    = Convert.ToInt32(ddlLoc.SelectedValue);
+            int nuevaProvincia    = Convert.ToInt32(ddlProv.SelectedValue);
+            string nuevosDias     = (ddlDias.SelectedValue);
 
             AdminDoctorManager medico = new AdminDoctorManager();
 

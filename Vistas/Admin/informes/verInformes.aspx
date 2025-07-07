@@ -87,7 +87,7 @@
                     </header>
                     
                     <%-----------------GRID DE ESTADÍSTICAS DE TEXTO-------------------%>
-                    <div class="content-box">
+                    <div class="content-box" style="margin-bottom: 20px;">
                         <h3>Appointments Statistics</h3>
                         <asp:GridView ID="gvEstadisticasTexto" runat="server" AutoGenerateColumns="False" 
                             CssClass="stats-gridview" Width="100%" GridLines="None" ShowHeader="False">

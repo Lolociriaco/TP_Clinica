@@ -11,17 +11,15 @@ TRUNCATE TABLE APPOINTMENT;
 
 -- TABLA: STATE
 CREATE TABLE STATE (
-    ID_STATE INT NOT NULL,
+    ID_STATE INT IDENTITY(1,1) PRIMARY KEY,
     NAME_STATE VARCHAR(100) NOT NULL,
-    CONSTRAINT PK_STATE PRIMARY KEY (ID_STATE)
 );
 
 -- TABLA: CITY
 CREATE TABLE CITY (
-    ID_CITY INT NOT NULL,
+    ID_CITY INT IDENTITY(1,1) PRIMARY KEY,
     NAME_CITY VARCHAR(100) NOT NULL,
     ID_STATE_CITY INT NOT NULL,
-    CONSTRAINT PK_CITY PRIMARY KEY (ID_CITY),
     CONSTRAINT FK_CITY_STATE FOREIGN KEY (ID_STATE_CITY) REFERENCES STATE(ID_STATE)
 );
 
@@ -115,43 +113,175 @@ CREATE TABLE DOCTOR_SCHEDULES (
 );
 
 ------- CARGAS NECESARIAS PARA CARGAR LOS PATIENTS--------
-INSERT INTO STATE (ID_STATE, NAME_STATE) VALUES
-(1, 'Buenos Aires'),
-(2, 'Córdoba'),
-(3, 'Santa Fe'),
-(4, 'Mendoza'),
-(5, 'Tucumán'),
-(6, 'Salta'),
-(7, 'Neuquen'),
-(8, 'Santiago del estero'),
-(9, 'La rioja'),
-(10, 'Chaco'),
-(11, 'Jujuy'),
-(12, 'Formosa'),
-(13, 'Misiones'),
-(14, 'Corrientes'),
-(15, 'San luis'),
-(16, 'San juan'),
-(17, 'Entre Rios'),
-(18, 'Tierra del fuego'),
-(19, 'Rio negro'),
-(20, 'La pampa'),
-(21, 'Chubut'),
-(22, 'Santa cruz'),
-(23, 'Tucuman');
+INSERT INTO STATE (NAME_STATE) VALUES
+('Buenos Aires'),
+('Córdoba'),
+('Santa Fe'),
+('Mendoza'),
+('Tucumán'),
+('Salta'),
+('Neuquen'),
+('Santiago del estero'),
+('La rioja'),
+('Chaco'),
+('Jujuy'),
+('Formosa'),
+('Misiones'),
+('Corrientes'),
+('San luis'),
+('San juan'),
+('Entre Rios'),
+('Tierra del fuego'),
+('Rio negro'),
+('La pampa'),
+('Chubut'),
+('Santa cruz'),
+('Tucuman');
 
-INSERT INTO CITY (ID_CITY, NAME_CITY, ID_STATE_CITY) VALUES
-(1, 'Tigre', 1),
-(2, 'San Fernando', 1),
-(3, 'Vicente López', 1),
-(4, 'Córdoba Capital', 2),
-(5, 'Río Cuarto', 2),
-(6, 'Rosario', 3),
-(7, 'Santa Fe Capital', 3),
-(8, 'Godoy Cruz', 4),
-(9, 'Maipú', 4),
-(10, 'San Miguel de Tucumán', 5);
+-- Ejemplo: varias localidades por provincia
 
+-- Buenos Aires (ID_STATE = 1)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Tigre', 1),
+('San Fernando', 1),
+('La Plata', 1),
+('Mar del Plata', 1),
+('Bahía Blanca', 1),
+('Quilmes', 1),
+('Avellaneda', 1);
+
+-- Córdoba (ID_STATE = 2)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Córdoba Capital', 2),
+('Río Cuarto', 2),
+('Villa Carlos Paz', 2),
+('Alta Gracia', 2),
+('Jesús María', 2),
+('Río Tercero', 2);
+
+-- Santa Fe (ID_STATE = 3)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Rosario', 3),
+('Santa Fe Capital', 3),
+('Rafaela', 3),
+('Reconquista', 3),
+('Venado Tuerto', 3);
+
+-- Mendoza (ID_STATE = 4)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Mendoza Capital', 4),
+('Godoy Cruz', 4),
+('San Rafael', 4),
+('Luján de Cuyo', 4),
+('Maipú', 4);
+
+-- Tucumán (ID_STATE = 5)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('San Miguel de Tucumán', 5),
+('Tafí Viejo', 5),
+('Concepción', 5),
+('Yerba Buena', 5);
+
+-- Salta (ID_STATE = 6)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Salta Capital', 6),
+('San Ramón de la Nueva Orán', 6),
+('Tartagal', 6),
+('Metán', 6);
+
+-- Neuquén (ID_STATE = 7)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Neuquén Capital', 7),
+('Plottier', 7),
+('Centenario', 7);
+
+-- Santiago del Estero (ID_STATE = 8)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Santiago del Estero Capital', 8),
+('La Banda', 8),
+('Termas de Rio Hondo', 8);
+
+-- La Rioja (ID_STATE = 9)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('La Rioja Capital', 9),
+('Chilecito', 9),
+('Aimogasta', 9);
+
+-- Chaco (ID_STATE = 10)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Resistencia', 10),
+('Sáenz Peña', 10),
+('Barranqueras', 10);
+
+-- Jujuy (ID_STATE = 11)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('San Salvador de Jujuy', 11),
+('Palpalá', 11),
+('Libertador General San Martín', 11);
+
+-- Formosa (ID_STATE = 12)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Formosa Capital', 12),
+('Clorinda', 12);
+
+-- Misiones (ID_STATE = 13)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Posadas', 13),
+('Oberá', 13),
+('Eldorado', 13);
+
+-- Corrientes (ID_STATE = 14)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Corrientes Capital', 14),
+('Goya', 14),
+('Paso de los Libres', 14);
+
+-- San Luis (ID_STATE = 15)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('San Luis Capital', 15),
+('Villa Mercedes', 15);
+
+-- San Juan (ID_STATE = 16)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('San Juan Capital', 16),
+('Rawson', 16);
+
+-- Entre Ríos (ID_STATE = 17)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Paraná', 17),
+('Concordia', 17),
+('Gualeguaychú', 17);
+
+-- Tierra del Fuego (ID_STATE = 18)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Ushuaia', 18),
+('Río Grande', 18);
+
+-- Río Negro (ID_STATE = 19)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Viedma', 19),
+('San Carlos de Bariloche', 19);
+
+-- La Pampa (ID_STATE = 20)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Santa Rosa', 20),
+('General Pico', 20);
+
+-- Chubut (ID_STATE = 21)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Rawson', 21),
+('Trelew', 21),
+('Comodoro Rivadavia', 21);
+
+-- Santa Cruz (ID_STATE = 22)
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('Río Gallegos', 22),
+('Caleta Olivia', 22);
+
+-- (Opcional) Si repetiste “Tucumán” en Estado 23, podés cargar una segunda entrada:
+INSERT INTO CITY (NAME_CITY, ID_STATE_CITY) VALUES
+('San Miguel de Tucumán', 23),
+('Tafí Viejo', 23);
 
 
 INSERT INTO PATIENTS (DNI_PAT, NAME_PAT, SURNAME_PAT, GENDER_PAT, NATIONALITY_PAT, DATEBIRTH_PAT, ADDRESS_PAT, ID_CITY_PAT, ID_STATE_PAT, EMAIL_PAT, PHONE_PAT, ACTIVE_PAT)
