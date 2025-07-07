@@ -17,12 +17,6 @@ namespace Datos.Shared
             string query = "SELECT ROLE_USER FROM USERS WHERE USERNAME COLLATE Latin1_General_CS_AS = @user " +
                 "AND PASSWORD_USER COLLATE Latin1_General_CS_AS = @password";
 
-            SqlParameter[] parametros = new SqlParameter[]
-            {
-                new SqlParameter("@user", user),
-                new SqlParameter("@password", password)
-            };
-
             using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {

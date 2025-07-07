@@ -159,7 +159,7 @@ namespace Datos.Admin
         // CONSULTA PARA VERIFICAR SI EL TELEFONO DE PACIENTE YA EXISTE
         public bool ExisteTelefonoPaciente(string telefono)
         {
-            string query = "SELECT COUNT(*) FROM PATIENT WHERE PHONE_PAT = @telefono";
+            string query = "SELECT COUNT(*) FROM PATIENTS WHERE PHONE_PAT = @telefono";
             SqlParameter[] parametros = {
                 new SqlParameter("@telefono", telefono)
             };

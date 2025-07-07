@@ -57,7 +57,7 @@ namespace Vistas.Medicos
             lblEstado.ForeColor = System.Drawing.Color.Green;
             lblEstado.Text = "User modified successfully.";
 
-            if (cambiarUsuario)
+            if (cambioUsuario)
             {
                 Session["username"] = txtNuevoUsuario.Text;
                 username.Text = txtNuevoUsuario.Text; // Actualizar el campo de usuario en la página
