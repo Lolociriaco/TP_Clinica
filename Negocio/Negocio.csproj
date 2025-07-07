@@ -50,7 +50,6 @@
     <Compile Include="Shared\AuthManager.cs" />
     <Compile Include="Shared\GetUbicationManager.cs" />
     <Compile Include="Shared\UserManager.cs" />
-    <Compile Include="Validar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Datos\Datos.csproj">

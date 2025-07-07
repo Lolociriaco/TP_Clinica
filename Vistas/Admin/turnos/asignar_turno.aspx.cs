@@ -233,7 +233,6 @@ namespace Vistas.Admin.turnos
 
             if (doctorSchedule._TimeEnd < doctorSchedule._TimeStart)
             {
-                // Ajustar _TimeEnd sumándole un día para permitir el cruce de medianoche
                 doctorSchedule._TimeEnd = doctorSchedule._TimeEnd.Add(new TimeSpan(1, 0, 0, 0));
             }
 
@@ -257,18 +256,21 @@ namespace Vistas.Admin.turnos
             }
         }
 
+        // ACTUALIZACION DE HORARIOS SEGUN LA FECHA
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             filtrarHorarios();
         }
 
+        // ACTUALIZACION DE DDL DE MEDICOS SEGUN LA ESPECIALIDAD
         protected void ddlSpeciality_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarMedicosPorEspecialidad();
         }
 
+        // ACTUALIZACION DE HORARIOS SEGUN EL MEDICO
         protected void ddlDoctor_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";

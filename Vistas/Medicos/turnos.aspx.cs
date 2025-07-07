@@ -57,6 +57,7 @@ namespace Vistas.Medicos
             gvTurnos.DataBind();
         }
 
+        // BOTON DE CONFIRMAR LOGOUT
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -135,6 +136,7 @@ namespace Vistas.Medicos
             CargarTurnos();
         }
 
+        // VALIDAR CAMPOS VACIOS EN LA GRID
         private bool validarCamposVacios (GridViewUpdateEventArgs e)
         {
             if (ddlState == null || ddlState.SelectedValue == "0" || string.IsNullOrEmpty(ddlState.SelectedValue))

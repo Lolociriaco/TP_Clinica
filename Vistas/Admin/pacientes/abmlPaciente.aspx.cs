@@ -176,14 +176,10 @@ namespace Vistas
             string nuevoTelefono = ((TextBox)row.FindControl("txtTELEFONO_PAC")).Text;
             string nuevaNacionalidad = ((TextBox)row.FindControl("txtNACIONALIDAD_PAC")).Text;
 
-            //string fechaNacString = ((TextBox)row.FindControl("txtFECHANAC_PAC")).Text;
-
-            // Buscamos el TextBox de la fecha de nacimiento
             TextBox txtFechaNac = (TextBox)row.FindControl("txtFECHANAC_PAC");
 
             if (txtFechaNac == null)
             {
-                // Si por alguna razón no se encuentra el control, salimos
                 lblMensaje.Text = "Birth date input not found.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 e.Cancel = true;
@@ -266,6 +262,7 @@ namespace Vistas
             gvPacientes.DataBind();
         }
 
+        // ACTUALIZACION DE DDL AL SELECCIONAR UNA PROVINCIA NUEVA
         protected void ddlID_PROV_PAC_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
@@ -297,30 +294,35 @@ namespace Vistas
             Response.Redirect("~/Login.aspx");
         }
 
+        // ACTUALIZACION DE GRID SEGUN FILTRO DE PROVINCIA
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarPacientes();
         }
 
+        // ACTUALIZACION DE GRID SEGUN FILTRO DE SEXO
         protected void ddlSexo_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarPacientes();
         }
 
+        // ACTUALIZACION DE GRID SEGUN FILTRO DE DNI
         protected void txtDNI_TextChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarPacientes();
         }
 
+        // ACTUALIZACION DE GRID SEGUN FILTRO DE NOMBRE
         protected void txtName_TextChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarPacientes();
         }
 
+        // LIMPIEZA DE FILTRO
         protected void btnClear_Click(object sender, EventArgs e)
         {
             txtDNI.Text = "";

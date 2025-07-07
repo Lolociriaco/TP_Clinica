@@ -11,6 +11,7 @@ namespace Datos.Admin
 {
     public class AdminReportsDao
     {
+        // CONSULTA PARA OBTENER EL TOTAL DE LOS TURNOS
         public int ObtenerTotalTurnos()
         {
             string query = "SELECT COUNT(*) FROM APPOINTMENT";
@@ -19,6 +20,7 @@ namespace Datos.Admin
             return result != null ? Convert.ToInt32(result) : 0;
         }
 
+        // CONSULTA PARA SELECCIONAR LOS 10 MEDICOS CON MAS TURNOS
         public DataTable MedicosConMasTurnos()
         {
             string query = @"
@@ -57,6 +59,7 @@ namespace Datos.Admin
 
         }
 
+        // CONSULTA PARA SELECCIONAR LAS 5 ESPECIALIDADES CON MAS TURNOS
         public DataTable EspecialidadConMasTurnos()
         {
             string query = @"
@@ -73,6 +76,7 @@ namespace Datos.Admin
             return datos.ObtenerDataTable(query, null);
         }
 
+        // CONSULTA PARA OBTENER LA CANTIDAD DE TURNOS QUE TUVIERON LOS MESES
         public DataTable ObtenerEstadisticasMensualesGrid()
         {
             string query = @"

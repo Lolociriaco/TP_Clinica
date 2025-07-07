@@ -13,6 +13,9 @@ namespace Negocio.Admin
 {
     public class AdminAppoManager
     {
+
+        // METODOS INTERMEDIOS CON EL DAO
+
         public bool medicoDisponible(string day, int id_user)
         {
             AdminAppoDao appoDao = new AdminAppoDao();

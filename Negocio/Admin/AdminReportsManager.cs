@@ -12,6 +12,9 @@ namespace Negocio.Admin
 {
     public class AdminReportsManager
     {
+        
+        // METODOS INTERMEDIOS CON EL DAO
+
         public DataTable EspecialidadConMasTurnosConPorcentaje()
         {
             AdminReportsDao dao = new AdminReportsDao();

@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="/grid_view_style.css" type="text/css" />
         <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet"/>
+        
         <style>
-            /* Estilos adicionales para la nueva GridView de texto */
             .stats-gridview {
                 width: 100%;
                 border: none;

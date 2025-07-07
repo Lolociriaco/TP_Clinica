@@ -17,7 +17,7 @@ namespace Vistas.Admin.informes
         {
             if (!IsPostBack)
             {
-                CargarEstadisticasTexto();  // Nueva función añadida
+                CargarEstadisticasTexto(); 
                 CargarInformes();
                 CargarInformeEspecialidades();
             }
@@ -38,11 +38,11 @@ namespace Vistas.Admin.informes
             gvReporteMedicosMayoriaTurnos.DataSource = reports.MedicosConMasTurnosConPorcentaje();
             gvReporteMedicosMayoriaTurnos.DataBind();
 
-            // Estilos opcionales
             gvReporteMedicosMayoriaTurnos.HeaderStyle.BackColor = System.Drawing.Color.LightGray;
             gvReporteMedicosMayoriaTurnos.HeaderStyle.Font.Bold = true;
         }
 
+        // CARGAR LA GRID CON LAS ESPECIALIDADES CON MAS TURNOS
         private void CargarInformeEspecialidades()
         {
             AdminReportsManager reports = new AdminReportsManager(); 
@@ -68,15 +68,17 @@ namespace Vistas.Admin.informes
             }
         }
 
+        // CAMBIO DE PAGINA EN LA GRID
         protected void gvReporteMedicosMayoriaTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvReporteMedicosMayoriaTurnos.PageIndex = e.NewPageIndex;
             CargarInformes();
         }
 
+        // CARGA DE RANKING
         protected void gvReporteMedicosMayoriaTurnos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            // Verifica que es una fila de datos
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
 
@@ -84,11 +86,12 @@ namespace Vistas.Admin.informes
 
                 if (lblRank != null)
                 {
-                    // Las filas comienzan desde índice 0, sumamos 1 para mostrar desde 1
+                    
                     lblRank.Text = (e.Row.RowIndex + 1).ToString();
                 }
             }
         }
+
         // NUEVO MÉTODO PARA CARGAR LAS ESTADÍSTICAS DE TEXTO
         private void CargarEstadisticasTexto()
         {
@@ -98,6 +101,7 @@ namespace Vistas.Admin.informes
             gvEstadisticasTexto.DataSource = dt;
             gvEstadisticasTexto.DataBind();
         }
+
         // VOLVER A LOGIN
         protected void btnConfirmarLogout_Click(object sender, EventArgs e)
         {

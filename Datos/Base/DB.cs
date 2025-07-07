@@ -12,6 +12,7 @@ namespace Datos
 {
     public class DB
     {
+        // OBTENER EL DATA ADAPTER
         public SqlDataAdapter ObtenerAdaptador(string consultaSQL)
         {
             SqlConnection conexion = new SqlConnection(Conexion.Cadena);
@@ -19,20 +20,7 @@ namespace Datos
             return adaptador;
         }
 
-        public bool updateUser(string query, SqlParameter[] parametros)
-        {
-            using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
-            {
-                using (SqlCommand comando = new SqlCommand(query, conn))
-                {
-                    comando.Parameters.AddRange(parametros);
-                    conn.Open();
-                    int filasAfectadas = comando.ExecuteNonQuery();
-                    return filasAfectadas > 0; // Retorna true si se actualizó al menos un registro
-                }
-            }
-        }
-
+        // METODO PARA INSERTAR
         public bool EjecutarInsert(string query, SqlParameter[] parametros)
         {
             using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
@@ -47,6 +35,7 @@ namespace Datos
             }
         }
 
+        // METODO PARA EJECUTAR SCALAR
         public object EjecutarEscalar(string query, SqlParameter[] parametros)
         {
             using (SqlConnection conn = new SqlConnection(Conexion.Cadena))
@@ -60,6 +49,7 @@ namespace Datos
             }
         }
 
+        // METODO PARA OBTENER Y RETORNAR EL DATA TABLE
         public DataTable ObtenerDataTable(string consulta, SqlParameter[] parametros)
         {
             using (SqlConnection connection = new SqlConnection(Conexion.Cadena))
@@ -77,6 +67,7 @@ namespace Datos
             }
         }
 
+        // METODO PARA OBTENER Y RETORNAR EL LIST DATA TABLE
         public DataTable ObtenerListDT(string consulta, List<SqlParameter> parametros)
         {
             using (SqlConnection connection = new SqlConnection(Conexion.Cadena))

@@ -11,6 +11,8 @@ namespace Datos.Admin
 {
     public class AdminDoctorDao
     {
+
+        // CONSULTA PARA OBTENER TODOS LOS MEDICOS
         public DataTable ObtenerMedicos()
         {
             string query = @"
@@ -60,6 +62,7 @@ namespace Datos.Admin
             }
         }
 
+        // CONSULTA PARA OBTENER MEDICOS FILTRADOS SEGUN LOS FILTROS
         public DataTable ObtenerMedicosFiltrados(string state, string weekDay, string speciality, string user)
         {
             string queryBase = @"
@@ -141,6 +144,7 @@ namespace Datos.Admin
             }
         }
 
+        // CONSULTA PARA OBTENER MEDICOS FILTRADOS SEGUN ESPECIALIDAD
         public DataTable ObtenerMedicosFiltradosEspecialidad(int idSpe)
         {
             string consulta = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS FULL_NAME FROM DOCTOR WHERE ID_SPE_DOC = @idSpe";
@@ -164,7 +168,7 @@ namespace Datos.Admin
                 new SqlParameter("@id", id)
             };
 
-            return db.updateUser(query, parametros);
+            return db.EjecutarInsert(query, parametros);
         }
 
         // CONSULTA PARA OBTENER SEXO DEL MEDICO
@@ -236,36 +240,11 @@ namespace Datos.Admin
             
             ";
 
-            return db.updateUser(query, parametros);
+            return db.EjecutarInsert(query, parametros);
         }
 
-        public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
-        {
-            List<string> sets = new List<string>();
-            List<SqlParameter> parametros = new List<SqlParameter>();
 
-            if (newUser != null)
-            {
-                sets.Add("USERNAME = @nuevoUsuario");
-                parametros.Add(new SqlParameter("@nuevoUsuario", newUser));
-            }
-
-            if (newPassword != null)
-            {
-                sets.Add("PASSWORD_USER = @nuevaPass");
-                parametros.Add(new SqlParameter("@nuevaPass", newPassword));
-            }
-
-            // WHERE con el usuario original
-            parametros.Add(new SqlParameter("@usuarioOriginal", user));
-
-            string query = "UPDATE USERS SET " + string.Join(", ", sets) + " WHERE USERNAME = @usuarioOriginal";
-
-            DB db = new DB();
-
-            return db.updateUser(query, parametros.ToArray());
-        }
-
+        // CONSULTA PARA OBTENER LAS ESPECIALIDADES 
         public DataTable ObtenerEspecialidades()
         {
             string query = "SELECT NAME_SPE, ID_SPE FROM SPECIALITY";
@@ -276,6 +255,7 @@ namespace Datos.Admin
             return ds.Tables["Especialidades"];
         }
 
+        // CONSULTA PARA OBTENER NOMBRE Y APELLIDO COMO UN CAMPO SOLO
         public DataTable getNombreYApellidoDoctores()
         {
             string query = "SELECT ID_USER, NAME_DOC + ' ' + SURNAME_DOC AS NOMBRE_COMPLETO FROM DOCTOR";
@@ -286,6 +266,7 @@ namespace Datos.Admin
             return ds.Tables["Medicos"];
         }
 
+        // CONSULTA PARA OBTENER LOS DIAS DE LA SEMANA
         public DataTable ObtenerDias()
         {
             string query = "SELECT DISTINCT WEEKDAY_SCH FROM DOCTOR_SCHEDULES WHERE WEEKDAY_SCH IS NOT NULL";
@@ -296,6 +277,7 @@ namespace Datos.Admin
             return ds.Tables["Dias"];
         }
 
+        // CONSULTA PARA AGREGAR AL MEDICO
         public bool AgregarMedico(Medico medico)
         {
             string query = @"
@@ -350,6 +332,7 @@ namespace Datos.Admin
             return db.EjecutarInsert(query, parametros);
         }
 
+        // CONSULTA PARA VALIDAR SI EXISTE EL DNI DEL MEDICO
         public bool ExisteDniDoctor(int dni)
         {
             string query = "SELECT COUNT(*) FROM DOCTOR WHERE DNI_DOC = @dni";

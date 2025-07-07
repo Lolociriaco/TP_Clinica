@@ -9,6 +9,7 @@ namespace Datos.Shared
 {
     public class AuthDao
     {
+        // CONSULTA PARA VALIDAR EL USUARIO Y CONTRASEÑA
         public string AuthUserAndRole(string user, string password)
         {
             // Collate As lo hace case sensitive - Accent Sensitive
@@ -43,6 +44,7 @@ namespace Datos.Shared
             }
         }
 
+        // CONSULTA PARA VALIDAR SI EL USUARIO YA EXISTE
         public bool validateUserExist(string user)
         {
             string query = "SELECT * FROM USERS WHERE USERNAME = @user";

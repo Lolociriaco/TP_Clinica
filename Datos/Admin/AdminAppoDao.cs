@@ -11,6 +11,7 @@ namespace Datos.Admin
 {
     public class AdminAppoDao
     {
+        // CONSULTA PARA OBTENER LOS MEDICOS DISPONIBLES
         public bool medicoDisponible(string day, int id_user)
         {
             string query = "SELECT COUNT(*) FROM DOCTOR_SCHEDULES WHERE WEEKDAY_SCH = @day AND ID_USER_DOCTOR = @id_user";
@@ -24,6 +25,7 @@ namespace Datos.Admin
             return cantidad > 0;
         }
 
+        // CONSULTA PARA OBTENER LAS HORAS TRABAJADAS X MEDICO
         public DoctorSchedule ObtenerHorasTrabajadas(int id_user, string day)
         {
             string query = "SELECT TIME_START, TIME_END FROM DOCTOR_SCHEDULES WHERE ID_USER_DOCTOR = @id_user AND WEEKDAY_SCH = @day";
@@ -51,6 +53,7 @@ namespace Datos.Admin
             return null;
         }
 
+        // CONSULTA PARA OBTENER LOS TURNOS ASIGNADOS X CADA MEDICO
         public List<TimeSpan> ObtenerTurnosAsignados(int id_doctor, DateTime date)
         {
             string query = "SELECT TIME_APPO FROM APPOINTMENT WHERE ID_USER_DOCTOR = @id_doctor AND DATE_APPO = @date";
@@ -70,6 +73,8 @@ namespace Datos.Admin
 
             return turnosOcupados;
         }
+
+        // CONSULTA PARA INSERTAR TURNOS
         public void CargarTurno(Turnos turno)
         {
             string query = "INSERT INTO APPOINTMENT (ID_USER_DOCTOR, DNI_PAT_APPO, DATE_APPO, TIME_APPO) " +

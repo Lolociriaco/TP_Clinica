@@ -104,7 +104,7 @@ namespace Vistas
 
                 int idProvinciaActual;
 
-                // Verificamos si venimos de un cambio (por ViewState)
+                // se verifica si venimos de un cambio (por ViewState)
                 if (ViewState["ProvinciaSeleccionadaGV"] != null)
                 {
                     idProvinciaActual = (int)ViewState["ProvinciaSeleccionadaGV"];
@@ -127,7 +127,6 @@ namespace Vistas
                     ddlLocalidad.DataBind();
                     ddlLocalidad.Items.Insert(0, new ListItem("< SELECT >", ""));
 
-                    // Seleccionar localidad actual
                     object locObj = DataBinder.Eval(e.Row.DataItem, "ID_CITY_DOC");
                     string idLocActual = locObj != null ? locObj.ToString() : "";
 
@@ -140,7 +139,6 @@ namespace Vistas
         // CARGA DE DDL ESPECIALIDADES 
         private void cargarEspecialidadesDDL(GridViewRowEventArgs e)
         {
-            Validar validar = new Validar();
 
             // ESPECIALIDAD
             DropDownList ddlEspecialidad = (DropDownList)e.Row.FindControl("ddlID_ESP");
@@ -440,6 +438,7 @@ namespace Vistas
             CargarMedicos();
         }
 
+        // FILTRO DE PROVINCIA
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
@@ -447,24 +446,28 @@ namespace Vistas
 
         }
 
+        // FILTRO DE ESPECIALIDAD
         protected void ddlSpeciality_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarMedicos();
         }
 
+        // FILTRO DE DIA 
         protected void ddlWeekDay_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarMedicos();
         }
 
+        // FILTRO DE NOMBRE DE USUARIO
         protected void txtUser_TextChanged(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             CargarMedicos();
         }
 
+        // BOTON PARA LIMPIAR FILTROS
         protected void btnClear_Click(object sender, EventArgs e)
         {
             txtUser.Text = "";

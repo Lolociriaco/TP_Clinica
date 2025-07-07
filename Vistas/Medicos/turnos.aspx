@@ -48,7 +48,7 @@
 
 
         </aside>
-
+        <%------------------CONTENIDO PRINCIPAL----------------%>
         <main class="main-content">
 
             <header>
@@ -101,7 +101,7 @@
                 </div>
 
                   <div style="margin-top: 40px;">
-
+                    <%------------------CONTENIDO GRIDVIEW----------------%>
                     <asp:GridView ID="gvTurnos" runat="server" AutoGenerateColumns="False" Font-Bold="True" Font-Names="Bahnschrift"
                         Width="100%" OnRowEditing="gvTurnos_RowEditing" OnRowUpdating="gvTurnos_RowUpdating"
                         OnRowCancelingEdit="gvTurnos_RowCancelingEdit" DataKeyNames="ID_APPO" OnRowDataBound="gvTurnos_RowDataBound"

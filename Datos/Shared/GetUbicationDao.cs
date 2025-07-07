@@ -10,6 +10,7 @@ namespace Datos.Shared
 {
     public class GetUbicationDao
     {
+        // CONSULTA PARA OBTENER LAS PROVINCIAS 
         public DataTable Provincias()
         {
             string query = "SELECT ID_STATE, NAME_STATE FROM STATE";
@@ -20,6 +21,7 @@ namespace Datos.Shared
             return ds.Tables["Provincias"];
         }
 
+        // CONSULTA PARA OBTENER LAS LOCALIDAES
         public DataTable Localidades()
         {
             string query = "SELECT ID_CITY, NAME_CITY FROM CITY";
@@ -29,6 +31,8 @@ namespace Datos.Shared
             adapter.Fill(ds, "Localidades");
             return ds.Tables["Localidades"];
         }
+
+        // CONSULTA PARA OBTENER LAS LOCALIDADES SEGUN LA PROVINCIA SELECCIONADA
         public DataTable LocalidadesFiltradas(int idProvincia)
         {
             string consulta = "SELECT ID_CITY, NAME_CITY FROM CITY WHERE ID_STATE_CITY = @idProv";

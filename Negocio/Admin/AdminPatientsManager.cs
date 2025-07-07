@@ -14,6 +14,9 @@ namespace Negocio.Admin
 {
     public class AdminPatientsManager
     {
+
+        // METODOS INTERMEDIOS CON EL DAO
+
         public DataTable ObtenerPacientes()
         {
             AdminPatientsDao daoPatients = new AdminPatientsDao();

@@ -9,6 +9,7 @@ namespace Datos.Shared
 {
     public class UserDao
     {
+        // CONSULTA PARA MODIFICAR UN USUARIO Y CONTRASEÑA
         public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
         {
             List<string> sets = new List<string>();
@@ -33,7 +34,7 @@ namespace Datos.Shared
 
             DB db = new DB();
 
-            return db.updateUser(query, parametros.ToArray());
+            return db.EjecutarInsert(query, parametros.ToArray());
         }
     }
 }

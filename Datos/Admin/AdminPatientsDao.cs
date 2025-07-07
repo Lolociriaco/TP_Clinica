@@ -11,6 +11,7 @@ namespace Datos.Admin
 {
     public class AdminPatientsDao
     {
+        // CONSULTA PARA OBTENER LOS PACIENTES FILTRADOS
         public DataTable ObtenerPacientesFiltrados(string state, string name, string dni, string sexo)
         {
             string query = @"
@@ -54,6 +55,7 @@ namespace Datos.Admin
             return dB.ObtenerListDT(query, parametros);
         }
 
+        // CONSULTA PARA OBTENER PACIENTES 
         public DataTable ObtenerPacientes()
         {
             string query = @"
@@ -79,6 +81,7 @@ namespace Datos.Admin
             }
         }
 
+        // CONSULTA PARA LA BAJA LOGICA DEL PACIENTE
         public bool deletePatient(int dni)
         {
             DB db = new DB();
@@ -89,7 +92,7 @@ namespace Datos.Admin
                 new SqlParameter("@dni", dni)
             };
 
-            return db.updateUser(query, parametros);
+            return db.EjecutarInsert(query, parametros);
         }
 
         // CONSULTA PARA OBTENER SEXO DEL PACIENTE
@@ -137,9 +140,10 @@ namespace Datos.Admin
                 WHERE DNI_PAT = @dni";
 
 
-            return db.updateUser(query, parametros);
+            return db.EjecutarInsert(query, parametros);
         }
 
+        // CONSULTA PARA VERIFICAR SI EL DNI YA EXISTE
         public bool ExisteDniPaciente(int dni)
         {
             string query = "SELECT COUNT(*) FROM PATIENTS WHERE DNI_PAT = @dni";
@@ -165,6 +169,7 @@ namespace Datos.Admin
             return cantidad > 0;
         }
 
+        // CONSULTA PARA AGREGAR PACIENTE
         public void AgregarPaciente(Paciente paciente)
         {
             string query = @"

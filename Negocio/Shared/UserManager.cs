@@ -10,6 +10,9 @@ namespace Negocio.Shared
 {
     public class UserManager
     {
+        
+        // METODOS INTERMEDIOS CON EL DAO
+
         public bool modificarUsuario(string user, string newPassword = null, string newUser = null)
         {
             UserDao userDao = new UserDao();

@@ -14,6 +14,9 @@ namespace Negocio.Doctor
 {
     public class DoctorAppoManager
     {
+
+        // METODOS INTERMEDIOS CON EL DAO
+
         public bool updateAppointment(string state, string observation, int id)
         {
             DoctorAppoDao appoDao = new DoctorAppoDao();

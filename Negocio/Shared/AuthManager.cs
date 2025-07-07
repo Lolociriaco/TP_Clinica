@@ -12,6 +12,9 @@ namespace Negocio.Shared
 {
     public class AuthManager
     {
+
+        // METODOS INTERMEDIOS CON EL DAO
+
         // VALIDAR SI EL USUARIO EXISTE
         public string ValidarUsuario(string user, string password)
         {

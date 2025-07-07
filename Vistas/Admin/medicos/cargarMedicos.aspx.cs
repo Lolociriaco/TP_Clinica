@@ -157,6 +157,7 @@ namespace Vistas.Admin.medicos
             return true;
         }
 
+        // VALIDAR LA FECHA DE NACIMIENTO DEL MEDICO
         private bool validarFechaNacimiento()
         {
             DateTime fechaNacimiento;
@@ -368,6 +369,7 @@ namespace Vistas.Admin.medicos
             rptDias.DataBind();
         }
 
+        // CARGAR LOCALIDADES FILTRADAS SEGUN LA PROVINCIA SELECCIONADA
         protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarLocalidadesPorProvincia();

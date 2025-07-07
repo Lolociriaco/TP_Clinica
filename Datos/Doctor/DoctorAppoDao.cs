@@ -10,6 +10,7 @@ namespace Datos.Doctor
 {
     public class DoctorAppoDao
     {
+        // CONSULTA PARA OBTENER LOS TURNOS SEGUN LOS FILTROS
         public DataTable ObtenerTurnosFiltrados(string DNI_PAT, string DAY_APPO, string todayOrTomorrow, string state, int id_doctor)
         {
             string query = "SELECT A.ID_APPO, A.DNI_PAT_APPO, A.DATE_APPO, A.TIME_APPO, A.STATE_APPO, A.OBSERVATION_APPO," +
@@ -60,6 +61,7 @@ namespace Datos.Doctor
             return dB.ObtenerListDT(query, parametros);
         }
 
+        // CONSULTA PARA ACTUALIZAR LOS TURNOS
         public bool updateAppointment(string state, string observation, int id)
         {
             string query = @"
@@ -87,6 +89,7 @@ namespace Datos.Doctor
             }
         }
 
+        // CONSULTA PARA OBTENER EL ID DEL MEDICO
         public int GetDoctorID(string username)
         {
             string query = "SELECT ID_USER" +

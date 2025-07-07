@@ -16,6 +16,7 @@ namespace Vistas
 
         }
 
+        // BOTON DE LOGIN CLICKEADO
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUser.Text.Trim();
@@ -31,17 +32,20 @@ namespace Vistas
             Session["username"] = username;
             Session["role"] = role;
 
+            // SI ES ADMIN, REDIRIGE A ADMIN PACIENTES
             if(role == "ADMIN")
             {
                 Response.Redirect("~/Admin/pacientes/abmlPaciente.aspx");
                 return;
             }
+            // SI ES DOCTOR, REDIRIGE A MEDICOS 
             else if( role == "DOCTOR")
             {
                 Response.Redirect("~/Medicos/turnos.aspx");
                 return;
             }
             
+            // SI NO ES NINGUNO, ERROR
             lblError.Text = "Wrong user or password";
         }
     }

@@ -10,42 +10,6 @@ body {
     margin: 0;
     height: 100vh;
 }
-/*
-.navbar {
-    position: relative;
-    height: 80px;
-    padding: 0 32px;
-    display: flex;
-    justify-content: space-between;
-    z-index: 20;
-    align-items: center;
-    background-color: #fff;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-    .navbar .icon {
-        display: flex;
-        gap: 5px;   
-        align-items: center;
-    }
-
-    .navbar h2 {
-        font-family: 'Yeseva One', serif;
-        font-size: 30px;
-        color: #1F2B86;
-        margin: 0;
-    }
-
-    .navbar h3 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .navbar img {
-        width: 40px;
-        height: auto;
-    }
-*/
 .container {
     display: flex;
     flex-direction: column;

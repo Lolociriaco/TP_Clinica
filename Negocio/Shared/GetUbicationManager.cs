@@ -12,6 +12,9 @@ namespace Negocio.Shared
 {
     public class GetUbicationManager
     {
+
+        // METODOS INTERMEDIOS CON EL DAO
+
         public DataTable ObtenerProvincia()
         {
             GetUbicationDao getUbication = new GetUbicationDao();
