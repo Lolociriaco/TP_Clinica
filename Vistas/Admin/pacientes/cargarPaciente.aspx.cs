@@ -205,12 +205,9 @@ namespace Vistas.Admin.pacientes
                 return false;
             }
 
-            int edad = DateTime.Today.Year - fechaNacimiento.Year;
-            if (fechaNacimiento > DateTime.Today.AddYears(-edad)) edad--;
-
-            if (edad < 18)
+            if (fechaNacimiento > DateTime.Today)
             {
-                validateBirthday.ErrorMessage = "Must be at least 18 years old.";
+                validateBirthday.ErrorMessage = "Birth date cannot be in the future.";
                 validateBirthday.IsValid = false;
                 return false;
             }
