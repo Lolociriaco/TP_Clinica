@@ -16,22 +16,21 @@ namespace Vistas.Admin.medicos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+
             if (!IsPostBack)
             {
                 CargarSexo();
                 CargarEspecialidades();
                 CargarProvincia();
                 CargarDias();
-                
-            }
-
-            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
-            {
-                Response.Redirect("~/Login.aspx");
+                username.Text = Session["username"].ToString();
             }
 
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-            username.Text = Session["username"].ToString();
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)

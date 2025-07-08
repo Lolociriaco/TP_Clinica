@@ -57,6 +57,8 @@ namespace Datos.Doctor
                 parametros.Add(new SqlParameter("@state", state));
             }
 
+            query += " ORDER BY A.DATE_APPO ASC, A.TIME_APPO ASC";
+
             DB dB = new DB();
             return dB.ObtenerListDT(query, parametros);
         }

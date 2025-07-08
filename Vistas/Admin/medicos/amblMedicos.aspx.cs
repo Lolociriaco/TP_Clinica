@@ -31,17 +31,17 @@ namespace Vistas
 	{
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+
             if (!IsPostBack)
             {
                 username.Text = Session["username"].ToString();
                 cargarStates(ddlState, "Any state");
                 cargarSpecialitiesGeneral(ddlSpeciality, "Any speciality");
                 CargarMedicos();
-            }
-
-            if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
-            {
-                Response.Redirect("~/Login.aspx");
             }
 
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;

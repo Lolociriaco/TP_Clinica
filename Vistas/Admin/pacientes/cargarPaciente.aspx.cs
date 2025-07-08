@@ -18,20 +18,25 @@ namespace Vistas.Admin.pacientes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                CargarSexo();
-                CargarLocalidadesPorProvincia();
-                CargarProvincia();
-            }
-
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
 
+            if (!IsPostBack)
+            {
+                CargarSexo();
+                CargarLocalidadesPorProvincia();
+                CargarProvincia();
+                username.Text = Session["username"].ToString();
+            }
+
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-            username.Text = Session["username"].ToString();
+        }
+
+        protected void btnConfirm_Click(object sender, EventArgs e)
+        {
+
         }
 
         // VOLVER A LOGIN
@@ -95,12 +100,6 @@ namespace Vistas.Admin.pacientes
                 ddlLocality.Items.Clear();
                 ddlLocality.Items.Insert(0, new ListItem("< Select a state first >", ""));
             }
-        }
-
-        protected void btnConfirm_Click(object sender, EventArgs e)
-        {
-
-
         }
 
         // AGREGAR PACIENTE

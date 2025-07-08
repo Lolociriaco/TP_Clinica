@@ -200,7 +200,7 @@
                     </div>
 
                     <div class="form-footer">
-                        <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" OnClick="btnConfirm_Click" ValidationGroup="grupoAlta"/>
+                        <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn-confirm" ValidationGroup="grupoAlta"/>
                         <asp:Label ID="lblMensaje" runat="server" CssClass="form-message" Font-Bold="true"/>
                     </div>
                 </div>

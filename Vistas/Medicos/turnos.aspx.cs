@@ -24,18 +24,17 @@ namespace Vistas.Medicos
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            if (!IsPostBack)
-            {
-                CargarTurnos();
-                CargarEstadosEnDropDown(ddlState, "< Select a status >");
-            }
-
             if (Session["role"] == null || Session["role"].ToString() != "DOCTOR")
             {
                 Response.Redirect("~/Login.aspx");
             }
 
-            username.Text = Session["username"].ToString();
+            if (!IsPostBack)
+            {
+                CargarTurnos();
+                CargarEstadosEnDropDown(ddlState, "< Select a status >");
+                username.Text = Session["username"].ToString();
+            }
         }
 
         // CARGAR TURNOS

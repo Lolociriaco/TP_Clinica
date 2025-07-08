@@ -16,20 +16,20 @@ namespace Vistas
 	{
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                CargarPacientes();
-                cargarStates(ddlState, "Any state");
-                cargarSexoGeneral(ddlSexo, "Any gender");
-            }
-
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
 
+            if (!IsPostBack)
+            {
+                CargarPacientes();
+                cargarStates(ddlState, "Any state");
+                cargarSexoGeneral(ddlSexo, "Any gender");
+                username.Text = Session["username"].ToString();
+            }
+
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-            username.Text = Session["username"].ToString();
         }
 
         // CARGA DE DDLS EN GRIDVIEW

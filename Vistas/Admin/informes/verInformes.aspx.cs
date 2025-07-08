@@ -15,20 +15,20 @@ namespace Vistas.Admin.informes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                CargarEstadisticasTexto(); 
-                CargarInformes();
-                CargarInformeEspecialidades();
-            }
-
             if (Session["role"] == null || Session["role"].ToString() != "ADMIN")
             {
                 Response.Redirect("~/Login.aspx");
             }
 
+            if (!IsPostBack)
+            {
+                CargarEstadisticasTexto(); 
+                CargarInformes();
+                CargarInformeEspecialidades();
+                username.Text = Session["username"].ToString();
+            }
+
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
-            username.Text = Session["username"].ToString();
         }
 
         // CARGA DE INFORMES EN GRID
