@@ -42,9 +42,23 @@ namespace Vistas
                 cargarStates(ddlState, "Any state");
                 cargarSpecialitiesGeneral(ddlSpeciality, "Any speciality");
                 CargarMedicos();
+                cargarWeekDays();
             }
 
             this.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
+        }
+
+        private void cargarWeekDays()
+        {
+            var estados = Enum.GetNames(typeof(WeekDays))
+                .Select(s => new { Value = s, Text = s });
+
+            ddlWeekDay.DataSource = estados;
+            ddlWeekDay.DataTextField = "Text";
+            ddlWeekDay.DataValueField = "Value";
+            ddlWeekDay.DataBind();
+
+            ddlWeekDay.Items.Insert(0, new ListItem("Any day", ""));
         }
 
         // CARGA DE DDLS
